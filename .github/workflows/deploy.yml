@@ -43,24 +43,18 @@ jobs:
         run: mkdocs build --strict
 
       - name: Upload artifact
-        if: github.ref == 'refs/heads/main' && vars.PUBLISH_SITE == 'true'
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site/
 
-  # Publishing is OFF until the repository variable PUBLISH_SITE is set to
-  # "true" (Settings → Secrets and variables → Actions → Variables).
+  # Publishes on every push to main, but only after lint, tests, and a strict
+  # build pass. A broken syllabus never reaches the live URL.
   #
-  # Two reasons it stays off for now. GitHub Pages will not serve a private
-  # repository on a free account — it needs Pro/Team, or the repo made public.
-  # And the site is still being edited; a half-finished syllabus with a live URL
-  # is worse than no URL.
-  #
-  # Lint, tests, and a strict build still run on every push, so the repository
-  # stays honest while publishing waits.
+  # The URL is live but unannounced while the course is still being edited.
   deploy:
     name: Deploy to GitHub Pages
-    if: github.ref == 'refs/heads/main' && vars.PUBLISH_SITE == 'true'
+    if: github.ref == 'refs/heads/main'
     needs: check
     runs-on: ubuntu-latest
     environment:
