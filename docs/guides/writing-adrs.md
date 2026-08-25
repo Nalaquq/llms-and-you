@@ -49,17 +49,28 @@ decisions and should split them.
 
 | | Due | Decision |
 |:---|:---|:---|
-| **ADR-001** | Week 1 (Thu Aug 27) | Which model you will use this semester |
+| **ADR-001** | Week 1 (Thu Aug 27) | Any decision you made setting up Claude Code |
 | **ADR-002** | Week 5 (Thu Sep 24) | Technique selection for your project |
 | **ADR-003** | Week 9 (Thu Oct 22) | How your system handles failure |
 | **ADR-004** | Week 10 (Thu Oct 29) | Retrieval design — or why you are not using retrieval |
 
 ADR-001 is due in the first week, before you have anything complicated to
 decide. That is deliberate: the format is easier to learn on a simple decision
-than on a hard one.
+than on a hard one, and the Week 1 lab manufactures a handful of small ones by
+having you install something.
 
 Write others whenever you make a choice you might question later. The full log
 is submitted with the final project.
+
+!!! tip "Write it while you decide, not after"
+
+    The Week 1 lab has you do both, back to back, so you can feel the
+    difference. Reconstructing three decisions you already made is easy and
+    produces tidy records. Writing one *as you decide* is slower, more
+    uncomfortable, and contains doubt.
+
+    The second kind is worth having. The first kind is a description of a
+    conclusion.
 
 ---
 

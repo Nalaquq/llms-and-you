@@ -38,35 +38,40 @@
 - week: 1
   day: thu
   kind: lab
-  topic: 'Lab: Installing Claude Code and the Desktop App'
-  theme: ecosystem
+  topic: 'Lab: Keeping a Decision Record'
+  theme: methodology
   summary: >-
-    Your tools for the term, working on your own machine. Nothing to read, no
-    programming experience assumed, and nobody leaves the room without both
-    installed and running.
+    The single practice that runs through this entire course: writing down what
+    you decided and why, while you are deciding it. We install Claude Code to
+    have something real to decide about.
   activity: >-
-    Install **Claude Code** (the terminal tool) and the **Claude desktop app**,
-    and sign in to both. We do this together, one step at a time, on whatever
-    machine you brought.
+    **First, install Claude Code** and sign in. We do this together, one step at
+    a time, on whatever machine you brought. If you also want the desktop app,
+    install that too -- but Claude Code is the one we use.
 
 
-    Then use each one for the same task and notice they are not the same
-    experience: the desktop app is a conversation, and Claude Code can see and
-    change the files in a folder. Point Claude Code at a folder, ask it what is
-    there, and watch it read.
+    **Then the actual lab.** Setting it up required decisions, and you made them
+    without noticing: which install method, where you put your project folder,
+    whether you accepted the first suggestion it gave you. Go back and write
+    three of them up as Architectural Decision Records, using the Nygard
+    template -- context, decision, alternatives, consequences.
 
 
-    Finally, write **ADR-001** recording which of the two you expect to reach
-    for by default and why. It is a small decision, which is exactly why it is
-    the one you practise the format on.
+    Then keep going. Give Claude Code a small task in a folder and **write the
+    record as you decide, not afterwards.** You will notice these are different
+    activities: the second is harder, slower, and honest, and the difference
+    between them is most of what this practice is worth.
+
+
+    **ADR-001 is due** -- any one of them, your choice. What is graded is whether
+    the alternatives section contains a real alternative.
   optional:
+    - adr-github
+    - adr-templates
     - claude-code
     - claude-code-setup
     - claude-code-quickstart
     - claude-desktop
-    - vscode
-    - adr-github
-    - adr-templates
 
 # ===========================================================================
 # WEEK 2 — How text becomes numbers

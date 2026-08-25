@@ -16,34 +16,26 @@ There are two setup sessions, a week apart, and they are deliberately separate:
 
 | | |
 |:---|:---|
-| **Week 1, Thursday** | [Claude Code](#week-1-claude-code-and-the-desktop-app) and the desktop app |
+| **Week 1, Thursday** | [Claude Code](#week-1-claude-code-and-the-desktop-app) — installed as material for the decision-record lab |
 | **Week 2, Thursday** | [Python and VS Code](#week-2-python-and-vs-code) |
 
 ---
 
-## Week 1: Claude Code and the desktop app { #week-1-claude-code-and-the-desktop-app }
+## Week 1: Claude Code { #week-1-claude-code-and-the-desktop-app }
 
-Two ways of working with Claude, and they feel genuinely different. You want
-both.
+The Week 1 lab is really about [decision
+records](writing-adrs.md) — installing Claude Code is how we manufacture
+some decisions worth recording. Do the install; the lab is what you do next.
 
-### The desktop app
+### Claude Code — the one we use
 
-Download from **[claude.ai/download](https://claude.ai/download)** (macOS and
-Windows) and sign in.
-
-This is the comfortable surface — a conversation, with history, on a screen
-built for reading. Most of your everyday prompting happens here.
-
-### Claude Code
-
-**[claude.com/claude-code](https://claude.com/claude-code)** — installation
-instructions per platform are in the
+**[claude.com/claude-code](https://claude.com/claude-code)** — per-platform
+install instructions are in the
 [setup docs](https://docs.claude.com/en/docs/claude-code/setup).
 
 This is Claude in your terminal, and the difference that matters is that **it
-can see and change files in a folder.** The desktop app knows only what you
-paste into it. Claude Code can read a directory, open the files in it, and edit
-them.
+can see and change files in a folder.** A chat window only knows what you paste
+into it; Claude Code can read a directory, open the files in it, and edit them.
 
 Start it by opening a terminal, moving to a folder, and running:
 
@@ -51,22 +43,28 @@ Start it by opening a terminal, moving to a folder, and running:
 claude
 ```
 
-Then just talk to it. Try:
+Then just talk to it:
 
 ```
 what files are in this folder?
 ```
 
-### Why both
+### The desktop app — optional
 
-The comparison *is* the lab. Give each one the same task and watch where they
-diverge — one is a conversation about your work, the other is a collaborator
-inside it. Which you reach for depends on whether the thing you care about is
-in the conversation or on the disk.
+[claude.ai/download](https://claude.ai/download), macOS and Windows. A
+comfortable surface for long conversations. Install it if you want it; nothing
+in the course requires it.
 
-That is the observation ADR-001 asks you to record: which you expect to default
-to, and why. You will find out over the term whether you were right, which is
-the entire point of writing decisions down.
+### The decisions you just made without noticing
+
+Which install method. Where you put your project folder. Whether you took the
+first suggestion Claude Code offered or pushed back. Whether you bothered with
+the desktop app at all.
+
+None of those felt like decisions at the time, which is exactly why they are
+good practice material. **ADR-001** asks you to write one of them up properly —
+context, decision, alternatives, consequences — and the part that is graded is
+whether your alternatives section contains a real alternative.
 
 ---
 

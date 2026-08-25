@@ -53,14 +53,15 @@ course now delivers that.
   accounting, prompt caching, batching, rate limits, and cost per user per
   month. Eleven new resources, all verified against the current API reference.
 - **Setup is now two sessions, a week apart.** Week 1 Thursday installs
-  **Claude Code and the Claude desktop app** — no Python, no API key, no
-  terminal experience assumed. Week 2 Thursday installs Python and VS Code and
-  puts them straight to work on tokenization. Splitting them keeps week one
-  about *using* the tools rather than assembling a toolchain.
-- **Week 1's lab compares the two surfaces.** The desktop app is a conversation;
-  Claude Code can read and change the files in a folder. Which you reach for
-  depends on whether what you care about is in the conversation or on disk —
-  and that observation is what ADR-001 records.
+  **Claude Code** — no Python, no API key, no terminal experience assumed.
+  Week 2 Thursday installs Python and VS Code and puts them straight to work on
+  tokenization.
+- **Week 1's lab is about the decision log, not the install.** Setting up Claude
+  Code generates small decisions students make without noticing — install
+  method, folder layout, whether they accepted the first suggestion. They write
+  three of those up retrospectively, then do a task while writing the record
+  *as they decide*, and feel the difference. The retrospective ones are tidy;
+  the live one contains doubt, and that is the point.
 - **[Setting up your tools](https://Nalaquq.github.io/llms-and-you/guides/setup/)** —
   a guide written for someone who has never opened a terminal, covering both
   sessions plus the errors that actually happen and what each one means.
