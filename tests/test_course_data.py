@@ -20,7 +20,7 @@ from course_site.loaders import (
     load_semester,
     load_themes,
 )
-from course_site.models import Day, GenAI, Kind, Modality, SessionKind
+from course_site.models import Access, Day, GenAI, Kind, Modality, SessionKind
 
 SEM = load_semester()
 SCHEDULE = load_schedule()
@@ -319,24 +319,30 @@ def test_resource_url_is_https(rid: str):
     assert str(RESOURCES[rid].url).startswith("https://")
 
 
-def test_paywalled_resources_are_marked():
-    """If we link somewhere a student cannot reach, say so on the page."""
-    blocked_hosts = ("dl.acm.org", "sciencedirect.com", "nytimes.com")
+def test_no_known_paywalled_hosts():
+    """Belt and braces: these hosts gate content regardless of how it is marked."""
+    blocked_hosts = ("dl.acm.org", "sciencedirect.com", "nytimes.com", "amazon.com")
     for r in RESOURCES.values():
-        if any(h in str(r.url) for h in blocked_hosts):
-            assert r.access.value in ("paywalled", "library"), (
-                f"{r.id} links to a gated host but is marked '{r.access.value}'"
-            )
+        host_hit = next((h for h in blocked_hosts if h in str(r.url)), None)
+        assert host_hit is None, f"{r.id} links to gated host {host_hit}"
 
 
-def test_required_texts_are_marked_purchase():
-    for rid in ("ananthaswamy-why-machines-learn", "berryman-ziegler-pe-for-llms"):
-        assert RESOURCES[rid].access.value == "purchase"
+def test_every_reading_is_free_and_open():
+    """No student should be priced out of the reading list.
+
+    The course promises that every assigned reading is free to access. This is
+    the enforcement: adding a resource behind a paywall, a library gate, or a
+    purchase requirement fails the build until an open alternative is found or
+    the claim on the syllabus is changed.
+    """
+    gated = sorted(r.id for r in RESOURCES.values() if r.access is not Access.OPEN)
+    assert not gated, f"non-open readings: {gated}"
 
 
-def test_auditing_ai_is_open_access():
-    """The one free book. If this flips, the syllabus claim becomes false."""
-    assert RESOURCES["auditing-ai"].access.value == "open"
+def test_no_insecure_reading_urls():
+    """We do not send students to http:// — including for good free books."""
+    insecure = sorted(r.id for r in RESOURCES.values() if str(r.url).startswith("http://"))
+    assert not insecure, f"http:// readings: {insecure}"
 
 
 def test_every_resource_is_used_or_deliberately_reference_only():

@@ -20,6 +20,29 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — every reading is now free and open access **[student-facing]**
+
+**There is no longer a textbook to buy.** All 78 resources are open access; a
+test (`test_every_reading_is_free_and_open`) now fails the build if a paywalled,
+library-gated, or purchase-required reading is ever added.
+
+Replacements:
+
+- *Why Machines Learn* (purchase) → **3Blue1Brown's Neural Networks series**
+  (chapters 1–3) as the foundations spine, with Simon Prince's *Understanding
+  Deep Learning* (free MIT Press PDF) as optional depth.
+- *Prompt Engineering for LLMs*, O'Reilly (purchase) → **Lee Boonstra,
+  *Prompt Engineering*** (Google whitepaper, 68pp, free). Now required reading
+  in Week 4 and carries the technique, RAG, and agent themes.
+- ACM hallucination survey (paywalled) → the **arXiv version**
+  ([2311.05232](https://arxiv.org/abs/2311.05232)) — same content, no gate.
+- Dropped two unassigned gated items: the NYT open-weight piece and a
+  ScienceDirect article.
+
+Also enforced: **no `http://` reading URLs.** Michael Nielsen's excellent free
+book was cut for being HTTP-only rather than sending students to an insecure
+link.
+
 ### Added — technical spine: Python, VS Code, Claude API **[student-facing]**
 
 The instructor's course description named Python, VS Code, and Anthropic's

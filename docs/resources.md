@@ -2,9 +2,9 @@
 
 Everything assigned or recommended in the course, grouped by theme.
 
-This site links out and hosts nothing. Where an item is paywalled it is marked,
-and Bortz Library can reach it — [ask a librarian](https://www.hsc.edu/library)
-or email me and I will send a route.
+**Everything here is free.** No purchases, no paywalls, no library logins. This
+site links out and hosts nothing; if you hit something you cannot open, that is
+a bug — tell me.
 
 !!! tip "Reading a paper you cannot fully understand"
 

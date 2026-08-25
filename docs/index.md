@@ -77,9 +77,10 @@ assigned in earnest.
 
 ---
 
-## No prerequisites
+## No prerequisites, and nothing to buy
 
-None. Not programming, not statistics, not linear algebra.
+No programming, no statistics, no linear algebra — and **no textbook**. Every
+reading in this course is free and open access.
 
 We install everything together in class — Claude Code and the desktop app in
 week one, Python the week after — and **nobody leaves those rooms without a

@@ -80,7 +80,7 @@
     Tokens and embeddings. The unglamorous step everyone skips, and the reason
     models behave strangely at the edges of words.
   readings:
-    - ananthaswamy-why-machines-learn
+    - 3blue1brown-neural-networks
     - alammar-illustrated-word2vec
     - rpp-121-transformers
   questions:
@@ -127,7 +127,7 @@
     The 2017 paper the course is named after. We read it for its argument and
     its structure, not its mathematics.
   readings: [alammar-illustrated-transformer, vaswani-2017-attention]
-  optional: [ananthaswamy-why-machines-learn]
+  optional: [prince-understanding-deep-learning]
   questions:
     - What problem was attention invented to solve?
     - What did the paper give up in exchange, and why was that trade worth making?
@@ -157,7 +157,7 @@
   summary: >-
     Zero-shot, few-shot, and the shape of an instruction -- worked through on
     your own this week, then discussed one-to-one.
-  readings: [dair-prompting-guide, anthropic-pe-docs]
+  readings: [boonstra-prompt-engineering, dair-prompting-guide, anthropic-pe-docs]
   questions:
     - When does adding examples stop helping?
     - What is the difference between a prompt that works and a prompt you can defend?
@@ -319,7 +319,7 @@
     A live disagreement in the literature about what the benchmarks are even
     measuring -- read against the TruthfulQA paper from Week 7.
   readings: [hallulens, li-2023-halueval]
-  optional: [acm-hallucination-survey, awesome-hallucination-detection]
+  optional: [huang-2023-hallucination-survey, awesome-hallucination-detection]
   questions:
     - On what grounds does HalluLens say TruthfulQA is miscategorised?
     - Is your Week 7 evaluation measuring factuality, hallucination, or something else?
@@ -348,7 +348,7 @@
     Giving a model knowledge it was never trained on. Build at your own pace
     this week, with one-to-one time for whatever breaks.
   readings: [lewis-2020-rag, pinecone-chunking]
-  optional: [berryman-ziegler-pe-for-llms, info7375-playlist]
+  optional: [boonstra-prompt-engineering, info7375-playlist]
   questions:
     - What problem does retrieval solve that a longer prompt does not?
     - Where does chunking go wrong, and how would you detect it?

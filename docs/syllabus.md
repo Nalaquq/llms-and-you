@@ -87,14 +87,24 @@ By the end of the term you should be able to:
 
 ## Required texts
 
-- **[Why Machines Learn: The Elegant Math Behind Modern AI](https://www.amazon.com/Why-Machines-Learn-Elegant-Behind/dp/0593185749)** — Anil Ananthaswamy (Dutton, 2024)
-- **[Prompt Engineering for LLMs](https://www.amazon.com/Prompt-Engineering-LLMs-Model-Based-Applications/dp/1098156153)** — John Berryman & Albert Ziegler (O'Reilly, 2024)
-- **[Auditing AI](https://mitpress.mit.edu/9780262051729/auditing-ai/)** — The Marquand House Collective (MIT Press, 2026) — **open access, free**
+**There are none to buy. Every reading in this course is free.**
+
+- **[Prompt Engineering](https://www.gptaiflow.com/assets/files/2025-01-18-pdf-1-TechAI-Goolge-whitepaper_Prompt%20Engineering_v4-af36dcc7a49bb7269a58b1c9b89a8ae1.pdf)** — Lee Boonstra (Google, 2025). 68pp, assigned in sections. The applied text.
+- **[Auditing AI](https://mitpress.mit.edu/9780262051729/auditing-ai/)** — The Marquand House Collective (MIT Press, 2026). Open access.
+- **[Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)** — 3Blue1Brown. The foundations spine, chapters 1–3.
 
 Everything else is a linked paper, podcast, or article. This site links out and
-hosts nothing; where a reading is paywalled it is marked as such and is
-reachable through Bortz Library. If you cannot get to something, tell me — that
-is a problem I can solve quickly and would rather hear about early.
+hosts nothing.
+
+!!! success "Zero-cost reading list"
+
+    A required text you cannot afford is a barrier disguised as a syllabus. So
+    there is no book to buy, no course pack, and no reading behind a paywall or
+    a library login — a test in this site's repository fails the build if a
+    gated reading is ever added.
+
+    If you hit anything you cannot open, tell me. That is a bug, not your
+    problem to work around.
 
 The full library is on the [Readings](resources.md) page.
 

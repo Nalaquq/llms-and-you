@@ -12,22 +12,31 @@
 # Theme 1 — How LLMs Work
 # ---------------------------------------------------------------------------
 
-- id: ananthaswamy-why-machines-learn
-  title: 'Why Machines Learn: The Elegant Math Behind Modern AI'
-  authors: [Anil Ananthaswamy]
-  year: 2024
-  kind: book
-  url: https://www.amazon.com/Why-Machines-Learn-Elegant-Behind/dp/0593185749
+- id: 3blue1brown-neural-networks
+  title: Neural Networks (video series)
+  authors: [Grant Sanderson]
+  kind: video
+  url: https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi
   themes: [foundations]
-  access: purchase
-  est_minutes: 45
+  est_minutes: 65
   assign_note: >-
-    Chapters assigned per session -- see the session page. Where a chapter runs
-    into mathematics you have not seen, read the surrounding prose and move on;
-    Ananthaswamy writes so that this works.
+    Chapters 1-3 (about 65 minutes total). The best explanation of what a neural
+    network actually computes that exists in any medium, and it assumes only
+    that you remember what a function is.
   note: >-
-    Primary course text. Readable popular science that does not flinch from the
-    mathematics; the new afterword covers transformer architecture.
+    Primary foundations text, and free. Replaced a purchased book because a
+    reading list nobody can afford is a reading list nobody does.
+
+- id: prince-understanding-deep-learning
+  title: Understanding Deep Learning
+  authors: [Simon J.D. Prince]
+  year: 2023
+  kind: book
+  url: https://udlbook.github.io/udlbook/
+  themes: [foundations]
+  note: >-
+    Free PDF from MIT Press. Considerably more mathematical than this course
+    requires -- here for students who want the rigorous version, not assigned.
 
 - id: karpathy-busy-person-intro
   title: "[1hr Talk] Intro to Large Language Models"
@@ -101,17 +110,21 @@
 # Theme 2 — Prompt Engineering Technique
 # ---------------------------------------------------------------------------
 
-- id: berryman-ziegler-pe-for-llms
-  title: Prompt Engineering for LLMs
-  authors: [John Berryman, Albert Ziegler]
-  year: 2024
-  kind: book
-  url: https://www.amazon.com/Prompt-Engineering-LLMs-Model-Based-Applications/dp/1098156153
+- id: boonstra-prompt-engineering
+  title: 'Prompt Engineering (Google whitepaper)'
+  authors: [Lee Boonstra]
+  year: 2025
+  kind: guide
+  url: https://www.gptaiflow.com/assets/files/2025-01-18-pdf-1-TechAI-Goolge-whitepaper_Prompt%20Engineering_v4-af36dcc7a49bb7269a58b1c9b89a8ae1.pdf
   themes: [technique, rag, agents]
-  access: purchase
+  est_minutes: 90
+  assign_note: >-
+    68 pages, assigned in sections -- see each session page for which. Written
+    by a Google engineer for practitioners, with worked configurations rather
+    than slogans.
   note: >-
-    Applied course text. Authors are GitHub Copilot engineers. Carries the
-    technique, RAG, and agent themes.
+    Applied course text, and free. Covers technique, RAG, and agents; replaced a
+    purchased O'Reilly title.
 
 - id: dair-prompting-guide
   title: Prompt Engineering Guide
@@ -223,16 +236,18 @@
     Argues TruthfulQA is routinely miscategorised as a hallucination benchmark.
     Read it against the TruthfulQA paper -- this is a live disagreement.
 
-- id: acm-hallucination-survey
-  title: 'A Survey on Hallucination in Large Language Models'
-  year: 2024
+- id: huang-2023-hallucination-survey
+  title: 'A Survey on Hallucination in Large Language Models: Principles,
+    Taxonomy, Challenges, and Open Questions'
+  authors: [Huang, et al.]
+  year: 2023
   kind: paper
-  url: https://dl.acm.org/doi/10.1145/3703155
+  url: https://arxiv.org/abs/2311.05232
   themes: [truthfulness]
-  access: library
+  est_minutes: 45
   note: >-
-    Intrinsic vs extrinsic taxonomy. ACM blocks automated access; reach it
-    through Bortz Library.
+    Intrinsic vs extrinsic taxonomy. The arXiv version of the survey later
+    published in ACM TOIS -- same content, no paywall.
 
 - id: hf-hallucinations-leaderboard
   title: The Hallucinations Leaderboard
@@ -459,26 +474,6 @@
   note: >-
     Notes that most "open-weight" models fail the Open Source Initiative
     definition because the training data stays proprietary.
-
-- id: leon-2025-gpt5-open-weight
-  title: 'GPT-5 and open-weight large language models: Advances in reasoning,
-    transparency, and control'
-  authors: [Maikel Leon]
-  year: 2025
-  kind: paper
-  url: https://www.sciencedirect.com/science/article/abs/pii/S0306437925001061
-  themes: [openweight]
-  access: library
-  note: Information Systems (Elsevier). Reach via Bortz Library.
-
-- id: nyt-open-weight-ai
-  title: 'Open-Weight AI'
-  authors: [The New York Times]
-  year: 2026
-  kind: article
-  url: https://www.nytimes.com/2026/07/28/technology/open-weight-ai.html
-  themes: [openweight]
-  access: paywalled
 
 - id: open-weights-timeline
   title: Open-Weights LLM Release History and Timeline
