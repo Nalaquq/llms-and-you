@@ -1,0 +1,46 @@
+# Fall 2026 term bounds, per the Hampden-Sydney academic calendar.
+# https://www.hsc.edu/calendars/academic-calendar
+#
+# This file is the ONLY place semester dates are written down. Every date shown
+# anywhere on the site is computed from these five facts. Change an exclusion
+# here and the whole schedule reflows.
+
+term: Fall 2026
+first_day: 2026-08-24   # Monday classes begin; first T/Th meeting is Aug 25
+last_day: 2026-12-07    # Monday, last day of classes; last T/Th meeting is Dec 3
+
+meeting_days: [tue, thu]
+
+exclusions:
+  - date: 2026-10-13
+    reason: Fall Break
+  - date: 2026-11-26
+    reason: Thanksgiving Break
+
+# Yields 30 T/Th slots minus 2 = 28 meetings across 15 weeks.
+# Week 8 loses its Tuesday and Week 14 loses its Thursday; the schedule is
+# built around those gaps rather than in spite of them.
+
+# Conference weeks. The group class does not meet on these dates. Each student
+# instead attends a scheduled individual meeting with the instructor, and the
+# week's work is self-paced.
+#
+# Declared as date ranges; calendar.py works out which meetings fall inside them
+# and reflags those sessions automatically. Nothing is tagged by hand.
+#
+# NOTE: this file records only the dates and a student-facing label -- never a
+# reason. The repository is public, and the schema has no field for why a week
+# is a conference week. Do not add one.
+conference_weeks:
+  - start: 2026-09-14
+    end: 2026-09-16
+
+  - start: 2026-09-21
+    end: 2026-09-25
+
+  - start: 2026-10-26
+    end: 2026-10-30
+
+# Affected meetings: Sep 15 (W4), Sep 22 + Sep 24 (W5), Oct 27 + Oct 29 (W10).
+# Weeks 5 and 10 are conference weeks for both meetings, so they carry the
+# project milestones -- the two points where one-to-one time is worth most.

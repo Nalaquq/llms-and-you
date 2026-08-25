@@ -1,0 +1,42 @@
+name: Link check
+
+# Course readings rot. A paper moves, a podcast host restructures URLs, a blog
+# disappears. Checking weekly means we find out before a student does.
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays, 9am Eastern — before the Tuesday session
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/resources.yml"
+
+jobs:
+  lychee:
+    name: Check external links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links in course data
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --max-retries 3
+            --timeout 30
+            --accept 200,206,999
+            --exclude-path .venv
+            data/resources.yml docs/
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open an issue if links are broken
+        if: failure()
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Broken course reading links
+          content-filepath: ./lychee/out.md
+          labels: readings, automated

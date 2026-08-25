@@ -1,0 +1,25 @@
+# Generated site output
+site/
+
+# Generated session pages — rebuilt from data/schedule.yml on every build.
+# Never edit these by hand; edit the YAML instead.
+docs/sessions/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Authoring material — kept locally, not published.
+# The prompt log and the AI working notes are drafting artifacts, not course
+# content. Revisit before any public release.
+prompts/
+CLAUDE.md

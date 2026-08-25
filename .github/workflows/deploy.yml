@@ -1,0 +1,71 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Validate course data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Test course data
+        run: pytest
+
+      - name: Build site
+        run: mkdocs build --strict
+
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/main' && vars.PUBLISH_SITE == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+  # Publishing is OFF until the repository variable PUBLISH_SITE is set to
+  # "true" (Settings → Secrets and variables → Actions → Variables).
+  #
+  # Two reasons it stays off for now. GitHub Pages will not serve a private
+  # repository on a free account — it needs Pro/Team, or the repo made public.
+  # And the site is still being edited; a half-finished syllabus with a live URL
+  # is worse than no URL.
+  #
+  # Lint, tests, and a strict build still run on every push, so the repository
+  # stays honest while publishing waits.
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main' && vars.PUBLISH_SITE == 'true'
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

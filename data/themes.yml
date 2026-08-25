@@ -1,0 +1,82 @@
+# The ten conceptual units of the course.
+#
+# Themes 7 and 8 are cross-cutting: they are practised in every week rather than
+# taught in a block of their own, so they own no dedicated sessions.
+
+- id: foundations
+  number: 1
+  name: How LLMs Work
+  blurb: >-
+    Where the machine came from. Tokens, embeddings, attention, and the 2017
+    architecture that everything since has been a variation on.
+
+- id: technique
+  number: 2
+  name: Prompt Engineering Technique
+  blurb: >-
+    The craft itself. Zero-shot and few-shot, chain-of-thought and its critics,
+    decomposition, chaining, and the published taxonomy of what people have tried.
+
+- id: truthfulness
+  number: 3
+  name: Truthfulness, Hallucination & Evaluation
+  blurb: >-
+    Models say false things confidently. What counts as a hallucination, how the
+    field measures one, and how you would know if your own prompt made it worse.
+
+- id: rag
+  number: 4
+  name: RAG & Retrieval
+  blurb: >-
+    Giving a model knowledge it was not trained on. Retrieval-augmented
+    generation, chunking, and why "just add documents" is harder than it sounds.
+
+- id: critical
+  number: 5
+  name: Critical Perspectives on the Field
+  blurb: >-
+    Scaling limits, benchmark reliability, the productivity evidence, and the
+    hype cycle. The unit where the course argues with itself.
+
+- id: responsible
+  number: 6
+  name: Responsible AI & Society
+  blurb: >-
+    Auditing, labour, and harm. Who is accountable when a system trained on
+    everyone's writing makes a decision about one person.
+
+- id: ecosystem
+  number: 7
+  name: Tools & Ecosystem
+  blurb: >-
+    Playgrounds, leaderboards, and the working landscape. Cross-cutting -- used
+    in every lab rather than taught on its own.
+
+- id: methodology
+  number: 8
+  name: Project Methodology & Documentation
+  blurb: >-
+    Architectural Decision Records applied to prompt design. Cross-cutting --
+    introduced in Week 1 and practised until the final project is submitted.
+
+- id: openweight
+  number: 9
+  name: Open-Weight Models
+  blurb: >-
+    What "open" means when the weights ship but the data does not, and the policy
+    argument over what should be released at all.
+
+- id: agents
+  number: 10
+  name: Agents & Tool Use
+  blurb: >-
+    Giving a model actions rather than only answers. Reasoning-and-acting loops,
+    tool interfaces, the workflow/agent distinction, and how any of it is evaluated.
+
+- id: deployment
+  number: 11
+  name: Deployment, Cost & Production
+  blurb: >-
+    What changes when something has to run for other people. API integration,
+    token accounting, caching, batching, rate limits, and the question of what
+    a system costs per user per month.

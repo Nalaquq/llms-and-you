@@ -1,0 +1,562 @@
+# The 28 meetings of Fall 2026.
+#
+# No dates here. Sessions declare (week, day); calendar.py assigns the real date
+# and flags it as an individual-meeting session if it falls inside such a window.
+#
+# Rhythm: Tuesday carries the reading, Thursday is hands-on and assigns no new
+# prep. Two weeks break the pattern because a break removes one meeting (W8, W14),
+# and three weeks run as individual meetings rather than a group class (W4, W5, W10).
+
+# ===========================================================================
+# WEEK 1 — Orientation
+# ===========================================================================
+
+- week: 1
+  day: tue
+  topic: Attention, and Why This Course Is Named After a Paper
+  theme: foundations
+  summary: >-
+    What the course is, how it runs, and what an LLM actually is before we go
+    anywhere near the mathematics. We also set the ground rules for using these
+    tools on work you submit.
+  readings: []
+  optional: [karpathy-busy-person-intro, ms-copilot, boodlebox]
+  questions:
+    - What do you currently believe an LLM is doing when it answers you?
+    - Where did that belief come from?
+    - >-
+      What would count as using these tools well in a course about them, and
+      what would count as using them badly?
+  activity: >-
+    Syllabus walkthrough and a live prompting demo where the model is asked
+    something it will confidently get wrong. We then spend real time on the AI
+    policy: what counts as a hallucination, what counts as slop, what an
+    adequate citation looks like, and where the line sits. Bring hard cases --
+    the ambiguous ones are the useful ones, and it is better to argue about
+    them now than in Week 9.
+
+- week: 1
+  day: thu
+  kind: lab
+  topic: 'Lab: Installing Claude Code and the Desktop App'
+  theme: ecosystem
+  summary: >-
+    Your tools for the term, working on your own machine. Nothing to read, no
+    programming experience assumed, and nobody leaves the room without both
+    installed and running.
+  activity: >-
+    Install **Claude Code** (the terminal tool) and the **Claude desktop app**,
+    and sign in to both. We do this together, one step at a time, on whatever
+    machine you brought.
+
+
+    Then use each one for the same task and notice they are not the same
+    experience: the desktop app is a conversation, and Claude Code can see and
+    change the files in a folder. Point Claude Code at a folder, ask it what is
+    there, and watch it read.
+
+
+    Finally, write **ADR-001** recording which of the two you expect to reach
+    for by default and why. It is a small decision, which is exactly why it is
+    the one you practise the format on.
+  optional:
+    - claude-code
+    - claude-code-setup
+    - claude-code-quickstart
+    - claude-desktop
+    - vscode
+    - adr-github
+    - adr-templates
+
+# ===========================================================================
+# WEEK 2 — How text becomes numbers
+# ===========================================================================
+
+- week: 2
+  day: tue
+  topic: How Text Becomes Numbers
+  theme: foundations
+  summary: >-
+    Tokens and embeddings. The unglamorous step everyone skips, and the reason
+    models behave strangely at the edges of words.
+  readings:
+    - ananthaswamy-why-machines-learn
+    - alammar-illustrated-word2vec
+    - rpp-121-transformers
+  questions:
+    - What does it mean for two words to be "close together" in an embedding space?
+    - >-
+      Episode 121 was recorded three months before ChatGPT was released. What
+      does Burchell expect to matter, and what does she not see coming?
+  activity: Embedding-space exploration; the classic king/queen analogy, and where it fails.
+
+- week: 2
+  day: thu
+  kind: lab
+  topic: 'Lab: Python, and Why "Strawberry" Has Three R''s'
+  theme: foundations
+  summary: >-
+    Python and VS Code set up, then the first thing we measure with them: how
+    text becomes tokens, and what that costs you.
+  activity: >-
+    First, the toolchain. Install Python and VS Code, make a virtual
+    environment, and `pip install anthropic`. Again: line by line, together, no
+    experience assumed.
+
+
+    Then use it. Call the API's own token counter on text you write and watch
+    where the boundaries fall. Find three tasks that fail for tokenization
+    reasons and write up why -- counting letters is the famous one, but it is
+    not the most interesting.
+
+
+    One thing to carry forward: the counter is **model-specific**. A token count
+    from a different vendor's tokenizer is simply wrong here, and guessing is
+    how cost estimates go wrong. First Burchell reflection due.
+  optional: [anthropic-token-counting, anthropic-sdk-python, claude-quickstart, vscode]
+
+# ===========================================================================
+# WEEK 3 — The architecture
+# ===========================================================================
+
+- week: 3
+  day: tue
+  topic: Attention and the Transformer
+  theme: foundations
+  summary: >-
+    The 2017 paper the course is named after. We read it for its argument and
+    its structure, not its mathematics.
+  readings: [alammar-illustrated-transformer, vaswani-2017-attention]
+  optional: [ananthaswamy-why-machines-learn]
+  questions:
+    - What problem was attention invented to solve?
+    - What did the paper give up in exchange, and why was that trade worth making?
+    - Why is the title a joke, and who was it aimed at?
+  activity: >-
+    Guided read-through of Section 3. Practice reading a paper you cannot fully
+    understand -- a skill you will need all semester.
+
+- week: 3
+  day: thu
+  kind: lab
+  topic: 'Lab: Watching Attention Work'
+  theme: foundations
+  summary: Attention weights made visible on real sentences.
+  activity: >-
+    Use an attention-visualisation tool on ambiguous sentences. Predict where
+    the model will attend before you look, then find a case where you were wrong.
+
+# ===========================================================================
+# WEEK 4 — Prompting fundamentals  (Tuesday: individual meetings)
+# ===========================================================================
+
+- week: 4
+  day: tue
+  topic: 'Individual Meetings: Project Direction'
+  theme: technique
+  summary: >-
+    Zero-shot, few-shot, and the shape of an instruction -- worked through on
+    your own this week, then discussed one-to-one.
+  readings: [dair-prompting-guide, anthropic-pe-docs]
+  questions:
+    - When does adding examples stop helping?
+    - What is the difference between a prompt that works and a prompt you can defend?
+  activity: >-
+    Work through the DAIR technique pages and post one worked before/after
+    example to the discussion board.
+
+
+    Bring to your meeting: that worked example, and a question about your
+    project idea.
+
+- week: 4
+  day: thu
+  kind: lab
+  topic: 'Lab: Iteration Under Constraint'
+  theme: technique
+  summary: Same task, five prompts, one measurable outcome — driven from Python.
+  activity: >-
+    You are given a task and a scoring rubric. Improve your prompt across five
+    documented iterations, run from a script so the comparison is real rather
+    than remembered.
+
+
+    We also settle a question that trips up anyone learning from older material:
+    frontier models have **removed** `temperature` and `top_p` -- sending them
+    returns an error -- and replaced them with an `effort` setting. Sweep effort
+    instead, and notice that the knob the internet still tells you to turn no
+    longer exists. Tutorials rot; the API reference does not.
+  optional: [anthropic-pricing]
+
+# ===========================================================================
+# WEEK 5 — Taxonomy and project launch  (both sessions: individual meetings)
+# ===========================================================================
+
+- week: 5
+  day: tue
+  topic: 'Individual Meetings: Technique Selection'
+  theme: technique
+  summary: >-
+    Fifty-eight named techniques and the vocabulary to tell them apart -- read
+    on your own, then narrowed to three in conversation.
+  readings: [schulhoff-2024-prompt-report]
+  optional: [learn-prompting, dair-prompt-hub]
+  questions:
+    - Which three techniques are plausibly useful for your project, and why those?
+    - Which named techniques look to you like the same idea under two names?
+  activity: >-
+    Annotate the taxonomy as you read.
+
+
+    Bring to your meeting: three candidate techniques, and an argument for one.
+
+- week: 5
+  day: thu
+  kind: milestone
+  topic: 'Individual Meetings: Project Proposal & Goal Setting'
+  theme: methodology
+  summary: >-
+    Your semester project gets defined this week, one student at a time.
+  due: Project proposal + ADR-002 (technique selection and rationale)
+  activity: >-
+    Bring your one-page proposal and the decision record explaining which
+    techniques you chose and what you rejected. We agree on scope, and you leave
+    with a written goal for the next milestone.
+
+# ===========================================================================
+# WEEK 6 — Chain-of-thought and its critics  (in person, by design)
+# ===========================================================================
+
+- week: 6
+  day: tue
+  topic: Chain-of-Thought — and Whether It Is Real
+  theme: technique
+  summary: >-
+    The most-cited technique in the field, assigned alongside the paper arguing
+    it is an illusion. Held in person because the argument is the lesson.
+  readings: [cot-mirage]
+  optional: [theoretical-framework-pe]
+  questions:
+    - What exactly does the "mirage" paper claim, and what does it NOT claim?
+    - What experiment would settle this? Could you run it?
+    - >-
+      If chain-of-thought works but not for the reasons people say, does that
+      change how you should use it?
+  activity: >-
+    Structured debate. Half the room defends chain-of-thought as reasoning; half
+    argues it is pattern-matching over the training distribution.
+
+- week: 6
+  day: thu
+  kind: lab
+  topic: 'Lab: Testing the Mirage'
+  theme: technique
+  summary: Run the disagreement yourself.
+  activity: >-
+    Construct tasks inside and outside the plausible training distribution.
+    Compare chain-of-thought against direct prompting on both. Report what you find.
+
+# ===========================================================================
+# WEEK 7 — Hallucination
+# ===========================================================================
+
+- week: 7
+  day: tue
+  topic: Truthfulness and the Confident Wrong Answer
+  theme: truthfulness
+  summary: >-
+    Models say false things fluently. TruthfulQA's uncomfortable finding is that
+    bigger models were worse.
+  readings: [lin-2021-truthfulqa, rpp-188-bias-truthfulness]
+  optional: [burchell-lies-damned-lies]
+  questions:
+    - Why would a LARGER model be less truthful? What is it learning to imitate?
+    - Is "truthful" the same property as "not hallucinating"?
+  activity: >-
+    Run TruthfulQA-style questions live and score them as a room. Second
+    Burchell reflection due.
+
+- week: 7
+  day: thu
+  kind: lab
+  topic: 'Lab: Build an Evaluation'
+  theme: truthfulness
+  summary: >-
+    You cannot claim a prompt is better without a way to measure it. This is that
+    way.
+  activity: >-
+    Build a small evaluation set for your project domain -- 20 items, with
+    ground truth. You will use it for the rest of the semester.
+  optional: [hf-hallucinations-leaderboard, huggingface]
+
+# ===========================================================================
+# WEEK 8 — Fall Break Tuesday; midterm opens Thursday
+# ===========================================================================
+
+- week: 8
+  day: thu
+  kind: lab
+  topic: 'Midterm Kickoff: Red-Teaming'
+  theme: responsible
+  summary: >-
+    Fall Break takes Tuesday, so the week is a single working session -- which
+    suits a lab that needs no advance reading.
+  activity: >-
+    HackAPrompt introduction and supervised start. Adversarial prompting rules
+    of engagement, and why we are doing this in a classroom rather than on a
+    production system.
+  optional: [hackaprompt]
+
+# ===========================================================================
+# WEEK 9 — Evaluation and the midterm
+# ===========================================================================
+
+- week: 9
+  day: tue
+  topic: Factuality Is Not Hallucination
+  theme: truthfulness
+  summary: >-
+    A live disagreement in the literature about what the benchmarks are even
+    measuring -- read against the TruthfulQA paper from Week 7.
+  readings: [hallulens, li-2023-halueval]
+  optional: [acm-hallucination-survey, awesome-hallucination-detection]
+  questions:
+    - On what grounds does HalluLens say TruthfulQA is miscategorised?
+    - Is your Week 7 evaluation measuring factuality, hallucination, or something else?
+  activity: LLM-as-judge — using a model to grade a model, and where that breaks.
+
+- week: 9
+  day: thu
+  kind: milestone
+  topic: Red-Team Debrief
+  theme: responsible
+  summary: What broke, how, and what it implies about deploying these systems.
+  due: HackAPrompt midterm write-up
+  activity: >-
+    Students present their most effective attack and the defence they would
+    build against it. ADR-003 due: how your project handles failure.
+
+# ===========================================================================
+# WEEK 10 — RAG  (both sessions: individual meetings)
+# ===========================================================================
+
+- week: 10
+  day: tue
+  topic: 'Individual Meetings: Retrieval-Augmented Generation'
+  theme: rag
+  summary: >-
+    Giving a model knowledge it was never trained on. Build at your own pace
+    this week, with one-to-one time for whatever breaks.
+  readings: [lewis-2020-rag, pinecone-chunking]
+  optional: [berryman-ziegler-pe-for-llms, info7375-playlist]
+  questions:
+    - What problem does retrieval solve that a longer prompt does not?
+    - Where does chunking go wrong, and how would you detect it?
+  activity: >-
+    Work through the RAG walkthrough at your own pace.
+
+
+    Bring to your meeting: whatever you got stuck on. Debugging together is what
+    the time is for.
+
+- week: 10
+  day: thu
+  kind: milestone
+  topic: 'Individual Meetings: Prototype Review & Goal Setting'
+  theme: rag
+  summary: A working retrieval pipeline, however small, reviewed one-to-one.
+  due: Working RAG prototype + ADR-004 (retrieval design)
+  activity: >-
+    Demonstrate your prototype and talk through what you decided about chunking,
+    retrieval, and what you left out. If it is broken, bring it broken.
+
+
+    You leave with a written goal for the final build.
+  optional: [langchain-docs]
+
+# ===========================================================================
+# WEEK 11 — Agents, part one
+# ===========================================================================
+
+- week: 11
+  day: tue
+  topic: Reasoning and Acting
+  theme: agents
+  summary: >-
+    From answers to actions. ReAct is a prompting pattern before it is an
+    architecture, which is exactly why it belongs in this course.
+  readings: [yao-2022-react, schick-2023-toolformer]
+  optional: [shinn-2023-reflexion]
+  questions:
+    - What is ReAct actually adding to a prompt? Write the template from memory.
+    - What can go wrong in a loop that cannot go wrong in a single response?
+  activity: Trace an agent loop by hand on paper before letting a model run one.
+
+- week: 11
+  day: thu
+  kind: lab
+  topic: 'Lab: Giving a Model a Tool'
+  theme: agents
+  summary: Tool descriptions are prompts. Write them badly and watch what happens.
+  activity: >-
+    Define a tool, write its description three different ways, and measure how
+    often the model calls it correctly.
+  optional: [anthropic-writing-tools-for-agents]
+
+# ===========================================================================
+# WEEK 12 — Agents, part two
+# ===========================================================================
+
+- week: 12
+  day: tue
+  topic: Agents, Workflows, and Knowing the Difference
+  theme: agents
+  summary: >-
+    Most things called agents are workflows, and most things that should be
+    workflows are being built as agents.
+  readings: [anthropic-building-effective-agents, yao-2024-tau-bench]
+  optional: [mcp-docs, jimenez-2023-swebench]
+  questions:
+    - Name the five workflow patterns. Which one is your project?
+    - How does τ-bench decide whether an agent succeeded? Would that work for you?
+  activity: >-
+    Classify a set of real systems as workflow or agent, and argue the
+    borderline cases.
+
+- week: 12
+  day: thu
+  kind: lab
+  topic: 'Lab: Build the Simplest Thing That Works'
+  theme: agents
+  summary: >-
+    Anthropic's advice is to avoid building an agent. We take that seriously and
+    test it.
+  activity: >-
+    Build your task twice -- once as a fixed workflow, once as an agent. Compare
+    reliability, cost, and how long each took to debug.
+
+# ===========================================================================
+# WEEK 13 — Open weights
+# ===========================================================================
+
+- week: 13
+  day: tue
+  topic: What It Costs to Run This for Other People
+  theme: deployment
+  summary: >-
+    Everything changes when a system has to serve someone other than you. Token
+    accounting, caching, batching, rate limits, and the arithmetic of cost per
+    user per month.
+  readings: [anthropic-prompt-caching, anthropic-errors]
+  optional:
+    - anthropic-batch-processing
+    - anthropic-pricing
+    - anthropic-context-windows
+    - anthropic-cookbook
+    - claude-api-overview
+  questions:
+    - >-
+      Caching is a prefix match. Why does putting a timestamp at the top of your
+      system prompt destroy the cache for everything below it?
+    - >-
+      Estimate your project's cost per user per month. Show the arithmetic. What
+      dominates -- input tokens, output tokens, or something you had not counted?
+    - What does your system do when it gets a 429, and who notices?
+  activity: >-
+    Cost teardown. We take a real prompt, count its tokens, price it, then cut
+    the cost without cutting the quality -- caching the stable prefix, batching
+    what is not urgent, and choosing a cheaper model where the task allows.
+
+- week: 13
+  day: thu
+  kind: lab
+  topic: 'Lab: Instrument It, Then Run One Yourself'
+  theme: deployment
+  summary: >-
+    Measure what your project costs, then ask the build-versus-buy question by
+    running an open-weight model on your own hardware.
+  activity: >-
+    First: instrument your project. Log tokens and cost per call, add caching to
+    the stable part of your prompt, and measure the difference -- an unmeasured
+    optimisation is a guess.
+
+
+    Then the other side of the same decision: run a small open-weight model
+    locally and compare it to the frontier model on your Week 7 evaluation set.
+    The question is not which is better. It is what you would have to believe
+    about volume, latency, privacy, and your own time for self-hosting to win.
+  optional: [jiang-2023-mistral7b, open-weights-timeline, nnsight-ndif]
+
+# ===========================================================================
+# WEEK 14 — Responsible AI  (Thanksgiving takes Thursday)
+# ===========================================================================
+
+- week: 14
+  day: tue
+  topic: Auditing, Labour, and What Gets Released
+  theme: responsible
+  summary: >-
+    Who is answerable when a system trained on everyone's writing makes a
+    decision about one person — and who decides what gets released at all. A
+    single session before the break, and the least technical week on purpose.
+  readings: [auditing-ai, verge-ai-factory, amodei-2026-open-weights]
+  optional:
+    - stanford-hai-open-weight
+    - dubey-2024-llama3
+    - qi-2025-durable-safeguards
+    - cyber-risk-open-weight
+    - lithub-replace-myself
+  questions:
+    - Pick one failure case from Auditing AI. What would an audit have caught?
+    - >-
+      After reading Dzieza, does anything about how you have used these tools
+      this semester look different?
+    - >-
+      Amodei runs a company that does not release its weights. How does that
+      shape his argument — and is the argument wrong because of it?
+  activity: >-
+    Two halves. First an audit design workshop: in groups, design an audit for a
+    system in the reading, then apply the same method to your own project.
+
+
+    Then a position-taking exercise on release policy — you are assigned a
+    stakeholder (lab, regulator, researcher, adversary) and must argue their
+    case. The two halves are the same question at different scales: who is
+    accountable, and how would anyone check?
+
+# ===========================================================================
+# WEEK 15 — The argument, and the finish
+# ===========================================================================
+
+- week: 15
+  day: tue
+  topic: Scaling Limits and the Hype Cycle
+  theme: critical
+  summary: >-
+    The course argues with itself. Four years of one guest's commentary, ending
+    two months before this class started.
+  readings: [rpp-264-scaling-laws, rpp-291-reassessing, karpathy-animals-vs-ghosts]
+  optional: [pydantic-human-in-the-loop, burchell-beyond-the-hype]
+  questions:
+    - >-
+      Trace the Burchell arc from Episode 121 to Episode 291. What changed in
+      the field, and what changed in her?
+    - Which claim from Week 1 of this course do you now think was wrong?
+  genai: prohibited
+  genai_note: >-
+    The final reflection is written by hand, in class, about your own change of
+    mind over fifteen weeks. Nothing else can write it and nothing else should.
+  activity: >-
+    Final Burchell reflection, written in class: what you believed in August and
+    what you believe now.
+
+- week: 15
+  day: thu
+  kind: milestone
+  topic: Final Presentations
+  theme: methodology
+  summary: The project, the decision log, and what you would do differently.
+  due: Final project, ADR log, and reflective introduction
+  activity: >-
+    Presentations. Ten minutes each: what you built, which decisions you
+    recorded, and which one you got wrong.

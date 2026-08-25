@@ -1,0 +1,22 @@
+# Hosts that block automated requests but work fine in a browser.
+# Each was verified by hand on 2026-08-25; they are not dead links, they are
+# publishers that refuse bots. Re-verify manually once a term.
+
+# ACM Digital Library — 403 to any non-browser client
+dl\.acm\.org
+
+# MIT Press — 403 to bots; Auditing AI is genuinely open access
+mitpress\.mit\.edu
+direct\.mit\.edu
+
+# Elsevier — 400 to bots
+sciencedirect\.com
+
+# NYT — paywalled and bot-blocked; marked `access: paywalled` in resources.yml
+nytimes\.com
+
+# Amazon — aggressive bot detection, and these are stable ASIN links
+amazon\.com
+
+# LinkedIn / X and similar walled platforms, should any reading ever cite one
+linkedin\.com

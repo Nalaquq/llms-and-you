@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llms-and-you"
+version = "0.1.0"
+description = "Course website for LLMs & You: Attention is All You Need (Hampden-Sydney College, Fall 2026)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "CC-BY-4.0" }
+authors = [{ name = "Sean Gleason", email = "sgleason@hsc.edu" }]
+keywords = ["prompt-engineering", "llm", "course", "syllabus", "mkdocs"]
+
+dependencies = [
+    "mkdocs-material>=9.5",
+    "mkdocs-macros-plugin>=1.0",
+    "mkdocs-gen-files>=0.5",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/Nalaquq/llms-and-you"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/course_site"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "SIM", "RUF"]
+ignore = [
+    # This project renders prose for a website. En dashes, middots and curly
+    # quotes are intentional typography in user-facing strings, not typos.
+    "RUF001",
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# macros.py and gen_sessions.py are imported by MkDocs as loose files rather
+# than as an installed package, so both must extend sys.path before importing
+# their siblings. That necessarily happens after the stdlib imports.
+"src/course_site/macros.py" = ["E402"]
+"src/course_site/gen_sessions.py" = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --strict-markers"

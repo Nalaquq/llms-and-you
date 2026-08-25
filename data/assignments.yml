@@ -1,0 +1,57 @@
+# Graded components. Weights must total 100 -- tests/test_course_data.py enforces it.
+#
+# `genai` records whether Generative AI may be used. The course policy is
+# permissive by default, so ALLOWED is the norm and PROHIBITED is the exception
+# that must carry a `genai_note` explaining itself -- the models refuse to
+# validate a prohibition without a stated reason, because the policy promises
+# students that every restriction is stated on the page.
+
+- id: project
+  title: Semester Project and ADR Log
+  weight: 35
+  due: Thursday, December 3
+  summary: >-
+    A prompt-engineering system of your own design, built across the semester,
+    submitted with the decision log you kept while building it. The log is not
+    documentation written afterwards; it is a record written as you decided.
+    Four ADRs are due at checkpoints during the term and are graded as you go.
+
+- id: midterm
+  title: HackAPrompt Red-Team Midterm
+  weight: 15
+  due: Thursday, October 22
+  summary: >-
+    Adversarial prompting against the HackAPrompt environment, submitted as a
+    write-up of your most effective attack, why it worked, and the defence you
+    would build against it.
+
+- id: labs
+  title: Thursday Labs
+  weight: 20
+  summary: >-
+    Twelve hands-on sessions. Graded on the write-up rather than the result --
+    a lab that failed and was documented honestly scores better than one that
+    worked and was not.
+
+- id: responses
+  title: Reading Responses and Burchell Reflections
+  weight: 20
+  genai: prohibited
+  genai_note: >-
+    These measure whether you did the reading and what you made of it. A model
+    that has not done the reading can still produce a competent-looking response,
+    which is exactly why one is not acceptable here. Use of GenAI on any reading
+    response or reflection fails the assignment and goes to the Honor Court.
+    Asking a model to explain a passage you did not follow is fine -- that is
+    reading. Asking it to write your response is not.
+  summary: >-
+    Short written responses to Tuesday readings, plus three longer reflections
+    tracking the Burchell podcast arc across Weeks 2, 7, and 15 -- one guest,
+    four years, and a field that changed underneath her.
+
+- id: participation
+  title: Participation
+  weight: 10
+  summary: >-
+    Judged on the quality of what you contribute, not the frequency. Attending
+    your scheduled individual meetings counts here.

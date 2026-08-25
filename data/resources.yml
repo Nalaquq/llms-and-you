@@ -1,0 +1,836 @@
+# The course library. Every assignable thing, defined exactly once.
+#
+# Sessions in schedule.yml reference these by `id`, never by URL. Fix a link here
+# and it is fixed on every page that assigns it.
+#
+# We do not host PDFs. `access` is the honest answer to "can a student open this
+# right now?" and renders as a badge next to the reading.
+#
+# All URLs verified 2026-08-25.
+
+# ---------------------------------------------------------------------------
+# Theme 1 — How LLMs Work
+# ---------------------------------------------------------------------------
+
+- id: ananthaswamy-why-machines-learn
+  title: 'Why Machines Learn: The Elegant Math Behind Modern AI'
+  authors: [Anil Ananthaswamy]
+  year: 2024
+  kind: book
+  url: https://www.amazon.com/Why-Machines-Learn-Elegant-Behind/dp/0593185749
+  themes: [foundations]
+  access: purchase
+  est_minutes: 45
+  assign_note: >-
+    Chapters assigned per session -- see the session page. Where a chapter runs
+    into mathematics you have not seen, read the surrounding prose and move on;
+    Ananthaswamy writes so that this works.
+  note: >-
+    Primary course text. Readable popular science that does not flinch from the
+    mathematics; the new afterword covers transformer architecture.
+
+- id: karpathy-busy-person-intro
+  title: "[1hr Talk] Intro to Large Language Models"
+  authors: [Andrej Karpathy]
+  year: 2023
+  kind: video
+  url: https://www.youtube.com/watch?v=zjkBMFhNj_g
+  themes: [foundations]
+  est_minutes: 60
+  assign_note: >-
+    Watch the whole thing. It is the single best orientation to what this course
+    is about, and it assumes nothing.
+
+- id: alammar-illustrated-transformer
+  title: The Illustrated Transformer
+  authors: [Jay Alammar]
+  kind: guide
+  url: https://jalammar.github.io/illustrated-transformer/
+  themes: [foundations]
+  est_minutes: 45
+  assign_note: >-
+    Read this BEFORE the Vaswani paper. It is the map; the paper is the terrain.
+
+- id: alammar-illustrated-word2vec
+  title: The Illustrated Word2Vec
+  authors: [Jay Alammar]
+  kind: guide
+  url: https://jalammar.github.io/illustrated-word2vec/
+  themes: [foundations]
+  est_minutes: 35
+  assign_note: >-
+    How text becomes numbers. Focus on the embedding intuition, not the training
+    algorithm.
+
+- id: vaswani-2017-attention
+  title: Attention Is All You Need
+  authors: [Vaswani, et al.]
+  year: 2017
+  kind: paper
+  url: https://arxiv.org/abs/1706.03762
+  themes: [foundations]
+  est_minutes: 50
+  assign_note: >-
+    Abstract, Introduction, and Section 3 (the architecture) only. The math in
+    Sections 4-6 is optional. You are reading this for the argument and for the
+    experience of reading the paper the course is named after.
+
+- id: rpp-121-transformers
+  title: 'Real Python #121: Moving NLP Forward With Transformer Models and Attention'
+  authors: [Jodie Burchell]
+  year: 2022
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/121/
+  themes: [foundations, critical]
+  est_minutes: 50
+  note: >-
+    Burchell arc, episode 1 of 5. Recorded BEFORE ChatGPT shipped -- the reason
+    it is assigned is that it does not know what is coming.
+
+- id: rpp-232-sentiment
+  title: 'Real Python #232: Exploring Modern Sentiment Analysis Approaches in Python'
+  authors: [Jodie Burchell]
+  year: 2024
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/232/
+  themes: [foundations, technique]
+  est_minutes: 73
+  note: Burchell arc, episode 2 of 5. Lexicon to ML to LLM; encoder vs decoder.
+
+# ---------------------------------------------------------------------------
+# Theme 2 — Prompt Engineering Technique
+# ---------------------------------------------------------------------------
+
+- id: berryman-ziegler-pe-for-llms
+  title: Prompt Engineering for LLMs
+  authors: [John Berryman, Albert Ziegler]
+  year: 2024
+  kind: book
+  url: https://www.amazon.com/Prompt-Engineering-LLMs-Model-Based-Applications/dp/1098156153
+  themes: [technique, rag, agents]
+  access: purchase
+  note: >-
+    Applied course text. Authors are GitHub Copilot engineers. Carries the
+    technique, RAG, and agent themes.
+
+- id: dair-prompting-guide
+  title: Prompt Engineering Guide
+  authors: [DAIR.AI]
+  kind: guide
+  url: https://www.promptingguide.ai/
+  themes: [technique, ecosystem]
+  note: >-
+    Reference hub rather than a cover-to-cover read. Individual technique pages
+    work well as single-session prep.
+
+- id: dair-prompt-hub
+  title: Prompt Hub
+  authors: [DAIR.AI]
+  kind: tool
+  url: https://www.promptingguide.ai/prompts
+  themes: [technique, ecosystem]
+  note: Ready-made prompts for in-class exercises.
+
+- id: anthropic-pe-docs
+  title: Prompt Engineering Overview
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
+  themes: [technique, ecosystem]
+  est_minutes: 30
+
+- id: learn-prompting
+  title: Learn Prompting
+  kind: guide
+  url: https://learnprompting.org/
+  themes: [technique]
+  note: Largest open-source PE course; 60+ modules. Good student self-study reference.
+
+- id: dlai-prompt-engineering
+  title: ChatGPT Prompt Engineering for Developers
+  authors: [Andrew Ng, Isa Fulford]
+  kind: guide
+  url: https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/
+  themes: [technique]
+  note: Six applied use cases, runnable in-browser with no setup.
+
+- id: schulhoff-2024-prompt-report
+  title: 'The Prompt Report: A Systematic Survey of Prompting Techniques'
+  authors: [Schulhoff, et al.]
+  year: 2024
+  kind: paper
+  url: https://arxiv.org/abs/2406.06608
+  themes: [technique]
+  est_minutes: 60
+  assign_note: >-
+    Read the taxonomy sections and the vocabulary list. Skim the rest. Treat it
+    as a field guide you will return to during your project.
+
+- id: theoretical-framework-pe
+  title: 'A Theoretical Framework for Prompt Engineering: Approximating Smooth
+    Functions with Transformer Prompts'
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2503.20561
+  themes: [technique]
+  note: Optional/advanced. Grounds prompting in approximation theory.
+
+- id: alphaxiv-skill
+  title: AlphaXiv Paper Lookup Skill
+  authors: [alphaXiv]
+  kind: tool
+  url: https://www.alphaxiv.org/skills/alphaxiv-paper-lookup/SKILL.md
+  themes: [technique, ecosystem]
+  note: Pulls machine-readable arXiv summaries into Claude. Teaches token economy.
+
+# ---------------------------------------------------------------------------
+# Theme 3 — Truthfulness, Hallucination & Evaluation
+# ---------------------------------------------------------------------------
+
+- id: lin-2021-truthfulqa
+  title: 'TruthfulQA: Measuring How Models Mimic Human Falsehoods'
+  authors: [Lin, Hilton, Evans]
+  year: 2021
+  kind: paper
+  url: https://arxiv.org/abs/2109.07958
+  themes: [truthfulness]
+  est_minutes: 45
+  assign_note: >-
+    Read for the central finding: 817 questions, best model 58% vs 94% for
+    humans -- and larger models were LESS truthful, not more.
+
+- id: li-2023-halueval
+  title: 'HaluEval: A Large-Scale Hallucination Evaluation Benchmark for Large
+    Language Models'
+  authors: [Li, Cheng, Zhao, Nie, Wen]
+  year: 2023
+  kind: paper
+  url: https://arxiv.org/abs/2305.11747
+  themes: [truthfulness]
+  est_minutes: 40
+  note: >-
+    35,000 samples: 5,000 human-annotated ChatGPT responses plus 30,000
+    generated task-specific examples.
+
+- id: hallulens
+  title: 'HalluLens: LLM Hallucination Benchmark'
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2504.17550
+  themes: [truthfulness, critical]
+  est_minutes: 40
+  assign_note: >-
+    Argues TruthfulQA is routinely miscategorised as a hallucination benchmark.
+    Read it against the TruthfulQA paper -- this is a live disagreement.
+
+- id: acm-hallucination-survey
+  title: 'A Survey on Hallucination in Large Language Models'
+  year: 2024
+  kind: paper
+  url: https://dl.acm.org/doi/10.1145/3703155
+  themes: [truthfulness]
+  access: library
+  note: >-
+    Intrinsic vs extrinsic taxonomy. ACM blocks automated access; reach it
+    through Bortz Library.
+
+- id: hf-hallucinations-leaderboard
+  title: The Hallucinations Leaderboard
+  authors: [Hugging Face]
+  kind: tool
+  url: https://huggingface.co/blog/leaderboard-hallucinations
+  themes: [truthfulness, ecosystem]
+
+- id: awesome-hallucination-detection
+  title: Awesome Hallucination Detection
+  authors: [EdinburghNLP]
+  kind: tool
+  url: https://github.com/EdinburghNLP/awesome-hallucination-detection
+  themes: [truthfulness]
+  note: Continuously updated paper list. Useful starting point for project literature.
+
+- id: rpp-188-bias-truthfulness
+  title: 'Real Python #188: Measuring Bias, Toxicity, and Truthfulness in LLMs With Python'
+  authors: [Jodie Burchell]
+  year: 2024
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/188/
+  themes: [truthfulness, responsible]
+  est_minutes: 75
+  note: Burchell arc, episode 3 of 5. Hands-on companion to TruthfulQA.
+
+- id: burchell-lies-damned-lies
+  title: Lies, Damned Lies and Large Language Models
+  authors: [Jodie Burchell]
+  kind: video
+  url: https://www.youtube.com/watch?v=kTvp9qaJabo
+  themes: [truthfulness]
+  est_minutes: 45
+  note: Conference talk. Pairs well with the TruthfulQA reading.
+
+# ---------------------------------------------------------------------------
+# Theme 4 — RAG & Retrieval
+# ---------------------------------------------------------------------------
+
+- id: lewis-2020-rag
+  title: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+  authors: [Lewis, et al.]
+  year: 2020
+  kind: paper
+  url: https://arxiv.org/abs/2005.11401
+  themes: [rag]
+  est_minutes: 45
+  assign_note: >-
+    Abstract, Introduction, and Section 2 (Methods). This is the "Attention Is
+    All You Need" of retrieval -- read it the same way.
+
+- id: pinecone-chunking
+  title: Chunking Strategies for LLM Applications
+  authors: [Pinecone]
+  kind: guide
+  url: https://www.pinecone.io/learn/chunking-strategies/
+  themes: [rag]
+  est_minutes: 25
+
+- id: langchain-docs
+  title: LangChain Documentation
+  kind: tool
+  url: https://python.langchain.com/
+  themes: [rag, ecosystem]
+  note: Use selectively. Dates quickly.
+
+- id: info7375-playlist
+  title: 'INFO 7375: Prompt Engineering for Generative AI (lecture playlist)'
+  authors: [Nik Bear Brown]
+  kind: video
+  url: https://www.youtube.com/playlist?list=PLIS8mRE04MvrVITxa7eRshm9WyQTS3EPZ
+  themes: [rag, ecosystem]
+  note: Northeastern course. RAG lectures are the useful part for us.
+
+# ---------------------------------------------------------------------------
+# Theme 10 — Agents & Tool Use
+# ---------------------------------------------------------------------------
+
+- id: yao-2022-react
+  title: 'ReAct: Synergizing Reasoning and Acting in Language Models'
+  authors: [Yao, et al.]
+  year: 2022
+  kind: paper
+  url: https://arxiv.org/abs/2210.03629
+  themes: [agents, technique]
+  est_minutes: 45
+  assign_note: >-
+    Abstract, Introduction, and Section 2. Note that ReAct is a PROMPTING
+    pattern before it is an architecture -- that is why it sits in this course.
+
+- id: schick-2023-toolformer
+  title: 'Toolformer: Language Models Can Teach Themselves to Use Tools'
+  authors: [Schick, et al.]
+  year: 2023
+  kind: paper
+  url: https://arxiv.org/abs/2302.04761
+  themes: [agents]
+  est_minutes: 40
+
+- id: shinn-2023-reflexion
+  title: 'Reflexion: Language Agents with Verbal Reinforcement Learning'
+  authors: [Shinn, et al.]
+  year: 2023
+  kind: paper
+  url: https://arxiv.org/abs/2303.11366
+  themes: [agents]
+  est_minutes: 35
+  note: Optional. Self-critique as a prompting loop.
+
+- id: anthropic-building-effective-agents
+  title: Building Effective Agents
+  authors: [Anthropic]
+  year: 2024
+  kind: guide
+  url: https://www.anthropic.com/research/building-effective-agents
+  themes: [agents]
+  est_minutes: 30
+  assign_note: >-
+    The workflow-versus-agent distinction is the whole point. Come to class able
+    to name the five workflow patterns.
+
+- id: anthropic-writing-tools-for-agents
+  title: Writing Tools for Agents
+  authors: [Anthropic]
+  kind: guide
+  url: https://www.anthropic.com/engineering/writing-tools-for-agents
+  themes: [agents]
+  est_minutes: 25
+  note: Tool descriptions are prompts. This makes that concrete.
+
+- id: mcp-docs
+  title: Model Context Protocol
+  kind: tool
+  url: https://modelcontextprotocol.io/
+  themes: [agents, ecosystem]
+  note: The emerging standard for connecting models to tools and data.
+
+- id: yao-2024-tau-bench
+  title: 'τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains'
+  authors: [Yao, et al.]
+  year: 2024
+  kind: paper
+  url: https://arxiv.org/abs/2406.12045
+  themes: [agents, truthfulness]
+  est_minutes: 35
+  assign_note: >-
+    How would you know whether an agent worked? Read for the evaluation design.
+
+- id: jimenez-2023-swebench
+  title: 'SWE-bench: Can Language Models Resolve Real-World GitHub Issues?'
+  authors: [Jimenez, et al.]
+  year: 2023
+  kind: paper
+  url: https://arxiv.org/abs/2310.06770
+  themes: [agents, critical]
+  est_minutes: 35
+  note: Optional. The benchmark that agent progress is usually reported against.
+
+# ---------------------------------------------------------------------------
+# Theme 9 — Open-Weight Models
+# ---------------------------------------------------------------------------
+
+- id: stanford-hai-open-weight
+  title: What is an Open-Weight Model?
+  authors: [Stanford HAI]
+  kind: guide
+  url: https://hai.stanford.edu/ai-definitions/what-is-an-open-weight-model
+  themes: [openweight]
+  est_minutes: 10
+  assign_note: Read this first. It establishes the vocabulary for everything else.
+
+- id: dubey-2024-llama3
+  title: The Llama 3 Herd of Models
+  authors: [Dubey, et al.]
+  year: 2024
+  kind: paper
+  url: https://arxiv.org/abs/2407.21783
+  themes: [openweight]
+  est_minutes: 40
+  assign_note: Abstract and Introduction only. The technical sections are optional.
+
+- id: jiang-2023-mistral7b
+  title: Mistral 7B
+  authors: [Jiang, et al.]
+  year: 2023
+  kind: paper
+  url: https://arxiv.org/abs/2310.06825
+  themes: [openweight]
+  est_minutes: 25
+  note: Eight pages. Small open models as a viable alternative to large closed ones.
+
+- id: amodei-2026-open-weights
+  title: Our Position on Open-Weights Models
+  authors: [Dario Amodei]
+  year: 2026
+  kind: article
+  url: https://www.anthropic.com/news/position-open-weights-models
+  themes: [openweight, responsible]
+  est_minutes: 25
+  assign_note: >-
+    A frontier lab's CEO arguing about what should be released. Read it as a
+    position paper with interests behind it, not as neutral analysis.
+
+- id: qi-2025-durable-safeguards
+  title: On Evaluating the Durability of Safeguards for Open-Weight LLMs
+  authors: [Qi, et al.]
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2412.07097
+  themes: [openweight, responsible]
+  est_minutes: 40
+  note: >-
+    ICLR 2025. Empirical evidence on how easily guardrails come off after
+    release. Code at github.com/princeton-polaris-lab/Evaluating-Durable-Safeguards.
+
+- id: cyber-risk-open-weight
+  title: 'Mitigating Cyber Risk in the Age of Open-Weight LLMs: Policy Gaps and
+    Technical Realities'
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2505.17109
+  themes: [openweight, responsible]
+  est_minutes: 35
+  note: >-
+    Notes that most "open-weight" models fail the Open Source Initiative
+    definition because the training data stays proprietary.
+
+- id: leon-2025-gpt5-open-weight
+  title: 'GPT-5 and open-weight large language models: Advances in reasoning,
+    transparency, and control'
+  authors: [Maikel Leon]
+  year: 2025
+  kind: paper
+  url: https://www.sciencedirect.com/science/article/abs/pii/S0306437925001061
+  themes: [openweight]
+  access: library
+  note: Information Systems (Elsevier). Reach via Bortz Library.
+
+- id: nyt-open-weight-ai
+  title: 'Open-Weight AI'
+  authors: [The New York Times]
+  year: 2026
+  kind: article
+  url: https://www.nytimes.com/2026/07/28/technology/open-weight-ai.html
+  themes: [openweight]
+  access: paywalled
+
+- id: open-weights-timeline
+  title: Open-Weights LLM Release History and Timeline
+  kind: guide
+  url: https://hidekazu-konishi.com/entry/open_weights_llm_release_history_and_timeline.html
+  themes: [openweight]
+  note: 2023-2026 across Llama, Mistral, Qwen, DeepSeek, gpt-oss.
+
+- id: nnsight-ndif
+  title: 'NNsight and NDIF: Democratizing Access to Open-Weight Foundation Model
+    Internals'
+  authors: [Fiotto-Kaufman, et al.]
+  year: 2025
+  kind: paper
+  url: https://proceedings.iclr.cc/paper_files/paper/2025/file/e6c65eb9b56719c1aa45ff73874de317-Paper-Conference.pdf
+  themes: [openweight]
+  note: Optional/advanced. For students drawn to interpretability.
+
+# ---------------------------------------------------------------------------
+# Theme 5 — Critical Perspectives
+# ---------------------------------------------------------------------------
+
+- id: cot-mirage
+  title: 'Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens'
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2508.01191
+  themes: [critical, technique]
+  est_minutes: 40
+  assign_note: >-
+    Assigned deliberately in the same week you learn chain-of-thought. Your job
+    is not to decide who wins; it is to describe what would settle it.
+
+- id: rpp-264-scaling-laws
+  title: 'Real Python #264: Large Language Models on the Edge of the Scaling Laws'
+  authors: [Jodie Burchell]
+  year: 2025
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/264/
+  themes: [critical]
+  est_minutes: 88
+  note: >-
+    Burchell arc, episode 4 of 5. Scaling limits, benchmark reliability, the
+    Stanford developer-productivity study, the MIT pilot-failure report.
+
+- id: rpp-291-reassessing
+  title: 'Real Python #291: Reassessing the LLM Landscape & Summoning Ghosts'
+  authors: [Jodie Burchell]
+  year: 2026
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/291/
+  themes: [critical, agents]
+  est_minutes: 75
+  note: >-
+    Burchell arc, episode 5 of 5. Context engineering, agent orchestration, and
+    the bubble critique. The title answers Karpathy's essay.
+
+- id: karpathy-animals-vs-ghosts
+  title: Animals vs Ghosts
+  authors: [Andrej Karpathy]
+  kind: article
+  url: https://karpathy.bearblog.dev/animals-vs-ghosts/
+  themes: [critical]
+  est_minutes: 20
+  assign_note: Read alongside RPP #291, which takes its title from this argument.
+
+- id: burchell-beyond-the-hype
+  title: 'Beyond the Hype: A Realistic Look at Large Language Models'
+  authors: [Jodie Burchell]
+  year: 2024
+  kind: video
+  url: https://www.youtube.com/watch?v=Pv0cfsastFs
+  themes: [critical]
+  est_minutes: 50
+  note: GOTO 2024.
+
+- id: pydantic-human-in-the-loop
+  title: The Human-in-the-Loop is Tired
+  authors: [Pydantic]
+  year: 2026
+  kind: article
+  url: https://pydantic.dev/articles/the-human-in-the-loop-is-tired
+  themes: [critical, agents]
+  est_minutes: 15
+  assign_note: >-
+    On supervision fatigue. Relevant to you personally by Week 15, which is
+    the point of assigning it then.
+
+# ---------------------------------------------------------------------------
+# Theme 6 — Responsible AI & Society
+# ---------------------------------------------------------------------------
+
+- id: auditing-ai
+  title: Auditing AI
+  authors: [The Marquand House Collective]
+  year: 2026
+  kind: book
+  url: https://mitpress.mit.edu/9780262051729/auditing-ai/
+  themes: [responsible]
+  access: open
+  assign_note: >-
+    Open access -- free, no purchase required. Read the Introduction and one
+    failure case of your choosing.
+  note: >-
+    MIT Press Essential Knowledge. Eleven authors across computing, law, policy,
+    social science and journalism; members coined "algorithm audit" in 2014.
+
+- id: verge-ai-factory
+  title: 'Inside the AI Factory: The Humans That Make Tech Seem Human'
+  authors: [Josh Dzieza]
+  year: 2023
+  kind: article
+  url: https://www.theverge.com/features/23764584/ai-artificial-intelligence-data-notation-labor-scale-surge-remotasks-openai-chatbots
+  themes: [responsible]
+  est_minutes: 35
+  assign_note: >-
+    The labour behind the training data. No technical background needed, and
+    that is deliberate.
+
+- id: lithub-replace-myself
+  title: What Happened When I Tried to Replace Myself with ChatGPT in My English Classroom
+  kind: article
+  url: https://lithub.com/what-happened-when-i-tried-to-replace-myself-with-chatgpt-in-my-english-classroom/
+  themes: [responsible]
+  est_minutes: 20
+  note: Written about a classroom much like this one.
+
+# ---------------------------------------------------------------------------
+# Theme 11 — Deployment, Cost & Production
+# ---------------------------------------------------------------------------
+
+- id: claude-code
+  title: Claude Code
+  authors: [Anthropic]
+  kind: tool
+  url: https://claude.com/claude-code
+  themes: [ecosystem, deployment]
+  note: >-
+    Claude in the terminal. Installed in the Week 1 lab; used all term.
+
+- id: claude-code-setup
+  title: Claude Code — Set Up
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/claude-code/setup
+  themes: [ecosystem]
+  est_minutes: 15
+  assign_note: >-
+    Install instructions for macOS, Windows, and Linux. Try it before the Week 1
+    lab if you like; we do it together either way.
+
+- id: claude-code-quickstart
+  title: Claude Code — Quickstart
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/claude-code/quickstart
+  themes: [ecosystem]
+  est_minutes: 20
+  note: The first-session walkthrough. Worth doing once on your own.
+
+- id: claude-desktop
+  title: Claude Desktop App
+  authors: [Anthropic]
+  kind: tool
+  url: https://claude.ai/download
+  themes: [ecosystem]
+  note: >-
+    macOS and Windows. The comfortable surface for long conversations, and where
+    most of your everyday prompting will happen.
+
+- id: claude-quickstart
+  title: Claude API — Get Started
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/get-started
+  themes: [deployment, ecosystem]
+  est_minutes: 20
+  assign_note: >-
+    Work through this before the Week 1 lab if you can. If you cannot, we do it
+    together in class -- nobody starts the semester behind on setup.
+
+- id: anthropic-sdk-python
+  title: Anthropic Python SDK
+  kind: tool
+  url: https://github.com/anthropics/anthropic-sdk-python
+  themes: [deployment, ecosystem]
+  note: '`pip install anthropic`. The README is the fastest reference for the client.'
+
+- id: claude-api-overview
+  title: Claude API Reference
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/api/overview
+  themes: [deployment]
+  note: Reference, not a read-through. You will live in this during your project.
+
+- id: vscode
+  title: Visual Studio Code
+  kind: tool
+  url: https://code.visualstudio.com/
+  themes: [ecosystem]
+  note: Course editor. Free, and the setup we do together in Week 1.
+
+- id: anthropic-token-counting
+  title: Token Counting
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/build-with-claude/token-counting
+  themes: [deployment, foundations]
+  est_minutes: 15
+  assign_note: >-
+    The practical answer to "how much will this cost?" Note the warning about
+    using the wrong tokenizer -- a count from another vendor's tokenizer is
+    simply wrong for this model, which is a Week 2 lesson arriving early.
+
+- id: anthropic-prompt-caching
+  title: Prompt Caching
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/build-with-claude/prompt-caching
+  themes: [deployment]
+  est_minutes: 30
+  assign_note: >-
+    Caching is a prefix match: one changed byte early in the prompt invalidates
+    everything after it. That single sentence explains most of what follows.
+
+- id: anthropic-batch-processing
+  title: Batch Processing
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/build-with-claude/batch-processing
+  themes: [deployment]
+  est_minutes: 15
+  note: 50% cheaper for anything that does not need an answer immediately.
+
+- id: anthropic-pricing
+  title: Claude Pricing
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/about-claude/pricing
+  themes: [deployment]
+  note: Per-million-token rates. The input for every cost estimate you will make.
+
+- id: anthropic-errors
+  title: API Errors and Retry Guidance
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/api/errors
+  themes: [deployment]
+  est_minutes: 15
+  assign_note: >-
+    Read the 429 section carefully. Rate limits are the failure your project is
+    most likely to hit in front of an audience.
+
+- id: anthropic-context-windows
+  title: Context Windows
+  authors: [Anthropic]
+  kind: guide
+  url: https://docs.claude.com/en/docs/build-with-claude/context-windows
+  themes: [deployment, technique]
+  est_minutes: 15
+  note: >-
+    The "context constraints" half of the course description. What actually
+    happens as a conversation grows.
+
+- id: anthropic-cookbook
+  title: Anthropic Cookbook
+  authors: [Anthropic]
+  kind: tool
+  url: https://github.com/anthropics/anthropic-cookbook
+  themes: [deployment, technique]
+  note: Runnable notebooks. The best source of working examples for your project.
+
+# ---------------------------------------------------------------------------
+# Theme 7 — Tools & Ecosystem (cross-cutting)
+# ---------------------------------------------------------------------------
+
+- id: ms-copilot
+  title: Microsoft Co-Pilot
+  kind: tool
+  url: https://m365.cloud.microsoft/
+  themes: [ecosystem]
+  note: >-
+    College-provided subscription. Available to all H-SC students at no cost --
+    use this rather than paying for a personal plan.
+
+- id: boodlebox
+  title: BoodleBox
+  kind: tool
+  url: https://boodlebox.ai/
+  themes: [ecosystem]
+  note: >-
+    College-provided subscription. Gives access to several models side by side,
+    which is useful for the comparison exercises.
+
+- id: claude-ai
+  title: Claude
+  authors: [Anthropic]
+  kind: tool
+  url: https://claude.ai/
+  themes: [ecosystem]
+  note: Used in class demonstrations. The college subscriptions are the supported route.
+
+- id: openai-playground
+  title: OpenAI Playground
+  kind: tool
+  url: https://platform.openai.com/playground
+  themes: [ecosystem]
+  note: Parameter experimentation -- temperature, top-p, and friends.
+
+- id: huggingface
+  title: Hugging Face
+  kind: tool
+  url: https://huggingface.co/
+  themes: [ecosystem, truthfulness]
+  note: Datasets, leaderboards, Spaces, and the `evaluate` library.
+
+- id: hackaprompt
+  title: HackAPrompt
+  kind: tool
+  url: https://www.hackaprompt.com/
+  themes: [ecosystem, responsible]
+  note: Red-teaming competition. Anchors the midterm.
+
+# ---------------------------------------------------------------------------
+# Theme 8 — Project Methodology & Documentation (cross-cutting)
+# ---------------------------------------------------------------------------
+
+- id: adr-github
+  title: Architectural Decision Records
+  kind: guide
+  url: https://adr.github.io/
+  themes: [methodology]
+  est_minutes: 20
+  assign_note: >-
+    You will write these all semester. Read the overview and skim one example.
+
+- id: adr-templates
+  title: ADR Templates
+  kind: guide
+  url: https://adr.github.io/adr-templates/
+  themes: [methodology]
+  note: Use the Nygard template unless you have a reason not to.
+
+# ---------------------------------------------------------------------------
+# Peer syllabi — instructor reference, not assigned
+# ---------------------------------------------------------------------------
+
+- id: cmu-17630
+  title: 'CMU 17-630: Prompt Engineering'
+  authors: [Travis Breaux]
+  kind: guide
+  url: https://www.cs.cmu.edu/~breaux/prompting/syllabus.html
+  themes: [ecosystem]
+  note: Benchmarked for structure. Not assigned to students.

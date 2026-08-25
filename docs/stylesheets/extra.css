@@ -1,0 +1,121 @@
+/* Course site styling.
+   Material handles almost everything; these are targeted adjustments for the
+   schedule table and reading lists, which are the two things students actually
+   spend time in. */
+
+:root {
+  --course-virtual: #7c5cff;
+  --course-due: #e8590c;
+}
+
+[data-md-color-scheme="slate"] {
+  --course-virtual: #a48fff;
+  --course-due: #ff922b;
+}
+
+/* --- Landing page ------------------------------------------------------- */
+
+.md-typeset h1 + h2 {
+  margin-top: -0.6rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--md-default-fg-color--light);
+  border: none;
+}
+
+/* --- Schedule table ----------------------------------------------------- */
+
+/* The schedule is the page students hit most. Keep it dense and scannable:
+   week numbers narrow, dates non-wrapping, topics given the remaining room. */
+
+.md-typeset table:not([class]) {
+  font-size: 0.76rem;
+}
+
+.md-typeset table:not([class]) th:first-child,
+.md-typeset table:not([class]) td:first-child {
+  width: 3.5rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) td:nth-child(2) {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Cancelled meetings are visible but recede. */
+.md-typeset table:not([class]) td em {
+  color: var(--md-default-fg-color--lighter);
+  font-size: 0.9em;
+}
+
+/* Session icons in the schedule */
+.md-typeset table:not([class]) .twemoji {
+  vertical-align: -0.15em;
+  height: 0.95em;
+  width: 0.95em;
+}
+
+/* --- Reading lists ------------------------------------------------------ */
+
+/* Assignment notes hang under their reading, indented and quieter than the
+   title, so a list of five readings still reads as five items. */
+
+.md-typeset li > .twemoji:first-child {
+  vertical-align: -0.2em;
+  margin-right: 0.15em;
+}
+
+.md-typeset li small {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.72rem;
+}
+
+.md-typeset li br + .twemoji,
+.md-typeset li br {
+  line-height: 1.9;
+}
+
+/* --- Cards -------------------------------------------------------------- */
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.4rem;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.08);
+}
+
+/* --- Session pages ------------------------------------------------------ */
+
+/* The date/location line under a session title. */
+.md-typeset h1 + p strong:first-child {
+  font-size: 1.05em;
+}
+
+/* Footer navigation between consecutive sessions. */
+.md-typeset hr + p {
+  font-size: 0.76rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* --- Print -------------------------------------------------------------- */
+
+/* Some students print the syllabus. Make that not look broken. */
+@media print {
+  .md-typeset table:not([class]) {
+    font-size: 0.7rem;
+  }
+  .md-typeset a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+    word-break: break-all;
+  }
+  .md-typeset .grid.cards a::after {
+    content: "";
+  }
+}
