@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Block commits containing anything that looks like a credential.
+#
+# This repository is public. A key pushed here is scraped within minutes, and
+# the fix is never "delete it in the next commit" -- it stays in history.
+#
+# Enable once per clone:  git config core.hooksPath .githooks
+
+set -uo pipefail
+
+# Anthropic keys and OAuth tokens, plus generic high-entropy secret assignments.
+PATTERNS='sk-ant-[A-Za-z0-9_-]{16,}|gho_[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{16,}|(ANTHROPIC_API_KEY|OPENAI_API_KEY|AWS_SECRET_ACCESS_KEY)[[:space:]]*=[[:space:]]*["'"'"']?[A-Za-z0-9_/+-]{16,}'
+
+# Only scan what is actually staged, and only the added lines.
+hits=$(git diff --cached --no-color -U0 --diff-filter=ACM \
+       | grep -E '^\+' | grep -vE '^\+\+\+' \
+       | grep -nEo "$PATTERNS" || true)
+
+if [ -n "$hits" ]; then
+  echo
+  echo "BLOCKED: staged changes look like they contain a credential."
+  echo
+  echo "$hits" | sed 's/^/    /' | cut -c1-90
+  echo
+  echo "Nothing was committed. Remove the secret, then commit again."
+  echo "Keys belong in the keyring:"
+  echo "    secret-tool store --label='Anthropic API key' service anthropic account teaching"
+  echo
+  echo "If this is a false positive (documentation, a fake example), bypass with:"
+  echo "    git commit --no-verify"
+  echo
+  exit 1
+fi
+
+# Belt and braces: never allow a .env file in.
+if git diff --cached --name-only --diff-filter=ACM | grep -qE '(^|/)\.env(\.|$)'; then
+  echo
+  echo "BLOCKED: a .env file is staged. Those hold secrets and are gitignored"
+  echo "for a reason. Use --no-verify only if you are certain it is safe."
+  echo
+  exit 1
+fi
+
+exit 0

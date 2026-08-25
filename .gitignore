@@ -23,3 +23,7 @@ __pycache__/
 # content. Revisit before any public release.
 prompts/
 CLAUDE.md
+
+# Local secrets — never commit
+.env
+.env.*
