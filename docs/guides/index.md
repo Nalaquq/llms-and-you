@@ -28,6 +28,15 @@ of them are things students ask about.
     The template, the four required ADRs and when they are due, and what
     separates a decision record from a note.
 
+-   :material-source-repository:{ .lg .middle } **[The project template](https://github.com/Nalaquq/llms-and-you-project)**
+
+    ---
+
+    Where your semester project starts. Prompts kept as versioned files, an
+    evaluation set, both logs you are graded on, and a hook that stops you
+    committing an API key. Use the green **Use this template** button — do not
+    fork.
+
 -   :material-account-clock-outline:{ .lg .middle } **[Individual meetings](conference-weeks.md)**
 
     ---
@@ -52,6 +61,7 @@ All free. Set up in the Week 1 lab.
 | [Claude API](https://docs.claude.com/en/api/overview) | The labs and your project. Needs an API key, arranged at the start of term |
 | [Hugging Face](https://huggingface.co/) | Datasets, leaderboards, the `evaluate` library |
 | [HackAPrompt](https://www.hackaprompt.com/) | Red-teaming midterm, Weeks 8–9 |
+| [Project template](https://github.com/Nalaquq/llms-and-you-project) | The starting point for your semester project |
 
 If cost is ever a barrier to any of these, tell me early. It is a solvable
 problem and not one you should be quietly working around.

@@ -33,6 +33,7 @@ arguing that the field's most celebrated technique is an illusion. You will lear
 
 [Read the syllabus](syllabus.md){ .md-button .md-button--primary }
 [See the schedule](schedule.md){ .md-button }
+[Start your project](https://github.com/Nalaquq/llms-and-you-project){ .md-button }
 
 ---
 

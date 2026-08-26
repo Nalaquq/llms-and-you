@@ -148,6 +148,16 @@ we have talked** — access is handled for you.
 
 ---
 
+## Your project starts from a template
+
+When you begin the semester project, do not start from an empty folder. Start
+from **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
+and use the green **Use this template** button — not fork. It sets up the
+structure you are graded on, and its README covers the environment and API key
+steps again in the order you will actually need them.
+
+---
+
 ## When something breaks
 
 Errors are information, not failure. The common ones:

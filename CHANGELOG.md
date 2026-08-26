@@ -20,6 +20,12 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — the project template is now findable **[student-facing]**
+
+It was linked once, mid-way down the assignments page. It is now also on the
+home page as a button, in the Guides index as a card and in that page's tools
+table, and in the setup guide where students are already installing things.
+
 ### Changed — syllabus and schedule wording **[student-facing]**
 
 Instructor revisions to the course description, the lecture/lab split, and the
