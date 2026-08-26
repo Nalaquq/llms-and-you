@@ -78,8 +78,7 @@ arguing that the field's most celebrated technique is an illusion. You will lear
 
 Every reading in this course is free and open access.
 
-We install everything together in class — Claude Code and the desktop app in
-week one and Python the week after. When a
+I will provide tutorials and how-to-guides for installing specific libraries and toolkits. If you fall behind in a lab it is your responsibility to meet with me in office hours so we can troubleshoot your machine. When a
 paper contains mathematics you do not understand, you will be told which sections
 to skip and what to take from the rest. Learning to read a paper you cannot
 fully understand is itself one of the skills this course teaches.
