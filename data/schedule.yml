@@ -3,6 +3,10 @@
 # No dates here. Sessions declare (week, day); calendar.py assigns the real date
 # and flags it as an individual-meeting session if it falls inside such a window.
 #
+# `guides` points at a page in docs/guides/, optionally at one heading in it,
+# and is validated against the file. If we wrote a guide, the session where a
+# student needs it has to name it -- see test_every_guide_is_reachable_from_a_session.
+#
 # Rhythm: Tuesday carries the reading, Thursday is hands-on and assigns no new
 # prep. Two weeks break the pattern because a break removes one meeting (W8, W14),
 # and three weeks run as individual meetings rather than a group class (W4, W5, W10).
@@ -45,21 +49,31 @@
     account, your own copy of the project template, and the two tools that read
     it. Then the practice that runs through the whole course: writing down what
     you decided and why, while you are deciding it.
+  guides:
+    - 'setup#week-1-your-repository-and-your-tools'
+    - writing-adrs
   activity: |-
     Steps 1 to 6 are done together, one line at a time, on whatever machine you
     brought. Nothing is assumed. If something does not work on your machine that
     is normal, and it is my problem to solve rather than yours.
 
+    Every step below is also written out in
+    [the setup guide](../guides/setup.md#week-1-your-repository-and-your-tools).
+    That page is the fallback: use it if you miss this session, if you get a
+    step wrong, or if you are setting up a second machine later in the term.
+
     ### 1. Make a GitHub account
 
     Free. Pick a username you would be willing to put on a CV -- this account
     will outlive the course.
+    [:material-compass-outline: Guide](../guides/setup.md#a-github-account)
 
     ### 2. Take your own copy of the project template
 
     Open the course project template and press the green **Use this template**
     button. **Not fork.** A fork stays tied to my repository; a template copy is
     yours. Make it public and give it a name that says what it is.
+    [:material-compass-outline: Guide](../guides/setup.md#your-own-copy-of-the-project-template)
 
     ### 3. Clone it to your machine
 
@@ -70,6 +84,7 @@
 
     Put it somewhere you will find it again. That sounds trivial. It is the
     first of today's decisions, and you will be writing it up before you leave.
+    [:material-compass-outline: Guide](../guides/setup.md#clone-it)
 
     Then turn on the credential guard, once per clone:
 
@@ -96,6 +111,7 @@
 
     Read the answer against step 6 below. It will be broadly right. Notice where
     it is confident and wrong -- we spend Week 6 on why that happens.
+    [:material-compass-outline: Guide](../guides/setup.md#claude-code-the-cli-we-use-all-term)
 
     ### 5. Install VS Code
 
@@ -103,11 +119,14 @@
     -- and run `claude` again from VS Code's built-in terminal, so the editor and
     the model are looking at the same directory. The Python extension comes next
     week. Today it is somewhere to see the files.
+    [:material-compass-outline: Guide](../guides/setup.md#vs-code)
 
     ### 6. Walk the structure
 
     You did not build this layout, so none of it is obvious. Every folder in it
-    is something the course grades, and we go through them together:
+    is something the course grades, and we go through them together -- the same
+    table is in [the setup guide](../guides/setup.md#what-is-in-the-folder) for
+    when you need it again:
 
     | Path | What it is for |
     |:---|:---|
@@ -132,8 +151,14 @@
     install method, what you named the repository, where you put the folder,
     whether you took the first thing Claude Code suggested or pushed back. Go
     back and write three of them up as Architectural Decision Records, using the
-    Nygard template -- context, decision, alternatives, consequences. They go in
-    `docs/adr/`, where the template is already waiting for you.
+    [Nygard template](../guides/writing-adrs.md#the-template) -- context,
+    decision, alternatives, consequences. They go in `docs/adr/`, where the
+    template is already waiting for you.
+
+    Read [Writing ADRs](../guides/writing-adrs.md) before you start. It has the
+    template, the four required ADRs and when each is due, and -- the part worth
+    your time -- [what separates a good one from a bad
+    one](../guides/writing-adrs.md#what-separates-a-good-adr-from-a-bad-one).
 
     Then keep going. Give Claude Code a small task in your repository and **write
     the record as you decide, not afterwards.** You will notice these are
@@ -143,6 +168,10 @@
     **ADR-001 is due** -- any one of them, your choice. Commit it and push it, so
     it is on GitHub rather than only on your laptop. What is graded is whether
     the alternatives section contains a real alternative.
+
+    Something not working? [When something
+    breaks](../guides/setup.md#when-something-breaks) lists the errors this lab
+    actually produces and what each one means. Bring the exact error text.
   optional:
     - github
     - project-template
@@ -191,6 +220,8 @@
   summary: >-
     Python and VS Code set up, then the first thing we measure with them: how
     text becomes tokens, and what that costs you.
+  guides:
+    - 'setup#week-2-python-and-vs-code'
   activity: >-
     First, the toolchain. Install Python and VS Code, make a virtual
     environment, and `pip install anthropic`. Again: line by line, together, no
@@ -219,6 +250,8 @@
   summary: >-
     The 2017 paper the course is named after. We read it for its argument and
     its structure, not its mathematics.
+  guides:
+    - reading-papers
   readings:
     - alammar-illustrated-transformer
     - 3blue1brown-attention
@@ -256,6 +289,8 @@
   summary: >-
     Zero-shot, few-shot, and the shape of an instruction -- worked through on
     your own this week, then discussed one-to-one.
+  guides:
+    - conference-weeks
   readings: [boonstra-prompt-engineering, dair-prompting-guide, anthropic-pe-docs]
   questions:
     - When does adding examples stop helping?
@@ -298,6 +333,9 @@
   summary: >-
     Fifty-eight named techniques and the vocabulary to tell them apart -- read
     on your own, then narrowed to three in conversation.
+  guides:
+    - conference-weeks
+    - reading-papers
   readings: [schulhoff-2024-prompt-report]
   optional: [learn-prompting, dair-prompt-hub]
   questions:
@@ -316,6 +354,9 @@
   theme: methodology
   summary: >-
     Your semester project gets defined this week, one student at a time.
+  guides:
+    - conference-weeks
+    - 'writing-adrs#the-four-required-adrs'
   due: Project proposal + ADR-002 (technique selection and rationale)
   activity: >-
     Bring your one-page proposal and the decision record explaining which
@@ -333,6 +374,8 @@
   summary: >-
     The most-cited technique in the field, assigned alongside the paper arguing
     it is an illusion. Held in person because the argument is the lesson.
+  guides:
+    - reading-papers
   readings: [cot-mirage]
   optional: [theoretical-framework-pe]
   questions:
@@ -366,6 +409,8 @@
   summary: >-
     Models say false things fluently. TruthfulQA's uncomfortable finding is that
     bigger models were worse.
+  guides:
+    - reading-papers
   readings: [lin-2021-truthfulqa, rpp-188-bias-truthfulness]
   optional: [burchell-lies-damned-lies]
   questions:
@@ -417,6 +462,8 @@
   summary: >-
     A live disagreement in the literature about what the benchmarks are even
     measuring -- read against the TruthfulQA paper from Week 7.
+  guides:
+    - reading-papers
   readings: [hallulens, li-2023-halueval]
   optional: [huang-2023-hallucination-survey, awesome-hallucination-detection]
   questions:
@@ -446,6 +493,9 @@
   summary: >-
     Giving a model knowledge it was never trained on. Build at your own pace
     this week, with one-to-one time for whatever breaks.
+  guides:
+    - conference-weeks
+    - reading-papers
   readings: [lewis-2020-rag, pinecone-chunking]
   optional: [boonstra-prompt-engineering, info7375-playlist]
   questions:
@@ -464,6 +514,9 @@
   topic: 'Individual Meetings: Prototype Review & Goal Setting'
   theme: rag
   summary: A working retrieval pipeline, however small, reviewed one-to-one.
+  guides:
+    - conference-weeks
+    - 'writing-adrs#the-four-required-adrs'
   due: Working RAG prototype + ADR-004 (retrieval design)
   activity: >-
     Demonstrate your prototype and talk through what you decided about chunking,
@@ -484,6 +537,8 @@
   summary: >-
     From answers to actions. ReAct is a prompting pattern before it is an
     architecture, which is exactly why it belongs in this course.
+  guides:
+    - reading-papers
   readings: [yao-2022-react, schick-2023-toolformer]
   optional: [shinn-2023-reflexion]
   questions:
@@ -513,6 +568,8 @@
   summary: >-
     Most things called agents are workflows, and most things that should be
     workflows are being built as agents.
+  guides:
+    - reading-papers
   readings: [anthropic-building-effective-agents, yao-2024-tau-bench]
   optional: [mcp-docs, jimenez-2023-swebench]
   questions:
@@ -655,6 +712,8 @@
   topic: Final Presentations
   theme: methodology
   summary: The project, the decision log, and what you would do differently.
+  guides:
+    - 'writing-adrs#the-four-required-adrs'
   due: Final project, ADR log, and reflective introduction
   activity: >-
     Presentations. Ten minutes each: what you built, which decisions you

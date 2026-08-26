@@ -397,3 +397,84 @@ Week 1. The duplication is deliberate.
 The risk is a student who joins the course in Week 2 and has no repository. The
 setup guide is written so that the Week 1 section can be worked through alone,
 which is the same fallback that already existed for the Claude Code install.
+
+---
+
+## ADR-008: Make "link the guide" a field with a test, not a habit
+
+**Status:** Accepted
+
+### Context
+
+The site has four written guides — setup, reading papers, writing ADRs, and
+individual meetings — and until now **no session linked to any of them.** They
+were reachable from the Guides index and from the top navigation, and nowhere
+else.
+
+That is the wrong place for them. Students do not browse this site. They open
+the session they are stuck on, usually the night before, and read that one page.
+A guide written for exactly that moment, linked from a page they were not on,
+is a guide that does not get read. The Week 1 lab was the clearest case: seven
+steps, every one of them written up in `setup.md`, and not one link.
+
+The obvious fix — remember to paste the links in — is the fix that fails. It is
+the same failure mode ADR-005 identified for the AI policy: a rule that lives in
+someone's memory is a rule that holds until the week it does not.
+
+### Decision
+
+`Session` gains a `guides` field: a list of `slug` or `slug#anchor` references
+into `docs/guides/`. Guides are read out of their own Markdown files by
+`guides.py`, which takes the title from the H1 and maps every anchor to the
+heading it names, so nothing is authored twice. References are validated at load
+time against both the file and the heading. They render as an admonition above
+the reading list, naming the specific section where one is given.
+
+Three tests hold the rule up:
+
+- `test_every_guide_is_reachable_from_a_session` — if we wrote a guide, some
+  session names it. This is the rule itself.
+- `test_setup_sessions_point_at_the_setup_guide` and
+  `test_individual_meeting_sessions_explain_themselves` — the two cases where a
+  missing link strands a student with no way forward.
+- `test_guide_links_written_into_prose_still_resolve` — session prose also links
+  to guide sections inline, step by step. Those are plain text and would rot
+  silently, so they are checked by the same rule.
+
+### Alternatives considered
+
+**Paste the links into the session prose and stop there.** What was asked for,
+and it is half the answer — the inline per-step links are genuinely the useful
+ones, and they stayed. Rejected on its own because it fixes the four sessions
+someone thought about and leaves the next guide unlinked, which is how this
+happened in the first place.
+
+**A `guides.yml` data file.** Rejected. The guide's title and its headings
+already exist in the guide, and a second copy in YAML is a second thing to
+update when a heading is reworded — the exact drift this repository is built to
+prevent. Reading the Markdown is more code and less duplication, and it is the
+right trade at four files.
+
+**Auto-link by theme or keyword** — infer that a session mentioning `pip` wants
+the setup guide. Rejected as too clever. Which guide helps is a judgement about
+where students get stuck, and it should be written down as a judgement.
+
+**Validate anchors by building the site and checking the HTML.** Rejected as too
+slow for a test suite that runs on every edit. `guides.py` mirrors the toc
+extension's slugify instead, and `test_guide_anchors_match_what_markdown_will_generate`
+compares the two directly, so drift in the upstream slug rules fails here rather
+than in a student's browser.
+
+### Consequences
+
+Adding a guide to `docs/guides/` now fails the test suite until some session
+points at it. That is the intended cost: it forces the question "who is stuck,
+and where?" at the moment the guide is written rather than never.
+
+Renaming a heading in a guide also fails, naming the sessions that pointed at
+it. This is the same bargain as resource ids, and it is worth the same price.
+
+The `{ #anchor }` convention matters more than it did. A heading with an
+explicit anchor is stable under rewording; one without changes its anchor when
+the words change. Guides whose sections are linked from sessions should carry
+explicit anchors, and `setup.md`'s two week headings already do.

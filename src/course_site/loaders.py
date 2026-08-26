@@ -15,6 +15,7 @@ import yaml
 from pydantic import TypeAdapter
 
 from .calendar import assign_dates
+from .guides import load_guides, split_ref
 from .models import Assignment, DatedSession, Resource, Semester, Session, SessionKind, Theme
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
@@ -94,6 +95,7 @@ def load_schedule() -> list[DatedSession]:
     sessions = TypeAdapter(list[Session]).validate_python(_read("schedule.yml"))
     resources = load_resources()
     themes = load_themes()
+    guides = load_guides()
 
     for s in sessions:
         if s.theme not in themes:
@@ -101,6 +103,19 @@ def load_schedule() -> list[DatedSession]:
         for rid in [*s.readings, *s.optional]:
             if rid not in resources:
                 raise ValueError(f"session {s.slug!r} references unknown resource {rid!r}")
+        for ref in s.guides:
+            gid, anchor = split_ref(ref)
+            guide = guides.get(gid)
+            if guide is None:
+                raise ValueError(
+                    f"session {s.slug!r} points at guide {gid!r}, which is not a page in "
+                    f"docs/guides/. Available: {sorted(guides)}"
+                )
+            if anchor and anchor not in guide.sections:
+                raise ValueError(
+                    f"session {s.slug!r} points at {ref!r}, but {gid}.md has no such "
+                    f"heading. A renamed heading breaks the link silently otherwise."
+                )
         if s.kind is SessionKind.LAB and s.readings:
             raise ValueError(
                 f"lab session {s.slug!r} assigns readings. Labs carry no new prep by "

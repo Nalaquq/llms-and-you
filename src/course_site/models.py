@@ -8,6 +8,7 @@ silently shipping a broken syllabus to students.
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from enum import StrEnum
 
@@ -108,6 +109,24 @@ class Theme(Base):
     blurb: str
 
 
+class Guide(Base):
+    """One hand-written page in ``docs/guides/``, read back out of its own file.
+
+    Sessions point at these by id so that a guide we wrote is a guide students
+    are actually sent to. Nothing here is authored twice: the title is the
+    file's H1, and ``sections`` maps every anchor in it to the heading it names.
+    """
+
+    id: str
+    title: str
+    sections: dict[str, str] = Field(default_factory=dict)
+
+    @property
+    def path(self) -> str:
+        """Link target from a generated session page."""
+        return f"../guides/{self.id}.md"
+
+
 class Resource(Base):
     """A single assignable thing, defined exactly once and referenced by id.
 
@@ -169,6 +188,24 @@ class Session(Base):
     summary: str | None = None
     genai: GenAI = GenAI.ALLOWED
     genai_note: str | None = None
+    guides: list[str] = Field(default_factory=list)
+    """Guides to send students to, as ``slug`` or ``slug#anchor``.
+
+    A guide exists so that a student stuck at 11pm the night before has
+    somewhere to go. That only works if the session they are stuck on names it,
+    so this is a field with a test behind it rather than a link someone
+    remembers to paste in.
+    """
+
+    @field_validator("guides")
+    @classmethod
+    def _guide_refs_are_well_formed(cls, v: list[str]) -> list[str]:
+        for ref in v:
+            if not re.fullmatch(r"[a-z0-9-]+(#[\w-]+)?", ref):
+                raise ValueError(f"guide reference {ref!r} must be 'slug' or 'slug#anchor'")
+        if len(set(v)) != len(v):
+            raise ValueError(f"a session lists the same guide twice: {v}")
+        return v
 
     @model_validator(mode="after")
     def _prohibition_must_be_explained(self) -> Session:

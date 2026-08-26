@@ -7,7 +7,8 @@ a reading looks identical wherever a student meets it.
 
 from __future__ import annotations
 
-from .models import Access, Resource
+from .guides import split_ref
+from .models import Access, Guide, Resource
 
 
 def reading_entry(r: Resource) -> str:
@@ -37,3 +38,24 @@ def reading_entry(r: Resource) -> str:
 def reading_block(resources: dict[str, Resource], ids: list[str]) -> str:
     """Several readings, in the order the session lists them."""
     return "\n".join(reading_entry(resources[rid]) for rid in ids)
+
+
+def guide_block(guides: dict[str, Guide], refs: list[str]) -> str:
+    """The guides for a session, as an admonition placed above the reading.
+
+    A session page is where a student who is stuck actually is, so the pointer
+    to the written-down version belongs there rather than only in the Guides
+    index. When a reference carries an anchor, the section it lands on is named
+    -- "the setup guide" is not much use at 11pm; "Week 1: your repository and
+    your tools" is.
+    """
+    lines = ['!!! tip "Guides for this session"', ""]
+    for ref in refs:
+        gid, anchor = split_ref(ref)
+        g = guides[gid]
+        target = f"{g.path}#{anchor}" if anchor else g.path
+        entry = f"    - :material-compass-outline: **[{g.title}]({target})**"
+        if anchor:
+            entry += f" — {g.sections[anchor]}"
+        lines.append(entry)
+    return "\n".join(lines) + "\n"

@@ -20,6 +20,29 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — every session now links the guide you need for it **[student-facing]**
+
+The site has four guides — [setting up your
+tools](https://Nalaquq.github.io/llms-and-you/guides/setup/), [how to read a
+paper](https://Nalaquq.github.io/llms-and-you/guides/reading-papers/), [writing
+ADRs](https://Nalaquq.github.io/llms-and-you/guides/writing-adrs/), and
+[individual meetings](https://Nalaquq.github.io/llms-and-you/guides/conference-weeks/)
+— and until now no session page linked to any of them. They were only findable
+from the Guides index, which is not where anyone is at 11pm.
+
+Every session that needs one now names it, in a box above the reading, pointing
+at the specific section rather than the top of the page. The Week 1 lab also
+links a guide from each of its seven steps, and points at
+[When something breaks](https://Nalaquq.github.io/llms-and-you/guides/setup/#when-something-breaks)
+at the end. Every paper session links the three-pass reading method; every
+individual-meeting session links the logistics; every session with an ADR due
+links the four required ADRs.
+
+This is enforced rather than remembered: a guide no session points at now fails
+the build, as does a link into a heading that has been renamed. Reasoning in
+[ADR-008](https://Nalaquq.github.io/llms-and-you/adr/#adr-008-make-link-the-guide-a-field-with-a-test-not-a-habit).
+
+
 ### Changed — the Week 1 lab now sets up your whole repository **[student-facing]**
 
 Thursday of Week 1 was *Lab: Keeping a Decision Record*, and it installed

@@ -14,9 +14,10 @@ import mkdocs_gen_files
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from course_site.guides import load_guides
 from course_site.loaders import load_resources, load_schedule, load_themes
 from course_site.models import DatedSession, GenAI, SessionKind
-from course_site.render import reading_block
+from course_site.render import guide_block, reading_block
 
 KIND_LABEL = {
     SessionKind.SEMINAR: "Seminar",
@@ -54,6 +55,11 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
 
     if s.summary:
         out.append(f"{s.summary.strip()}\n")
+
+    # Above the reading, not below the activity: a student who is stuck is
+    # stuck before they start, and this is the page they are already on.
+    if s.guides:
+        out.append(guide_block(load_guides(), s.guides))
 
     if s.due:
         out.append(f'!!! danger "Due today"\n\n    {s.due}\n')

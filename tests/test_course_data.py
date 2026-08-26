@@ -9,10 +9,12 @@ course logistics fail here rather than reaching a student.
 from __future__ import annotations
 
 import datetime as dt
+import re
 
 import pytest
 
 from course_site.calendar import held_dates, meeting_dates, week_of
+from course_site.guides import GUIDES_DIR, load_guides, split_ref
 from course_site.loaders import (
     load_assignments,
     load_resources,
@@ -26,6 +28,7 @@ SEM = load_semester()
 SCHEDULE = load_schedule()
 RESOURCES = load_resources()
 THEMES = load_themes()
+GUIDES = load_guides()
 
 
 # --- Calendar ------------------------------------------------------------
@@ -161,6 +164,93 @@ def test_no_resource_is_listed_twice_in_one_session():
     for d in SCHEDULE:
         ids = [*d.session.readings, *d.session.optional]
         assert len(ids) == len(set(ids)), f"{d.slug} repeats a resource"
+
+
+# --- Guides ---------------------------------------------------------------
+
+
+def test_every_session_guide_reference_resolves():
+    """A session may only point at a guide page that exists, at a heading that exists."""
+    for d in SCHEDULE:
+        for ref in d.session.guides:
+            gid, anchor = split_ref(ref)
+            assert gid in GUIDES, f"{d.slug} points at missing guide {gid!r}"
+            if anchor:
+                assert anchor in GUIDES[gid].sections, (
+                    f"{d.slug} points at {ref!r}, but that heading is gone"
+                )
+
+
+def test_every_guide_is_reachable_from_a_session():
+    """A guide nobody is sent to is a guide nobody reads.
+
+    The Guides index lists them all, but students arrive at this site through
+    the schedule -- they open the session they are stuck on. If we wrote a
+    guide, some session has to name it.
+    """
+    named = {split_ref(ref)[0] for d in SCHEDULE for ref in d.session.guides}
+    unreachable = sorted(set(GUIDES) - named)
+    assert not unreachable, (
+        f"guides no session points at: {unreachable}. "
+        "Add the guide to the session where a student needs it."
+    )
+
+
+def test_setup_sessions_point_at_the_setup_guide():
+    """Both install labs, specifically. These are the sessions people get stuck in."""
+    for slug in ("w01-thu", "w02-thu"):
+        session = next(d for d in SCHEDULE if d.slug == slug).session
+        assert any(ref.startswith("setup") for ref in session.guides), (
+            f"{slug} installs tools without naming the setup guide"
+        )
+
+
+def test_individual_meeting_sessions_explain_themselves():
+    """A student whose class is replaced by a meeting needs the logistics page."""
+    for d in SCHEDULE:
+        if d.is_conference:
+            assert "conference-weeks" in d.session.guides, (
+                f"{d.slug} is an individual meeting and does not link the guide"
+            )
+
+
+def test_guide_anchors_match_what_markdown_will_generate():
+    """Our slug logic mirrors the toc extension's. If that drifts, links rot silently."""
+    from markdown.extensions.toc import slugify
+
+    from course_site.guides import _plain, _slug
+
+    for guide in GUIDES.values():
+        for anchor, label in guide.sections.items():
+            # Explicit `{ #anchor }` headings are exempt -- they set their own.
+            if slugify(_plain(label), "-") != anchor:
+                text = (GUIDES_DIR / f"{guide.id}.md").read_text(encoding="utf-8")
+                assert f"{{ #{anchor} }}" in text, (
+                    f"{guide.id}.md#{anchor} is neither an explicit anchor nor the "
+                    f"slug markdown would generate for {label!r}"
+                )
+            assert _slug(label) == slugify(_plain(label), "-"), (
+                f"_slug disagrees with markdown's slugify on {label!r}"
+            )
+
+
+def test_guide_links_written_into_prose_still_resolve():
+    """Session prose links to guides by relative path. Check those too.
+
+    The `guides` field is validated on load, but a link typed into an activity
+    is just text. This is the same check applied to the text, so that renaming
+    a heading in a guide fails the build rather than quietly producing a link
+    that lands at the top of the page.
+    """
+    link = re.compile(r"\.\./guides/([a-z0-9-]+)\.md(?:#([\w-]+))?")
+    for d in SCHEDULE:
+        prose = " ".join(x for x in (d.session.activity, d.session.summary, d.session.due) if x)
+        for gid, anchor in link.findall(prose):
+            assert gid in GUIDES, f"{d.slug} links ../guides/{gid}.md, which does not exist"
+            if anchor:
+                assert anchor in GUIDES[gid].sections, (
+                    f"{d.slug} links {gid}.md#{anchor}, but that heading is gone"
+                )
 
 
 def test_resource_themes_are_real():
