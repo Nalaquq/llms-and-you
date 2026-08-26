@@ -52,6 +52,10 @@ stretch of work.
 - **The system** — does it work, and can you show that it works?
 - **The decision log** — four required ADRs plus whatever else you recorded.
   Graded on the quality of reasoning, not the correctness of the outcome.
+- **The changelog** — what changed and when, kept alongside the ADRs. The two
+  answer different questions: an ADR says why you chose something over the
+  alternative, a changelog says what actually moved and in what order. Keep
+  both. Neither substitutes for the other.
 - **The reflective introduction** — 1,000 words at the front of the log,
   written last: what you set out to build, what you actually built, and which
   recorded decision you now think was wrong.

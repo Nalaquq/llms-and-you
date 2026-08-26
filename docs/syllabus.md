@@ -23,8 +23,7 @@ Hampden-Sydney College · {{ semester.term }}
 :material-map-marker-outline: Pannill 100E
 
 **Office hours:** Tuesday & Thursday 12:00–2:00 · Wednesday 9:00–12:00 · and by
-appointment. Email is the fastest way to reach me, and asking for an appointment
-outside these hours is normal, not an imposition.
+appointment. Email or texting are the fastest ways to reach me, and asking for an appointment outside these hours is normal, not an imposition.
 
 ---
 
@@ -35,37 +34,29 @@ This course introduces the principles and practice of prompt engineering: the
 craft of communicating effectively with AI systems to produce reliable,
 high-quality outputs.
 
-Using **Python (no experience required)**, **VS Code**, and **Anthropic's
-Claude**, we begin by building a theoretical foundation in neural networks,
+We will begin by building a theoretical foundation in neural networks,
 transformer architectures, and natural language processing. From there we
-develop techniques for crafting prompts that account for hallucination, bias,
+will develop techniques for crafting prompts that account for hallucination, bias,
 and context constraints; learn to evaluate model outputs against evidence you
 construct yourself; and apply structured prompting strategies including
 chain-of-thought reasoning, retrieval-augmented generation, agents and tool use,
 and system-level prompt design.
 
 Particular attention is given to **what changes when a system has to run for
-other people** — API integration, token accounting, cost management, and
-responsible use in production. Throughout the semester you will apply these
-skills in an individual project, building a proof-of-concept application that
-demonstrates both technical proficiency and ethical awareness.
+other people.** For this reason, we will pay specific attention to API integration, token accounting, cost management, and responsible use in production. Throughout the semester you will apply these skills in an individual project, building a proof-of-concept application that demonstrates both technical proficiency and an awareness of the limits of generative AI.
 
-Two things distinguish this course from a tutorial. You will read the
-literature, **including the parts that contradict each other** — chain-of-thought
-prompting alongside the paper arguing it is an illusion; a hallucination
+LLMs, NLP, and Generative AI are massive topics, and it is impossible to cover everything in 15 weeks. For this reason, I've chosen select topics and canonical literature that I feel best captures our current moment. But, as with any burgeoning technology, there is a lot to learn and not everyone. For these reasons, we will cover contradictory approaches, ideas, and literature. For instance, we will cover chain-of-thought prompting alongside the paper arguing it is an illusion; and introduce a hallucination (truthfulQA)
 benchmark alongside the critique saying it measures the wrong thing. And you
-will **document your decisions as you make them**, in a log that is graded as a
-primary artifact.
+will **document your decisions as you make them** — in an ADR log recording what
+you chose and why you chose it over the alternative, and a changelog recording
+what actually changed and when. Both are graded as primary forms of assessment.
+They answer different questions, which is why you keep both.
 
 The course is named after Vaswani et al.'s 2017 paper. We read it in Week 3.
 
-!!! info "No prerequisites — and that is not a formality"
+!!! info "No prerequisites"
 
-    No programming, no statistics, no linear algebra. We install the tools
-    together in class — Claude Code and the desktop app in week one, Python the
-    week after — and nobody leaves those rooms without a working setup. Where a
-    paper contains mathematics you have not seen, you are told which sections
-    to skip.
+    You do not need prior experience with coding, Machine Learning, or AI. We will cover the math at a high level so it is digestible, but also accessible for those in the class that have not taken linear algebra, algorithms, or differential equations. We install the tools together in class and you can choose an ecosystem that works best for you (e.g., browser-based chats with GPT, Claude's CLI in VS Code, or a standalone desktop app). When we cover technical reports and white papers containing model architectures and math, I will tell you which sections to focus on.
 
 ## Learning objectives
 
@@ -85,13 +76,16 @@ By the end of the term you should be able to:
 
 ---
 
-## Required texts
+## Required Content
 
-**There are none to buy. Every reading in this course is free.**
+**All content assigned in this course is free.**
 
 - **[Prompt Engineering](https://www.gptaiflow.com/assets/files/2025-01-18-pdf-1-TechAI-Goolge-whitepaper_Prompt%20Engineering_v4-af36dcc7a49bb7269a58b1c9b89a8ae1.pdf)** — Lee Boonstra (Google, 2025). 68pp, assigned in sections. The applied text.
 - **[Auditing AI](https://mitpress.mit.edu/9780262051729/auditing-ai/)** — The Marquand House Collective (MIT Press, 2026). Open access.
-- **[Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)** — 3Blue1Brown. The foundations spine, chapters 1–3.
+- **Deep Learning, Chapters 5 & 6** — 3Blue1Brown. An excellent video resource
+  for all things mathematical, and the visual spine of Weeks 2 and 3:
+  [Transformers, the tech behind LLMs](https://www.youtube.com/watch?v=wjZofJX0v4M)
+  and [Attention in transformers, step-by-step](https://www.youtube.com/watch?v=eMlx5fFNoYc).
 
 Everything else is a linked paper, podcast, or article. This site links out and
 hosts nothing.
@@ -100,7 +94,7 @@ hosts nothing.
 
     A required text you cannot afford is a barrier disguised as a syllabus. So
     there is no book to buy, no course pack, and no reading behind a paywall or
-    a library login — a test in this site's repository fails the build if a
+    a library login. Moreover, a test in this site's repository fails the build if a
     gated reading is ever added.
 
     If you hit anything you cannot open, tell me. That is a bug, not your
@@ -112,13 +106,11 @@ The full library is on the [Readings](resources.md) page.
 
 ## How the week works
 
-**Tuesday carries the reading.** One or two substantial items, typically 45–75
-minutes of preparation, plus discussion questions posted on the session page in
-advance. Come able to answer them.
+**Tuesdays cover a new idea or concept.** I will assign one or two substantial items, typically 45–75 minutes of preparation, plus discussion questions posted on the session page in advance. Come able to answer them, and come with questions. 
 
-**Thursday is hands-on and assigns no new reading.** This is deliberate. Labs
+**Thursdays are lab days.** This is deliberate. Labs
 are for building, breaking, and writing up what happened. Your total preparation
-load is therefore roughly one reading per week, not one per meeting.
+load for these days will involve installing libraries, software, and testing different approaches before class. In the best world, we use lab days to showcase what we learned rather than following a series of steps together as a class like robots. 
 
 **Five sessions are individual meetings rather than a group class.** See
 [individual meetings](#individual-meetings) below.

@@ -20,6 +20,23 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — syllabus and schedule wording **[student-facing]**
+
+Instructor revisions to the course description, the lecture/lab split, and the
+prerequisites note. Three substantive changes inside them:
+
+- **Both logs are now graded.** The project is assessed on an ADR log (why you
+  chose something over the alternative) *and* a changelog (what actually
+  changed, and when). They answer different questions and neither substitutes
+  for the other. The [project template](https://github.com/Nalaquq/llms-and-you-project)
+  now ships a `CHANGELOG.md` scaffold alongside `docs/adr/`.
+- **Required Content now lists what is actually assigned.** The 3Blue1Brown
+  entry pointed at the Neural Networks playlist dropped in ADR-006; it now
+  links Chapters 5 and 6 directly.
+- **Tooling is no longer prescribed as a single stack.** After API and CLI
+  access are taught, students may fall back to whichever ecosystem works for
+  them for other tasks.
+
 ### Added — a project template to start from **[student-facing]**
 
 [Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)
