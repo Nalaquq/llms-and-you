@@ -10,7 +10,7 @@ hide:
 
 Large language models are reshaping how we write, research, and solve problems.
 This course is about the principles and practice of prompt engineering using
-**Python**, **VS Code**, and **Anthropic's Claude** to
+**Python** and **Anthropic's Claude** to
 build systems that work, and to tell the difference between one that works and
 one that only appears to.
 
