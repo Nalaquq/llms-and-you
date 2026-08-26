@@ -9,14 +9,13 @@ hide:
 **Hampden-Sydney College · Fall 2026**
 
 Large language models are reshaping how we write, research, and solve problems.
-This course is about the principles and practice of prompt engineering — using
-**Python (no experience required)**, **VS Code**, and **Anthropic's Claude** to
+This course is about the principles and practice of prompt engineering using
+**Python**, **VS Code**, and **Anthropic's Claude** to
 build systems that work, and to tell the difference between one that works and
 one that only appears to.
 
-We read the 2017 paper the course is named after. We also read the 2025 paper
-arguing that the field's most celebrated technique is an illusion. Both are
-assigned in earnest.
+We will read the 2017 paper this course is named after. We will also read the 2025 paper
+arguing that the field's most celebrated technique is an illusion. You will learn by doing, and you will be doing some serious learning. Enjoy!
 
 ---
 
@@ -53,18 +52,15 @@ assigned in earnest.
 
     ---
 
-    Twelve hands-on labs. Install Claude Code and the desktop app in week one,
-    then Python the week after. Break a tokenizer. Build an evaluation set.
-    Give a model a tool. Measure what your project costs per user, then run an
-    open-weight model on your own hardware and ask whether self-hosting wins.
+    Twelve hands-on labs. We will install Claude Code and the desktop app in week one,
+    then Python the week after. We will break a tokenizer. We will build an evaluation set.
+    We will give a model a tool, and see what happens. You will learn how to measure what your project costs per user and then fine-tune an open-weight model on your own hardware and ask whether self-hosting wins.
 
 -   :material-file-document-edit-outline:{ .lg .middle } **Document every decision as you make it**
 
     ---
 
-    You will keep an Architectural Decision Record log all semester — not
-    written afterwards, but written as you decide. It is graded as a primary
-    artifact, not as paperwork.
+    You will keep an Architectural Decision Record log all semester. This is a living document. It is graded as a primary form of assessment to justify your decisions across the semester.
 
 -   :material-shield-search:{ .lg .middle } **Attack a system, then defend it**
 
@@ -79,13 +75,11 @@ assigned in earnest.
 
 ## No prerequisites, and nothing to buy
 
-No programming, no statistics, no linear algebra — and **no textbook**. Every
-reading in this course is free and open access.
+Every reading in this course is free and open access.
 
 We install everything together in class — Claude Code and the desktop app in
-week one, Python the week after — and **nobody leaves those rooms without a
-working setup.** Where a
-paper contains mathematics you have not seen, you will be told which sections
+week one and python the week after. When a
+paper contains mathematics you do not understand, you will be told which sections
 to skip and what to take from the rest. Learning to read a paper you cannot
 fully understand is itself one of the skills this course teaches.
 
@@ -95,12 +89,12 @@ fully understand is itself one of the skills this course teaches.
 
 ## A note on using AI in a course about AI
 
-You will use these tools constantly here — that is the point — and the college
+You will use these tools constantly — that is the point — and the college
 provides them through [Microsoft Co-Pilot](https://m365.cloud.microsoft/) and
 [BoodleBox](https://boodlebox.ai/).
 
 **You may use Generative AI unless an assignment says otherwise, and you must
-cite it when you do.** Every page states its own position; where AI is not
+cite it when you do.** When AI is not
 permitted, the page says so in red.
 
 Two things will fail an assignment. Submitting **hallucinations or slop** — even
