@@ -856,7 +856,7 @@
   title: 'GitHub: Hello World'
   authors: [GitHub]
   kind: guide
-  url: https://docs.github.com/en/get-started/start-your-journey/hello-world
+  url: https://docs.github.com/en/get-started/using-github/hello-world
   themes: [ecosystem, methodology]
   est_minutes: 20
   note: >-

@@ -33,7 +33,7 @@ after Week 1 happens inside that folder.
 willing to put on a CV; this account will outlive the course.
 
 If you want it written down rather than demonstrated,
-[Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world)
+[Hello World](https://docs.github.com/en/get-started/using-github/hello-world)
 covers repositories, branches, and commits in about twenty minutes.
 
 ### Your own copy of the project template
