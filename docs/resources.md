@@ -1,9 +1,8 @@
-# Readings
+# Readings & Other Content
 
-Everything assigned or recommended in the course, grouped by theme.
+I've grouped course content by theme with manadatory and reccommended, optional reading. 
 
-**Everything here is free.**  This site hosts nothing, so if you hit something you cannot open, that is
-a bug — tell me.
+**Everything here is free.**  This site hosts nothing, so if you hit something you cannot open, that is a bug. Please let me know!
 
 !!! tip "Reading a paper you cannot fully understand"
 
@@ -22,21 +21,3 @@ a bug — tell me.
 
 ---
 
-## The Burchell arc
-
-Five episodes, one guest, four years. Jodie Burchell appeared on the *Real
-Python* podcast five times between August 2022 and April 2026 — beginning three
-months before ChatGPT was released and ending two months before this course
-started. Read consecutively, they are a longitudinal record of a field changing
-under someone who was paying close attention throughout.
-
-| Episode | Date | Subject | Assigned |
-|:---|:---|:---|:---|
-| [#121](https://realpython.com/podcasts/rpp/121/) | Aug 2022 | Transformers and attention, before ChatGPT | Week 2 |
-| [#188](https://realpython.com/podcasts/rpp/188/) | Jan 2024 | Measuring bias, toxicity, truthfulness | Week 7 |
-| [#232](https://realpython.com/podcasts/rpp/232/) | Dec 2024 | NLP from lexicons to LLMs | Optional |
-| [#264](https://realpython.com/podcasts/rpp/264/) | Sep 2025 | Scaling limits and benchmark reliability | Week 15 |
-| [#291](https://realpython.com/podcasts/rpp/291/) | Apr 2026 | Context engineering, agents, the bubble | Week 15 |
-
-Three reflections are due across the term — Weeks 2, 7, and 15 — tracking what
-changed in the field and what changed in her.

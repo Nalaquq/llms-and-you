@@ -20,6 +20,15 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — a project template to start from **[student-facing]**
+
+[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)
+is a GitHub template repository for the semester project. Prompts as versioned
+files, an evaluation set, an ADR log matching the format the course grades, and
+a pre-commit hook that blocks committing an API key. It contains no project —
+only the structure. Linked from the assignments page; using it is optional,
+ending up with what it contains is not.
+
 ### Changed — foundations now starts at embeddings, not at gradient descent **[student-facing]**
 
 3Blue1Brown's *Neural Networks* series (chapters 1-3) has been **dropped**. The
