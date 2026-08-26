@@ -78,7 +78,7 @@ arguing that the field's most celebrated technique is an illusion. You will lear
 Every reading in this course is free and open access.
 
 We install everything together in class — Claude Code and the desktop app in
-week one and python the week after. When a
+week one and Python the week after. When a
 paper contains mathematics you do not understand, you will be told which sections
 to skip and what to take from the rest. Learning to read a paper you cannot
 fully understand is itself one of the skills this course teaches.
