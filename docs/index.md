@@ -94,9 +94,10 @@ provides them through [Microsoft Co-Pilot](https://m365.cloud.microsoft/) and
 [BoodleBox](https://boodlebox.ai/).
 
 **You may use Generative AI unless an assignment says otherwise, and you must
-cite it when you do.** When AI use is limited the assignment details will have explicit guardrails.
+cite it when you do.** When AI is not
+permitted, the page says so in red.
 
-Two things will fail an assignment: Submitting **hallucinations or slop** — even
+Two things will fail an assignment. Submitting **hallucinations or slop** — even
 where AI was allowed, because permission to use a tool is not permission to skip
 reading what it produced. And using AI where it was **prohibited**, which also
 goes to the Honor Court.
