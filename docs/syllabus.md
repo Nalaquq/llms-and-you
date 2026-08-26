@@ -45,7 +45,7 @@ and system-level prompt design.
 Particular attention is given to **what changes when a system has to run for
 other people.** For this reason, we will pay specific attention to API integration, token accounting, cost management, and responsible use in production. Throughout the semester you will apply these skills in an individual project, building a proof-of-concept application that demonstrates both technical proficiency and an awareness of the limits of generative AI.
 
-LLMs, NLP, and Generative AI are massive topics, and it is impossible to cover everything in 15 weeks. For this reason, I've chosen select topics and canonical literature that I feel best captures our current moment. But, as with any burgeoning technology, there is a lot to learn and not everyone. For these reasons, we will cover contradictory approaches, ideas, and literature. For instance, we will cover chain-of-thought prompting alongside the paper arguing it is an illusion; and introduce a hallucination (truthfulQA)
+LLMs, NLP, and Generative AI are massive topics, and it is impossible to cover everything in 15 weeks. For this reason, I've chosen select topics and canonical literature that I feel best captures our current moment. But, as with any burgeoning technology, there is a lot to learn and not everyone agrees. For these reasons, we will cover contradictory approaches, ideas, and literature. For instance, we will cover chain-of-thought prompting alongside the paper arguing it is an illusion; and introduce a hallucination (truthfulQA)
 benchmark alongside the critique saying it measures the wrong thing. And you
 will **document your decisions as you make them** — in an ADR log recording what
 you chose and why you chose it over the alternative, and a changelog recording
