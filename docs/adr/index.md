@@ -247,3 +247,77 @@ sentence. That friction is intentional.
 in-class Week 15 reflection. Everything else permits AI with citation. Those
 choices are the instructor's and are the most likely part of this ADR to change
 after the policy discussion in Week 1.
+
+---
+
+## ADR-006: Enter the foundations theme at the embedding matrix, not at gradient descent
+
+**Status:** Accepted
+
+### Context
+
+The foundations spine was 3Blue1Brown's *Neural Networks* series, chapters 1-3:
+what a neural network computes, gradient descent, and backpropagation. It is an
+outstanding series and it was the right choice for a course starting from
+nothing.
+
+It is the wrong choice for *these* students. The same material is already taught
+in the instructor's remote sensing and computer vision courses, and taught more
+thoroughly there. Worse, it is taught **pixel-forward** — the worked examples are
+images, the intuitions are convolutional, and a student arriving from those
+courses meets gradient descent for the second time in a form that points away
+from language rather than toward it.
+
+There is also a scope question underneath. Spending the opening weeks on how
+neural networks came to work implies that the history of AI/ML is part of what
+this course covers. It is not. This course starts at the point where text
+becomes numbers and moves forward from there.
+
+### Decision
+
+Drop the *Neural Networks* series. Enter the theme at the embedding matrix
+instead, using two later videos from the same author and one more in Week 3:
+
+- **Week 2** — *How word vectors encode meaning* (1 min) and *Transformers, the
+  tech behind LLMs* (Chapter 5, 27 min). Chapter 5 opens on tokens and
+  embeddings, which is exactly where Week 2 opens, and reaches a working
+  Transformer without requiring backpropagation.
+- **Week 3** — *Attention in transformers, step-by-step* (Chapter 6, 26 min),
+  placed between Alammar and Vaswani. It constructs query, key, and value on
+  screen, which is the notation Section 3 of the paper introduces without
+  explanation.
+
+Gradient descent is now assumed, not taught. Where a paper depends on it,
+Prince's *Understanding Deep Learning* remains optional depth.
+
+### Alternatives considered
+
+**Keep chapters 1-3 and accept the duplication.** Rejected. Reteaching material
+students already have is not free — it costs the two weeks this course most
+needs, and it teaches students that the reading list is not written for them
+specifically.
+
+**Keep them as optional rather than required.** Tempting, and rejected for a
+narrower reason: the optional list is where a student goes when they want more,
+and its value depends on everything there being genuinely worth the time *for
+this course*. A prerequisite that most of the room already has does not qualify.
+
+**Replace with a language-first introduction to neural networks from another
+author.** Rejected because it solves the pixel-forward problem while leaving the
+scope problem untouched. The issue is not which examples the video uses. It is
+that the course does not need the unit.
+
+### Consequences
+
+Week 2 now runs 143 minutes of preparation against 180 before, and the close
+reading within it is unchanged at 65 minutes — the reduction is entirely
+listening. Week 3 gains 26 minutes and still sits at 95 minutes of close
+reading, under the 120-minute cap asserted by
+`test_weekly_reading_load_stays_reasonable`.
+
+The risk is a student who has *not* taken remote sensing or computer vision and
+has never seen a neural network. Chapter 5 was chosen partly because it is
+self-contained enough to absorb that student, but this assumption should be
+checked in Week 1 rather than discovered in Week 3. If the room turns out to be
+mostly new to the material, the honest fix is to restore chapters 1-2 as
+optional depth, not to reverse this decision.

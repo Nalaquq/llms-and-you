@@ -20,6 +20,38 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — foundations now starts at embeddings, not at gradient descent **[student-facing]**
+
+3Blue1Brown's *Neural Networks* series (chapters 1-3) has been **dropped**. The
+same deep-learning and gradient-descent material is already covered in the
+instructor's remote sensing and computer vision courses, and covered there in a
+pixel-forward form that points away from language. The history of AI/ML is not a
+focus of this course. Full reasoning in [ADR-006](https://Nalaquq.github.io/llms-and-you/adr/#adr-006-enter-the-foundations-theme-at-the-embedding-matrix-not-at-gradient-descent).
+
+Replaced by three videos from the same author, entering the theme at the point
+where text becomes numbers:
+
+- **Week 2** — *How word vectors encode meaning* (1 min) and *Transformers, the
+  tech behind LLMs* (Chapter 5, 27 min).
+- **Week 3** — *Attention in transformers, step-by-step* (Chapter 6, 26 min),
+  assigned between Alammar and Vaswani so that query/key/value are familiar
+  before Section 3 of the paper uses them unexplained.
+
+Week 2 preparation drops from 180 to 143 minutes; Week 3 rises to 121. Close
+reading is unchanged in Week 2 and still under cap in Week 3. Gradient descent
+is now assumed rather than taught; Prince's *Understanding Deep Learning*
+remains optional depth.
+
+### Added — the post that earns the Transformer **[student-facing]**
+
+Jay Alammar's *Visualizing a Neural Machine Translation Model (Seq2seq with
+Attention)* is now required in **Week 2**. Week 3 asks "what problem was
+attention invented to solve?" and, until now, nothing assigned answered it:
+*The Illustrated Transformer* opens at self-attention and Vaswani assumes
+seq2seq is already familiar. This is the missing first rung — the fixed-length
+context vector, what breaks when the sentence is long, and the alignment
+heatmaps that show what attention means before any mathematics is attached.
+
 ### Changed — every reading is now free and open access **[student-facing]**
 
 **There is no longer a textbook to buy.** All 78 resources are open access; a

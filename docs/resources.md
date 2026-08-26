@@ -2,8 +2,7 @@
 
 Everything assigned or recommended in the course, grouped by theme.
 
-**Everything here is free.** No purchases, no paywalls, no library logins. This
-site links out and hosts nothing; if you hit something you cannot open, that is
+**Everything here is free.**  This site hosts nothing, so if you hit something you cannot open, that is
 a bug — tell me.
 
 !!! tip "Reading a paper you cannot fully understand"

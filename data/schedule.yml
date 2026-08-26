@@ -85,11 +85,16 @@
     Tokens and embeddings. The unglamorous step everyone skips, and the reason
     models behave strangely at the edges of words.
   readings:
-    - 3blue1brown-neural-networks
+    - 3blue1brown-word-vectors
     - alammar-illustrated-word2vec
+    - alammar-seq2seq-attention
+    - 3blue1brown-transformers
     - rpp-121-transformers
   questions:
     - What does it mean for two words to be "close together" in an embedding space?
+    - >-
+      A word becomes a vector. What has to happen for a whole *sentence* to
+      become one, and what does that cost you?
     - >-
       Episode 121 was recorded three months before ChatGPT was released. What
       does Burchell expect to matter, and what does she not see coming?
@@ -131,10 +136,16 @@
   summary: >-
     The 2017 paper the course is named after. We read it for its argument and
     its structure, not its mathematics.
-  readings: [alammar-illustrated-transformer, vaswani-2017-attention]
+  readings:
+    - alammar-illustrated-transformer
+    - 3blue1brown-attention
+    - vaswani-2017-attention
   optional: [prince-understanding-deep-learning]
   questions:
     - What problem was attention invented to solve?
+    - >-
+      Query, key, and value. Say what each one is for in a sentence that does
+      not use the other two words.
     - What did the paper give up in exchange, and why was that trade worth making?
     - Why is the title a joke, and who was it aimed at?
   activity: >-
