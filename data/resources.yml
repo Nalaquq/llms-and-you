@@ -843,6 +843,37 @@
   themes: [ecosystem, responsible]
   note: Red-teaming competition. Anchors the midterm.
 
+- id: github
+  title: GitHub
+  kind: tool
+  url: https://github.com/
+  themes: [ecosystem, methodology]
+  note: >-
+    Where your project lives. Account created in the Week 1 lab; free, and the
+    one you make will outlive the course.
+
+- id: github-hello-world
+  title: 'GitHub: Hello World'
+  authors: [GitHub]
+  kind: guide
+  url: https://docs.github.com/en/get-started/start-your-journey/hello-world
+  themes: [ecosystem, methodology]
+  est_minutes: 20
+  note: >-
+    Repositories, branches, commits, pull requests, in that order. The fallback
+    for anyone who wants the Week 1 lab written down.
+
+- id: git-handbook
+  title: Git Handbook
+  authors: [GitHub]
+  kind: guide
+  url: https://docs.github.com/en/get-started/using-git/about-git
+  themes: [ecosystem, methodology]
+  est_minutes: 25
+  note: >-
+    What `clone`, `commit`, and `push` actually do. Worth reading once, in the
+    week you start using them rather than before.
+
 # ---------------------------------------------------------------------------
 # Theme 8 — Project Methodology & Documentation (cross-cutting)
 # ---------------------------------------------------------------------------
@@ -862,6 +893,16 @@
   url: https://adr.github.io/adr-templates/
   themes: [methodology]
   note: Use the Nygard template unless you have a reason not to.
+
+- id: project-template
+  title: Project Template
+  authors: [Gleason]
+  kind: tool
+  url: https://github.com/Nalaquq/llms-and-you-project
+  themes: [methodology, deployment]
+  note: >-
+    Copied and cloned in the Week 1 lab, and the folder you work in for the rest
+    of the term. Use the green "Use this template" button, not fork.
 
 # ---------------------------------------------------------------------------
 # Peer syllabi — instructor reference, not assigned

@@ -38,39 +38,122 @@
 - week: 1
   day: thu
   kind: lab
-  topic: 'Lab: Keeping a Decision Record'
+  topic: 'Lab: Your Repository, and a Decision Record'
   theme: methodology
   summary: >-
-    The single practice that runs through this entire course: writing down what
-    you decided and why, while you are deciding it. We install Claude Code to
-    have something real to decide about.
-  activity: >-
-    **First, install Claude Code** and sign in. We do this together, one step at
-    a time, on whatever machine you brought. If you also want the desktop app,
-    install that too -- but Claude Code is the one we use.
+    We build the thing you will work in for the rest of the semester -- a GitHub
+    account, your own copy of the project template, and the two tools that read
+    it. Then the practice that runs through the whole course: writing down what
+    you decided and why, while you are deciding it.
+  activity: |-
+    Steps 1 to 6 are done together, one line at a time, on whatever machine you
+    brought. Nothing is assumed. If something does not work on your machine that
+    is normal, and it is my problem to solve rather than yours.
 
+    ### 1. Make a GitHub account
 
-    **Then the actual lab.** Setting it up required decisions, and you made them
-    without noticing: which install method, where you put your project folder,
-    whether you accepted the first suggestion it gave you. Go back and write
-    three of them up as Architectural Decision Records, using the Nygard
-    template -- context, decision, alternatives, consequences.
+    Free. Pick a username you would be willing to put on a CV -- this account
+    will outlive the course.
 
+    ### 2. Take your own copy of the project template
 
-    Then keep going. Give Claude Code a small task in a folder and **write the
-    record as you decide, not afterwards.** You will notice these are different
-    activities: the second is harder, slower, and honest, and the difference
-    between them is most of what this practice is worth.
+    Open the course project template and press the green **Use this template**
+    button. **Not fork.** A fork stays tied to my repository; a template copy is
+    yours. Make it public and give it a name that says what it is.
 
+    ### 3. Clone it to your machine
 
-    **ADR-001 is due** -- any one of them, your choice. What is graded is whether
+    ```bash
+    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+    cd YOUR-PROJECT
+    ```
+
+    Put it somewhere you will find it again. That sounds trivial. It is the
+    first of today's decisions, and you will be writing it up before you leave.
+
+    Then turn on the credential guard, once per clone:
+
+    ```bash
+    git config core.hooksPath .githooks
+    ```
+
+    It refuses any commit containing something shaped like an API key. A key
+    pushed to GitHub is scraped within minutes, and deleting it in the next
+    commit does not remove it -- it stays in the history.
+
+    ### 4. Install the Claude Code CLI
+
+    `claude`, in a terminal. Sign in when it asks. The difference that matters
+    is that it can **see and change the files in a folder**: a chat window only
+    knows what you paste into it, while Claude Code reads the directory, opens
+    the files, and edits them in place.
+
+    Start it inside your clone and ask it something ordinary:
+
+    ```
+    what is in this repository, and what is each folder for?
+    ```
+
+    Read the answer against step 6 below. It will be broadly right. Notice where
+    it is confident and wrong -- we spend Week 6 on why that happens.
+
+    ### 5. Install VS Code
+
+    Then open your cloned folder in it -- **File > Open Folder**, not open-a-file
+    -- and run `claude` again from VS Code's built-in terminal, so the editor and
+    the model are looking at the same directory. The Python extension comes next
+    week. Today it is somewhere to see the files.
+
+    ### 6. Walk the structure
+
+    You did not build this layout, so none of it is obvious. Every folder in it
+    is something the course grades, and we go through them together:
+
+    | Path | What it is for |
+    |:---|:---|
+    | `TODO.txt` | What the next version of your prompt needs to do |
+    | `PROMPTING.md` | The practices this course grades. Read this one first |
+    | `prompts/` | Your prompts, as versioned files -- one file per prompt |
+    | `src/project/` | Your code. `client.py` is written for you; the rest is yours |
+    | `evals/` | Your test set. Started in week one, not the week before it is due |
+    | `docs/adr/` | Your decision log -- why you chose things. Graded |
+    | `CHANGELOG.md` | What changed and when. Graded alongside the ADRs |
+    | `tests/` | Ordinary tests, for the parts that are ordinary code |
+
+    Open `TODO.txt` and put a line in it before you leave. It is a running list
+    of what the next draft of your prompt has to do, in sections by where each
+    item ends up -- in the prompt itself, in `evals/`, in an ADR, or in a
+    question for me. Keeping it is the cheap version of what the rest of this
+    lab is about. An hour after you have the thought, you no longer have it.
+
+    ### 7. Then the actual lab
+
+    All of that required decisions, and you made them without noticing: which
+    install method, what you named the repository, where you put the folder,
+    whether you took the first thing Claude Code suggested or pushed back. Go
+    back and write three of them up as Architectural Decision Records, using the
+    Nygard template -- context, decision, alternatives, consequences. They go in
+    `docs/adr/`, where the template is already waiting for you.
+
+    Then keep going. Give Claude Code a small task in your repository and **write
+    the record as you decide, not afterwards.** You will notice these are
+    different activities: the second is harder, slower, and honest, and the
+    difference between them is most of what this practice is worth.
+
+    **ADR-001 is due** -- any one of them, your choice. Commit it and push it, so
+    it is on GitHub rather than only on your laptop. What is graded is whether
     the alternatives section contains a real alternative.
   optional:
-    - adr-github
-    - adr-templates
+    - github
+    - project-template
+    - github-hello-world
+    - git-handbook
     - claude-code
     - claude-code-setup
     - claude-code-quickstart
+    - vscode
+    - adr-github
+    - adr-templates
     - claude-desktop
 
 # ===========================================================================

@@ -20,6 +20,35 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — the Week 1 lab now sets up your whole repository **[student-facing]**
+
+Thursday of Week 1 was *Lab: Keeping a Decision Record*, and it installed
+Claude Code. It is now **Lab: Your Repository, and a Decision Record**, and it
+runs the full setup in seven steps: a GitHub account, your own copy of the
+[project template](https://github.com/Nalaquq/llms-and-you-project) via **Use
+this template**, a clone onto your machine, `git config core.hooksPath
+.githooks`, the Claude Code CLI, VS Code, and a walk through what every folder
+in the repository is for.
+
+The decision-record exercise is unchanged and still ends the session, and
+**ADR-001 is still due that day** — but it now gets committed and pushed rather
+than living on your laptop, and there are six or seven real decisions behind it
+instead of one. Why the order changed is in
+[ADR-007](https://Nalaquq.github.io/llms-and-you/adr/#adr-007-put-students-in-version-control-on-day-two-not-at-the-project).
+
+Week 2 Thursday is unchanged: Python, a virtual environment, and the tokenizer
+exercise. VS Code appears there now as the Python extension, plus a fallback
+install for anyone who missed Week 1.
+
+### Added — `TODO.txt` in the project template **[student-facing]**
+
+A running list of what the next draft of your prompt has to do, sectioned by
+where each item ends up — in the prompt, in `evals/`, in an ADR, or in a
+question for me. Write the line the moment you have the thought; an hour later
+you no longer have it. You start using it in the Week 1 lab. This repository
+keeps the same file at its root.
+
+
 ### Changed — the project template is now findable **[student-facing]**
 
 It was linked once, mid-way down the assignments page. It is now also on the

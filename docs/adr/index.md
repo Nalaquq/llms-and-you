@@ -321,3 +321,79 @@ self-contained enough to absorb that student, but this assumption should be
 checked in Week 1 rather than discovered in Week 3. If the room turns out to be
 mostly new to the material, the honest fix is to restore chapters 1-2 as
 optional depth, not to reverse this decision.
+
+---
+
+## ADR-007: Put students in version control on day two, not at the project
+
+**Status:** Accepted
+
+### Context
+
+The Week 1 lab installed Claude Code, and nothing else. GitHub, the project
+template, and VS Code arrived later — the template was mentioned on the
+assignments page, and students met it when they started the project around
+Week 5.
+
+That ordering had three costs. Students spent the first month working in
+whatever folder they happened to create, so the first four ADRs lived somewhere
+that was not under version control and in several cases not backed up at all.
+The template's structure — `prompts/`, `evals/`, `docs/adr/` — encodes the three
+practices the project is graded on, and meeting it in Week 5 means meeting it
+after the habits it is meant to shape have already formed. And the Week 1 lab
+manufactured decisions to record from a single install, which is thin material.
+
+The course also asks students to keep prompts as versioned files. A student
+without a repository cannot do that, so the practice was being taught weeks
+before it was possible to follow.
+
+### Decision
+
+The Week 1 Thursday lab now runs the full setup: a GitHub account, a copy of
+the project template taken with **Use this template**, a clone onto the
+student's machine, the credential guard turned on, the Claude Code CLI, VS Code,
+and a walk through the directory structure. The decision-record exercise stays
+where it was, at the end, and now has six or seven real decisions behind it
+rather than one.
+
+The template gains a `TODO.txt` — a running list of what the next draft of a
+prompt has to do, sectioned by where each item ends up: the prompt, `evals/`,
+an ADR, or a question for the instructor. Students start using it in the lab.
+This repository keeps the same file at its root, for the same reason it keeps
+an ADR log.
+
+### Alternatives considered
+
+**Leave the template at Week 5 and add only GitHub to Week 1.** Rejected. An
+account without a repository to put in it is a form students fill in and forget.
+The account is only useful on the day it holds something.
+
+**Split it: GitHub and the clone in Week 1, VS Code and the walkthrough in
+Week 2.** The genuinely tempting option, because Week 1 is now full. Rejected
+because the walkthrough is what makes the clone mean anything — a folder you
+cannot read is not a folder you will work in — and because Week 2's lab already
+carries Python, a virtual environment, and the tokenizer exercise.
+
+**Have students start from an empty repository and build the structure
+themselves over the term.** Pedagogically defensible, and it is what a
+professional would do. Rejected because the structure is not what the course is
+teaching; the practices it holds are. Twelve weeks of unstructured folders would
+produce twelve weeks of arguing about folders.
+
+### Consequences
+
+Week 1 Thursday is now the densest session of the term, and it is a session
+where any student can be blocked by an unfamiliar machine. The lab is written to
+be run as seven numbered steps for exactly that reason, and steps 1 to 6 are
+done together at one pace. If it overruns, the ADR exercise is the part that
+moves to homework — it is the only part that does not need the room.
+
+Every ADR from ADR-001 onward is committed and pushed, which means the decision
+log is reviewable during term rather than at the end of it. Week 2's lab is
+unchanged: it still installs Python and a virtual environment, and VS Code
+appears there now as the Python extension plus a fallback for anyone who missed
+Week 1. The duplication is deliberate.
+
+The risk is a student who joins the course in Week 2 and has no repository. The
+setup guide is written so that the Week 1 section can be worked through alone,
+which is the same fallback that already existed for the Claude Code install.

@@ -9,9 +9,10 @@ of them are things students ask about.
 
     ---
 
-    Claude Code and the desktop app in Week 1; Python and VS Code in Week 2.
-    Assumes you have never opened a terminal. We do both together in class —
-    this page is the reference and the fallback.
+    GitHub, your project repository, Claude Code and VS Code in Week 1;
+    Python and a virtual environment in Week 2. Assumes you have never opened
+    a terminal. We do both together in class — this page is the reference and
+    the fallback.
 
 -   :material-file-document-outline:{ .lg .middle } **[How to read a paper you cannot fully understand](reading-papers.md)**
 
@@ -32,10 +33,10 @@ of them are things students ask about.
 
     ---
 
-    Where your semester project starts. Prompts kept as versioned files, an
-    evaluation set, both logs you are graded on, and a hook that stops you
-    committing an API key. Use the green **Use this template** button — do not
-    fork.
+    Where your semester project starts, and what you clone in the Week 1 lab.
+    Prompts kept as versioned files, an evaluation set, both logs you are
+    graded on, a running `TODO.txt`, and a hook that stops you committing an
+    API key. Use the green **Use this template** button — do not fork.
 
 -   :material-account-clock-outline:{ .lg .middle } **[Individual meetings](conference-weeks.md)**
 
@@ -55,8 +56,10 @@ All free. Set up in the Week 1 lab.
 
 | Tool | Used for |
 |:---|:---|
-| [Claude Code](https://claude.com/claude-code) + [desktop app](https://claude.ai/download) | Installed Week 1; used all term |
-| [Python](https://www.python.org/downloads/) + [VS Code](https://code.visualstudio.com/) | Installed Week 2; every lab after |
+| [GitHub](https://github.com/) | Your account and your project repository. Set up Week 1 |
+| [Claude Code](https://claude.com/claude-code) + [VS Code](https://code.visualstudio.com/) | Installed Week 1; used all term |
+| [Python](https://www.python.org/downloads/) | Installed Week 2; every lab after |
+| [Claude desktop app](https://claude.ai/download) | Optional. A comfortable surface for long conversations |
 | [Microsoft Co-Pilot](https://m365.cloud.microsoft/) · [BoodleBox](https://boodlebox.ai/) | College-provided chat access — use these, not a personal subscription |
 | [Claude API](https://docs.claude.com/en/api/overview) | The labs and your project. Needs an API key, arranged at the start of term |
 | [Hugging Face](https://huggingface.co/) | Datasets, leaderboards, the `evaluate` library |

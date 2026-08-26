@@ -16,18 +16,54 @@ There are two setup sessions, a week apart, and they are deliberately separate:
 
 | | |
 |:---|:---|
-| **Week 1, Thursday** | [Claude Code](#week-1-claude-code-and-the-desktop-app) — installed as material for the decision-record lab |
-| **Week 2, Thursday** | [Python and VS Code](#week-2-python-and-vs-code) |
+| **Week 1, Thursday** | [GitHub, your project repository, Claude Code, and VS Code](#week-1-your-repository-and-your-tools) — the folder you work in all term |
+| **Week 2, Thursday** | [Python and a virtual environment](#week-2-python-and-vs-code) |
 
 ---
 
-## Week 1: Claude Code { #week-1-claude-code-and-the-desktop-app }
+## Week 1: Your repository and your tools { #week-1-your-repository-and-your-tools }
 
-The Week 1 lab is really about [decision
-records](writing-adrs.md) — installing Claude Code is how we manufacture
-some decisions worth recording. Do the install; the lab is what you do next.
+By the end of this lab you have a GitHub account, your own copy of the project
+template cloned onto your machine, and two tools that can read it. Everything
+after Week 1 happens inside that folder.
 
-### Claude Code — the one we use
+### A GitHub account
+
+**[github.com](https://github.com/)** — free. Pick a username you would be
+willing to put on a CV; this account will outlive the course.
+
+If you want it written down rather than demonstrated,
+[Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world)
+covers repositories, branches, and commits in about twenty minutes.
+
+### Your own copy of the project template
+
+Open **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
+and press the green **Use this template** button.
+
+**Not fork.** A fork stays tied to my repository; a template copy is yours. Make
+it public and give it a name that says what it is.
+
+### Clone it
+
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+cd YOUR-PROJECT
+```
+
+Put it somewhere you will find it again — Desktop is fine, Downloads is not.
+
+Then turn on the credential guard. Once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+It refuses any commit containing something shaped like an API key. See
+[Never put an API key in your code](#model-access) below for why that matters
+more than it sounds like it does.
+
+### Claude Code — the CLI we use all term
 
 **[claude.com/claude-code](https://claude.com/claude-code)** — per-platform
 install instructions are in the
@@ -37,7 +73,7 @@ This is Claude in your terminal, and the difference that matters is that **it
 can see and change files in a folder.** A chat window only knows what you paste
 into it; Claude Code can read a directory, open the files in it, and edit them.
 
-Start it by opening a terminal, moving to a folder, and running:
+Start it inside your clone:
 
 ```bash
 claude
@@ -46,8 +82,39 @@ claude
 Then just talk to it:
 
 ```
-what files are in this folder?
+what is in this repository, and what is each folder for?
 ```
+
+### VS Code
+
+Install **[Visual Studio Code](https://code.visualstudio.com/)** and open your
+cloned folder in it — **File → Open Folder**, not open-a-file. Run `claude`
+again from VS Code's built-in terminal so the editor and the model are looking
+at the same directory.
+
+The Python extension comes next week. Today VS Code is somewhere to see the
+files while Claude Code changes them.
+
+### What is in the folder
+
+You did not build this layout, so none of it is obvious. We walk it together in
+class; this is the version to come back to.
+
+| Path | What it is for |
+|:---|:---|
+| `TODO.txt` | What the next version of your prompt needs to do |
+| `PROMPTING.md` | The practices this course grades. Read this one first |
+| `prompts/` | Your prompts, as versioned files — one file per prompt |
+| `src/project/` | Your code. `client.py` is written for you; the rest is yours |
+| `evals/` | Your test set. Started in week one, not the week before it is due |
+| `docs/adr/` | Your decision log — why you chose things. Graded |
+| `CHANGELOG.md` | What changed and when. Graded alongside the ADRs |
+| `tests/` | Ordinary tests, for the parts that are ordinary code |
+
+`TODO.txt` is the one to start using today. It is a running list of what the
+next draft of your prompt has to do, in sections by where each item ends up —
+in the prompt itself, in `evals/`, in an ADR, or in a question for me. Write the
+line the moment you have the thought. An hour later you no longer have it.
 
 ### The desktop app — optional
 
@@ -57,9 +124,8 @@ in the course requires it.
 
 ### The decisions you just made without noticing
 
-Which install method. Where you put your project folder. Whether you took the
-first suggestion Claude Code offered or pushed back. Whether you bothered with
-the desktop app at all.
+Which install method. What you named the repository. Where you put the folder.
+Whether you took the first suggestion Claude Code offered or pushed back.
 
 None of those felt like decisions at the time, which is exactly why they are
 good practice material. **ADR-001** asks you to write one of them up properly —
@@ -68,7 +134,7 @@ whether your alternatives section contains a real alternative.
 
 ---
 
-## Week 2: Python and VS Code { #week-2-python-and-vs-code }
+## Week 2: Python and a virtual environment { #week-2-python-and-vs-code }
 
 Week 2's lab needs a toolchain of your own, so we build one.
 
@@ -84,13 +150,13 @@ miss and causes most of the problems we see.
 python3 --version
 ```
 
-### VS Code
+### The Python extension for VS Code
 
-Install [Visual Studio Code](https://code.visualstudio.com/), then add the
-**Python extension** (Extensions panel, ++ctrl+shift+x++, search "Python",
-install the Microsoft one).
+VS Code itself went on in Week 1. Add the **Python extension** now: Extensions
+panel, ++ctrl+shift+x++, search "Python", install the Microsoft one.
 
-You do not need to know VS Code well. We use a small fraction of it.
+If you missed Week 1, install [VS Code](https://code.visualstudio.com/) first.
+You do not need to know it well. We use a small fraction of it.
 
 ### A virtual environment
 
@@ -150,11 +216,11 @@ we have talked** — access is handled for you.
 
 ## Your project starts from a template
 
-When you begin the semester project, do not start from an empty folder. Start
-from **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
-and use the green **Use this template** button — not fork. It sets up the
-structure you are graded on, and its README covers the environment and API key
-steps again in the order you will actually need them.
+You already made your copy in [Week 1](#week-1-your-repository-and-your-tools).
+Do not start the semester project from an empty folder — work in that clone. Its
+README covers the environment and API key steps again in the order you will
+actually need them, and the structure it sets up is the structure you are graded
+on.
 
 ---
 
@@ -164,6 +230,7 @@ Errors are information, not failure. The common ones:
 
 | What you see | What it means |
 |:---|:---|
+| `command not found: git` | Git is not installed. macOS: run `git --version` and accept the prompt. Windows: install [Git for Windows](https://git-scm.com/download/win) |
 | `command not found: claude` | Claude Code is not installed, or the terminal needs restarting after install |
 | `command not found: python3` | Python not installed, or not on PATH (Windows: reinstall and tick the box) |
 | `ModuleNotFoundError: No module named 'anthropic'` | Virtual environment not active, or `pip install anthropic` not run |

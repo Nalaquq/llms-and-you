@@ -23,13 +23,16 @@ choices building it.
 
 ### Starting it
 
-Start from the template: **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**.
+You already have it. Your copy of
+**[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
+was made and cloned in the Week 1 lab; the project goes in that folder.
 
-Use the green **Use this template** button rather than forking — a fork stays
-tied to my repository, a template copy is yours. It gives you the structure
-these projects turn out to need: prompts kept as versioned files, an evaluation
-set, an ADR log wired to the format above, and a pre-commit hook that stops you
-committing an API key. It contains no project. That part is yours.
+If you were not there, use the green **Use this template** button rather than
+forking — a fork stays tied to my repository, a template copy is yours. It gives
+you the structure these projects turn out to need: prompts kept as versioned
+files, an evaluation set, an ADR log wired to the format above, a running
+`TODO.txt`, and a pre-commit hook that stops you committing an API key. It
+contains no project. That part is yours.
 
 You are not required to use it. You *are* required to end up with what it
 contains, so starting somewhere else means building the same things by hand.

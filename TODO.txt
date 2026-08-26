@@ -1,0 +1,44 @@
+TODO — things to do to the next prompt
+======================================
+
+Write the thought down the moment you have it, in whichever section it
+belongs to. Delete the line once it is done. This file is meant to be
+messy. Nothing in it is finished work; everything in it eventually moves
+somewhere that is.
+
+An hour after you have the thought, you no longer have the thought. That
+is the whole reason this file exists.
+
+This is the instructor's copy, and it is the same file students get in
+the project template — the practice is not worth teaching if it is not
+worth keeping.
+
+
+## Change in the prompt
+Something the next version of a file in prompts/ has to do differently.
+
+- [ ] 03-design-schedule.md: say explicitly that labs assign no reading.
+      It has had to be corrected in every run so far.
+
+
+## Change in data/
+A fact that is wrong, missing, or stated in prose where it should be a
+field. Course content lives in data/*.yml and nowhere else.
+
+- [ ] check est_minutes on the Week 2 readings against how long they
+      actually took
+
+
+## Worth an ADR
+A choice a reader could not reconstruct from the files themselves.
+Write it up in docs/adr/index.md while the rejected alternatives are
+still fresh — that section is the part that is worth anything.
+
+- [ ]
+
+
+## Ask about
+Open questions, and anything to verify before it goes in front of
+students.
+
+- [ ]
