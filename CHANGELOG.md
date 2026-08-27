@@ -20,6 +20,29 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — a guide to using BoodleBox on the reading **[student-facing]**
+
+The college pays for [BoodleBox](https://boodlebox.ai/) — one login, and behind
+it models from OpenAI, Anthropic, Google, Meta, Amazon, Nvidia and Mistral, plus
+several hundred specialised bots. **Using it to understand a reading is
+allowed, and encouraged.**
+
+[Using BoodleBox to understand a
+reading](https://Nalaquq.github.io/llms-and-you/guides/boodlebox/) covers
+getting an account, asking a question specific enough to get a useful answer,
+and checking what it told you against the reading. It is linked from **every
+session that assigns reading**, in the guides box at the top.
+
+**The boundary, because it matters here more than anywhere:** reading responses
+and the Burchell reflections are no-AI work. Asking a model to explain a passage
+you did not follow is reading. Asking it to write your response is not, and it
+fails the assignment. The guide states this at the top and lists the cases.
+
+Accounts are free through the Computing Center — request one in the first week,
+they take a few days. Todd Pugh administers them. Reasoning in
+[ADR-016](https://Nalaquq.github.io/llms-and-you/adr/#adr-016-put-the-boodlebox-guide-on-every-session-that-assigns-reading).
+
+
 ### Changed — Week 2's readings are reordered, and the order now matters **[student-facing]**
 
 Same seven readings, same 241 minutes. What changed is the sequence, and the

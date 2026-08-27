@@ -328,6 +328,8 @@
   # Ordered general to specific, and the order is the point: what an embedding
   # is at all, then one concrete way of making them, then the architecture that
   # replaced it. Do not sort these by length. See ADR-015.
+  guides:
+    - boodlebox
   readings:
     # 1. What embeddings are
     - 3blue1brown-word-vectors
@@ -394,6 +396,7 @@
     its structure, not its mathematics.
   guides:
     - reading-papers
+    - boodlebox
   readings:
     - alammar-illustrated-transformer
     - 3blue1brown-attention
@@ -433,6 +436,7 @@
     your own this week, then discussed one-to-one.
   guides:
     - conference-weeks
+    - boodlebox
   readings: [boonstra-prompt-engineering, dair-prompting-guide, anthropic-pe-docs]
   questions:
     - When does adding examples stop helping?
@@ -478,6 +482,7 @@
   guides:
     - conference-weeks
     - reading-papers
+    - boodlebox
   readings: [schulhoff-2024-prompt-report]
   optional: [learn-prompting, dair-prompt-hub]
   questions:
@@ -518,6 +523,7 @@
     it is an illusion. Held in person because the argument is the lesson.
   guides:
     - reading-papers
+    - boodlebox
   readings: [cot-mirage]
   optional: [theoretical-framework-pe]
   questions:
@@ -553,6 +559,7 @@
     bigger models were worse.
   guides:
     - reading-papers
+    - boodlebox
   readings: [lin-2021-truthfulqa, rpp-188-bias-truthfulness]
   optional: [burchell-lies-damned-lies]
   questions:
@@ -606,6 +613,7 @@
     measuring -- read against the TruthfulQA paper from Week 7.
   guides:
     - reading-papers
+    - boodlebox
   readings: [hallulens, li-2023-halueval]
   optional: [huang-2023-hallucination-survey, awesome-hallucination-detection]
   questions:
@@ -639,6 +647,7 @@
   guides:
     - conference-weeks
     - reading-papers
+    - boodlebox
   readings: [lewis-2020-rag, pinecone-chunking]
   optional: [boonstra-prompt-engineering, info7375-playlist]
   questions:
@@ -682,6 +691,7 @@
     architecture, which is exactly why it belongs in this course.
   guides:
     - reading-papers
+    - boodlebox
   readings: [yao-2022-react, schick-2023-toolformer]
   optional: [shinn-2023-reflexion]
   questions:
@@ -713,6 +723,7 @@
     workflows are being built as agents.
   guides:
     - reading-papers
+    - boodlebox
   readings: [anthropic-building-effective-agents, yao-2024-tau-bench]
   optional: [mcp-docs, jimenez-2023-swebench]
   questions:
@@ -746,6 +757,8 @@
     Everything changes when a system has to serve someone other than you. Token
     accounting, caching, batching, rate limits, and the arithmetic of cost per
     user per month.
+  guides:
+    - boodlebox
   readings: [anthropic-prompt-caching, anthropic-errors]
   optional:
     - anthropic-batch-processing
@@ -798,6 +811,8 @@
     Who is answerable when a system trained on everyone's writing makes a
     decision about one person — and who decides what gets released at all. A
     single session before the break, and the least technical week on purpose.
+  guides:
+    - boodlebox
   readings: [auditing-ai, verge-ai-factory, amodei-2026-open-weights]
   optional:
     - stanford-hai-open-weight
@@ -834,6 +849,8 @@
   summary: >-
     The course argues with itself. Four years of one guest's commentary, ending
     two months before this class started.
+  guides:
+    - boodlebox
   readings: [rpp-264-scaling-laws, rpp-291-reassessing, karpathy-animals-vs-ghosts]
   optional: [pydantic-human-in-the-loop, burchell-beyond-the-hype]
   questions:

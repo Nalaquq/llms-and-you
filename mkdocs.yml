@@ -121,6 +121,7 @@ nav:
   - Guides:
       - guides/index.md
       - guides/setup.md
+      - guides/boodlebox.md
       - guides/reading-papers.md
       - guides/writing-adrs.md
       - guides/conference-weeks.md

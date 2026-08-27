@@ -168,6 +168,16 @@ subscriptions to GenAI platforms are available from the college through
 [BoodleBox](https://boodlebox.ai/). Often we use these subscriptions to test a
 model's limitations and reflect on how we interact with such technologies.
 
+**Use them to understand the reading.** A model that explains a paragraph back
+to you in different words is doing something a classmate would do, and you are
+entitled to it. [Using BoodleBox to understand a
+reading](guides/boodlebox.md) walks through getting an account, asking a
+question worth answering, and — the part that matters — checking what it told
+you. Every session with reading links it.
+
+Accounts are free through the Computing Center. Request one in the first week;
+they take a few days.
+
 For these reasons, each assignment will note specifically if Generative AI is
 **not** allowed. For all other assignments you are free to use Generative AI,
 but you must acknowledge use with citations. But, with great power comes great

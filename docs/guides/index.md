@@ -14,6 +14,15 @@ of them are things students ask about.
     a terminal. We do both together in class — this page is the reference and
     the fallback.
 
+-   :material-robot-outline:{ .lg .middle } **[Using BoodleBox to understand a reading](boodlebox.md)**
+
+    ---
+
+    The college pays for a platform with most of the frontier models behind one
+    login. How to get an account, how to ask it about a paragraph that will not
+    go in, how to check what it said — and exactly where the line is in this
+    course.
+
 -   :material-file-document-outline:{ .lg .middle } **[How to read a paper you cannot fully understand](reading-papers.md)**
 
     ---

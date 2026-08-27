@@ -1056,3 +1056,89 @@ This makes reading order a thing the course has an opinion about, which is new.
 Other weeks are not ordered this deliberately, and most do not need to be — Week
 2 is unusual in assigning both a general account and a specific instance of the
 same idea.
+
+---
+
+## ADR-016: Put the BoodleBox guide on every session that assigns reading
+
+**Status:** Accepted
+
+### Context
+
+The college pays for BoodleBox, which puts most of the frontier models behind
+one login. Before this, the site mentioned it twice: one link in the syllabus
+alongside Co-Pilot, and a row in the tools table. Both are pages students read
+once, in August, before they have a reading they cannot get through.
+
+The result is predictable. Students who would benefit most from asking a model
+to explain a paragraph are the ones least sure they are allowed to, in a course
+that spends real time on the two ways to fail its AI policy. Ambiguity here does
+not produce reckless use; it produces students quietly not using a subscription
+the college has already paid for, and not saying so.
+
+There is a genuine tension underneath. Reading responses and the Burchell
+reflections are the one part of this course where GenAI is prohibited, and they
+are attached to exactly the readings a student would want help with. Encouraging
+model use on the reading and prohibiting it on the response are compatible
+positions, but only if the boundary is stated everywhere the encouragement is.
+
+### Decision
+
+A guide, [Using BoodleBox to understand a
+reading](../guides/boodlebox.md), linked from **every session that assigns
+reading** — thirteen of them — through the `guides` mechanism from ADR-008. It
+appears in the same box as *How to read a paper*, on the page a student opens
+when they are stuck, rather than only where they would have to go looking.
+
+The guide leads with the boundary rather than burying it: reading responses and
+reflections are no-AI work, phrased as the syllabus already phrases it —
+*asking a model to explain a passage you did not follow is fine; asking it to
+write your response is not.* It carries the account-request route and Todd Pugh
+as the contact, since the Computing Center administers this and the instructor
+cannot fix an account.
+
+Most of the guide is about asking a question worth answering and then checking
+the reply against the reading. That last step is deliberately framed as the
+skill rather than as a caution: a student who catches a hallucination in
+material they half-understand has met the Week 7 subject four weeks early, on
+their own terms.
+
+### Alternatives considered
+
+**A paragraph in the syllabus and nothing else.** What existed. It fails at the
+moment of need, which is a Sunday evening in Week 6, not August.
+
+**A line in each session's `activity` prose.** Rejected. Thirteen copies of the
+same sentence, drifting apart, in a repository whose entire design is aimed at
+not doing that — and prose does not render as anything a student's eye catches.
+
+**Link it from every session, including labs.** Rejected: labs assign no
+reading, so the guide has nothing to be about there, and a link that appears
+everywhere stops carrying information.
+
+**Name specific models to use for specific readings.** Rejected as advice with a
+shelf life measured in months, in a guide meant to last the term.
+
+### Consequences
+
+Two tests hold it. `test_reading_sessions_offer_help_understanding_the_reading`
+requires the link on any session with readings, so a new seminar cannot be added
+without it. `test_the_boodlebox_guide_states_the_no_ai_boundary` requires the
+guide to link the policy and name the prohibited work — a student arriving from
+a session page may never open the syllabus, so the guide cannot rely on it
+having been read.
+
+A third test came out of building this: the guide was written, linked, and
+building cleanly under `--strict` while missing from the site navigation, which
+mkdocs reports only at INFO. `test_every_guide_appears_in_the_site_navigation`
+now catches that for every guide.
+
+The risk is that promoting a tool this prominently reads as encouragement to use
+it on everything, which is the opposite of the policy. The mitigation is that
+the boundary table is in the guide itself rather than one link away, and that
+the guide's longest section is about not trusting what it tells you.
+
+**Left undone:** the account request form's URL. The Computing Center provides
+one and it is not recorded here, so the guide describes the route and names Todd
+Pugh instead of linking it. That should be a link, and inventing a plausible URL
+would have been worse than omitting it.

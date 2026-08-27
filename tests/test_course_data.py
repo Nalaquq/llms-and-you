@@ -29,6 +29,7 @@ SCHEDULE = load_schedule()
 RESOURCES = load_resources()
 THEMES = load_themes()
 GUIDES = load_guides()
+ROOT = GUIDES_DIR.parents[1]
 
 
 # --- Calendar ------------------------------------------------------------
@@ -193,6 +194,47 @@ def test_every_guide_is_reachable_from_a_session():
     assert not unreachable, (
         f"guides no session points at: {unreachable}. "
         "Add the guide to the session where a student needs it."
+    )
+
+
+def test_every_guide_appears_in_the_site_navigation():
+    """A guide missing from the nav is reachable only by luck.
+
+    mkdocs reports this at INFO level and builds happily, including under
+    --strict, so nothing else catches it.
+    """
+    nav = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+    missing = [g for g in GUIDES if f"guides/{g}.md" not in nav]
+    assert not missing, f"guides not listed in mkdocs.yml nav: {sorted(missing)}"
+
+
+def test_reading_sessions_offer_help_understanding_the_reading():
+    """Every session that assigns reading points at the BoodleBox guide.
+
+    The college pays for the subscription and students under-use it, mostly
+    because nobody told them it is allowed for this. The place to tell them is
+    the page listing the reading they are stuck in, not the syllabus they read
+    once in August.
+    """
+    for d in SCHEDULE:
+        if d.session.readings:
+            assert "boodlebox" in d.session.guides, (
+                f"{d.slug} assigns reading and does not link the BoodleBox guide"
+            )
+
+
+def test_the_boodlebox_guide_states_the_no_ai_boundary():
+    """It promotes a tool into the one place the course restricts it.
+
+    Reading responses and the Burchell reflections are no-AI work. A guide
+    encouraging model use on the reading has to say so itself -- a student who
+    lands on it from a session page may never open the syllabus.
+    """
+    text = (GUIDES_DIR / "boodlebox.md").read_text(encoding="utf-8")
+    assert "syllabus.md#using-ai" in text, "the guide must link the AI policy"
+    lowered = text.lower()
+    assert "reading response" in lowered and "reflection" in lowered, (
+        "the guide must name the work GenAI is prohibited on"
     )
 
 
