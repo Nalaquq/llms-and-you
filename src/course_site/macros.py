@@ -7,6 +7,7 @@ you get the current schedule, whatever the YAML says today.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -22,7 +23,7 @@ from course_site.loaders import (
     load_semester,
     load_themes,
 )
-from course_site.models import DatedSession, GenAI, Resource
+from course_site.models import DatedSession, GenAI, Kind, Resource
 from course_site.render import reading_block, reading_entry
 
 
@@ -94,6 +95,39 @@ def define_env(env) -> None:
             out.extend(reading_entry(r) for r in items)
             out.append("")
         return "\n".join(out)
+
+    @env.macro
+    def burchell_arc() -> str:
+        """The Real Python episodes with the same guest, in the order they aired.
+
+        Derived, not typed: any podcast in the library by this guest joins the
+        table, ordered by episode number, with its assignment read off the
+        schedule. Adding a seventh episode to ``resources.yml`` is the whole job.
+        """
+        # Burchell is also in the library as an author of written pieces; only
+        # the numbered podcast episodes are part of the arc.
+        numbered = [
+            (int(m.group(1)), r)
+            for r in load_resources().values()
+            if "Jodie Burchell" in r.authors
+            and r.kind is Kind.PODCAST
+            and (m := re.search(r"#(\d+)", r.title))
+        ]
+        where: dict[str, str] = {}
+        for d in schedule:
+            for rid in d.session.readings:
+                where[rid] = f"Week {d.session.week}"
+            for rid in d.session.optional:
+                where.setdefault(rid, "Optional")
+
+        rows = ["| # | Episode | Aired | Assigned |", "|:---|:---|:---|:---|"]
+        for i, (num, r) in enumerate(sorted(numbered), 1):
+            title = r.title.split(": ", 1)[1] if ": " in r.title else r.title
+            rows.append(
+                f"| {i} | [#{num} — {title}]({r.url}) | {r.year} | "
+                f"{where.get(r.id, 'Not assigned')} |"
+            )
+        return "\n".join(rows)
 
     @env.macro
     def conference_table() -> str:

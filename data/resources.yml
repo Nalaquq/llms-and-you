@@ -96,6 +96,21 @@
     How text becomes numbers. Focus on the embedding intuition, not the training
     algorithm.
 
+- id: hf-llm-embedding-primer
+  title: 'LLM Embeddings Explained: A Visual and Intuitive Guide'
+  authors: [hesamation]
+  kind: guide
+  url: https://huggingface.co/spaces/hesamation/primer-llm-embedding
+  themes: [foundations, ecosystem]
+  est_minutes: 40
+  assign_note: >-
+    All of it. The sections build: word2vec, then BERT, then what current models
+    actually do. The payoff is the last of those -- seeing why one fixed vector
+    per word stopped being good enough.
+  note: >-
+    The piece Alammar does not cover, because it did not exist yet: contextual
+    embeddings, and embeddings as they are computed inside a running LLM.
+
 - id: alammar-seq2seq-attention
   title: Visualizing a Neural Machine Translation Model (Seq2seq with Attention)
   authors: [Jay Alammar]
@@ -129,6 +144,18 @@
     Sections 4-6 is optional. You are reading this for the argument and for the
     experience of reading the paper the course is named after.
 
+- id: rpp-119-nlp
+  title: 'Real Python #119: Natural Language Processing and How ML Models Understand Text'
+  authors: [Jodie Burchell]
+  year: 2022
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/119/
+  themes: [foundations, critical]
+  est_minutes: 58
+  note: >-
+    Burchell arc, episode 1 of 6. The classical NLP pipeline, before any of this
+    was called an LLM -- which is what makes the next four years legible.
+
 - id: rpp-121-transformers
   title: 'Real Python #121: Moving NLP Forward With Transformer Models and Attention'
   authors: [Jodie Burchell]
@@ -138,7 +165,7 @@
   themes: [foundations, critical]
   est_minutes: 50
   note: >-
-    Burchell arc, episode 1 of 5. Recorded BEFORE ChatGPT shipped -- the reason
+    Burchell arc, episode 2 of 6. Recorded BEFORE ChatGPT shipped -- the reason
     it is assigned is that it does not know what is coming.
 
 - id: rpp-232-sentiment
@@ -149,7 +176,7 @@
   url: https://realpython.com/podcasts/rpp/232/
   themes: [foundations, technique]
   est_minutes: 73
-  note: Burchell arc, episode 2 of 5. Lexicon to ML to LLM; encoder vs decoder.
+  note: Burchell arc, episode 4 of 6. Lexicon to ML to LLM; encoder vs decoder.
 
 # ---------------------------------------------------------------------------
 # Theme 2 — Prompt Engineering Technique
@@ -317,7 +344,7 @@
   url: https://realpython.com/podcasts/rpp/188/
   themes: [truthfulness, responsible]
   est_minutes: 75
-  note: Burchell arc, episode 3 of 5. Hands-on companion to TruthfulQA.
+  note: Burchell arc, episode 3 of 6. Hands-on companion to TruthfulQA.
 
 - id: burchell-lies-damned-lies
   title: Lies, Damned Lies and Large Language Models
@@ -561,7 +588,7 @@
   themes: [critical]
   est_minutes: 88
   note: >-
-    Burchell arc, episode 4 of 5. Scaling limits, benchmark reliability, the
+    Burchell arc, episode 5 of 6. Scaling limits, benchmark reliability, the
     Stanford developer-productivity study, the MIT pilot-failure report.
 
 - id: rpp-291-reassessing
@@ -573,7 +600,7 @@
   themes: [critical, agents]
   est_minutes: 75
   note: >-
-    Burchell arc, episode 5 of 5. Context engineering, agent orchestration, and
+    Burchell arc, episode 6 of 6. Context engineering, agent orchestration, and
     the bubble critique. The title answers Karpathy's essay.
 
 - id: karpathy-animals-vs-ghosts

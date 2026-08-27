@@ -203,11 +203,18 @@
   summary: >-
     Tokens and embeddings. The unglamorous step everyone skips, and the reason
     models behave strangely at the edges of words.
+
+
+    This is the heaviest preparation week of the term, and deliberately so --
+    everything after it assumes you know what a vector of numbers is doing here.
+    Most of the load is listening, not reading. Start on the weekend.
   readings:
     - 3blue1brown-word-vectors
     - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
     - alammar-seq2seq-attention
     - 3blue1brown-transformers
+    - rpp-119-nlp
     - rpp-121-transformers
   questions:
     - What does it mean for two words to be "close together" in an embedding space?
@@ -215,8 +222,13 @@
       A word becomes a vector. What has to happen for a whole *sentence* to
       become one, and what does that cost you?
     - >-
-      Episode 121 was recorded three months before ChatGPT was released. What
-      does Burchell expect to matter, and what does she not see coming?
+      Word2vec gives "bank" one vector for every sentence it ever appears in. A
+      current model gives it a different one each time. What does that buy, and
+      what does it cost?
+    - >-
+      Episodes 119 and 121 were recorded two weeks apart, in the last summer
+      before ChatGPT. What does Burchell expect to matter, and what does she not
+      see coming?
   activity: Embedding-space exploration; the classic king/queen analogy, and where it fails.
 
 - week: 2
@@ -702,7 +714,7 @@
   optional: [pydantic-human-in-the-loop, burchell-beyond-the-hype]
   questions:
     - >-
-      Trace the Burchell arc from Episode 121 to Episode 291. What changed in
+      Trace the Burchell arc from Episode 119 to Episode 291. What changed in
       the field, and what changed in her?
     - Which claim from Week 1 of this course do you now think was wrong?
   genai: prohibited

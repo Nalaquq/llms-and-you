@@ -577,3 +577,95 @@ so the rule still holds where tabs cannot.
 The `.githooks/pre-commit` hook in the template also prints both forms now. A
 credential-blocking hook whose remedy only works on one platform sends half the
 students who trip it looking for a second problem.
+
+---
+
+## ADR-010: Let Week 2 run over the reading cap, and say so on the page
+
+**Status:** Accepted
+
+### Context
+
+`test_weekly_reading_load_stays_reasonable` caps a session at 120 minutes of
+close reading and 200 minutes in total. Those numbers are the course's workload
+promise made concrete, and ADR-006 treated them as the constraint that keeps the
+promise honest.
+
+Week 2 is the foundations week. Everything after it — attention in Week 3, the
+whole of the transformer, retrieval in Week 10 — assumes a student knows what a
+vector of numbers is doing in place of a word. Two additions were wanted:
+Burchell's *Real Python* #119, the classical NLP pipeline recorded before any of
+this was called an LLM, and Hugging Face's visual embeddings primer, which
+covers contextual embeddings inside a running model. Alammar does not cover
+that, because it did not exist when he wrote.
+
+With both, Week 2 comes to 241 minutes. The obvious fixes were considered and
+declined: moving Burchell #121 to Week 3, or demoting it to optional. The
+instructor's judgement is that the week is worth the weight.
+
+### Decision
+
+Week 2 Tuesday runs at 241 minutes, recorded as an explicit exception rather
+than by relaxing the cap.
+
+`HEAVY_SESSIONS` in the test file maps a session slug to the exact ceiling it
+may not exceed. Exact, because the point is not to create room — it is to make
+the next addition to that week a decision someone has to take again.
+
+Three things hold the exception honest:
+
+- The **close-reading cap is not exceptioned and never will be.** Week 2 sits at
+  105 of 120 minutes there. All 41 minutes of overrun are listening. ADR-006's
+  own reasoning is the justification: an hour of paper is an hour at a desk, an
+  hour of podcast is a walk across campus, which is why the two cap separately.
+- `test_heavy_sessions_are_actually_heavy` fails if the week slims back under
+  200, so the exception cannot outlive the reason for it.
+- `test_overloaded_sessions_warn_students` fails unless the session page says it
+  is a heavy week. A promise made to students cannot be excepted only in a test
+  file they never open, so Week 2's summary now says it is the heaviest week of
+  the term, why, that most of it is listening, and to start on the weekend.
+
+### Alternatives considered
+
+**Raise the global cap to 245.** Rejected outright. It converts one deliberate
+week into a permanent licence for every week, and quietly retires the promise
+instead of making an exception to it.
+
+**Move Burchell #121 to Week 3.** Genuinely attractive: #121 is titled *Moving
+NLP Forward With Transformer Models and Attention*, which is Week 3's topic
+almost word for word, and it would have brought Week 2 to 191 with Week 3 at
+171. Rejected because #119 and #121 were recorded two weeks apart in the last
+summer before ChatGPT, and hearing them back to back is the point — the pair is
+the evidence, not either one alone.
+
+**Demote #121 to optional.** Same arithmetic, and it shrinks the Burchell arc
+from six required episodes to five, weakening the Week 15 reflection that asks
+students to trace the whole thing.
+
+**Add the primer as optional.** Rejected: contextual embeddings are the part of
+Week 2 with no other source on the list, and optional readings are not read.
+
+### Consequences
+
+Week 2 is 241 minutes against a term norm of about 140, and it lands in the
+second week, when students are least practised at pacing themselves. The
+mitigation is that they are told, on the page, before it starts. If the week
+proves too much in practice, the honest response is to move #121 to Week 3 as
+above — the option is costed and still there.
+
+The exception mechanism is now available and will be attractive. It should stay
+rare: every entry in `HEAVY_SESSIONS` is a week where the course asked for more
+than it promised, and the count of them is a fair measure of how well the
+promise is being kept.
+
+### A correction that came with it
+
+Adding #119 required renumbering the arc, which surfaced that episodes 188 and
+232 were numbered in the wrong order — 232 was labelled episode 2 and 188
+episode 3, though 188 aired in January 2024 and 232 the following December. The
+arc is now in the order it happened.
+
+The table on the Readings page is generated from `resources.yml` rather than
+written, after three of six episode titles were typed in from memory and three
+of those were wrong. That is the repository's one rule working exactly as
+intended: the data was right and the memory was not.

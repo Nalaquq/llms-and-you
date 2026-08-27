@@ -285,6 +285,33 @@ def test_every_session_has_an_activity_or_readings():
         assert d.session.activity or d.session.readings, f"{d.slug} is empty"
 
 
+READ_CAP = 120
+TOTAL_CAP = 200
+
+# Sessions the instructor has deliberately loaded past the total cap, with the
+# ceiling that session may not itself exceed. An entry here is a decision, not a
+# waiver: the number is exact, so a week that grows further fails again and has
+# to be decided again. The close-reading cap has no exceptions and never has --
+# an hour at a desk is the expensive hour, and every entry here overruns on
+# listening. Anything added must also be visible to students on the session
+# page, which test_overloaded_sessions_warn_students checks.
+HEAVY_SESSIONS: dict[str, int] = {
+    # Foundations week. Two Burchell episodes and three explainers, because
+    # every week after this one assumes embeddings are understood. 136 of the
+    # 241 minutes are listening. See ADR-010.
+    "w02-tue": 241,
+}
+
+
+def _load(d) -> tuple[int, int]:
+    """Minutes of close reading, and minutes of everything, for one session."""
+    listening = {Kind.PODCAST, Kind.VIDEO}
+    items = [RESOURCES[r] for r in d.session.readings]
+    read = sum(r.est_minutes or 0 for r in items if r.kind not in listening)
+    heard = sum(r.est_minutes or 0 for r in items if r.kind in listening)
+    return read, read + heard
+
+
 def test_weekly_reading_load_stays_reasonable():
     """Close reading and listening are not the same cost, so they cap separately.
 
@@ -292,13 +319,43 @@ def test_weekly_reading_load_stays_reasonable():
     campus. The course promises one substantial reading per week; these are the
     numbers that keep that promise honest.
     """
-    listening = {Kind.PODCAST, Kind.VIDEO}
     for d in SCHEDULE:
-        items = [RESOURCES[r] for r in d.session.readings]
-        read = sum(r.est_minutes or 0 for r in items if r.kind not in listening)
-        heard = sum(r.est_minutes or 0 for r in items if r.kind in listening)
-        assert read <= 120, f"{d.slug} assigns {read} minutes of close reading"
-        assert read + heard <= 200, f"{d.slug} assigns {read + heard} minutes total"
+        read, total = _load(d)
+        assert read <= READ_CAP, f"{d.slug} assigns {read} minutes of close reading"
+        ceiling = HEAVY_SESSIONS.get(d.slug, TOTAL_CAP)
+        assert total <= ceiling, (
+            f"{d.slug} assigns {total} minutes total, over its {ceiling}-minute ceiling. "
+            "Move something, or record the decision in HEAVY_SESSIONS with an ADR."
+        )
+
+
+def test_heavy_sessions_are_actually_heavy():
+    """Delete the exception when the week that needed it slims back down."""
+    for slug, ceiling in HEAVY_SESSIONS.items():
+        d = next(x for x in SCHEDULE if x.slug == slug)
+        _, total = _load(d)
+        assert total > TOTAL_CAP, (
+            f"{slug} is at {total} minutes and no longer needs an exception -- "
+            "remove it from HEAVY_SESSIONS so the cap applies again"
+        )
+        assert total == ceiling, (
+            f"{slug} is at {total} minutes but HEAVY_SESSIONS says {ceiling}. "
+            "The ceiling is exact on purpose: update it as a decision, not a patch."
+        )
+
+
+def test_overloaded_sessions_warn_students():
+    """A week over the cap has to say so where students will see it.
+
+    The workload promise is made to students, so an exception to it is owed to
+    students too -- not recorded only in a test file they never open.
+    """
+    for slug in HEAVY_SESSIONS:
+        session = next(x for x in SCHEDULE if x.slug == slug).session
+        prose = " ".join(x for x in (session.summary, session.activity) if x).lower()
+        assert "heaviest" in prose or "heavy" in prose, (
+            f"{slug} is deliberately over the reading cap and does not say so on the page"
+        )
 
 
 def test_all_themes_are_taught():

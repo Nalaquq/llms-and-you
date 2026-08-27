@@ -151,11 +151,11 @@ walk into it.
 ### The Burchell reflections
 
 Three longer pieces, due **Weeks 2, 7, and 15**, tracking the [Burchell
-arc](resources.md#the-burchell-arc) — five *Real Python* episodes with the same
-guest, from August 2022 to April 2026.
+arc](resources.md#the-burchell-arc) — six *Real Python* episodes with the same
+guest, from July 2022 to April 2026.
 
-The first was recorded three months before ChatGPT was released. The last, two
-months before this class started. Read consecutively they are a record of a
+The first two were recorded four and three months before ChatGPT was released.
+The last, two months before this class started. Read consecutively they are a record of a
 field changing under someone who was paying close attention throughout, and the
 reflections ask you to track both what changed in the field and what changed in
 her.

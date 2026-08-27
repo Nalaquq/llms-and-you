@@ -20,6 +20,43 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — two required readings in Week 2, which is now the heaviest week **[student-facing]**
+
+Week 2 Tuesday gains two things, both required:
+
+- **[Real Python #119 — Natural Language Processing and How ML Models
+  Understand Text](https://realpython.com/podcasts/rpp/119/)** (Burchell, Jul
+  2022, ~58 min). It joins #121 as the *first* episode of the Burchell arc.
+  The two were recorded two weeks apart, in the last summer before ChatGPT.
+- **[LLM Embeddings Explained: A Visual and Intuitive
+  Guide](https://huggingface.co/spaces/hesamation/primer-llm-embedding)**
+  (~40 min). Contextual embeddings, and embeddings inside a running model —
+  the part Alammar does not cover, because it did not exist when he wrote.
+
+**Week 2 now runs about 241 minutes of preparation against a term norm of
+roughly 140, and is the heaviest week of the course.** That is deliberate:
+everything afterwards assumes you know what a vector of numbers is doing in
+place of a word. Most of the extra is listening rather than reading — close
+reading is 105 minutes, under the usual 120 cap. Start on the weekend.
+Reasoning in
+[ADR-010](https://Nalaquq.github.io/llms-and-you/adr/#adr-010-let-week-2-run-over-the-reading-cap-and-say-so-on-the-page).
+
+### Fixed — the Burchell arc was numbered out of order **[student-facing]**
+
+Episode 232 was labelled episode 2 of the arc and episode 188 episode 3, but
+188 aired in January 2024 and 232 in December. The arc is now in the order it
+happened, and runs to six episodes. The Week 15 reflection question now reads
+"from Episode 119", not "from Episode 121".
+
+### Fixed — "the Burchell arc" now links somewhere
+
+The assignments page had linked `resources.md#the-burchell-arc` since it was
+written; no such section existed. The [Readings
+page](https://Nalaquq.github.io/llms-and-you/resources/#the-burchell-arc) now
+has one, with all six episodes, when each aired, and which week it is assigned
+in — generated from the course data rather than typed.
+
+
 ### Changed — every command is now given for Windows as well **[student-facing]**
 
 The site was written for macOS and Linux throughout. `python3`, `export`,
