@@ -145,6 +145,40 @@ def define_env(env) -> None:
         return "\n".join(rows)
 
     @env.macro
+    def required_adrs_table(prefix: str = "") -> str:
+        """The decision records the project is graded on, with derived dates.
+
+        ``prefix`` is the path from the calling page back to the docs root --
+        ``"../"`` from inside ``guides/``.
+        """
+        by_slug = {d.slug: d for d in schedule}
+        rows = ["| | Due | Decision |", "|:---|:---|:---|"]
+        for a in load_assignments():
+            for adr in a.adrs:
+                d = by_slug[adr.slug]
+                rows.append(
+                    f"| **{adr.id}** | [Week {adr.week} ({d.date_label})]"
+                    f"({prefix}sessions/{adr.slug}.md) | {adr.decision} |"
+                )
+        return "\n".join(rows)
+
+    @env.macro
+    def milestone_table(prefix: str = "") -> str:
+        """Everything with a due date, read off the sessions that announce it.
+
+        Derived rather than written, so this table and the "Due today" banner on
+        the session page are the same fact rendered twice.
+        """
+        rows = ["| Due | Deliverable |", "|:---|:---|"]
+        for d in schedule:
+            if d.session.due:
+                rows.append(
+                    f"| **Week {d.session.week}** ([{d.date_label}]"
+                    f"(sessions/{d.slug}.md)) | {d.session.due.strip()} |"
+                )
+        return "\n".join(rows)
+
+    @env.macro
     def grading_table() -> str:
         """Components, weights, and whether GenAI is permitted on each.
 

@@ -20,6 +20,27 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Fixed — ADR-001 and ADR-003 were due on days the site never said so **[student-facing]**
+
+Both were listed in the ADR guide and on the assignments page, and neither
+appeared on the session page for the day they are due. That is the page you
+actually open, so **two of your four graded ADRs had no "Due today" banner and
+no flag on the schedule.**
+
+Both now appear, on [Week 1
+Thursday](https://Nalaquq.github.io/llms-and-you/sessions/w01-thu/) and [Week 9
+Thursday](https://Nalaquq.github.io/llms-and-you/sessions/w09-thu/). Nothing
+about what is due, or when, has changed — only whether the site told you.
+
+If you were tracking deadlines from the schedule rather than the assignments
+page, you were not missing something you should have caught. That was a bug.
+
+The four required ADRs now live in the course data, so the guide's table, the
+milestone table, the red banner, and the schedule flag are all the same fact.
+The build fails if a required ADR's session does not announce it. Reasoning in
+[ADR-011](https://Nalaquq.github.io/llms-and-you/adr/#adr-011-make-the-required-adrs-data-so-the-session-pages-announce-them).
+
+
 ### Added — two required readings in Week 2, which is now the heaviest week **[student-facing]**
 
 Week 2 Tuesday gains two things, both required:

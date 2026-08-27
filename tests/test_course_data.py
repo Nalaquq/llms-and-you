@@ -407,6 +407,35 @@ def test_due_dates_fall_on_real_sessions():
         assert d.date in set(held_dates(SEM))
 
 
+def test_every_required_adr_is_announced_on_its_session():
+    """A deliverable is only due if the page a student opens says it is.
+
+    ADR-001 and ADR-003 were promised in two Markdown tables and in neither
+    session's ``due`` field, so no red banner appeared on the day and no flag
+    appeared on the schedule. That is invisible until a student misses one.
+    """
+    for a in load_assignments():
+        for adr in a.adrs:
+            d = next((x for x in SCHEDULE if x.slug == adr.slug), None)
+            assert d is not None, f"{adr.id} is due at {adr.slug}, which is not a meeting"
+            assert adr.id in (d.session.due or ""), (
+                f"{adr.id} is due on {adr.slug} but that session's 'due' field does not "
+                f"name it, so no banner renders: {d.session.due!r}"
+            )
+
+
+def test_required_adrs_are_numbered_consecutively_from_one():
+    ids = [adr.id for a in load_assignments() for adr in a.adrs]
+    assert ids == [f"ADR-{i:03d}" for i in range(1, len(ids) + 1)], ids
+
+
+def test_required_adrs_are_in_chronological_order():
+    """The guide's table is generated in list order; it should read forwards."""
+    for a in load_assignments():
+        dates = [next(x for x in SCHEDULE if x.slug == adr.slug).date for adr in a.adrs]
+        assert dates == sorted(dates), f"{a.id}'s ADRs are out of order: {dates}"
+
+
 # --- AI policy -----------------------------------------------------------
 #
 # The policy promises students two things: that AI is permitted unless a page

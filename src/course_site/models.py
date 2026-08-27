@@ -301,6 +301,34 @@ class Semester(Base):
         return next((c for c in self.conference_weeks if c.covers(when)), None)
 
 
+class RequiredADR(Base):
+    """One of the decision records the project is graded on.
+
+    Written down here because it was previously written down in three places --
+    two Markdown tables and a session's ``due`` string -- and one of the three
+    was missing two of the four. The session pages, the guide, and the milestone
+    table all derive from this list, and a test checks the session actually
+    announces it.
+    """
+
+    id: str
+    week: int = Field(ge=1, le=15)
+    day: Day
+    decision: str
+    """What the record is about, in the words the guide's table shows."""
+
+    @field_validator("id")
+    @classmethod
+    def _numbered(cls, v: str) -> str:
+        if not re.fullmatch(r"ADR-\d{3}", v):
+            raise ValueError(f"required ADR id must look like 'ADR-001', got {v!r}")
+        return v
+
+    @property
+    def slug(self) -> str:
+        return f"w{self.week:02d}-{self.day.value}"
+
+
 class Assignment(Base):
     id: str
     title: str
@@ -308,6 +336,8 @@ class Assignment(Base):
     """Percentage of the final grade."""
     summary: str
     due: str | None = None
+    adrs: list[RequiredADR] = Field(default_factory=list)
+    """Decision records due at checkpoints, for assignments graded on a log."""
     genai: GenAI = GenAI.ALLOWED
     genai_note: str | None = None
 

@@ -122,7 +122,24 @@ def load_schedule() -> list[DatedSession]:
                 "design -- move these to the preceding Tuesday, or use 'optional'."
             )
 
-    return assign_dates(load_semester(), sessions)
+    dated = assign_dates(load_semester(), sessions)
+
+    by_slug = {d.slug: d for d in dated}
+    for a in load_assignments():
+        for adr in a.adrs:
+            d = by_slug.get(adr.slug)
+            if d is None:
+                raise ValueError(
+                    f"{adr.id} is due at {adr.slug!r}, which is not a meeting in the schedule"
+                )
+            if adr.id not in (d.session.due or ""):
+                raise ValueError(
+                    f"{adr.id} is due on {adr.slug}, but that session's 'due' does not "
+                    f"mention it: {d.session.due!r}. A deliverable students cannot see "
+                    "on the session page is one they will miss."
+                )
+
+    return dated
 
 
 def resource(rid: str) -> Resource:

@@ -15,6 +15,27 @@
     submitted with the decision log you kept while building it. The log is not
     documentation written afterwards; it is a record written as you decided.
     Four ADRs are due at checkpoints during the term and are graded as you go.
+  # The four checkpoints. No dates here -- each names the meeting it is due at
+  # and calendar.py supplies the date, as everywhere else. The guide's table,
+  # the milestone table, and the session's own "Due today" banner all come from
+  # this list, so they cannot disagree with each other again.
+  adrs:
+    - id: ADR-001
+      week: 1
+      day: thu
+      decision: Any decision you made setting up your repository and tools
+    - id: ADR-002
+      week: 5
+      day: thu
+      decision: Technique selection for your project
+    - id: ADR-003
+      week: 9
+      day: thu
+      decision: How your system handles failure
+    - id: ADR-004
+      week: 10
+      day: thu
+      decision: Retrieval design -- or why you are not using retrieval
 
 - id: midterm
   title: HackAPrompt Red-Team Midterm

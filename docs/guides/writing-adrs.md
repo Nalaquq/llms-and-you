@@ -47,17 +47,15 @@ decisions and should split them.
 
 ## The four required ADRs
 
-| | Due | Decision |
-|:---|:---|:---|
-| **ADR-001** | Week 1 (Thu Aug 27) | Any decision you made setting up Claude Code |
-| **ADR-002** | Week 5 (Thu Sep 24) | Technique selection for your project |
-| **ADR-003** | Week 9 (Thu Oct 22) | How your system handles failure |
-| **ADR-004** | Week 10 (Thu Oct 29) | Retrieval design — or why you are not using retrieval |
+{{ required_adrs_table(prefix="../") }}
+
+Each one is also announced on the session page it is due at, so you do not have
+to remember this table.
 
 ADR-001 is due in the first week, before you have anything complicated to
 decide. That is deliberate: the format is easier to learn on a simple decision
 than on a hard one, and the Week 1 lab manufactures a handful of small ones by
-having you install something.
+having you set up a repository.
 
 Write others whenever you make a choice you might question later. The full log
 is submitted with the final project.

@@ -669,3 +669,78 @@ The table on the Readings page is generated from `resources.yml` rather than
 written, after three of six episode titles were typed in from memory and three
 of those were wrong. That is the repository's one rule working exactly as
 intended: the data was right and the memory was not.
+
+---
+
+## ADR-011: Make the required ADRs data, so the session pages announce them
+
+**Status:** Accepted
+
+### Context
+
+The project is graded on four decision records due at checkpoints. Which four,
+and when, was written down three times: a table in the ADR guide, a milestone
+table on the assignments page, and — for some of them — the `due` field of the
+session they fall on.
+
+Two of the three did not agree. **ADR-001 and ADR-003 were in both Markdown
+tables and in neither session's `due` field.** The consequence is invisible
+until it is expensive: `due` is what renders the red *Due today* banner on the
+session page and the flag on the schedule, so a student who worked from the
+schedule — which is how the site is designed to be used, and what every session
+guide link now points them at — saw two of their four graded ADRs announced
+nowhere at all.
+
+ADR-001 was worse than an omission. The Week 1 lab said "**ADR-001 is due**" in
+its activity prose, in bold, which reads as handled and is not. That is exactly
+the failure ADR-005 named for the AI policy: a fact stated only in prose does
+not render as a banner, and a deadline a student cannot see is not one you can
+hold them to.
+
+### Decision
+
+The four required ADRs move into `data/assignments.yml` as a `RequiredADR` list
+on the project assignment: id, the meeting they are due at as (week, day), and
+the decision each one records. No dates, per ADR-002 — `calendar.py` supplies
+those.
+
+Everything that shows them now derives from that list. The guide's table and the
+milestone table are macros. The session `due` fields were corrected, and the
+loader refuses to build if a required ADR's session does not name it, so the
+banner and the tables cannot drift apart again.
+
+The milestone table is derived from the sessions' own `due` fields rather than
+from a separate list, which makes that table and the *Due today* banner the same
+fact rendered in two places instead of two facts that agree by luck.
+
+### Alternatives considered
+
+**Add the two missing `due:` lines and stop.** What was asked for, and it fixes
+today's bug in two lines. Rejected as the whole answer because the bug was not
+the two lines — it was that the same fact lived in three hand-maintained places
+with nothing checking them against each other. That arrangement produced this
+error and would produce the next one.
+
+**Keep the tables written by hand and add only the test.** Rejected: a test that
+compares two hand-written tables tells you they disagree without saying which is
+right. Deriving both from one list means there is nothing to disagree.
+
+**Put the ADR list in its own `data/adrs.yml`.** Rejected as a fifth data file
+for four rows of something that belongs to one assignment. It hangs off the
+project, which is what it is graded as part of.
+
+### Consequences
+
+Adding a fifth required ADR is now one entry in `assignments.yml` plus the `due`
+text on its session, and the build tells you if you forget the second half. The
+guide's table, the milestone table, the session banner, and the schedule flag
+all follow.
+
+The date shown for each ADR is now derived, so moving a session moves its
+deadline everywhere — including on the guide page, which previously carried
+hand-typed dates that a schedule change would have silently falsified.
+
+`due` strings are prose and stay prose: they are what the banner says, and
+"HackAPrompt midterm write-up, and ADR-003 (how your system handles failure)"
+reads better on the day than any structure would. The loader only checks that
+the ADR's id appears in it.

@@ -44,6 +44,8 @@
   kind: lab
   topic: 'Lab: Your Repository, and a Decision Record'
   theme: methodology
+  due: >-
+    ADR-001 -- any one of today's decisions, written up, committed, and pushed
   summary: >-
     We build the thing you will work in for the rest of the semester -- a GitHub
     account, your own copy of the project template, and the two tools that read
@@ -496,7 +498,8 @@
   topic: Red-Team Debrief
   theme: responsible
   summary: What broke, how, and what it implies about deploying these systems.
-  due: HackAPrompt midterm write-up
+  due: >-
+    HackAPrompt midterm write-up, and ADR-003 (how your system handles failure)
   activity: >-
     Students present their most effective attack and the defence they would
     build against it. ADR-003 due: how your project handles failure.

@@ -39,12 +39,7 @@ contains, so starting somewhere else means building the same things by hand.
 
 ### Milestones
 
-| Due | Deliverable |
-|:---|:---|
-| **Week 5** (Thu Sep 24) | Project proposal + **ADR-002**: technique selection and rationale |
-| **Week 9** (Thu Oct 22) | **ADR-003**: how your system handles failure |
-| **Week 10** (Thu Oct 29) | Working prototype + **ADR-004**: retrieval design (or why not) |
-| **Week 15** (Thu Dec 3) | Final system, full ADR log, reflective introduction, presentation |
+{{ milestone_table() }}
 
 Weeks 5 and 10 are individual-meeting weeks, so both milestones are discussed
 one-to-one rather than in class. Each ends with a written goal for the next
