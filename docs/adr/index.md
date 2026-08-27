@@ -977,3 +977,82 @@ the command instead. No page on the site refers to a control by its colour.
 Nothing about the button being *correct* has changed. It exists, it works, and a
 student who finds it will get the same repository. It is simply no longer what
 the instructions depend on.
+
+---
+
+## ADR-015: Order Week 2's readings general to specific
+
+**Status:** Accepted
+
+### Context
+
+Week 2 grew to seven items (ADR-010) and was ordered by accident of arrival:
+the one-minute video, Alammar's *Illustrated Word2Vec*, the Hugging Face
+embeddings primer, seq2seq, the transformer video, then both Burchell episodes
+at the end because podcasts had been added last.
+
+Read in that order, a student meets **word2vec before they are told what an
+embedding is.** Word2Vec is one specific 2013 technique for producing one fixed
+vector per word. Meeting it first invites the reasonable and wrong conclusion
+that this is what embeddings *are* — which then has to be unpicked in Week 3,
+when the same student meets a model that produces a different vector for the
+same word in every sentence.
+
+The reading list also had all the listening bunched at the end, so a student
+pacing themselves across the week did all the reading first and all the walking
+last, which is the wrong shape for the heaviest week of the term.
+
+### Decision
+
+The list runs general to specific, in three movements:
+
+1. **What an embedding is.** The one-minute video, then the Hugging Face
+   primer, then Burchell #119 — the classical NLP pipeline, which is the
+   problem embeddings were invented to solve.
+2. **One specific way of building them.** Alammar's *Illustrated Word2Vec*, now
+   met as a worked example of a thing already named rather than as the
+   definition.
+3. **What replaced it.** Seq2seq with attention, the transformer video, and
+   Burchell #121.
+
+The session page says so — *take them in the order they are listed* — with the
+reason, because a list of seven items with no stated order gets read shortest
+first.
+
+The two `assign_note`s that changed meaning were rewritten: the primer now says
+it is the map and that word2vec is coming again slowly, and Alammar's says the
+primer sketched this and here it is at walking pace. Without that, the overlap
+reads as a duplicate and the second one gets skipped.
+
+### Alternatives considered
+
+**Order by length, shortest first,** to build momentum in a 241-minute week.
+Rejected: it is the order a student will use anyway if we do not give them one,
+and it puts the 27-minute transformer video before the 40-minute primer, which
+is the same inversion in a different disguise.
+
+**Interleave listening and reading** so each sitting has one of each. Attractive
+for pacing and rejected because it cuts across the argument — the two Burchell
+episodes are four years and one architecture apart, and playing them either side
+of word2vec would suggest they belong together.
+
+**Leave the order alone and explain the relationship in prose.** Rejected. The
+list is what students act on; a paragraph explaining that item 2 is a special
+case of item 3 is work the ordering can do for free.
+
+### Consequences
+
+Nothing about the workload changed — the same seven items, 105 minutes of close
+reading and 241 in total, still under the exception recorded in ADR-010.
+
+`test_foundations_week_runs_general_to_specific` pins the relationships rather
+than the list: primer before word2vec, word2vec before what replaced it, the
+Burchell episodes in recording order, and the one-minute video first. A reorder
+that breaks the argument fails; adding an eighth reading in a sensible place
+does not. The pin exists because reading order is invisible in a YAML list and
+is precisely the sort of thing a later edit disturbs without noticing.
+
+This makes reading order a thing the course has an opinion about, which is new.
+Other weeks are not ordered this deliberately, and most do not need to be — Week
+2 is unusual in assigning both a general account and a specific instance of the
+same idea.

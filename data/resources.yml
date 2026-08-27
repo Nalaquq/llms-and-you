@@ -93,8 +93,8 @@
   themes: [foundations]
   est_minutes: 35
   assign_note: >-
-    How text becomes numbers. Focus on the embedding intuition, not the training
-    algorithm.
+    The primer sketched word2vec in a few paragraphs; this is the same idea at
+    walking pace. Focus on the embedding intuition, not the training algorithm.
 
 - id: hf-llm-embedding-primer
   title: 'LLM Embeddings Explained: A Visual and Intuitive Guide'
@@ -104,9 +104,9 @@
   themes: [foundations, ecosystem]
   est_minutes: 40
   assign_note: >-
-    All of it. The sections build: word2vec, then BERT, then what current models
-    actually do. The payoff is the last of those -- seeing why one fixed vector
-    per word stopped being good enough.
+    All of it, and read it before the Alammar pieces. This is the map: what an
+    embedding is, then word2vec, then BERT, then what current models do. You
+    meet word2vec again straight after, slowly -- here it is one stop on a tour.
   note: >-
     The piece Alammar does not cover, because it did not exist yet: contextual
     embeddings, and embeddings as they are computed inside a running LLM.

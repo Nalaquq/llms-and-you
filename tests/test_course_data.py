@@ -358,6 +358,39 @@ def test_overloaded_sessions_warn_students():
         )
 
 
+def test_foundations_week_runs_general_to_specific():
+    """Week 2's reading order is an argument, not a list.
+
+    It goes: what an embedding is at all, then one concrete way of building
+    them (word2vec), then the architecture that displaced it. A reader who
+    meets word2vec first learns the special case as though it were the general
+    one, and spends Week 3 unlearning it.
+
+    Pinned because the order is invisible in a YAML list and is exactly what a
+    later edit would disturb without noticing. If you are deliberately changing
+    the argument, change this test and say why in an ADR. See ADR-015.
+    """
+    session = next(d for d in SCHEDULE if d.slug == "w02-tue").session
+    order = session.readings
+
+    def at(rid: str) -> int:
+        assert rid in order, f"w02-tue no longer assigns {rid}"
+        return order.index(rid)
+
+    assert at("hf-llm-embedding-primer") < at("alammar-illustrated-word2vec"), (
+        "the general primer must come before word2vec, not after it"
+    )
+    assert at("alammar-illustrated-word2vec") < at("alammar-seq2seq-attention"), (
+        "word2vec must come before what replaced it"
+    )
+    assert at("rpp-119-nlp") < at("rpp-121-transformers"), (
+        "the Burchell episodes must be heard in the order they were recorded"
+    )
+    assert order[0] == "3blue1brown-word-vectors", (
+        "the one-minute video opens the week -- it is the cheapest possible entry"
+    )
+
+
 def test_all_themes_are_taught():
     """Every theme reaches students, whether or not it owns a session.
 

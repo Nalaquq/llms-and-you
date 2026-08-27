@@ -20,6 +20,22 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 2's readings are reordered, and the order now matters **[student-facing]**
+
+Same seven readings, same 241 minutes. What changed is the sequence, and the
+session page now says to follow it.
+
+It runs from the general to the specific: what an embedding *is* (the
+one-minute video, the Hugging Face primer, Burchell #119), then one specific way
+of building them (Alammar's *Illustrated Word2Vec*), then what replaced it
+(seq2seq, the transformer video, Burchell #121).
+
+Previously word2vec came second — before anything had said what an embedding
+is. Word2Vec makes one fixed vector per word, which is a reasonable thing to
+mistake for the definition, and Week 3 then has to undo it. Reasoning in
+[ADR-015](https://Nalaquq.github.io/llms-and-you/adr/#adr-015-order-week-2s-readings-general-to-specific).
+
+
 ### Changed — you make your project copy with one command now **[student-facing]**
 
 The instructions said to press "the green **Use this template** button." That

@@ -319,13 +319,25 @@
     This is the heaviest preparation week of the term, and deliberately so --
     everything after it assumes you know what a vector of numbers is doing here.
     Most of the load is listening, not reading. Start on the weekend.
+
+
+    **Take them in the order they are listed.** They run from what an embedding
+    is, to one specific way of building them, to the thing that replaced it.
+    Starting with the shortest, or with the paper that looks most important,
+    makes the rest harder than it needs to be.
+  # Ordered general to specific, and the order is the point: what an embedding
+  # is at all, then one concrete way of making them, then the architecture that
+  # replaced it. Do not sort these by length. See ADR-015.
   readings:
+    # 1. What embeddings are
     - 3blue1brown-word-vectors
-    - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
+    - rpp-119-nlp
+    # 2. One specific way of building them
+    - alammar-illustrated-word2vec
+    # 3. What replaced it
     - alammar-seq2seq-attention
     - 3blue1brown-transformers
-    - rpp-119-nlp
     - rpp-121-transformers
   questions:
     - What does it mean for two words to be "close together" in an embedding space?
