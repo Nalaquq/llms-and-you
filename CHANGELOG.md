@@ -20,6 +20,29 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — you make your project copy with one command now **[student-facing]**
+
+The instructions said to press "the green **Use this template** button." That
+button does exist, but hunting for a control by its colour is a poor
+instruction, and it is not what we should be teaching in a terminal course.
+
+Now it is one command, and it both makes your copy and clones it:
+
+```
+gh repo create llms-project --template Nalaquq/llms-and-you-project --public --clone
+```
+
+**Why not just `git clone` the template?** Because you could not push to it — a
+plain clone points at my repository, which you have no write access to, so the
+commit at the end of the first lab would have nowhere to go. `--template` gives
+you a repository that is yours. The website route is still there in the [setup
+guide](https://Nalaquq.github.io/llms-and-you/guides/setup/#your-own-copy-of-the-project-template),
+as a link to the form rather than a button to find.
+
+Reasoning in
+[ADR-014](https://Nalaquq.github.io/llms-and-you/adr/#adr-014-make-the-project-copy-with-a-command-not-a-button).
+
+
 ### Fixed — the setup guide told you to use Git without installing it **[student-facing]**
 
 Week 1 had you run `git clone` on a machine that may never have had Git on it.

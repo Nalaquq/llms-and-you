@@ -949,7 +949,7 @@
   themes: [methodology, deployment]
   note: >-
     Copied and cloned in the Week 1 lab, and the folder you work in for the rest
-    of the term. Use the green "Use this template" button, not fork.
+    of the term. Copied with `gh repo create --template`, not forked.
 
 # ---------------------------------------------------------------------------
 # Peer syllabi — instructor reference, not assigned

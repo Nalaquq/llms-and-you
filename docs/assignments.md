@@ -27,8 +27,11 @@ You already have it. Your copy of
 **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
 was made and cloned in the Week 1 lab; the project goes in that folder.
 
-If you were not there, use the green **Use this template** button rather than
-forking — a fork stays tied to my repository, a template copy is yours. It gives
+If you were not there, one command makes your copy and clones it:
+`gh repo create llms-project --template Nalaquq/llms-and-you-project --public
+--clone`. Not a fork — a fork stays tied to my repository, and a template copy
+is yours. The [setup guide](guides/setup.md#your-own-copy-of-the-project-template)
+has the website route too. It gives
 you the structure these projects turn out to need: prompts kept as versioned
 files, an evaluation set, an ADR log wired to the format above, a running
 `TODO.txt`, and a pre-commit hook that stops you committing an API key. It

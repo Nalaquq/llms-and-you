@@ -175,33 +175,72 @@ Choose **GitHub.com**, then **HTTPS**, then **yes** when it offers to
 authenticate Git with your GitHub credentials. That last answer is the one that
 makes `git push` work later without asking for anything.
 
-### Your own copy of the project template
+### Make your own copy, and clone it { #your-own-copy-of-the-project-template }
 
-Open **[Nalaquq/llms-and-you-project](https://github.com/Nalaquq/llms-and-you-project)**
-and press the green **Use this template** button.
-
-**Not fork.** A fork stays tied to my repository; a template copy is yours. Make
-it public and give it a name that says what it is.
-
-### Clone it
+One command. It creates a repository on your GitHub account from the course
+template, then clones it to the folder you are standing in. Replace
+`llms-project` with whatever you want yours called:
 
 === "macOS / Linux"
 
     ```bash
-    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-    cd YOUR-PROJECT
+    gh repo create llms-project \
+      --template Nalaquq/llms-and-you-project \
+      --public --clone
+    cd llms-project
     ```
 
 === "Windows (PowerShell)"
 
     ```powershell
-    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-    cd YOUR-PROJECT
+    gh repo create llms-project `
+      --template Nalaquq/llms-and-you-project `
+      --public --clone
+    cd llms-project
     ```
 
-Put it somewhere you will find it again — Desktop is fine, Downloads is not.
+Run it from wherever you want the folder to live — your Desktop is fine,
+Downloads is not.
 
-Then turn on the credential guard. Once per clone:
+!!! question "Why not just `git clone` my repository?"
+
+    Because you could not push to it. A plain clone points at *my* repository,
+    which you do not have write access to, so the commit at the end of today
+    would have nowhere to go.
+
+    `--template` makes a repository that is **yours**, with a clean history
+    starting at your first commit. It is not a fork either — a fork stays tied
+    to mine and shows up on GitHub as derived from it.
+
+??? note "If you would rather do it on the website"
+
+    Open
+    [github.com/Nalaquq/llms-and-you-project/generate](https://github.com/Nalaquq/llms-and-you-project/generate),
+    which is the *Create a new repository from a template* form. Name it, set it
+    **Public**, and press **Create repository**.
+
+    That page is the same thing the **Use this template** button on the
+    repository opens, if you would rather find it that way.
+
+    Then clone what you just made:
+
+    === "macOS / Linux"
+
+        ```bash
+        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+        cd YOUR-PROJECT
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+        cd YOUR-PROJECT
+        ```
+
+### Turn on the credential guard { #clone-it }
+
+Once per clone:
 
 === "macOS / Linux"
 

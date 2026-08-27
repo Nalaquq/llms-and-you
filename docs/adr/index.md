@@ -326,7 +326,8 @@ optional depth, not to reverse this decision.
 
 ## ADR-007: Put students in version control on day two, not at the project
 
-**Status:** Accepted
+**Status:** Accepted, amended by [ADR-014](#adr-014-make-the-project-copy-with-a-command-not-a-button)
+— the copy is made with `gh repo create`, not the web button
 
 ### Context
 
@@ -895,3 +896,84 @@ The troubleshooting table gained the errors this chain actually produces —
 `Please tell me who you are`, `Authentication failed`, `Permission denied` on
 push — each pointing at the section that prevents it rather than describing a
 fix in place.
+
+---
+
+## ADR-014: Make the project copy with a command, not a button
+
+**Status:** Accepted. Amends [ADR-007](#adr-007-put-students-in-version-control-on-day-two-not-at-the-project)
+
+### Context
+
+Since ADR-007, the Week 1 lab told students to "press the green **Use this
+template** button." The instructor, reading the page, could not find a green
+button.
+
+The repository is a template — `is_template` is true, and GitHub does show the
+control — but the instruction was poor regardless. It describes a button by its
+colour and its position in a web UI that is restyled without notice, in a course
+whose readers include people who have never used GitHub and cannot tell "I am
+looking at the wrong page" from "the button moved." Colour is also the one
+attribute of a control that some readers cannot perceive at all.
+
+ADR-013 had just put the GitHub CLI in the lab, for the unrelated reason that
+`gh auth login` handles push credentials. That made a better answer available
+than the one already written down.
+
+### Decision
+
+The copy is made with one command:
+
+```
+gh repo create llms-project --template Nalaquq/llms-and-you-project --public --clone
+```
+
+It creates the repository on the student's own account from the template and
+clones it, replacing two steps with one. The lab's step count drops back from
+nine to eight even though ADR-013 added two.
+
+The web route survives as a collapsed fallback, pointing at the `/generate` URL
+— the form itself — rather than at a button to hunt for. It still mentions the
+button's name, for a reader who would rather find it that way, but the
+instruction no longer depends on locating it.
+
+### Why not simply `git clone` the template
+
+Asked directly, and worth writing down because it is the obvious thing to try.
+A plain clone gives a working copy whose `origin` is the instructor's
+repository, which students have no write access to. Everything works until the
+end of the first lab, when `git push` fails — the worst possible place for this
+to surface, after an hour of successful steps.
+
+Recovering means creating a repository on GitHub and re-pointing the remote:
+remotes, remote URLs, and pushing to an empty repository, all introduced at the
+moment the student is stuck. `--template` avoids the situation rather than
+teaching a way out of it, and gives a clean history starting at their own first
+commit. A fork was rejected for a different reason: it stays tied to the
+instructor's repository and is displayed by GitHub as derived from it.
+
+### Alternatives considered
+
+**Keep the button and describe it better** — by position, or with a screenshot.
+Rejected. A screenshot is stale the next time GitHub ships a redesign, and a
+description by position is what just failed.
+
+**Link the `/generate` URL as the primary route.** This is what the fallback
+does, and it is a genuine improvement on the button. Rejected as the primary
+because the course is about working in a terminal, the CLI is already installed
+two steps earlier, and one command that both creates and clones is less to get
+wrong than a form plus a clone.
+
+### Consequences
+
+The lab now depends on `gh` being installed and signed in, which is step 3. If
+that step failed, step 4 fails immediately and visibly rather than an hour
+later, which is the right order for a failure to happen in.
+
+Every other page that described the button — the assignments page, the guides
+index, the resource note, and the template repository's own README — now names
+the command instead. No page on the site refers to a control by its colour.
+
+Nothing about the button being *correct* has changed. It exists, it works, and a
+student who finds it will get the same repository. It is simply no longer what
+the instructions depend on.

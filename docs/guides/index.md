@@ -36,7 +36,7 @@ of them are things students ask about.
     Where your semester project starts, and what you clone in the Week 1 lab.
     Prompts kept as versioned files, an evaluation set, both logs you are
     graded on, a running `TODO.txt`, and a hook that stops you committing an
-    API key. Use the green **Use this template** button — do not fork.
+    API key. `gh repo create --template` makes your copy — do not fork.
 
 -   :material-account-clock-outline:{ .lg .middle } **[Individual meetings](conference-weeks.md)**
 

@@ -157,34 +157,43 @@
     today work without asking you for anything.
     [:material-compass-outline: Guide](../guides/setup.md#install-the-github-cli-and-sign-in)
 
-    ### 4. Take your own copy of the project template
+    ### 4. Make your own copy of the project template, and clone it
 
-    Open the course project template and press the green **Use this template**
-    button. **Not fork.** A fork stays tied to my repository; a template copy is
-    yours. Make it public and give it a name that says what it is.
-    [:material-compass-outline: Guide](../guides/setup.md#your-own-copy-of-the-project-template)
-
-    ### 5. Clone it to your machine
+    One command, run from wherever you want the folder to live. It creates a
+    repository on **your** GitHub account from the course template, then clones
+    it to your machine. Call it whatever you like:
 
     === "macOS / Linux"
 
         ```bash
-        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-        cd YOUR-PROJECT
+        gh repo create llms-project \
+          --template Nalaquq/llms-and-you-project \
+          --public --clone
+        cd llms-project
         ```
 
     === "Windows (PowerShell)"
 
         ```powershell
-        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-        cd YOUR-PROJECT
+        gh repo create llms-project `
+          --template Nalaquq/llms-and-you-project `
+          --public --clone
+        cd llms-project
         ```
 
-    Put it somewhere you will find it again. That sounds trivial. It is the
-    first of today's decisions, and you will be writing it up before you leave.
-    [:material-compass-outline: Guide](../guides/setup.md#clone-it)
+    **Why not just clone mine?** Because you could not push to it -- a plain
+    clone points at my repository, which you have no write access to, and the
+    commit at the end of today would have nowhere to go. `--template` gives you
+    a repository that is yours, with a clean history starting at your first
+    commit. It is not a fork either; a fork stays tied to mine.
 
-    Then turn on the credential guard, once per clone:
+    Where you put it sounds trivial. It is the first of today's decisions, and
+    you will be writing it up before you leave.
+    [:material-compass-outline: Guide](../guides/setup.md#your-own-copy-of-the-project-template)
+
+    ### 5. Turn on the credential guard
+
+    Once per clone:
 
     === "macOS / Linux"
 
@@ -201,6 +210,7 @@
     It refuses any commit containing something shaped like an API key. A key
     pushed to GitHub is scraped within minutes, and deleting it in the next
     commit does not remove it -- it stays in the history.
+    [:material-compass-outline: Guide](../guides/setup.md#clone-it)
 
     ### 6. Install the Claude Code CLI
 
