@@ -879,6 +879,26 @@
     Where your project lives. Account created in the Week 1 lab; free, and the
     one you make will outlive the course.
 
+- id: git-scm
+  title: Git
+  kind: tool
+  url: https://git-scm.com/downloads
+  themes: [ecosystem, methodology]
+  note: >-
+    Installed in the Week 1 lab, before anything can be cloned. Downloads for
+    every platform; on macOS the Command Line Tools usually supply it already.
+
+- id: github-cli
+  title: GitHub CLI
+  authors: [GitHub]
+  kind: tool
+  url: https://cli.github.com/
+  themes: [ecosystem, methodology]
+  note: >-
+    `gh`. Installed in the Week 1 lab for one reason: `gh auth login` handles
+    the GitHub credential, so nobody has to create a personal access token in
+    week one.
+
 - id: github-hello-world
   title: 'GitHub: Hello World'
   authors: [GitHub]

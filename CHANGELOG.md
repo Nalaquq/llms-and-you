@@ -20,6 +20,30 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Fixed — the setup guide told you to use Git without installing it **[student-facing]**
+
+Week 1 had you run `git clone` on a machine that may never have had Git on it.
+The only mention of installing it was a line in the troubleshooting table, which
+is where you look after something has already gone wrong.
+
+Two more things in the same chain were missing. Git will not let you commit
+until you have set a name and email — and the lab ends by having you commit
+ADR-001. And GitHub has not accepted passwords for `git push` since 2021, so the
+last step of the first lab would have failed for everyone.
+
+[The guide](https://Nalaquq.github.io/llms-and-you/guides/setup/#install-git)
+and the [Week 1
+lab](https://Nalaquq.github.io/llms-and-you/sessions/w01-thu/) now install Git,
+set your identity, and install the GitHub CLI (`gh auth login` handles the push
+credential — no access token to create). Every step works on a machine with
+nothing on it, in the order given.
+
+The troubleshooting table gained the errors this actually produces: `Please tell
+me who you are`, `Authentication failed`, `Permission denied` on push. Reasoning
+in
+[ADR-013](https://Nalaquq.github.io/llms-and-you/adr/#adr-013-authenticate-github-with-gh-and-install-the-tools-before-using-them).
+
+
 ### Changed — every command now shows both platforms, even when they match **[student-facing]**
 
 Commands that happen to be identical on macOS, Linux, and Windows — `git clone`,

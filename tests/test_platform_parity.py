@@ -202,3 +202,59 @@ def test_the_setup_guide_says_commands_come_in_two_flavours():
         "the guide must say the tabs appear even where the commands match, or a "
         "reader will assume an identical pair means they misread something"
     )
+
+
+# Commands that come with the operating system, or that install other things.
+# Everything else a lab tells students to run has to be installed first, by a
+# step earlier in the setup guide.
+PROVIDED = {
+    "cd",
+    "echo",
+    "export",
+    "source",
+    "sudo",
+    "apt",
+    "dnf",
+    "brew",
+    "winget",
+    "set-executionpolicy",
+    "python",
+    "python3",
+    "pip",
+    "pip3",
+    "[environment]::setenvironmentvariable",
+}
+
+FIRST_WORD = re.compile(r"(?m)^\s*([\w.\[\]:]+)")
+
+
+def test_labs_do_not_use_a_tool_the_guide_never_installs():
+    """A setup guide has to run top to bottom on a machine with nothing on it.
+
+    The Week 1 lab ran `git clone` for a term before anyone noticed the guide
+    never installed Git -- the only mention of installing it was a row in the
+    troubleshooting table, which is where you look after it has already failed.
+    """
+    guide = (ROOT / "docs" / "guides" / "setup.md").read_text(encoding="utf-8")
+    # Whole words only. "git" is a substring of "github", so a substring test
+    # would let an uninstalled git ride along on the GitHub CLI's heading --
+    # which is precisely the bug this exists to catch.
+    installed: set[str] = set()
+    for h in re.findall(r"(?m)^#{2,4}\s+(.+)$", guide):
+        if "install" in h.lower():
+            installed |= set(re.findall(r"[a-z0-9_.+-]+", h.lower()))
+
+    missing: list[str] = []
+    for name, text, m in _blocks():
+        if m.group("lang") not in SHELL_LANGS or "schedule.yml" not in name:
+            continue
+        for word in FIRST_WORD.findall(m.group("body")):
+            tool = word.lower().rstrip(":")
+            if tool.startswith("#") or tool in PROVIDED:
+                continue
+            if tool not in installed:
+                line = text[: m.start()].count("\n") + 1
+                missing.append(f"{name}:{line} runs {tool!r}, which no 'Install' section covers")
+    assert not missing, "\n".join(
+        ["tools a lab uses before the setup guide installs them:", *sorted(set(missing))]
+    )

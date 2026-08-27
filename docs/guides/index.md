@@ -9,7 +9,7 @@ of them are things students ask about.
 
     ---
 
-    GitHub, your project repository, Claude Code and VS Code in Week 1;
+    GitHub, Git, your project repository, Claude Code and VS Code in Week 1;
     Python and a virtual environment in Week 2. Assumes you have never opened
     a terminal. We do both together in class — this page is the reference and
     the fallback.
@@ -57,6 +57,7 @@ All free. Set up in the Week 1 lab.
 | Tool | Used for |
 |:---|:---|
 | [GitHub](https://github.com/) | Your account and your project repository. Set up Week 1 |
+| [Git](https://git-scm.com/downloads) + [GitHub CLI](https://cli.github.com/) | Cloning, committing, pushing. Installed Week 1, before anything else works |
 | [Claude Code](https://claude.com/claude-code) + [VS Code](https://code.visualstudio.com/) | Installed Week 1; used all term |
 | [Python](https://www.python.org/downloads/) | Installed Week 2; every lab after |
 | [Claude desktop app](https://claude.ai/download) | Optional. A comfortable surface for long conversations |

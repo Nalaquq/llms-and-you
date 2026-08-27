@@ -816,3 +816,82 @@ syntax under a Unix tab, and a block whose language tag disagrees with its tab.
 Pages get longer again. The setup guide and the Week 1 lab each gain several tab
 sets whose halves say the same thing. That is the accepted cost, and it is paid
 by the reader who already knows what they are doing.
+
+---
+
+## ADR-013: Authenticate GitHub with `gh`, and install the tools before using them
+
+**Status:** Accepted
+
+### Context
+
+The Week 1 setup guide had students run `git clone`, `git config`, and later
+`git push`, and never installed Git. The only mention of installing it was a row
+in the troubleshooting table — which is where a student looks *after* something
+has already failed, having first concluded the problem is them.
+
+Two further prerequisites were missing from the same chain. Git refuses to
+commit without a `user.name` and `user.email`, and the lab ends by having
+students commit and push ADR-001. And GitHub removed password authentication for
+Git operations in August 2021, so a student who got that far would meet
+`Support for password authentication was removed` at the last step of their
+first lab.
+
+Each of these is invisible to anyone who set their machine up years ago, which
+is everyone who writes course material.
+
+### Decision
+
+The Week 1 guide and the Week 1 lab now install Git, set the Git identity, and
+install and sign into the GitHub CLI, in that order, before anything is cloned.
+Each step is executable on a machine with nothing on it.
+
+**Push authentication is handled by `gh auth login`.** It opens a browser, takes
+a one-time code, and — when answered *yes* to authenticating Git — writes a
+credential helper that makes `git push` work silently from then on.
+
+### Alternatives considered
+
+**A personal access token.** The path GitHub's own documentation leads with, and
+rejected for a first lab: it means a settings page with a dozen scope
+checkboxes, a decision about expiry, and a secret the student must paste
+somewhere and then keep. Handing a beginner a long-lived credential in week one
+also cuts against a course that spends the term telling them not to paste keys
+into things.
+
+**SSH keys.** Better long-term hygiene and the wrong week for it. `ssh-keygen`,
+an agent, a passphrase decision, and a public key pasted into a settings page
+is more new concepts than the rest of the lab combined, all before the student
+has done anything.
+
+**GitHub Desktop.** Genuinely easier, and rejected because the course is about
+working in a terminal alongside a model that reads your files. A GUI that hides
+what a commit is would work against Week 1's actual subject.
+
+**Say nothing and let students hit the error.** This was the status quo, not a
+choice anyone made. Worth naming: the error is legible to someone who knows what
+it means and opaque to everyone else, and "it didn't work" is what arrives at
+office hours.
+
+### Consequences
+
+Week 1 Thursday grows from seven steps to nine, in a session that was already
+the densest of the term. The ordering is the mitigation — every step now
+succeeds if the one above it did, so the failure modes are sequential and
+diagnosable rather than mysterious.
+
+`test_labs_do_not_use_a_tool_the_guide_never_installs` checks the class of bug
+rather than this instance: every command a lab tells students to run, other than
+those the OS provides, must be named in an *Install* heading in the setup guide.
+It matches whole words, because `git` is a substring of `github` and a looser
+check let an uninstalled Git ride along on the GitHub CLI's heading — the first
+version of this test passed while the bug was still present.
+
+That is also why the CLI's heading now names the command: **Install the GitHub
+CLI — `gh` — and sign in**, with an explicit `{ #anchor }` so the wording can
+change again without breaking the links into it.
+
+The troubleshooting table gained the errors this chain actually produces —
+`Please tell me who you are`, `Authentication failed`, `Permission denied` on
+push — each pointing at the section that prevents it rather than describing a
+fix in place.

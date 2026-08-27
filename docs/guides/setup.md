@@ -34,9 +34,11 @@ There are two setup sessions, a week apart, and they are deliberately separate:
 
 ## Week 1: Your repository and your tools { #week-1-your-repository-and-your-tools }
 
-By the end of this lab you have a GitHub account, your own copy of the project
-template cloned onto your machine, and two tools that can read it. Everything
-after Week 1 happens inside that folder.
+By the end of this lab you have a GitHub account, Git installed and able to
+push to it, your own copy of the project template cloned onto your machine, and
+two tools that can read it. Everything after Week 1 happens inside that folder.
+
+Work down this page in order. Each step assumes the one above it worked.
 
 ### A GitHub account
 
@@ -46,6 +48,132 @@ willing to put on a CV; this account will outlive the course.
 If you want it written down rather than demonstrated,
 [Hello World](https://docs.github.com/en/get-started/using-github/hello-world)
 covers repositories, branches, and commits in about twenty minutes.
+
+### Install Git
+
+Git is the thing that does the cloning, committing, and pushing. It is separate
+from GitHub: Git runs on your machine, GitHub is the website that stores a copy.
+You need both.
+
+=== "macOS / Linux"
+
+    ```bash
+    # macOS: this prints a version, or offers to install the tools that provide it.
+    git --version
+
+    # Debian / Ubuntu, if the above says it is missing
+    sudo apt update && sudo apt install git
+
+    # Fedora
+    sudo dnf install git
+    ```
+
+    On macOS the prompt that appears says *Command Line Developer Tools*. Accept
+    it and wait; it is a few minutes and it installs Git among other things.
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    winget install --id Git.Git -e --source winget
+    ```
+
+    Then **close PowerShell and open a new window.** The installer adds Git to
+    your PATH, and a window opened before that happened will not see it.
+
+    If `winget` is not recognised, download the installer from
+    [git-scm.com/download/win](https://git-scm.com/download/win) and accept
+    every default.
+
+Check it worked. This is the same command on both:
+
+=== "macOS / Linux"
+
+    ```bash
+    git --version
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    git --version
+    ```
+
+Any version number from 2.30 upwards is fine.
+
+### Tell Git who you are
+
+Git stamps every commit with a name and an email, and it refuses to commit until
+you have set them. Do this once per machine, not once per project.
+
+Use the email attached to your GitHub account, or commits will not link to your
+profile. It is fine for this to be your college address.
+
+=== "macOS / Linux"
+
+    ```bash
+    git config --global user.name "Your Name"
+    git config --global user.email "you@example.com"
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    git config --global user.name "Your Name"
+    git config --global user.email "you@example.com"
+    ```
+
+!!! warning "This is public"
+
+    Every commit you push carries that name and email, permanently and visibly.
+    If you would rather not publish your address, GitHub can give you a private
+    one — Settings → Emails → *Keep my email address private* — and it looks
+    like `12345678+username@users.noreply.github.com`. Use that instead.
+
+### Install the GitHub CLI — `gh` — and sign in { #install-the-github-cli-and-sign-in }
+
+You will push work to GitHub, and GitHub stopped accepting passwords for that in
+2021. The short way past this is `gh`, which handles the credential for you.
+
+=== "macOS / Linux"
+
+    ```bash
+    # macOS, with Homebrew
+    brew install gh
+
+    # Debian / Ubuntu
+    sudo apt install gh
+
+    # Fedora
+    sudo dnf install gh
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    winget install --id GitHub.cli -e --source winget
+    ```
+
+If you have no Homebrew and no `apt`, the per-platform instructions are at
+[cli.github.com](https://cli.github.com/).
+
+Then sign in. It opens a browser, gives you an eight-character code to paste,
+and is done in under a minute:
+
+=== "macOS / Linux"
+
+    ```bash
+    gh auth login
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    gh auth login
+    ```
+
+Choose **GitHub.com**, then **HTTPS**, then **yes** when it offers to
+authenticate Git with your GitHub credentials. That last answer is the one that
+makes `git push` work later without asking for anything.
 
 ### Your own copy of the project template
 
@@ -344,7 +472,12 @@ and `The term 'x' is not recognized...` are the same error.
 
 | What you see | What it means |
 |:---|:---|
-| `command not found: git`<br>`The term 'git' is not recognized` | Git is not installed. macOS: run `git --version` and accept the prompt. Windows: install [Git for Windows](https://git-scm.com/download/win), then reopen the terminal |
+| `command not found: git`<br>`The term 'git' is not recognized` | Git is not installed, or the terminal predates the install — see [Install Git](#install-git) and open a new window |
+| `*** Please tell me who you are` | Git has no name and email yet. See [Tell Git who you are](#tell-git-who-you-are) |
+| `Authentication failed` / `could not read Username` on push | GitHub does not accept passwords. Run `gh auth login` — see [Install the GitHub CLI](#install-the-github-cli-and-sign-in) |
+| `Support for password authentication was removed` | Same thing, said differently. `gh auth login` |
+| `Permission denied` / `403` on push | You are signed in as the wrong account, or pushing to my repository rather than your copy. Check `git remote -v` names *your* username |
+| `repository not found` on clone | The URL has a typo, or the repository is private and you are not signed in |
 | `command not found: claude`<br>`The term 'claude' is not recognized` | Claude Code is not installed, or the terminal needs restarting after install |
 | `command not found: python3`<br>`The term 'python3' is not recognized` | On Windows the command is `python`, not `python3`. Otherwise: Python not installed, or not on PATH — reinstall and tick the box |
 | `running scripts is disabled on this system` | Windows only. PowerShell is blocking the venv activate script — see [A virtual environment](#a-virtual-environment) |

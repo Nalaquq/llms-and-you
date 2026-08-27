@@ -55,7 +55,7 @@
     - 'setup#week-1-your-repository-and-your-tools'
     - writing-adrs
   activity: |-
-    Steps 1 to 6 are done together, one line at a time, on whatever machine you
+    Steps 1 to 8 are done together, one line at a time, on whatever machine you
     brought. Nothing is assumed. If something does not work on your machine that
     is normal, and it is my problem to solve rather than yours.
 
@@ -76,14 +76,95 @@
     will outlive the course.
     [:material-compass-outline: Guide](../guides/setup.md#a-github-account)
 
-    ### 2. Take your own copy of the project template
+    ### 2. Install Git, and tell it who you are
+
+    Git is what does the cloning and the committing. It is not GitHub: Git runs
+    on your machine, GitHub is the website that keeps a copy. You need both, and
+    most machines do not have Git yet.
+
+    === "macOS / Linux"
+
+        ```bash
+        git --version
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        winget install --id Git.Git -e --source winget
+        ```
+
+    On macOS that either prints a version or offers to install the tools that
+    provide it -- accept, and wait. On Windows, **open a new PowerShell window
+    afterwards**, or it will not find the command you just installed. On Linux
+    the guide has the `apt` and `dnf` lines.
+
+    Then tell it who you are, once per machine. Git refuses to commit without
+    this, and you are committing today:
+
+    === "macOS / Linux"
+
+        ```bash
+        git config --global user.name "Your Name"
+        git config --global user.email "you@example.com"
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        git config --global user.name "Your Name"
+        git config --global user.email "you@example.com"
+        ```
+
+    Use the address on your GitHub account. It goes on every commit you push,
+    permanently and in public -- if you would rather it were not your real one,
+    the guide explains GitHub's private forwarding address.
+    [:material-compass-outline: Guide](../guides/setup.md#install-git)
+
+    ### 3. Install the GitHub CLI and sign in
+
+    GitHub stopped accepting passwords for pushing in 2021. `gh` deals with the
+    credential so you do not have to make an access token in your first week.
+
+    === "macOS / Linux"
+
+        ```bash
+        brew install gh
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        winget install --id GitHub.cli -e --source winget
+        ```
+
+    Then:
+
+    === "macOS / Linux"
+
+        ```bash
+        gh auth login
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        gh auth login
+        ```
+
+    Answer **GitHub.com**, then **HTTPS**, then **yes** to letting it
+    authenticate Git. That last answer is what makes the push at the end of
+    today work without asking you for anything.
+    [:material-compass-outline: Guide](../guides/setup.md#install-the-github-cli-and-sign-in)
+
+    ### 4. Take your own copy of the project template
 
     Open the course project template and press the green **Use this template**
     button. **Not fork.** A fork stays tied to my repository; a template copy is
     yours. Make it public and give it a name that says what it is.
     [:material-compass-outline: Guide](../guides/setup.md#your-own-copy-of-the-project-template)
 
-    ### 3. Clone it to your machine
+    ### 5. Clone it to your machine
 
     === "macOS / Linux"
 
@@ -121,7 +202,7 @@
     pushed to GitHub is scraped within minutes, and deleting it in the next
     commit does not remove it -- it stays in the history.
 
-    ### 4. Install the Claude Code CLI
+    ### 6. Install the Claude Code CLI
 
     `claude`, in a terminal. Sign in when it asks. The difference that matters
     is that it can **see and change the files in a folder**: a chat window only
@@ -134,11 +215,11 @@
     what is in this repository, and what is each folder for?
     ```
 
-    Read the answer against step 6 below. It will be broadly right. Notice where
+    Read the answer against step 8 below. It will be broadly right. Notice where
     it is confident and wrong -- we spend Week 6 on why that happens.
     [:material-compass-outline: Guide](../guides/setup.md#claude-code-the-cli-we-use-all-term)
 
-    ### 5. Install VS Code
+    ### 7. Install VS Code
 
     Then open your cloned folder in it -- **File > Open Folder**, not open-a-file
     -- and run `claude` again from VS Code's built-in terminal, so the editor and
@@ -146,7 +227,7 @@
     week. Today it is somewhere to see the files.
     [:material-compass-outline: Guide](../guides/setup.md#vs-code)
 
-    ### 6. Walk the structure
+    ### 8. Walk the structure
 
     You did not build this layout, so none of it is obvious. Every folder in it
     is something the course grades, and we go through them together -- the same
@@ -170,7 +251,7 @@
     question for me. Keeping it is the cheap version of what the rest of this
     lab is about. An hour after you have the thought, you no longer have it.
 
-    ### 7. Then the actual lab
+    ### 9. Then the actual lab
 
     All of that required decisions, and you made them without noticing: which
     install method, what you named the repository, where you put the folder,
@@ -199,6 +280,8 @@
     actually produces and what each one means. Bring the exact error text.
   optional:
     - github
+    - git-scm
+    - github-cli
     - project-template
     - github-hello-world
     - git-handbook
