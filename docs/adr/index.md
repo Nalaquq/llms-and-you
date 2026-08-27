@@ -478,3 +478,102 @@ The `{ #anchor }` convention matters more than it did. A heading with an
 explicit anchor is stable under rewording; one without changes its anchor when
 the words change. Guides whose sections are linked from sessions should carry
 explicit anchors, and `setup.md`'s two week headings already do.
+
+---
+
+## ADR-009: Give every shell command a PowerShell half
+
+**Status:** Accepted
+
+### Context
+
+Every command on this site was written for a Unix shell. The one exception was
+the virtual environment block in the setup guide, which had a Windows tab
+because that is where the difference is impossible to miss.
+
+The rest silently assumed macOS or Linux: `python3` where Windows wants
+`python`, `export` where Windows wants `$env:`, `source .venv/bin/activate`
+where Windows wants `.venv\Scripts\Activate.ps1`. Students bring whatever laptop
+they own, and a meaningful share of the room brings Windows.
+
+For a student with no prior terminal experience — which this course explicitly
+assumes — this is not a small inconvenience. `export: command not recognized`
+carries no information about what the command should have been. The student
+cannot tell whether they typed it wrong, installed something wrong, or are
+reading instructions written for a machine they do not have. The most likely
+outcome is that they conclude the problem is them.
+
+There was also a subtler failure. A Windows student who works out `$env:` on
+their own then finds the next page assumes bash again, and the one after that.
+The cost is not one lookup; it is a running tax on every page, paid only by the
+students least equipped to pay it.
+
+### Decision
+
+Every command that differs between shells is shown for both, in linked content
+tabs labelled exactly **macOS / Linux** and **Windows (PowerShell)**. Material's
+`content.tabs.link` is enabled, so choosing a platform once follows the reader
+across every tab set on the site.
+
+Commands that are identical — `git clone`, `git config`, `claude`,
+`python -m project.main` — are deliberately **not** tabbed. Wrapping an
+identical command in two tabs implies a difference that is not there, and
+teaches students to stop reading the labels.
+
+The setup guide states the convention before using it, and the Week 1 lab says
+plainly that everything in that session is the same on all three platforms and
+that the divergence starts in Week 2.
+
+Windows also gets the two things bash users never see: the
+`Set-ExecutionPolicy` incantation that PowerShell requires before a venv will
+activate, and the fact that `SetEnvironmentVariable` does not affect the window
+you typed it in. The troubleshooting table now carries PowerShell's wording of
+each error next to bash's, because `The term 'python3' is not recognized` and
+`command not found: python3` are the same problem and do not look like it.
+
+`tests/test_platform_parity.py` enforces this. A shell block containing a
+divergent construct outside a platform tab set fails; a tab set covering only
+one platform fails; an off-convention tab label fails.
+
+### Alternatives considered
+
+**A `# Windows: ...` comment on the bash line.** What the project template did,
+and it is why this was easy to miss — it looks like the problem is handled. It
+fails for the case that matters: a comment cannot be copied and run, it puts the
+Windows student's instructions in a place they must mentally edit, and it does
+not survive a command longer than one line.
+
+**Write for WSL and tell Windows students to install it.** Rejected. It is the
+answer a developer gives, and it is wrong for this room: it adds an install, a
+second filesystem, and a class of path confusion to the machine of the student
+who is already least sure of themselves — to save the instructor writing a
+second line.
+
+**Pick one shell and require it.** Rejected for the same reason the course does
+not require a particular laptop. The point of the first lab is that everyone
+leaves it with a working setup on the machine they actually own.
+
+**Detect the platform and show only the matching half.** Rejected as fragile and
+worse for the room: in class we project one screen, and an instructor demoing on
+macOS should still be able to point at what the Windows half says.
+
+### Consequences
+
+Both halves must now be kept correct, and the wrong half of a tab set is a bug
+that only affects students the author does not share a platform with. That is
+exactly the drift the parity tests exist to catch, and it is why they check the
+shape of the page rather than trusting review.
+
+Pages are longer. A tab set occupies more vertical space than a code block, and
+the setup guide grew by roughly a third. Accepted: the page is a reference read
+under pressure, not an essay.
+
+The project template repository is covered by the same decision but not by the
+same mechanism — GitHub renders README files as plain Markdown and does not
+support content tabs. There the halves are bold-labelled blocks instead, and
+`test_platform_specific_commands_live_in_tabs` accepts that form for `README.md`
+so the rule still holds where tabs cannot.
+
+The `.githooks/pre-commit` hook in the template also prints both forms now. A
+credential-blocking hook whose remedy only works on one platform sends half the
+students who trip it looking for a second problem.

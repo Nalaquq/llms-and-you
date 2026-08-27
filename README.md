@@ -29,13 +29,28 @@ edit the YAML instead.
 
 ## Quick start
 
+**macOS / Linux**
+
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 
 .venv/bin/python -m mkdocs serve    # preview at localhost:8000
 .venv/bin/python -m pytest          # validate the course data
 ```
+
+**Windows (PowerShell)**
+
+```powershell
+python -m venv .venv
+.venv\Scripts\pip install -e ".[dev]"
+
+.venv\Scripts\python -m mkdocs serve   # preview at localhost:8000
+.venv\Scripts\python -m pytest         # validate the course data
+```
+
+Every command on the site itself is given both ways too, in tabs — see
+[ADR-009](https://Nalaquq.github.io/llms-and-you/adr/#adr-009-give-every-shell-command-a-powershell-half).
 
 ## How it fits together
 
@@ -66,9 +81,11 @@ Conventions and common maintenance tasks are documented in the local
 - sessions built around live debate do not land in an individual-meeting week
 - grading weights total 100
 - no reading is orphaned in the library
+- every guide is linked from the session that needs it
+- every shell command that differs by platform is given for both
 
 ```
-93 passed
+143 passed
 ```
 
 ## Course themes

@@ -20,6 +20,34 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — every command is now given for Windows as well **[student-facing]**
+
+The site was written for macOS and Linux throughout. `python3`, `export`,
+`source .venv/bin/activate` — none of those work in PowerShell, and the errors
+they produce say nothing useful to a student who has never opened a terminal.
+
+Every command that differs between platforms is now shown both ways, in tabs
+labelled **macOS / Linux** and **Windows (PowerShell)**. **Pick your platform
+once and the whole site follows you** — every tab set on every page. Commands
+that are the same on both, such as `git clone` and `claude`, are left untabbed
+on purpose.
+
+Windows students also get the two things that are not in any bash guide: the
+`Set-ExecutionPolicy` line PowerShell needs before a virtual environment will
+activate, and the fact that setting the API key permanently does not affect the
+window you set it in. The
+[troubleshooting table](https://Nalaquq.github.io/llms-and-you/guides/setup/#when-something-breaks)
+now shows PowerShell's wording of each error next to bash's.
+
+The [project template](https://github.com/Nalaquq/llms-and-you-project) is
+updated the same way, including the pre-commit hook's advice when it blocks a
+key. Reasoning in
+[ADR-009](https://Nalaquq.github.io/llms-and-you/adr/#adr-009-give-every-shell-command-a-powershell-half).
+
+If you are on Windows and you find a command on this site that only works on a
+Mac, that is a bug — tell me and I will fix it that day.
+
+
 ### Added — every session now links the guide you need for it **[student-facing]**
 
 The site has four guides — [setting up your

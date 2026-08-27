@@ -55,6 +55,8 @@ theme:
     - search.share
     - content.tooltips
     - content.code.copy
+    # Pick "Windows" once and every command on the site follows.
+    - content.tabs.link
 
 plugins:
   - search

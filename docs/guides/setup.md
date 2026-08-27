@@ -12,6 +12,17 @@ fallback, not homework.
     If something here does not work on your machine, that is normal and it is
     my problem to solve, not yours. Email me or come to office hours.
 
+!!! info "Commands come in two flavours — pick your platform once"
+
+    Every command on this site is given twice: **macOS / Linux** for the Unix
+    shells (bash and zsh), and **Windows (PowerShell)** for the terminal that
+    opens by default on Windows. They do the same thing; they are not
+    interchangeable.
+
+    Pick your tab once and the rest of the site follows you, on this page and
+    every other one. If a command has no tabs, it is identical on both — `git`
+    and `claude` mostly are.
+
 There are two setup sessions, a week apart, and they are deliberately separate:
 
 | | |
@@ -146,9 +157,20 @@ Install **Python 3.11 or newer** from
 On Windows, tick **"Add Python to PATH"** during installation — it is easy to
 miss and causes most of the problems we see.
 
-```bash
-python3 --version
-```
+=== "macOS / Linux"
+
+    ```bash
+    python3 --version
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    python --version
+    ```
+
+That difference persists: **`python3` on macOS and Linux, `python` on
+Windows.** Everywhere this page shows one, the other tab shows the other.
 
 ### The Python extension for VS Code
 
@@ -170,17 +192,41 @@ Keeps this course's packages separate from anything else on your machine:
     pip install anthropic
     ```
 
-=== "Windows"
+=== "Windows (PowerShell)"
 
     ```powershell
     python -m venv .venv
-    .venv\Scripts\activate
+    .venv\Scripts\Activate.ps1
     pip install anthropic
     ```
 
 When it is active your prompt starts with `(.venv)`. If you close the terminal,
-run `activate` again — forgetting this is the single most common source of "it
-worked yesterday".
+activate it again — forgetting this is the single most common source of "it
+worked yesterday":
+
+=== "macOS / Linux"
+
+    ```bash
+    source .venv/bin/activate
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    .venv\Scripts\Activate.ps1
+    ```
+
+!!! warning "Windows: `running scripts is disabled on this system`"
+
+    PowerShell blocks scripts by default, and the activate script is one. Run
+    this once, in the same window, then activate again:
+
+    ```powershell
+    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+    ```
+
+    `CurrentUser` matters — it changes the policy for your account only, not
+    the machine.
 
 ---
 
@@ -201,16 +247,56 @@ we have talked** — access is handled for you.
 !!! warning "Never put an API key in your code"
 
     Keys go in an environment variable, never in a file you might share or
-    commit. Once `ANTHROPIC_API_KEY` is set, the library finds it:
+    commit. A key pasted into a script and pushed to GitHub is scraped within
+    minutes. This is not hypothetical — it is the most common way students lose
+    access.
 
-    ```python
-    import anthropic
+Setting it is the one place where the two platforms look nothing alike:
 
-    client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
+=== "macOS / Linux"
+
+    ```bash
+    export ANTHROPIC_API_KEY='sk-ant-...'
     ```
 
-    A key pasted into a script and pushed to GitHub is scraped within minutes.
-    This is not hypothetical — it is the most common way students lose access.
+    Lasts until you close the terminal. To make it permanent, add that line to
+    `~/.zshrc` (macOS) or `~/.bashrc` (most Linux), then open a new terminal.
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    $env:ANTHROPIC_API_KEY = 'sk-ant-...'
+    ```
+
+    Lasts until you close the window. To make it permanent:
+
+    ```powershell
+    [Environment]::SetEnvironmentVariable('ANTHROPIC_API_KEY', 'sk-ant-...', 'User')
+    ```
+
+    Then **open a new terminal** — the window you typed it in will not see it.
+
+Once it is set, the library finds it on its own. This is the same on both:
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
+```
+
+Check it is set in *this* terminal before you go looking for other problems:
+
+=== "macOS / Linux"
+
+    ```bash
+    echo $ANTHROPIC_API_KEY
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    echo $env:ANTHROPIC_API_KEY
+    ```
 
 ---
 
@@ -228,13 +314,17 @@ on.
 
 Errors are information, not failure. The common ones:
 
+PowerShell words the first three differently from bash. `command not found: x`
+and `The term 'x' is not recognized...` are the same error.
+
 | What you see | What it means |
 |:---|:---|
-| `command not found: git` | Git is not installed. macOS: run `git --version` and accept the prompt. Windows: install [Git for Windows](https://git-scm.com/download/win) |
-| `command not found: claude` | Claude Code is not installed, or the terminal needs restarting after install |
-| `command not found: python3` | Python not installed, or not on PATH (Windows: reinstall and tick the box) |
+| `command not found: git`<br>`The term 'git' is not recognized` | Git is not installed. macOS: run `git --version` and accept the prompt. Windows: install [Git for Windows](https://git-scm.com/download/win), then reopen the terminal |
+| `command not found: claude`<br>`The term 'claude' is not recognized` | Claude Code is not installed, or the terminal needs restarting after install |
+| `command not found: python3`<br>`The term 'python3' is not recognized` | On Windows the command is `python`, not `python3`. Otherwise: Python not installed, or not on PATH — reinstall and tick the box |
+| `running scripts is disabled on this system` | Windows only. PowerShell is blocking the venv activate script — see [A virtual environment](#a-virtual-environment) |
 | `ModuleNotFoundError: No module named 'anthropic'` | Virtual environment not active, or `pip install anthropic` not run |
-| `AuthenticationError` | `ANTHROPIC_API_KEY` is not set in this terminal |
+| `AuthenticationError` | `ANTHROPIC_API_KEY` is not set in this terminal. Setting it in another window does not count |
 | `RateLimitError` (429) | Too many requests too fast. Wait and retry — handled properly in Week 13 |
 | `BadRequestError` (400) | The request is malformed. Read the message; it usually names the field |
 

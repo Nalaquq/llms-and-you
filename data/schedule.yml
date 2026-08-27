@@ -62,6 +62,13 @@
     That page is the fallback: use it if you miss this session, if you get a
     step wrong, or if you are setting up a second machine later in the term.
 
+    **Windows, macOS, or Linux -- all three are fine.** Everything you type
+    today is identical on all of them. From Week 2 the two diverge, and from
+    then on every command on this site is given twice: once for macOS and Linux,
+    once for Windows PowerShell. Pick your tab once in
+    [the setup guide](../guides/setup.md#week-2-python-and-vs-code) and the
+    whole site follows you.
+
     ### 1. Make a GitHub account
 
     Free. Pick a username you would be willing to put on a CV -- this account
