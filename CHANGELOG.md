@@ -20,6 +20,23 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — every command now shows both platforms, even when they match **[student-facing]**
+
+Commands that happen to be identical on macOS, Linux, and Windows — `git clone`,
+`git config`, `claude` — were previously shown as a single untabbed block. Five
+of them had no Windows half at all.
+
+They are tabbed now, like everything else. **If the two halves look the same,
+that is because they are the same** — you have not misread anything, and there
+is no third version somewhere else. You should never have to work out whether a
+command applies to your machine.
+
+The [project template](https://github.com/Nalaquq/llms-and-you-project) README
+is updated the same way. Reasoning in
+[ADR-012](https://Nalaquq.github.io/llms-and-you/adr/#adr-012-tab-every-shell-command-including-the-identical-ones),
+which amends ADR-009.
+
+
 ### Fixed — ADR-001 and ADR-003 were due on days the site never said so **[student-facing]**
 
 Both were listed in the ADR guide and on the assignments page, and neither

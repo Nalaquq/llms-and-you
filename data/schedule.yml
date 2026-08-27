@@ -64,12 +64,11 @@
     That page is the fallback: use it if you miss this session, if you get a
     step wrong, or if you are setting up a second machine later in the term.
 
-    **Windows, macOS, or Linux -- all three are fine.** Everything you type
-    today is identical on all of them. From Week 2 the two diverge, and from
-    then on every command on this site is given twice: once for macOS and Linux,
-    once for Windows PowerShell. Pick your tab once in
-    [the setup guide](../guides/setup.md#week-2-python-and-vs-code) and the
-    whole site follows you.
+    **Windows, macOS, or Linux -- all three are fine.** Every command on this
+    site is given twice, once for macOS and Linux and once for Windows
+    PowerShell, including the ones that are identical. Pick your tab once and
+    the whole site follows you. Today's commands happen to be the same on every
+    platform; from Week 2 they are not, which is why the tabs are there.
 
     ### 1. Make a GitHub account
 
@@ -86,10 +85,19 @@
 
     ### 3. Clone it to your machine
 
-    ```bash
-    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-    cd YOUR-PROJECT
-    ```
+    === "macOS / Linux"
+
+        ```bash
+        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+        cd YOUR-PROJECT
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+        cd YOUR-PROJECT
+        ```
 
     Put it somewhere you will find it again. That sounds trivial. It is the
     first of today's decisions, and you will be writing it up before you leave.
@@ -97,9 +105,17 @@
 
     Then turn on the credential guard, once per clone:
 
-    ```bash
-    git config core.hooksPath .githooks
-    ```
+    === "macOS / Linux"
+
+        ```bash
+        git config core.hooksPath .githooks
+        ```
+
+    === "Windows (PowerShell)"
+
+        ```powershell
+        git config core.hooksPath .githooks
+        ```
 
     It refuses any commit containing something shaped like an API key. A key
     pushed to GitHub is scraped within minutes, and deleting it in the next

@@ -16,12 +16,12 @@ fallback, not homework.
 
     Every command on this site is given twice: **macOS / Linux** for the Unix
     shells (bash and zsh), and **Windows (PowerShell)** for the terminal that
-    opens by default on Windows. They do the same thing; they are not
-    interchangeable.
+    opens by default on Windows.
 
     Pick your tab once and the rest of the site follows you, on this page and
-    every other one. If a command has no tabs, it is identical on both — `git`
-    and `claude` mostly are.
+    every other one. **Both tabs are always there**, including where the two
+    are character-for-character the same — `git` and `claude` mostly are. You
+    should never have to work out whether a command applies to you.
 
 There are two setup sessions, a week apart, and they are deliberately separate:
 
@@ -57,18 +57,35 @@ it public and give it a name that says what it is.
 
 ### Clone it
 
-```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
-cd YOUR-PROJECT
-```
+=== "macOS / Linux"
+
+    ```bash
+    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+    cd YOUR-PROJECT
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    git clone https://github.com/YOUR-USERNAME/YOUR-PROJECT.git
+    cd YOUR-PROJECT
+    ```
 
 Put it somewhere you will find it again — Desktop is fine, Downloads is not.
 
 Then turn on the credential guard. Once per clone:
 
-```bash
-git config core.hooksPath .githooks
-```
+=== "macOS / Linux"
+
+    ```bash
+    git config core.hooksPath .githooks
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    git config core.hooksPath .githooks
+    ```
 
 It refuses any commit containing something shaped like an API key. See
 [Never put an API key in your code](#model-access) below for why that matters
@@ -86,9 +103,17 @@ into it; Claude Code can read a directory, open the files in it, and edit them.
 
 Start it inside your clone:
 
-```bash
-claude
-```
+=== "macOS / Linux"
+
+    ```bash
+    claude
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    claude
+    ```
 
 Then just talk to it:
 

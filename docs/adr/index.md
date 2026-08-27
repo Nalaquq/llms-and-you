@@ -483,7 +483,8 @@ explicit anchors, and `setup.md`'s two week headings already do.
 
 ## ADR-009: Give every shell command a PowerShell half
 
-**Status:** Accepted
+**Status:** Accepted, amended by [ADR-012](#adr-012-tab-every-shell-command-including-the-identical-ones)
+— the decision to leave identical commands untabbed was reversed
 
 ### Context
 
@@ -744,3 +745,74 @@ hand-typed dates that a schedule change would have silently falsified.
 "HackAPrompt midterm write-up, and ADR-003 (how your system handles failure)"
 reads better on the day than any structure would. The loader only checks that
 the ADR's id appears in it.
+
+---
+
+## ADR-012: Tab every shell command, including the identical ones
+
+**Status:** Accepted. Amends [ADR-009](#adr-009-give-every-shell-command-a-powershell-half)
+
+### Context
+
+ADR-009 gave every *divergent* command a PowerShell half and deliberately left
+identical ones — `git clone`, `git config`, `claude` — as plain single blocks.
+The reasoning was that wrapping an identical command in two tabs implies a
+difference that is not there, and teaches students to stop reading the labels.
+
+Reviewing the site afterwards, the instructor found the result inconsistent: a
+page moves between tabbed and untabbed blocks with no visible rule, and five
+shell blocks — three in the setup guide, two in the Week 1 lab — had no Windows
+half at all.
+
+The argument in ADR-009 assumed a reader who notices that an untabbed block is
+untabbed and infers "this must be the same everywhere." That is a reasonable
+inference and the wrong one to require. This course assumes a student who has
+never opened a terminal. Presented with a plain `bash`-labelled block after two
+tabbed ones, the available readings are "this works everywhere", "this is the
+Mac one and mine is missing", and "I scrolled past a tab". Only one is right,
+and nothing on the page distinguishes them — least of all the word `bash` in the
+corner, which to a Windows student names a shell they do not have.
+
+The cost of the alternative is small and lands in the right place. A duplicated
+tab costs a reader one glance. A missing one costs them the evening.
+
+### Decision
+
+Every shell code block on the site sits in a tab set with both halves, whether
+or not the two are identical. The setup guide states this outright — *both tabs
+are always there, including where the two are character-for-character the same*
+— so an identical pair reads as the convention rather than as an error.
+
+Non-shell blocks are untouched: Python, the ADR template, sample output and the
+text you type at Claude Code's own prompt have no PowerShell half, and inventing
+one would be the noise ADR-009 was worried about.
+
+`test_every_shell_command_is_given_for_both_platforms` now applies to every
+shell block rather than only the divergent ones.
+
+### Alternatives considered
+
+**Keep ADR-009 and add a note explaining the untabbed blocks.** Rejected: it
+asks the reader to learn a rule in order to read a page, which is more work than
+the duplication it saves.
+
+**Mark identical blocks with a third tab label such as "Any platform".** A
+genuine option, and rejected because it adds a third thing to understand and
+breaks tab linking — a reader who has chosen Windows would still land on a tab
+set where their choice does not appear.
+
+### Consequences
+
+The rule is now blanket, which makes it checkable without judgement: any shell
+block outside a tab set fails, with no divergence heuristic deciding whether it
+should have been exempt. That is a better test than the one it replaces, because
+it has no false negatives to reason about.
+
+Duplication introduces a failure the old rule could not have: two halves that
+drift, or a bash command pasted under the Windows tab. `test_each_tab_holds_the_right_platform`
+covers it, rejecting Unix-only syntax under a Windows tab, PowerShell-only
+syntax under a Unix tab, and a block whose language tag disagrees with its tab.
+
+Pages get longer again. The setup guide and the Week 1 lab each gain several tab
+sets whose halves say the same thing. That is the accepted cost, and it is paid
+by the reader who already knows what they are doing.
