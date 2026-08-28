@@ -172,6 +172,59 @@ class Resource(Base):
         return who or (str(self.year) if self.year else "")
 
 
+class Concept(Base):
+    """One idea students are responsible for knowing and applying.
+
+    A concept is not a topic. A topic is what a session was about; a concept is
+    something a student can be asked to define, apply, and get wrong -- which is
+    why ``mastery`` and ``assessed_in`` are both required. The study guide
+    promises that everything on it is assessable, and a required field is how
+    that promise survives the person adding the twentieth entry in November.
+
+    ``theme`` files the concept by what it is. ``week``/``day`` records where it
+    was introduced, and the two are allowed to disagree: a design idea can
+    arrive in a session about architecture.
+    """
+
+    id: str
+    name: str
+    theme: str
+    week: int = Field(ge=1, le=15)
+    day: Day
+    definition: str
+    """The short version, in the terms the course uses. Rendered first."""
+    in_practice: str | None = None
+    """How the idea lands on prompting specifically, rather than in general."""
+    mastery: list[str] = Field(min_length=1)
+    """What a student should be able to *do*. Each entry completes 'you should
+    be able to', and each one is a thing that could be asked."""
+    pitfall: str | None = None
+    """The mistake people actually make. Renders as a warning on the page."""
+    assessed_in: list[str] = Field(min_length=1)
+    """Assignment ids, checked against ``assignments.yml``."""
+    resources: list[str] = Field(default_factory=list)
+    """Review material, by resource id. Never a URL."""
+    related: list[str] = Field(default_factory=list)
+    """Other concept ids. Rendered as cross-links on the study guide."""
+
+    @field_validator("id")
+    @classmethod
+    def _slug(cls, v: str) -> str:
+        # The id is the page anchor a session links to, so it has to be one.
+        if not re.fullmatch(r"[a-z0-9-]+", v):
+            raise ValueError(f"concept id must be a lowercase slug, got {v!r}")
+        return v
+
+    @property
+    def slug(self) -> str:
+        """The session this concept was introduced in."""
+        return f"w{self.week:02d}-{self.day.value}"
+
+    @property
+    def anchor(self) -> str:
+        return f"study-guide.md#{self.id}"
+
+
 class Session(Base):
     """One 75-minute meeting. Dates are never stored here — they are computed."""
 

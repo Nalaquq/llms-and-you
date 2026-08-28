@@ -108,7 +108,8 @@ Read the [full policy](syllabus.md#using-ai). We discuss it at length in Week 1.
 
 <small>
 This site is generated from structured course data — every date, reading, and
-session page is derived from four YAML files, validated on every build. The
+session page is derived from the YAML files in `data/`, validated on every
+build. The
 [repository]({{ config.repo_url }}) is meant to be read as an example of the
 documentation practice the course teaches.
 </small>

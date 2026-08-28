@@ -8,7 +8,7 @@ a reading looks identical wherever a student meets it.
 from __future__ import annotations
 
 from .guides import split_ref
-from .models import Access, Guide, Resource
+from .models import Access, Assignment, Concept, DatedSession, Guide, Resource
 
 
 def reading_entry(r: Resource) -> str:
@@ -58,4 +58,72 @@ def guide_block(guides: dict[str, Guide], refs: list[str]) -> str:
         if anchor:
             entry += f" — {g.sections[anchor]}"
         lines.append(entry)
+    return "\n".join(lines) + "\n"
+
+
+def concept_entry(
+    c: Concept,
+    introduced: DatedSession,
+    assignments: dict[str, Assignment],
+    resources: dict[str, Resource],
+    concepts: dict[str, Concept],
+) -> str:
+    """One concept, as it appears on the study guide.
+
+    Written to be read the night before rather than browsed: the definition
+    first, then what you are expected to *do* with it, then the mistake people
+    make, then where to go back to. The explicit anchor is the id, because a
+    session page links here and rewording the heading must not move it.
+    """
+    where = f"[Week {c.week} — {introduced.date_label}](sessions/{c.slug}.md)"
+    graded = " · ".join(
+        f"[{assignments[aid].title}](assignments.md#{aid})" for aid in c.assessed_in
+    )
+
+    out = [
+        f"### {c.name} {{ #{c.id} }}\n",
+        f"<small>:material-school-outline: Introduced {where} &nbsp;·&nbsp; "
+        f":material-flag-checkered: Assessed in {graded}</small>\n",
+        f"{c.definition.strip()}\n",
+    ]
+
+    if c.in_practice:
+        out.append(f"**In this course.** {c.in_practice.strip()}\n")
+
+    out.append("**You should be able to**\n")
+    out.extend(f"{i}. {m.strip()}" for i, m in enumerate(c.mastery, 1))
+    out.append("")
+
+    if c.pitfall:
+        out.append(f'???+ warning "Where this goes wrong"\n\n    {c.pitfall.strip()}\n')
+
+    if c.resources:
+        out.append("**Review and go further**\n")
+        out.append(reading_block(resources, c.resources))
+        out.append("")
+
+    if c.related:
+        links = ", ".join(f"[{concepts[o].name}](#{o})" for o in c.related)
+        out.append(f"<small>See also: {links}</small>\n")
+
+    return "\n".join(out)
+
+
+def concept_block(concepts: list[Concept], prefix: str = "") -> str:
+    """The concepts a session introduced, as an admonition on that session page.
+
+    ``prefix`` is the path back to the docs root -- ``"../"`` from a generated
+    session page. A concept exists to be revised later, so the session it came
+    from has to say which ones it was; otherwise the study guide is a page
+    students find in December.
+    """
+    lines = [
+        '!!! abstract "Concepts from this session"',
+        "",
+        f"    You are responsible for these. The [study guide]({prefix}study-guide.md) has",
+        "    the definition, what you should be able to do with it, and where to review it.",
+        "",
+    ]
+    for c in concepts:
+        lines.append(f"    - :material-school-outline: **[{c.name}]({prefix}{c.anchor})**")
     return "\n".join(lines) + "\n"

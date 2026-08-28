@@ -18,13 +18,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from course_site.calendar import cancelled, conference_weeks
 from course_site.loaders import (
     load_assignments,
+    load_concepts,
     load_resources,
     load_schedule,
     load_semester,
     load_themes,
 )
-from course_site.models import DatedSession, GenAI, Kind, Resource
-from course_site.render import reading_block, reading_entry
+from course_site.models import Concept, DatedSession, GenAI, Kind, Resource
+from course_site.render import concept_entry, reading_block, reading_entry
 
 
 def define_env(env) -> None:
@@ -39,6 +40,8 @@ def define_env(env) -> None:
     env.variables["themes"] = themes
     env.variables["resources"] = load_resources()
     env.variables["assignments"] = load_assignments()
+    env.variables["concepts"] = load_concepts()
+    env.variables["concept_count"] = len(load_concepts())
     env.variables["session_count"] = len(schedule)
     env.variables["conference_count"] = sum(1 for d in schedule if d.is_conference)
     env.variables["first_meeting"] = schedule[0]
@@ -95,6 +98,55 @@ def define_env(env) -> None:
             out.extend(reading_entry(r) for r in items)
             out.append("")
         return "\n".join(out)
+
+    @env.macro
+    def study_guide() -> str:
+        """Every concept, grouped by theme and ordered by when it was taught.
+
+        Theme order matches the Readings page so the two can be read side by
+        side; inside a theme, concepts run in the order the course met them,
+        which is the order a student revising will want them in.
+        """
+        by_slug = {d.slug: d for d in schedule}
+        assignments = {a.id: a for a in load_assignments()}
+        resources = load_resources()
+        concepts = load_concepts()
+
+        grouped: dict[str, list[Concept]] = {tid: [] for tid in themes}
+        for c in concepts.values():
+            grouped[c.theme].append(c)
+
+        out: list[str] = []
+        for tid, theme in themes.items():
+            items = sorted(grouped[tid], key=lambda c: (by_slug[c.slug].date, c.name))
+            if not items:
+                continue
+            out.append(f"## Theme {theme.number} — {theme.name}\n")
+            out.append(f"{theme.blurb}\n")
+            for c in items:
+                out.append(concept_entry(c, by_slug[c.slug], assignments, resources, concepts))
+            out.append("")
+        return "\n".join(out)
+
+    @env.macro
+    def concept_checklist() -> str:
+        """The whole study guide as one table, for checking yourself against.
+
+        Deliberately the first thing on the page: a student revising wants to
+        know how many things there are before they want to know what any one of
+        them means.
+        """
+        by_slug = {d.slug: d for d in schedule}
+        assignments = {a.id: a for a in load_assignments()}
+        rows = ["| Concept | Introduced | Assessed in |", "|:---|:---|:---|"]
+        for c in sorted(load_concepts().values(), key=lambda c: (by_slug[c.slug].date, c.name)):
+            d = by_slug[c.slug]
+            graded = ", ".join(assignments[aid].title for aid in c.assessed_in)
+            rows.append(
+                f"| [{c.name}](#{c.id}) | [Week {c.week} ({d.date_label})]"
+                f"(sessions/{c.slug}.md) | {graded} |"
+            )
+        return "\n".join(rows)
 
     @env.macro
     def burchell_arc() -> str:

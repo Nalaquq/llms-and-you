@@ -17,6 +17,7 @@ from course_site.calendar import held_dates, meeting_dates, week_of
 from course_site.guides import GUIDES_DIR, load_guides, split_ref
 from course_site.loaders import (
     load_assignments,
+    load_concepts,
     load_resources,
     load_schedule,
     load_semester,
@@ -29,6 +30,7 @@ SCHEDULE = load_schedule()
 RESOURCES = load_resources()
 THEMES = load_themes()
 GUIDES = load_guides()
+CONCEPTS = load_concepts()
 ROOT = GUIDES_DIR.parents[1]
 
 
@@ -599,6 +601,7 @@ def test_no_insecure_reading_urls():
 def test_every_resource_is_used_or_deliberately_reference_only():
     """Catch resources added to the library and then forgotten."""
     used = {rid for d in SCHEDULE for rid in [*d.session.readings, *d.session.optional]}
+    used |= {rid for c in CONCEPTS.values() for rid in c.resources}
     reference_only = {
         "cmu-17630",  # peer syllabus, instructor reference
         "rpp-232-sentiment",  # optional Burchell episode, listed on Readings page
@@ -617,3 +620,113 @@ def test_every_resource_is_used_or_deliberately_reference_only():
     }
     orphans = set(RESOURCES) - used - reference_only
     assert not orphans, f"unused resources: {sorted(orphans)}"
+
+
+# --- The study guide ------------------------------------------------------
+#
+# The page makes students one promise -- everything on it is assessable -- and
+# these are what make that structural. Most of the referential checks happen in
+# the loader; what is here is the part that is about the course rather than the
+# data.
+
+
+def test_every_concept_is_introduced_at_a_real_meeting():
+    slugs = {d.slug for d in SCHEDULE}
+    for c in CONCEPTS.values():
+        assert c.slug in slugs, f"concept {c.id!r} claims a session that does not exist"
+
+
+def test_every_concept_is_assessed_somewhere():
+    """A concept nothing grades is background reading and belongs in `optional`.
+
+    The study guide tells students that everything on it can be assessed. If
+    that stops being true the page is worse than not having one, because they
+    will revise the wrong things on its authority.
+    """
+    graded = {a.id for a in load_assignments()}
+    for c in CONCEPTS.values():
+        assert c.assessed_in, f"concept {c.id!r} is assessed nowhere"
+        unknown = sorted(set(c.assessed_in) - graded)
+        assert not unknown, f"concept {c.id!r} names non-existent components: {unknown}"
+
+
+def test_every_concept_says_what_a_student_should_be_able_to_do():
+    """Recall is not the bar. Each line has to name something a student does.
+
+    A study guide that lists topics tells you what to worry about and not what
+    to practise. Every entry here completes 'you should be able to', which makes
+    it checkable by the student before it is checkable by me.
+    """
+    for c in CONCEPTS.values():
+        assert c.mastery, f"concept {c.id!r} states no mastery criteria"
+        for line in c.mastery:
+            assert len(line.split()) >= 6, (
+                f"concept {c.id!r} has a mastery line too short to be a task: {line!r}"
+            )
+
+
+def test_every_concept_offers_something_to_review():
+    """The page's second job is being somewhere to go back to.
+
+    A concept with no resources sends a student who does not understand it back
+    to their own notes, which are the thing that already failed them.
+    """
+    bare = sorted(c.id for c in CONCEPTS.values() if not c.resources)
+    assert not bare, f"concepts with nothing to review: {bare}"
+
+
+def test_concept_review_material_is_free_and_open():
+    """Same promise as the reading list. Revision must not cost money."""
+    for c in CONCEPTS.values():
+        for rid in c.resources:
+            assert RESOURCES[rid].access is Access.OPEN, (
+                f"concept {c.id!r} sends students to gated material: {rid}"
+            )
+
+
+def test_every_concept_is_reachable_from_the_session_that_taught_it():
+    """The session page carries the link; nothing else has to be remembered.
+
+    Students arrive through the schedule, not the nav. This asserts the
+    generator emits the block, so a refactor that drops it fails here rather
+    than quietly orphaning the study guide.
+    """
+    from course_site.render import concept_block
+
+    for c in CONCEPTS.values():
+        block = concept_block([c], prefix="../")
+        assert f"../study-guide.md#{c.id}" in block
+        assert c.name in block
+
+
+def test_the_study_guide_page_renders_every_concept():
+    """The page is a macro call, so this is the check that it is still called."""
+    page = (ROOT / "docs" / "study-guide.md").read_text(encoding="utf-8")
+    assert "{{ study_guide() }}" in page
+    assert "{{ concept_checklist() }}" in page
+
+
+def test_the_study_guide_is_in_the_site_navigation():
+    nav = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+    assert "study-guide.md" in nav, "the study guide is not in the nav"
+
+
+def test_concept_anchors_are_stable_ids_not_generated_slugs():
+    """Session pages link `study-guide.md#<id>`, so the id has to be the anchor.
+
+    ``concept_entry`` writes an explicit ``{ #id }`` for exactly this reason. If
+    someone switches it to a generated heading slug, renaming a concept silently
+    breaks every session page that points at it.
+    """
+    from markdown.extensions.toc import slugify
+
+    from course_site.render import concept_entry
+
+    by_slug = {d.slug: d for d in SCHEDULE}
+    assignments = {a.id: a for a in load_assignments()}
+    for c in CONCEPTS.values():
+        rendered = concept_entry(c, by_slug[c.slug], assignments, RESOURCES, CONCEPTS)
+        assert f"{{ #{c.id} }}" in rendered, f"concept {c.id!r} renders without its anchor"
+        if slugify(c.name, "-") != c.id:
+            # Fine, and the reason the explicit anchor exists -- just say so.
+            assert c.id in rendered

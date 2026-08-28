@@ -951,6 +951,46 @@
     Copied and cloned in the Week 1 lab, and the folder you work in for the rest
     of the term. Copied with `gh repo create --template`, not forked.
 
+# Norman's design vocabulary, which Week 1's discussion ran on and which the
+# decision log then borrows all term: an affordance is what a thing makes
+# possible, a constraint is what it rules out. Filed under methodology rather
+# than foundations because it is the language an ADR is written in, not a fact
+# about how the machine works. Reviewed on the study guide -- see
+# data/concepts.yml.
+
+- id: norman-design-everyday-things
+  title: The Design of Everyday Things
+  authors: [Don Norman]
+  year: 2013
+  kind: book
+  url: https://dl.icdst.org/pdfs/files4/4bb8d08a9b309df7d86e62ec4056ceef.pdf
+  themes: [methodology]
+  est_minutes: 90
+  assign_note: >-
+    Not the whole book, and not for a deadline. Chapter 1, pages 10-36
+    ("Fundamental Principles of Interaction"), is where affordances, signifiers,
+    mappings, constraints, and feedback are each defined. Chapter 4, pages
+    123-145, is the four kinds of constraint -- physical, cultural, semantic,
+    logical. Everything we argued about in Week 1 is in those two stretches.
+  note: >-
+    Revised and expanded edition, 369 pages, as a third party has posted it. We
+    do not host it and it is not an authorised copy; Bortz has the book if that
+    matters to you. Recorded here so the link is a decision rather than an
+    oversight.
+
+- id: norman-everyday-things-audio
+  title: 'Brief Audio Book #118: The Design of Everyday Things by Don Norman'
+  year: 2020
+  kind: podcast
+  url: https://open.spotify.com/episode/1IY7LIo7Dah9ahEgMoDCNk
+  themes: [methodology]
+  est_minutes: 17
+  assign_note: >-
+    Seventeen minutes, and the quickest way back into Norman when the
+    discussion has gone fuzzy. It is a summary: it gives you the vocabulary
+    back but not the examples, and the examples are what you argue with. Use it
+    to recover, then go to the chapters.
+
 # ---------------------------------------------------------------------------
 # Peer syllabi — instructor reference, not assigned
 # ---------------------------------------------------------------------------

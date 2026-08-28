@@ -1,0 +1,69 @@
+# The study guide. Every idea a student is responsible for knowing and applying.
+#
+# A concept is not a topic. A topic is what a session was about; a concept is
+# something you can be asked to define, apply, and be wrong about. If you cannot
+# write a `mastery` line for it -- a sentence starting "you should be able to" --
+# it does not belong here, it belongs in a session summary.
+#
+# `theme` files the concept by what it *is*. `week`/`day` records where it was
+# introduced, and the two need not agree: affordances arrived in a foundations
+# session and is a methodology idea. The session page links here automatically.
+#
+# `assessed_in` is required and is checked against data/assignments.yml. The page
+# promises students that everything on it is assessable, and a concept nothing
+# assesses is background reading -- put it in a session's `optional` instead.
+#
+# Nothing here restates prose that already exists elsewhere on the site. Where
+# the syllabus already defines something, link the syllabus.
+
+- id: affordances-and-constraints
+  name: Affordances and constraints
+  theme: methodology
+  week: 1
+  day: tue
+  definition: >-
+    Don Norman's vocabulary for describing a designed thing by what it makes
+    possible and what it rules out. An **affordance** is a relationship between
+    the properties of a thing and the capabilities of whoever is using it: what
+    actions it permits. A **constraint** is the reverse -- what it prevents, on
+    purpose. A **signifier** is separate from both: the perceptible clue that
+    tells you an affordance is there at all.
+  in_practice: >-
+    A chat box affords typing anything, which is very nearly its entire
+    interface, and it signifies almost nothing -- no visible limit on length,
+    format, topic, or trustworthiness. That absence is the whole problem this
+    course works on. A prompt is where the missing constraints get supplied: a
+    role, a format, a refusal condition, a worked example, a length. Most of
+    what we will call prompt engineering is the work of adding constraints that
+    the interface declined to show you, and the reason a decision record is
+    worth keeping is that a constraint you added on purpose looks identical, six
+    weeks later, to one you added by accident.
+  mastery:
+    - >-
+      Define affordance, constraint, and signifier in Norman's terms, and say
+      which is which when you are handed an interface you have not seen before.
+    - >-
+      Name three affordances and three constraints of a tool you used this week
+      -- the chat box, Claude Code, the API -- and say, for each, whether
+      anything in the interface actually signified it or whether you had to
+      already know.
+    - >-
+      Explain what a blank text box costs a beginner, in this vocabulary,
+      without reaching for the word "intuitive".
+    - >-
+      Argue a prompt-design decision in these terms in an ADR: what your prompt
+      affords the model, what it forbids, and how the model is supposed to tell.
+  pitfall: >-
+    Calling a signifier an affordance. Norman rewrote the book over this after
+    twenty-five years of readers making the same substitution, so it is not a
+    trivial slip. The affordance is the possibility; the signifier is the clue
+    that it exists. A model that *can* refuse a bad request affords refusal --
+    but if nothing in your prompt signifies when to refuse, the affordance sits
+    there unused and you conclude, wrongly, that the model cannot do it. The
+    second trap is hearing "constraint" as a limitation you are stuck with.
+    Norman's constraints are designed in deliberately, and in a prompt they are
+    almost the only tool you have.
+  assessed_in: [project, labs]
+  resources:
+    - norman-everyday-things-audio
+    - norman-design-everyday-things

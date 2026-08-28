@@ -16,7 +16,16 @@ from pydantic import TypeAdapter
 
 from .calendar import assign_dates
 from .guides import load_guides, split_ref
-from .models import Assignment, DatedSession, Resource, Semester, Session, SessionKind, Theme
+from .models import (
+    Assignment,
+    Concept,
+    DatedSession,
+    Resource,
+    Semester,
+    Session,
+    SessionKind,
+    Theme,
+)
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -140,6 +149,57 @@ def load_schedule() -> list[DatedSession]:
                 )
 
     return dated
+
+
+@functools.cache
+def load_concepts() -> dict[str, Concept]:
+    """The study guide, cross-checked against everything it claims to reference.
+
+    A concept names a session, a theme, some readings, and the assignments it is
+    assessed on. Every one of those is a chance for the study guide to promise a
+    student something the course does not deliver, so all four are resolved here
+    rather than rendered hopefully.
+    """
+    items = TypeAdapter(list[Concept]).validate_python(_read("concepts.yml"))
+
+    found: dict[str, Concept] = {}
+    for c in items:
+        if c.id in found:
+            raise ValueError(f"duplicate concept id: {c.id}")
+        found[c.id] = c
+
+    themes = load_themes()
+    resources = load_resources()
+    assignments = {a.id for a in load_assignments()}
+    sessions = {d.slug for d in load_schedule()}
+
+    for c in found.values():
+        if c.theme not in themes:
+            raise ValueError(f"concept {c.id!r} references unknown theme {c.theme!r}")
+        if c.slug not in sessions:
+            raise ValueError(
+                f"concept {c.id!r} says it was introduced at {c.slug!r}, which is not a "
+                "meeting in the schedule"
+            )
+        for rid in c.resources:
+            if rid not in resources:
+                raise ValueError(f"concept {c.id!r} references unknown resource {rid!r}")
+        for aid in c.assessed_in:
+            if aid not in assignments:
+                raise ValueError(
+                    f"concept {c.id!r} claims it is assessed in {aid!r}, which is not a "
+                    f"graded component. Known: {sorted(assignments)}"
+                )
+
+    # Second pass: `related` can only be checked once every concept is known.
+    for c in found.values():
+        for other in c.related:
+            if other not in found:
+                raise ValueError(f"concept {c.id!r} links unknown concept {other!r}")
+            if other == c.id:
+                raise ValueError(f"concept {c.id!r} lists itself as related")
+
+    return found
 
 
 def resource(rid: str) -> Resource:

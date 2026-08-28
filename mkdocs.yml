@@ -118,6 +118,7 @@ nav:
   - Schedule: schedule.md
   - Assignments: assignments.md
   - Readings: resources.md
+  - Study guide: study-guide.md
   - Guides:
       - guides/index.md
       - guides/setup.md

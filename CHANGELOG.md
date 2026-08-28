@@ -20,6 +20,35 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — a study guide of course concepts **[student-facing]**
+
+There is now a [study
+guide](https://Nalaquq.github.io/llms-and-you/study-guide/): the ideas you are
+responsible for knowing and applying, separate from the reading list.
+
+**If it is on that page, you can be assessed on it.** That is the whole
+selection rule, and it is enforced rather than promised — a concept cannot go on
+the page without naming the graded components it is assessed in.
+
+Each entry carries the definition, what the idea does once it touches prompting,
+a numbered list of things **you should be able to do** with it, the mistake
+people reliably make, and the material to review it with. The "you should be
+able to" lines are the actual bar. The session that introduced a concept links
+straight to its entry.
+
+**First entry: affordances and constraints**, from the Week 1 discussion — Don
+Norman's vocabulary for what a designed thing makes possible and what it rules
+out, which is most of what a prompt is doing. Reviewed with a seventeen-minute
+audio summary and the two chapters of *The Design of Everyday Things* the
+discussion actually came from (Ch. 1, pp. 10–36 and Ch. 4, pp. 123–145 — not the
+whole book).
+
+The page grows through the term. If we spent real time on something in class and
+it is not there, say so — that is a gap in the page, not a signal it does not
+matter. Reasoning in
+[ADR-017](https://Nalaquq.github.io/llms-and-you/adr/#adr-017-make-course-concepts-data-and-give-them-a-page-of-their-own).
+
+
 ### Added — a guide to using BoodleBox on the reading **[student-facing]**
 
 The college pays for [BoodleBox](https://boodlebox.ai/) — one login, and behind

@@ -1142,3 +1142,113 @@ the guide's longest section is about not trusting what it tells you.
 one and it is not recorded here, so the guide describes the route and names Todd
 Pugh instead of linking it. That should be a link, and inventing a plausible URL
 would have been worse than omitting it.
+
+---
+
+## ADR-017: Make course concepts data, and give them a page of their own
+
+**Status:** Accepted
+
+### Context
+
+Week 1's group discussion spent most of its length on Don Norman's affordances
+and constraints. It was the most useful thing that happened that day, and by the
+end of it the concept existed nowhere on this site. The session's `topic` was
+about attention and the paper the course is named after; its `activity` was
+about the AI policy. Neither is wrong, and neither is where a student in Week 9
+would look for the vocabulary they are supposed to be writing their ADRs in.
+
+That is the general problem, not a one-off. The schedule records what a session
+*was about*. It does not record what a student is *responsible for*, and those
+are different lists. A topic is a heading; a concept is something a student can
+be asked to define, apply, and be wrong about. The course assesses the second
+list — the ADR log and the lab write-ups are graded on applying ideas — while
+publishing only the first.
+
+The gap has a predictable shape. Students revise from the reading list, which is
+sixty-odd items of which most is context. They cannot tell the load-bearing
+ideas from the background, so they either over-prepare on the wrong things or
+ask, reasonably, what is actually going to be assessed.
+
+### Decision
+
+A fifth kind of course data: `data/concepts.yml`, and a [study
+guide](../study-guide.md) generated from it.
+
+A concept declares what it is (`definition`, `in_practice`), what a student must
+be able to *do* with it (`mastery`), the mistake people actually make
+(`pitfall`), where it was introduced (`week`/`day`), what it is reviewed with
+(`resources`, by id), and — required — which graded components assess it
+(`assessed_in`). The loader resolves the session, the theme, the resource ids
+and the assignment ids; none of them can be a hopeful string.
+
+Two fields are required that could reasonably have been optional. `mastery` is
+required because a study guide that lists topics tells a student what to worry
+about and not what to practise; if an idea cannot be written as something a
+student does, it is a session summary and belongs there. `assessed_in` is
+required because the page opens by promising that everything on it is
+assessable, and that promise is worth more as a schema constraint than as a
+sentence.
+
+The session page that introduced a concept links to its entry, in the same
+position as the guides box. This is the ADR-008 rule applied again: students
+arrive through the schedule, so a page nothing points at is a page found in
+December.
+
+Concepts are filed by theme, which is deliberately allowed to disagree with the
+theme of the session that taught them. Affordances arrived in a foundations
+session about what an LLM is; it is a methodology idea, because it is the
+vocabulary an ADR is written in. Filing it under foundations to match the
+calendar would put it where nobody revising design decisions will look.
+
+### Alternatives considered
+
+**Put the concept in the session's `summary` or `activity`.** The cheapest
+option, and it fails at the only moment that matters. Revision happens weeks
+later, across sessions; nobody reopens eleven session pages to reconstruct a
+list. It also buries the assessment claim in prose, where it renders as nothing
+in particular.
+
+**A glossary page written by hand.** Rejected for the reason ADR-001 rejects
+hand-written session pages. A glossary duplicates titles, dates, and links that
+already exist in `data/`, and the copy in the glossary is the one that goes
+stale — and this copy would go stale while claiming to tell students what they
+are graded on, which is worse than the usual case.
+
+**Attach concepts to themes rather than sessions.** Tidier, and it loses the
+thing students most need: when we did this, and therefore which reading it came
+with and which notes to look at. The theme is kept as the filing dimension and
+the session as the origin, because both questions get asked.
+
+**Make `assessed_in` optional so anything interesting can go on the page.**
+Rejected. A study guide is only useful in proportion to what it leaves out. An
+idea worth mentioning but not assessing is a session's `optional` reading, which
+already exists and already renders.
+
+**Add the Norman material to Week 1's `optional` list instead.** It would put
+the readings on the session page, which is something. But optional readings are
+prep for one meeting, and the point of these is that they are review material a
+student comes back to in November when writing an ADR about a prompt's
+constraints. The study guide is where "come back to this" lives.
+
+### Consequences
+
+Adding a concept is a YAML entry; the study guide, its at-a-glance table, and
+the link on the originating session page all follow. Six tests hold the promises
+the page makes — that every concept names a real meeting and a real graded
+component, that every one states something a student can do, that every one has
+something to review, that the review material is free, and that the anchor a
+session links to is the stable id rather than a heading slug.
+
+The cost is a real one: the page is only as good as what gets written into it,
+and it is the instructor who has to notice, that evening, that a discussion
+produced a concept. Nothing in the build can detect a Week 6 idea that was never
+written down. What the build can do is refuse to let a written-down one be
+vague, unassessed, or unreachable, which is where the tests are aimed.
+
+**Left undone:** the study guide launches with one concept. Week 1's discussion
+of hallucinations and slop is a genuine second candidate and was left out
+because the syllabus already defines both terms, and restating a definition the
+site already carries is the failure mode this whole repository is built to
+avoid. If those become concepts, the entry should link
+[the policy](../syllabus.md#on-hallucinations-and-slop) rather than repeat it.

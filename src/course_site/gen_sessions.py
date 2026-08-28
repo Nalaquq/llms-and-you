@@ -15,9 +15,9 @@ import mkdocs_gen_files
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from course_site.guides import load_guides
-from course_site.loaders import load_resources, load_schedule, load_themes
+from course_site.loaders import load_concepts, load_resources, load_schedule, load_themes
 from course_site.models import DatedSession, GenAI, SessionKind
-from course_site.render import guide_block, reading_block
+from course_site.render import concept_block, guide_block, reading_block
 
 KIND_LABEL = {
     SessionKind.SEMINAR: "Seminar",
@@ -60,6 +60,13 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
     # stuck before they start, and this is the page they are already on.
     if s.guides:
         out.append(guide_block(load_guides(), s.guides))
+
+    # Sits with the guides rather than at the foot of the page. A concept is
+    # revised weeks after the session that introduced it, and the only way a
+    # student finds the study guide in September is if this session names it.
+    introduced = [c for c in load_concepts().values() if c.slug == d.slug]
+    if introduced:
+        out.append(concept_block(sorted(introduced, key=lambda c: c.name), prefix="../"))
 
     if s.due:
         out.append(f'!!! danger "Due today"\n\n    {s.due}\n')

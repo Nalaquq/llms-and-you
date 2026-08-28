@@ -12,7 +12,7 @@ College, Fall 2026.
 A syllabus, a schedule, and 28 session pages — generated from structured data
 rather than written by hand.
 
-Every date, reading, and session page derives from four YAML files. A reading is
+Every date, reading, and session page derives from the YAML files in `data/`. A reading is
 defined once and referenced by id everywhere it appears. Semester dates exist in
 exactly one place; changing a holiday reflows the whole schedule. A session that
 references a reading which does not exist fails the build rather than rendering
@@ -56,9 +56,11 @@ Every command on the site itself is given both ways too, in tabs — see
 
 ```
 data/schedule.yml ──┐
-data/resources.yml ─┼──> Pydantic validation ──> mkdocs-macros ──> schedule table
-data/semester.yml ──┤         (loaders.py)      mkdocs-gen-files ─> 28 session pages
-data/themes.yml ────┘                                              ──> readings page
+data/resources.yml ─┤
+data/semester.yml ──┼──> Pydantic validation ──> mkdocs-macros ──> schedule table
+data/themes.yml ────┤         (loaders.py)      mkdocs-gen-files ─> 28 session pages
+data/assignments.yml┤                                              ──> readings page
+data/concepts.yml ──┘                                              ──> study guide
 ```
 
 `semester.yml` holds term bounds, two holidays, and three windows where sessions
@@ -82,10 +84,11 @@ Conventions and common maintenance tasks are documented in the local
 - grading weights total 100
 - no reading is orphaned in the library
 - every guide is linked from the session that needs it
+- every study-guide concept names a real session and a real graded component
 - every shell command that differs by platform is given for both
 
 ```
-143 passed
+169 passed
 ```
 
 ## Course themes
