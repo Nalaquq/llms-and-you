@@ -13,7 +13,7 @@ Each entry gives you the definition, what the idea does once it touches
 prompting specifically, the things you should be able to *do* with it, the
 mistake people reliably make, and where to go back to.
 
-!!! tip "How to use this the night before"
+!!! tip "How to use this guide"
 
     Read the **You should be able to** lines first, with the rest of the entry
     covered. Answer them out loud, in your own words, to nobody. The ones you
@@ -21,7 +21,7 @@ mistake people reliably make, and where to go back to.
     not this page. A concept you can only recite in the words it was defined in
     is one you cannot yet apply, and applying it is what you are graded on.
 
-The page grows through the term. A concept appears here in the week we discuss
+This page grows through the term. A concept appears here in the week we discuss
 it, and the [session page](schedule.md) it came from links straight to its entry.
 
 ---
