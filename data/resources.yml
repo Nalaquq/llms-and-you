@@ -52,6 +52,20 @@
     the paper names those three things without explaining them, this is the
     thing you will be remembering.
 
+- id: 3blue1brown-neural-networks
+  title: 'But what is a neural network? (Deep Learning, Chapter 1)'
+  authors: [Grant Sanderson]
+  kind: video
+  url: https://www.youtube.com/watch?v=aircAruvnKk
+  themes: [foundations]
+  est_minutes: 18
+  note: >-
+    Review material, not assigned -- see ADR-006, which took the Neural Networks
+    series off the spine because the course does not need gradient descent. It is
+    on the study guide instead, attached to the handful of concepts that use the
+    words "layer", "weight" and "training" and assume nothing has ever explained
+    them. A student who is fine without it never opens it.
+
 - id: prince-understanding-deep-learning
   title: Understanding Deep Learning
   authors: [Simon J.D. Prince]
@@ -177,6 +191,22 @@
   themes: [foundations, technique]
   est_minutes: 73
   note: Burchell arc, episode 4 of 6. Lexicon to ML to LLM; encoder vs decoder.
+
+- id: tf-embedding-projector
+  title: TensorFlow Embedding Projector
+  authors: [Google]
+  kind: tool
+  url: https://projector.tensorflow.org/
+  themes: [foundations, ecosystem]
+  est_minutes: 20
+  assign_note: >-
+    Optional, and the only one of this week's links you can put your hands on.
+    Load the pre-built word2vec space, search a word, and read its nearest
+    neighbours. Bring one analogy that worked and one that did not -- Tuesday's
+    activity starts from the ones that did not.
+  note: >-
+    Linked from the embedding primer. Added because the Tuesday activity is
+    embedding-space exploration and previously named no tool to explore with.
 
 # ---------------------------------------------------------------------------
 # Theme 2 — Prompt Engineering Technique

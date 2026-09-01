@@ -1252,3 +1252,137 @@ because the syllabus already defines both terms, and restating a definition the
 site already carries is the failure mode this whole repository is built to
 avoid. If those become concepts, the entry should link
 [the policy](../syllabus.md#on-hallucinations-and-slop) rather than repeat it.
+
+---
+
+## ADR-018: Break the study guide down to the vocabulary, and record what each concept needs first
+
+**Status:** Accepted
+
+### Context
+
+Week 2 is the heaviest preparation week of the term by design (ADR-010), and it
+is the week the course front-loads because everything after it assumes
+embeddings are understood. Reviewing its seven readings against the study guide
+turned up something the page could not currently express.
+
+The readings assume a working vocabulary the class does not have. Alammar writes
+"one hidden layer" without explaining a layer. The embedding primer computes
+TF-IDF without ever saying what a corpus is. Burchell's episode 119 covers
+bag-of-words, stemming, lemmatization, n-grams, count vectorization and stop
+words in twenty minutes, at speed, as background. This is a 200-level course
+whose students arrive with no machine learning, no NLP and no LLM background at
+all, and for them roughly a third of the assigned prose is terms used as though
+already known.
+
+The first draft of the Week 2 entries handled this by grouping. One entry for
+"bag of words" absorbed count vectorization, stop words, stemming, lemmatization
+and n-grams, on the reasoning that they are one technique and its parts. That
+reasoning is sound for a reader who already knows four of the five. For this
+class it puts five unfamiliar terms in one paragraph, gives the student one
+place to say "I do not understand this", and offers no way to find out *which*
+of the five they do not understand.
+
+There is a second gap the schema had regardless of granularity. Concepts have
+depended on each other since the page existed — cosine similarity needs the dot
+product, which needs a vector — and the data recorded none of it. `related`
+exists but is an undirected "see also"; it cannot say which of two entries has
+to be read first. A student on the study guide in November, bouncing off an
+entry, has no way to discover that the thing they are actually missing is three
+entries up.
+
+### Decision
+
+Two changes, made together because neither is much use alone.
+
+**Split to the level of the individual term.** The rule is: if a student can get
+it wrong on its own, it is its own entry. Count vectorization can be got wrong
+on its own. Stemming can be got wrong on its own, and differently from
+lemmatization. Both pass, so both are entries. This takes Week 2 from a proposed
+thirteen entries to forty-six, including eight that are not this week's topic
+at all — corpus, vocabulary, vector, dimensionality, neural networks and layers,
+parameters and weights, training and inference, softmax — and exist because the
+readings use them without introduction.
+
+**Add `builds_on` to the concept schema**: an ordered list of concept ids this
+entry cannot be understood without. It is a directed prerequisite edge, and it
+is deliberately not the same field as `related`. The loader refuses a
+prerequisite that does not exist, refuses a self-reference, refuses an id listed
+as both a prerequisite and a cross-reference, refuses a prerequisite introduced
+at a *later* meeting than the concept needing it, and refuses a cycle. The last
+one matters more than it sounds: two ideas taught in the same session can each
+plausibly look like the other's foundation, so a cycle is reachable by accident
+rather than by carelessness, and a cycle is a page that cannot be read in any
+order.
+
+The page renders the graph in three places. Each entry opens with **Understand
+first**, above the definition, because a student without the prerequisites is
+reading the wrong entry and the cheapest moment to say so is before they have
+read a paragraph that will not land. Each entry closes with **Needed for**,
+which is derived from what later entries declare rather than typed — nobody
+remembers to go back and update a downward link in November. And the
+at-a-glance table is now grouped by session with a prerequisite column, so the
+order to learn things in is legible without reading a single definition.
+
+### Alternatives considered
+
+**Keep the technique-level grouping and write longer entries.** The original
+plan, and the right one for a class with some background. Rejected on the
+specific audience: a paragraph containing five undefined terms fails silently,
+because the student cannot report which term lost them. Thirty-nine entries with
+one idea each fail loudly, which is the point of a study guide that students
+self-check against.
+
+**Split, but leave the relationships in prose.** Cheapest option, and it was the
+status quo. Rejected because it does not survive: prose cross-references rot,
+they cannot be validated, and the failure mode is a study guide that sends a
+student to an entry that has been renamed. The build already refuses a broken
+resource id and a broken guide anchor; a broken prerequisite is the same class
+of error and deserves the same treatment.
+
+**Use `related` for prerequisites rather than adding a field.** Rejected because
+the direction is the whole value. "See also" and "you cannot read this yet" are
+different messages, and collapsing them produces a page where every entry links
+to every neighbouring entry and none of it tells you where to start.
+
+**A glossary page, separate from the study guide.** Tempting, because eight of
+these entries really are vocabulary rather than course concepts. Rejected for
+the reason ADR-017 rejected a hand-written glossary, and for a second one: it
+would split the page's promise. The study guide says everything on it is
+assessable. Terms exiled to a glossary would read as optional, and a student who
+cannot define a vector cannot answer a question about cosine similarity.
+
+**Render the prerequisite graph as a diagram.** A Mermaid dependency graph was
+considered and dropped. Forty nodes is unreadable as a picture, it requires a
+Markdown extension the site does not currently enable, and the thing a student
+actually needs — "what do I read before this one" — is answered better by a line
+of text on the entry itself than by a diagram they have to trace.
+
+### Consequences
+
+Week 2 has forty-six study-guide entries and the course has forty-seven. That
+is a large page, and it is the correct size for the week the course front-loads
+into a class with no background. The at-a-glance table absorbs the volume by
+being grouped and scannable; the prerequisite column means a student can find
+their own entry point rather than reading from the top.
+
+The promise on the page needs reading with this in mind. "If it is on this page,
+you can be assessed on it" remains true and remains enforced, but at this
+granularity most entries are assessed cumulatively — through reading responses
+and lab write-ups that use the vocabulary — rather than each being separately
+examinable. `assessed_in` is honest about this: the machinery entries name
+`responses`, not `midterm`.
+
+The real cost is on later weeks. Week 2 is now decomposed to a level Weeks 3
+through 15 are not, and an inconsistent study guide is worse than a uniformly
+coarse one. The commitment made here is to bring the remaining weeks to this
+granularity as they are taught, not to leave Week 2 as an unmatched island.
+Week 3 is the immediate test: attention, self-attention, queries, keys and
+values are exactly this kind of vocabulary, and this ADR is the reason they get
+five entries rather than one.
+
+`test_the_heaviest_week_is_broken_down_far_enough` names sixteen of the Week 2
+sub-concepts explicitly. It is a deliberately unusual test — it asserts a
+pedagogical decision rather than a structural one — and it exists so that a
+future tidying pass that folds "stemming" back into "bag of words" has to argue
+with this ADR rather than quietly reverse it.

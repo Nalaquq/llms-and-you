@@ -204,8 +204,14 @@ class Concept(Base):
     """Assignment ids, checked against ``assignments.yml``."""
     resources: list[str] = Field(default_factory=list)
     """Review material, by resource id. Never a URL."""
+    builds_on: list[str] = Field(default_factory=list)
+    """Concept ids this one cannot be understood without, in the order a student
+    should meet them. This is a prerequisite edge, not a cross-reference: the
+    loader refuses a cycle and refuses a prerequisite taught later than the
+    concept that needs it. See ADR-018."""
     related: list[str] = Field(default_factory=list)
-    """Other concept ids. Rendered as cross-links on the study guide."""
+    """Other concept ids worth reading beside this one. Unordered, undirected,
+    and explicitly not a prerequisite -- use ``builds_on`` for that."""
 
     @field_validator("id")
     @classmethod

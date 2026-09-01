@@ -355,6 +355,7 @@
       before ChatGPT. What does Burchell expect to matter, and what does she not
       see coming?
   activity: Embedding-space exploration; the classic king/queen analogy, and where it fails.
+  optional: [tf-embedding-projector]
 
 - week: 2
   day: thu

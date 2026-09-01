@@ -711,6 +711,71 @@ def test_the_study_guide_is_in_the_site_navigation():
     assert "study-guide.md" in nav, "the study guide is not in the nav"
 
 
+def test_concept_prerequisites_are_climbable_in_reading_order():
+    """A student reading the page top to bottom must never meet a forward
+    reference.
+
+    The loader already refuses a prerequisite introduced at a later meeting.
+    This is the same promise inside a single session: the study guide renders
+    concepts in file order within a week, so a prerequisite written below the
+    thing that needs it is a page that cannot be read in the order it is printed.
+    """
+    position = {cid: i for i, cid in enumerate(CONCEPTS)}
+    for c in CONCEPTS.values():
+        for parent in c.builds_on:
+            assert position[parent] < position[c.id], (
+                f"concept {c.id!r} builds on {parent!r}, which appears after it in "
+                "concepts.yml. Move the prerequisite above the concept that needs it."
+            )
+
+
+def test_no_concept_is_an_island():
+    """Every concept after the first of its week connects to the rest.
+
+    The study guide is meant to show how ideas relate, not to be a glossary in
+    alphabetical disguise. A concept that neither builds on anything nor is
+    needed by anything nor is related to anything has been dropped onto the page
+    rather than placed in it. Genuinely foundational entries are exempt by
+    having dependents.
+    """
+    connected = {cid for c in CONCEPTS.values() for cid in (*c.builds_on, *c.related)}
+    connected |= {c.id for c in CONCEPTS.values() if c.builds_on or c.related}
+    orphans = sorted(set(CONCEPTS) - connected)
+    # Week 1's entry predates the prerequisite graph and stands alone honestly.
+    orphans = [cid for cid in orphans if cid != "affordances-and-constraints"]
+    assert not orphans, f"concepts connected to nothing: {orphans}"
+
+
+def test_the_heaviest_week_is_broken_down_far_enough():
+    """Week 2 is the week the course front-loads, for a class with no background.
+
+    ADR-018 decided that a sub-concept a student can get wrong on its own gets
+    its own entry. This is that decision made checkable: the terminology the
+    Week 2 readings use without defining has to be on the page, individually,
+    rather than folded into a paragraph about a technique.
+    """
+    required = {
+        "corpus",
+        "vocabulary",
+        "vector",
+        "one-hot-encoding",
+        "count-vectorization",
+        "stop-words",
+        "stemming",
+        "lemmatization",
+        "n-grams",
+        "term-frequency",
+        "inverse-document-frequency",
+        "cbow",
+        "skip-gram",
+        "negative-sampling",
+        "softmax",
+        "logits",
+    }
+    missing = sorted(required - set(CONCEPTS))
+    assert not missing, f"Week 2 sub-concepts folded away rather than taught: {missing}"
+
+
 def test_concept_anchors_are_stable_ids_not_generated_slugs():
     """Session pages link `study-guide.md#<id>`, so the id has to be the anchor.
 
