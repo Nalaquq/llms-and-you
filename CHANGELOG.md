@@ -20,6 +20,48 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — the whole of Week 2 on the study guide **[student-facing]**
+
+The [study guide](https://Nalaquq.github.io/llms-and-you/study-guide/) now
+carries **46 entries for Week 2**, which is every idea and every term the week's
+seven readings use. That includes the terms they use *without stopping to
+define* — corpus, vocabulary, vector, dimensionality, layers, weights, training
+versus inference, softmax. Nobody in this class is expected to have met those
+before, and the readings assume you have.
+
+The rule for what got its own entry: **if you can get it wrong on its own, it is
+its own entry.** So bag of words, count vectorization, stop words, stemming,
+lemmatization and n-grams are six entries rather than one paragraph. Stemming
+and lemmatization do different things and fail differently, and you should be
+able to say which is which.
+
+**Every entry now says what to understand first.** A new "Understand first" line
+sits above each definition, linking the entries you need before that one makes
+sense, and a "Needed for" line at the bottom shows what it leads to. The
+at-a-glance table is grouped by session with a prerequisites column, so you can
+find where to start rather than reading from the top. If an entry is not
+landing, follow its "Understand first" links upwards — the gap is usually one or
+two rungs down, not in the entry you are staring at.
+
+The four representations are taught as a ladder, in the order they were
+invented, and each entry says what it fixed about the last one and what it still
+could not do: **bag of words → TF-IDF → word2vec → BERT**. Read down that chain
+and the reason for the Week 3 paper is already obvious before you open it.
+
+Also added: **the [TensorFlow Embedding
+Projector](https://projector.tensorflow.org/)** as optional material on Week 2
+Tuesday. It is the only thing this week you can put your hands on — load the
+word2vec space, search a word, read its neighbours. Bring one analogy that
+worked and one that did not; the class starts from the ones that did not.
+
+Reasoning in
+[ADR-018](https://Nalaquq.github.io/llms-and-you/adr/#adr-018-break-the-study-guide-down-to-the-vocabulary-and-record-what-each-concept-needs-first).
+
+**Weeks 3 to 15 are not at this level of detail yet.** They will be, week by
+week, as we get to them. Week 2 is first because it is the week everything else
+is built on.
+
+
 ### Added — a study guide of course concepts **[student-facing]**
 
 There is now a [study

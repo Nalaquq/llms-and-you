@@ -64,9 +64,12 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
     # Sits with the guides rather than at the foot of the page. A concept is
     # revised weeks after the session that introduced it, and the only way a
     # student finds the study guide in September is if this session names it.
+    # In `concepts.yml` order, not alphabetical: the file is written so nothing
+    # needs an entry printed below it, and that order is the order to learn them
+    # in. Sorting by name would list the ladder's fourth rung first (ADR-018).
     introduced = [c for c in load_concepts().values() if c.slug == d.slug]
     if introduced:
-        out.append(concept_block(sorted(introduced, key=lambda c: c.name), prefix="../"))
+        out.append(concept_block(introduced, prefix="../"))
 
     if s.due:
         out.append(f'!!! danger "Due today"\n\n    {s.due}\n')

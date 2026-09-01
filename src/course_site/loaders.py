@@ -191,15 +191,62 @@ def load_concepts() -> dict[str, Concept]:
                     f"graded component. Known: {sorted(assignments)}"
                 )
 
-    # Second pass: `related` can only be checked once every concept is known.
+    # Second pass: the concept-to-concept edges, which can only be checked once
+    # every concept is known.
+    order = {d.slug: i for i, d in enumerate(load_schedule())}
     for c in found.values():
         for other in c.related:
             if other not in found:
                 raise ValueError(f"concept {c.id!r} links unknown concept {other!r}")
             if other == c.id:
                 raise ValueError(f"concept {c.id!r} lists itself as related")
+        for other in c.builds_on:
+            if other not in found:
+                raise ValueError(f"concept {c.id!r} builds on unknown concept {other!r}")
+            if other == c.id:
+                raise ValueError(f"concept {c.id!r} lists itself as a prerequisite")
+            # A prerequisite introduced after the thing needing it is not a
+            # prerequisite, it is a forward reference. Students read this page in
+            # week order, so the ladder has to be climbable in that order.
+            if order[found[other].slug] > order[c.slug]:
+                raise ValueError(
+                    f"concept {c.id!r} ({c.slug}) builds on {other!r}, which is not "
+                    f"introduced until {found[other].slug}"
+                )
+        if set(c.builds_on) & set(c.related):
+            both = sorted(set(c.builds_on) & set(c.related))
+            raise ValueError(
+                f"concept {c.id!r} lists {both} as both a prerequisite and a "
+                "cross-reference. Pick one: builds_on is the stronger claim."
+            )
 
+    _refuse_prerequisite_cycles(found)
     return found
+
+
+def _refuse_prerequisite_cycles(concepts: dict[str, Concept]) -> None:
+    """A cycle in ``builds_on`` is a page that cannot be read in any order.
+
+    Same-session concepts make this reachable by accident -- two ideas taught on
+    one Tuesday can each look like the other's foundation. The build refuses,
+    because a student following the prerequisites would walk in a circle.
+    """
+    unvisited, on_stack, done = 0, 1, 2
+    state = dict.fromkeys(concepts, unvisited)
+
+    def walk(cid: str, path: list[str]) -> None:
+        state[cid] = on_stack
+        for parent in concepts[cid].builds_on:
+            if state[parent] == on_stack:
+                loop = " -> ".join([*path[path.index(parent) :], cid, parent])
+                raise ValueError(f"prerequisite cycle among concepts: {loop}")
+            if state[parent] == unvisited:
+                walk(parent, [*path, cid])
+        state[cid] = done
+
+    for cid in concepts:
+        if state[cid] == unvisited:
+            walk(cid, [])
 
 
 def resource(rid: str) -> Resource:

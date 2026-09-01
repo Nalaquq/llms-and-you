@@ -67,3 +67,1833 @@
   resources:
     - norman-everyday-things-audio
     - norman-design-everyday-things
+
+
+# ===========================================================================
+# WEEK 2 — How text becomes numbers
+#
+# The class arrives with no ML, NLP or LLM background, so this week is broken
+# down to the level of individual words rather than techniques: "count
+# vectorization", "stop words" and "stemming" are three things a student can be
+# asked about separately and get separately wrong, so they are three entries.
+# The rule for splitting is exactly that -- if it can be got wrong on its own,
+# it is its own entry. See ADR-018.
+#
+# `builds_on` carries the order. The entries below are written in a climbable
+# sequence and nothing here builds on anything introduced later; the loader
+# refuses both a forward reference and a cycle, so the ladder cannot rot.
+#
+# Order within the week: the machinery words first (they are prerequisites for
+# everything and belong to no technique), then text into numbers, then the
+# geometry, then the four representations in the order they were invented, then
+# the output end.
+# ===========================================================================
+
+# --- The machinery words --------------------------------------------------
+#
+# None of these are this week's topic. All of them appear in the readings as
+# though already known, which for this class they are not.
+
+- id: corpus
+  name: Corpus
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The body of text a method learns from. Not a synonym for "data" in general
+    and not the same as the text you later feed the finished model -- the corpus
+    is what was read during training, and after training it is gone. Only its
+    effects remain.
+  in_practice: >-
+    Nearly every surprising thing a model does traces back to its corpus, and it
+    is the first place to look rather than the last. If an embedding thinks two
+    words are related, some corpus put them near each other. If a model has
+    never heard of your field's terminology, no prompt will conjure it. When you
+    cannot inspect the corpus -- and for commercial models you cannot -- that is
+    itself a finding worth writing down.
+  mastery:
+    - >-
+      Say what a corpus is and why the choice of one bounds what a model can
+      possibly know.
+    - >-
+      Given a model behaving oddly on your subject, name what you would want to
+      know about its corpus and why you probably cannot find out.
+    - >-
+      Explain the difference between the corpus a model trained on and the text
+      you send it at the time you use it.
+  pitfall: >-
+    Treating the corpus as neutral raw material. It is a selection, made by
+    people, of what was cheap and legal and available to scrape, and every
+    selection leaves things out. "Trained on the internet" is not a description
+    of everything ever written; it is a description of what was reachable, in
+    the languages that dominate the web, in the years the crawl ran.
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+    - hf-llm-embedding-primer
+
+- id: vocabulary
+  name: Vocabulary
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The fixed, finite list of items a method is able to represent at all --
+    every word in a bag-of-words model, every token in a language model. It is
+    settled before training and cannot grow afterwards. Anything not on the list
+    is **out of vocabulary**, and the method has to do something about it:
+    ignore it, replace it with a placeholder, or break it into pieces that *are*
+    on the list.
+  in_practice: >-
+    The vocabulary explains two things that otherwise look like magic. It is why
+    a bag-of-words vector has the length it has, and it is why a modern
+    tokenizer splits unfamiliar words into fragments rather than failing --
+    breaking a word into known pieces is how a fixed list covers an unbounded
+    language.
+  mastery:
+    - >-
+      Say what a vocabulary is and why it must be fixed before training rather
+      than extended as needed.
+    - >-
+      Name the options a method has when it meets a word outside its vocabulary,
+      and what each one costs.
+    - >-
+      Explain how a fixed vocabulary of tokens can cover words that did not
+      exist when it was built.
+  pitfall: >-
+    Assuming a bigger vocabulary is straightforwardly better. Every entry is a
+    column in a matrix somewhere, so vocabulary size is paid for in memory and
+    computation, and rare entries get too few training examples to be learned
+    well anyway. The design question is not "how many words" but "what is the
+    right size of piece".
+  builds_on: [corpus]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-119-nlp
+
+- id: vector
+  name: Vector
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    An ordered list of numbers of a fixed length -- `[0.3, -1.2, 0.8]` is a
+    three-number vector. Two readings of the same thing matter here: a vector is
+    a **point** in a space with one axis per number, and it is also an **arrow**
+    from the origin to that point, which is what lets it have a direction and
+    lets two of them be compared by angle.
+  in_practice: >-
+    "Turning text into numbers" means, precisely, turning each piece of text
+    into one of these. Everything the rest of the week does -- comparing,
+    averaging, subtracting, looking up nearest neighbours -- is arithmetic on
+    lists of numbers, and none of it requires mathematics beyond knowing that
+    the list has an order and a length that never changes.
+  mastery:
+    - >-
+      Say what a vector is and what it means for two vectors to have the same
+      length as each other.
+    - >-
+      Explain the difference between reading a vector as a point and reading it
+      as a direction, and say when each reading is the useful one.
+    - >-
+      Explain why every vector in one embedding space must have the same number
+      of entries.
+  pitfall: >-
+    Reading the individual numbers as facts about the word. In a learned
+    embedding no single position means anything nameable, and looking for the
+    "gender number" is time wasted. Position 412 has a value because of how
+    training went, and it is only interpretable in combination with all the
+    others.
+  assessed_in: [responses]
+  resources:
+    - 3blue1brown-transformers
+    - hf-llm-embedding-primer
+
+- id: dimensionality
+  name: Dimensionality
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    How many numbers are in each vector -- the same count for every vector in a
+    given space. Also called the number of **dimensions** or the embedding size.
+    GPT-2's smallest model uses 768; DeepSeek-V3 and R1 use 7168; a TF-IDF space
+    has one dimension per vocabulary term, which can be tens of thousands.
+  in_practice: >-
+    It is a straight trade and you will make it yourself in Week 10. More
+    dimensions can record more distinctions, cost more memory and computation,
+    and -- past a point -- start fitting noise in the training corpus rather
+    than structure. Fewer are cheaper and faster and lose real distinctions.
+    There is no correct answer, which is exactly why it belongs in an ADR.
+  mastery:
+    - >-
+      Say what the dimensionality of an embedding space is, in terms a classmate
+      with no mathematics could follow.
+    - >-
+      Name what a larger vector buys you and the two separate things it costs.
+    - >-
+      Given two embedding models with different dimensionalities, explain why
+      their vectors cannot be compared with each other.
+  pitfall: >-
+    Assuming higher is better, and assuming vectors from different models are
+    comparable because both are "embeddings". A 768-number vector from one model
+    and a 768-number vector from another share nothing but a length: the axes
+    mean different things, so a similarity between them is a meaningless number,
+    computed successfully.
+  builds_on: [vector]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - 3blue1brown-transformers
+
+- id: neural-network-and-layers
+  name: Neural networks and layers
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A neural network is a stack of **layers**, each of which takes a list of
+    numbers in and puts a different list of numbers out. Each layer applies the
+    same arithmetic to whatever it receives; what makes one layer different from
+    another is the numbers it holds inside. "Deep" means many layers, and
+    nothing more.
+  in_practice: >-
+    This is the shape of every model this week. Word2vec has one useful layer in
+    the middle. BERT has a stack of them, each rewriting the vectors it was
+    given. An LLM is the same picture, taller. Once the picture is a pipeline of
+    layers each rewriting a list of numbers, "where in the model does X happen?"
+    becomes a question with an answer.
+  mastery:
+    - >-
+      Describe what a layer does, in terms of what goes in and what comes out.
+    - >-
+      Explain what a hidden layer is and why word2vec keeps one and discards the
+      rest of the network.
+    - >-
+      Say what "deep" means about a network, without using the word "complex".
+  pitfall: >-
+    Assuming the layers have jobs somebody assigned them -- a grammar layer, a
+    meaning layer. Nobody allocated the work. The division of labour that
+    emerges across layers is a result of training, is only partly understood
+    even by researchers, and reading tidy roles into it is a guess dressed as an
+    explanation.
+  assessed_in: [responses]
+  resources:
+    - 3blue1brown-neural-networks
+    - hf-llm-embedding-primer
+    - prince-understanding-deep-learning
+
+- id: parameters-and-weights
+  name: Parameters and weights
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The numbers inside the layers -- the ones the network adjusts as it learns.
+    **Weights** and **parameters** are used more or less interchangeably. They
+    are what "175 billion parameters" counts, what a downloaded model file
+    contains, and what "open weights" means when a company releases one.
+  in_practice: >-
+    It clarifies what training actually changes and what it does not. Training
+    sets the parameters; prompting does not touch them. Every model you use this
+    semester is frozen -- your prompt changes what goes *in*, never what the
+    model *is*. This is why "the model learned from our conversation" is almost
+    always false, and why anything you want it to know has to be put in front of
+    it every single time.
+  mastery:
+    - >-
+      Say what a parameter is and what changes it, and confirm that prompting is
+      not on that list.
+    - >-
+      Explain what an embedding matrix stores, in terms of parameters.
+    - >-
+      Explain why a parameter count is a poor single measure of how good a model
+      is at your task.
+  pitfall: >-
+    Believing a model remembers what you told it. Within one conversation it
+    appears to, because the whole conversation is resent every turn; its
+    parameters have not moved a millionth of a decimal place. Close the window
+    and it is exactly the model it was. Anything that must persist has to be
+    stored by you and supplied again, which is the entire argument for
+    retrieval in Week 10.
+  builds_on: [neural-network-and-layers]
+  assessed_in: [responses, project]
+  resources:
+    - 3blue1brown-transformers
+    - 3blue1brown-neural-networks
+
+- id: training-and-inference
+  name: Training and inference
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Two separate phases people run together. **Training** is the expensive,
+    one-time process that reads a corpus and sets the parameters. **Inference**
+    is what happens every time you use the finished model: numbers go in,
+    numbers come out, nothing is written down. Training happens once, at a cost
+    of millions; inference happens on every prompt, at a cost of fractions of a
+    cent.
+  in_practice: >-
+    Almost every confused question about LLMs turns out to be this distinction.
+    Does it learn from me? No -- that would be training, and you are doing
+    inference. Why does it not know about last week's news? Its training ended
+    before last week. Why does the same prompt cost the same every time? Because
+    inference is what you are paying for, and it is the same work each time.
+  mastery:
+    - >-
+      Say what happens during training and what happens during inference, and
+      name which one you are doing when you use a chat interface.
+    - >-
+      Explain why a model cannot know about events after its training ended, and
+      what you would have to do to get that information to it.
+    - >-
+      Explain why word2vec's vectors are described as fixed after training.
+  pitfall: >-
+    Two directions of the same error. One is thinking the model is learning from
+    you as you talk to it; it is not. The other is thinking a model is a static
+    lookup of things it memorised; it is not that either -- it computes an
+    answer at inference time, which is why it can produce sentences nobody ever
+    wrote, both the useful ones and the fabricated ones.
+  builds_on: [corpus, parameters-and-weights]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-121-transformers
+
+- id: softmax
+  name: Softmax
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A function that turns any list of numbers into a list of probabilities:
+    every output is between 0 and 1, and they all add up to 1. Bigger inputs get
+    bigger shares, and the conversion is not proportional -- being somewhat
+    ahead of the others in the input translates into being far ahead in the
+    output.
+  in_practice: >-
+    Watch for it three times this week and you will stop finding it strange: it
+    is the last step of word2vec's network, it is what turns raw attention
+    scores into the weights the decoder uses, and it is what turns an LLM's
+    output scores into the distribution the next token is drawn from. Any time
+    this field has scores and needs choices, this is the function in between.
+  mastery:
+    - >-
+      Say what softmax takes in and what it gives out, including the constraint
+      on the output.
+    - >-
+      Name the three places softmax appears in this week's readings and what it
+      is converting in each.
+    - >-
+      Explain why the largest input gets a disproportionately large share of the
+      output.
+  pitfall: >-
+    Reading the resulting probabilities as the model's confidence in the way you
+    mean the word. They are the shares softmax produced from whatever scores it
+    was handed. A model can put 0.99 on a token and be entirely wrong; the
+    number describes the arithmetic, not the state of the world, and this gap is
+    the beginning of the hallucination unit in Week 6.
+  builds_on: [vector]
+  assessed_in: [responses]
+  resources:
+    - 3blue1brown-transformers
+    - hf-llm-embedding-primer
+
+# --- Text into numbers ----------------------------------------------------
+
+- id: token-and-tokenization
+  name: Tokens and tokenization
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    **Tokenization** is cutting text into **tokens** -- subword chunks drawn
+    from the model's fixed vocabulary -- and it happens before anything numeric
+    does. A token is not a word, not a syllable and not a character. Common
+    words are usually a single token, rarer ones get split into pieces, and the
+    space in front of a word is normally part of it.
+  in_practice: >-
+    Everything you are billed for and everything the model can attend to is
+    counted in tokens rather than words. The embedding primer tokenizes "HTML
+    coders are not considered programmers" into `HTML`, `cod`, `ers` and the
+    rest -- the model never receives the string "coders" at all. That is why
+    asking for the number of r's in "strawberry" fails, and it is not because
+    the model cannot count. It is being asked about letters it was never shown.
+  mastery:
+    - >-
+      Explain what a token is without using the word "word", and say why the
+      vocabulary must be fixed before training.
+    - >-
+      Predict roughly where a tokenizer will split an unfamiliar or invented
+      word, then check yourself against a real token counter.
+    - >-
+      Given a task the model fails at, say whether tokenization is a plausible
+      cause and describe an experiment that would settle it.
+    - >-
+      Explain why a token count from one vendor's tokenizer is simply wrong for
+      another vendor's model, and what that does to a cost estimate.
+  pitfall: >-
+    Two, and the second is the expensive one. The first is thinking in words: a
+    500-word prompt is not 500 tokens, and punctuation and whitespace carry
+    their own. The second is treating a token count as a property of the text.
+    It is a property of the text *and the tokenizer together*, so counting with
+    the wrong model's tokenizer and calling it an estimate is how a budget ends
+    up wrong in the same direction all semester.
+  builds_on: [vocabulary]
+  assessed_in: [labs, midterm]
+  resources:
+    - 3blue1brown-transformers
+    - hf-llm-embedding-primer
+    - anthropic-token-counting
+
+- id: one-hot-encoding
+  name: One-hot encoding
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The simplest way to turn a word into numbers: make a vector as long as the
+    vocabulary, put a 1 in the position belonging to that word, and 0 everywhere
+    else. A 50,000-word vocabulary gives every word a 50,000-number vector
+    containing exactly one non-zero entry.
+  in_practice: >-
+    This is the thing embeddings are an improvement on, so it is worth meeting
+    properly. One-hot vectors are enormous, almost entirely zero, and carry no
+    relationships at all -- "cat" and "dog" are exactly as far apart as "cat"
+    and "the", because every pair differs in precisely two positions. It is also
+    still under the hood: word2vec is fed one-hot vectors, and an LLM's
+    embedding layer is the same lookup done efficiently, by index, without ever
+    building the vector of zeros.
+  mastery:
+    - >-
+      Build the one-hot vector for a word by hand, given a small vocabulary.
+    - >-
+      Say how long a one-hot vector is and how many of its entries are non-zero.
+    - >-
+      Explain why every pair of one-hot vectors is equally similar, and why that
+      makes the encoding useless for meaning.
+    - >-
+      Explain why an embedding lookup by index computes the same thing as
+      multiplying by a one-hot vector.
+  pitfall: >-
+    Calling it an embedding. One-hot encoding is a naming scheme -- it assigns
+    each word an identifier written awkwardly -- and it learns nothing from a
+    corpus. Everything in this week that deserves the word "embedding" was
+    trained; one-hot was merely assigned.
+  builds_on: [vector, vocabulary]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - alammar-illustrated-word2vec
+
+- id: sparse-and-dense-vectors
+  name: Sparse and dense vectors
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A **sparse** vector is mostly zeros and usually very long -- one-hot
+    vectors, bag-of-words counts and TF-IDF scores are all sparse, with one
+    dimension per vocabulary term. A **dense** vector is short by comparison and
+    almost every entry carries a value; learned embeddings are dense.
+  in_practice: >-
+    This is the clearest single line between the two halves of this week. The
+    counting methods produce sparse vectors whose dimensions each mean a
+    nameable thing -- column 4,812 is the count of "harbour" -- and are
+    therefore fully interpretable and semantically empty. The learned methods
+    produce dense vectors whose dimensions mean nothing individually and which
+    carry real semantic structure. You are trading readability for meaning, and
+    Week 10 will make you choose.
+  mastery:
+    - >-
+      Say what makes a vector sparse or dense, and classify each of this week's
+      four representations.
+    - >-
+      Explain why a sparse dimension can be named and a dense one usually cannot.
+    - >-
+      Name one practical advantage sparse representations still have over dense
+      ones.
+  pitfall: >-
+    Hearing "sparse" as "primitive" and "dense" as "modern and better". Sparse
+    keyword methods are still the backbone of production search, they need no
+    training, they run on a laptop, and they can explain every score they
+    produce. A retrieval design that dismisses them without testing them has
+    skipped its own comparison.
+  builds_on: [vector, one-hot-encoding]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-119-nlp
+
+- id: embedding
+  name: Embedding
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The conversion of a token into a **dense vector** in a space of fixed
+    dimension, in such a way that the numbers carry something about meaning.
+    Every embedding technique is a different answer to one question: which
+    numbers, and chosen how? Embedding is not specific to text -- images, audio
+    and graphs are embedded too. Text is our case.
+  in_practice: >-
+    This is the boundary of the model. Everything past it is arithmetic, which
+    is the honest answer to what an LLM is "doing" with your words. In code it
+    is a lookup table: `torch.nn.Embedding` takes a token id and returns its row
+    of numbers, nothing more. And it is the layer you meet again the moment you
+    build retrieval -- "find me the relevant chunk" is a question about vectors,
+    so ADR-004 is an embedding decision whether or not it uses the word.
+  mastery:
+    - >-
+      Say what an embedding is in one sentence that does not use the word
+      "embedding".
+    - >-
+      Explain how an embedding differs from a one-hot encoding, on both size and
+      meaning.
+    - >-
+      Explain what it means to call an embedding layer a lookup table.
+    - >-
+      Given two embedding methods, say what each can represent that the other
+      cannot.
+  pitfall: >-
+    Expecting the individual numbers to be readable. There is no gender column
+    and no formality column; meaning lives in directions and distances across
+    the whole vector, which is why we compare embeddings rather than inspect
+    them. The companion error is treating an embedding as a property of a word.
+    It is a property of a word *under one model* -- change the model and every
+    number changes, including which words are neighbours.
+  builds_on: [vector, dimensionality, token-and-tokenization, one-hot-encoding]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - 3blue1brown-word-vectors
+    - 3blue1brown-transformers
+
+# --- The geometry of the space --------------------------------------------
+
+- id: embedding-space
+  name: Embedding space
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The shared space every embedding from one model lives in. Because all its
+    vectors have the same length and the same axes, they can be compared with
+    each other -- and "similar meaning" becomes "close together", which is the
+    entire trick.
+  in_practice: >-
+    Speaking of a space rather than a pile of vectors is what licenses every
+    operation in the rest of this week: neighbours, regions, directions,
+    distances. It also fixes the boundary of the trick. Two vectors are only
+    comparable inside one space; nothing meaningful can be computed between a
+    vector from one model and a vector from another, even though the arithmetic
+    will run and return a number.
+  mastery:
+    - >-
+      Explain what makes a set of vectors a space rather than an unrelated
+      collection.
+    - >-
+      Explain why "similar words are close together" is a property of a trained
+      space rather than of vectors in general.
+    - >-
+      Say what goes wrong if you mix vectors from two different models, and why
+      no error message appears.
+  pitfall: >-
+    Picturing it in three dimensions and trusting the picture. Hundreds of
+    dimensions behave in ways three do not: there is far more room, almost
+    everything is far from almost everything, and "nearest" can be nearest by a
+    hair. The three-dimensional picture is a teaching aid, and the moment you
+    start reasoning from it you are reasoning about a different space.
+  builds_on: [embedding, dimensionality]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - 3blue1brown-word-vectors
+    - tf-embedding-projector
+
+- id: dot-product
+  name: Dot product
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Multiply two vectors entry by entry and add up the results -- one number
+    out. It measures how much two vectors point the same way: strongly positive
+    when they align, near zero when they are unrelated, negative when they point
+    against each other. It also grows with the length of either vector, which is
+    what cosine similarity exists to correct.
+  in_practice: >-
+    It is the workhorse operation of the whole field, and it is arithmetic a
+    ten-year-old can do. Word2vec scores a word against a context word with it.
+    Attention scores a query against a key with it. Every "how similar are
+    these?" in this course is a dot product, sometimes with a division after it.
+  mastery:
+    - >-
+      Compute the dot product of two short vectors by hand.
+    - >-
+      Say what a strongly positive, near-zero and negative dot product each tell
+      you about two vectors.
+    - >-
+      Explain why a dot product grows when a vector is simply made longer, and
+      why that is a problem for comparing similarity.
+  pitfall: >-
+    Comparing raw dot products across pairs. A frequent word can have a longer
+    vector than a rare one, so it will score higher against everything, and a
+    ranked list of dot products can be a ranked list of word frequency wearing a
+    disguise. That is the bug cosine similarity fixes.
+  builds_on: [vector]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - alammar-illustrated-word2vec
+
+- id: cosine-similarity
+  name: Cosine similarity
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The dot product of two vectors divided by both their lengths, which leaves
+    only the angle between them. It runs from 1 (pointing the same way) through
+    0 (unrelated) to -1 (opposite), and it is the standard way to ask how
+    similar two embeddings are.
+  in_practice: >-
+    Dividing out the lengths is the whole point: it makes similarity a question
+    about *direction*, so a word that happens to have a long vector cannot
+    dominate the rankings. When you build retrieval, this is almost certainly
+    the number the search runs on, and knowing that its range includes negatives
+    -- and what a 0.4 versus a 0.8 actually feels like in a real space -- is
+    what makes a similarity threshold something you can set on purpose.
+  mastery:
+    - >-
+      Define cosine similarity in terms of the dot product, and say what the
+      division is for.
+    - >-
+      State its range and say what a value of 1, 0 and -1 each mean.
+    - >-
+      Explain why direction rather than distance is the right comparison for
+      embeddings.
+    - >-
+      Given a retrieval system returning poor matches, say what inspecting the
+      cosine scores would tell you.
+  pitfall: >-
+    Reading a high score as "means the same thing". *Good* and *bad*, *hot* and
+    *cold*, *always* and *never* score highly against each other because they
+    appear in nearly identical company -- distributional similarity is not
+    synonymy. When retrieval confidently returns the passage saying the exact
+    opposite of what you asked, this is why, and no prompt fixes it downstream.
+  builds_on: [dot-product, embedding-space]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - tf-embedding-projector
+
+- id: nearest-neighbours
+  name: Nearest neighbours
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The operation of taking one vector and returning the k vectors closest to it
+    in the space, usually ranked by cosine similarity. "Top-k" is the same idea
+    named after its parameter.
+  in_practice: >-
+    It is the only way anyone actually looks at an embedding space, and it is
+    what every demonstration this week is secretly running -- the analogy trick,
+    the primer's graph of tokens, the projector, and the retrieval step of every
+    RAG system you will build. It is also the single most useful diagnostic you
+    have: when a space behaves strangely, ask it for the neighbours of a word
+    you know well and read what comes back.
+  mastery:
+    - >-
+      Describe what a nearest-neighbour query takes in and returns, and what k
+      controls.
+    - >-
+      Predict the neighbours of a familiar word, then check them and account for
+      whichever ones surprised you.
+    - >-
+      Explain why nearest-neighbour results usually exclude the query word
+      itself, and what that exclusion hides.
+  pitfall: >-
+    Treating the top result as a right answer. There is always a top result --
+    the operation cannot return nothing -- so a nearest neighbour can be
+    genuinely close or merely the least distant thing in a space where nothing
+    is close. A retrieval system that always returns its best five chunks will
+    happily return five irrelevant ones, confidently, and that failure looks
+    identical to success until you read the scores.
+  builds_on: [cosine-similarity, embedding-space]
+  assessed_in: [responses, project]
+  resources:
+    - tf-embedding-projector
+    - hf-llm-embedding-primer
+
+- id: dimensionality-reduction
+  name: Dimensionality reduction
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Squashing high-dimensional vectors down to two or three so they can be
+    drawn. PCA, t-SNE and UMAP are the common methods. Every picture you will
+    ever see of an embedding space has been through one of them, because 768
+    dimensions cannot be printed.
+  in_practice: >-
+    The primer uses PCA to show that TF-IDF's space is a shapeless blob, and
+    that plot is real evidence. The projector offers all three methods on the
+    same data, and switching between them is the fastest way to learn how much
+    the picture depends on the method rather than the data. Do that once before
+    you trust any embedding plot, including your own.
+  mastery:
+    - >-
+      Say what dimensionality reduction is for and why any picture of an
+      embedding space requires it.
+    - >-
+      Explain what is necessarily lost when hundreds of dimensions become two.
+    - >-
+      Look at the same data under two reduction methods and say which features
+      of the picture are about the data and which are about the method.
+  pitfall: >-
+    Reading distances off the picture. In t-SNE especially, the gaps between
+    clusters and the sizes of clusters are largely artefacts -- the method is
+    built to preserve who is near whom locally, not how far apart anything is.
+    Two points touching on the plot may not be neighbours in the real space. If
+    you want to know whether two things are close, compute the similarity; the
+    picture is for orientation, not for measurement.
+  builds_on: [embedding-space, dimensionality]
+  assessed_in: [responses, labs]
+  resources:
+    - tf-embedding-projector
+    - hf-llm-embedding-primer
+
+- id: vector-arithmetic-and-its-limits
+  name: Vector arithmetic, and where it breaks
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Because meaning is carried by directions, the difference between two vectors
+    encodes the relationship between them, and those differences can be added
+    and subtracted. The famous case: king minus man plus woman lands near queen.
+    A trained space turns out to contain a gender direction, a plural direction
+    and a tense direction that nobody put there.
+  in_practice: >-
+    Tuesday's activity is the second half of this, not the first. The analogy is
+    a minute of video; where it stops working is the hour of class. Run enough
+    analogies in a real space and the hit rate is nothing like the demonstration
+    suggests -- and the explanation for both the hits and the misses is the same
+    one, which is corpus statistics rather than comprehension.
+  mastery:
+    - >-
+      Explain what king minus man plus woman is actually computing, in terms of
+      directions rather than words.
+    - >-
+      Construct one analogy that works and one that fails, and account for the
+      difference between them.
+    - >-
+      Explain why these demonstrations exclude the input words from the results,
+      and what that exclusion is hiding.
+    - >-
+      Argue whether analogy arithmetic is evidence of understanding, using what
+      you know about how the space was trained.
+  pitfall: >-
+    The demonstration is curated, in two ways. Nearest-neighbour lookups
+    conventionally exclude the words you put in, which removes the most common
+    wrong answer before you see it, and many published analogies are near misses
+    reported as hits because the target is somewhere in the top few. Treating
+    the result as proof of reasoning skips the actual explanation, which is that
+    the corpus put those words in those positions relative to each other.
+  builds_on: [embedding-space, nearest-neighbours]
+  assessed_in: [responses, labs]
+  resources:
+    - 3blue1brown-word-vectors
+    - alammar-illustrated-word2vec
+    - tf-embedding-projector
+
+# --- Counting methods: the first two rungs --------------------------------
+
+- id: bag-of-words
+  name: Bag of words
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The oldest text representation. Treat a document as an unordered bag of the
+    words it contains: record which vocabulary terms occur and how often, and
+    discard everything else -- crucially, the order. "The dog bit the man" and
+    "the man bit the dog" produce the identical bag.
+  in_practice: >-
+    It is the baseline everything else is measured against, and it is not
+    obsolete: keyword search and BM25 are its descendants and they run most of
+    the retrieval on the internet. Know it because Week 10 asks you to design
+    retrieval, and "we used embeddings" is only a decision if you can say what
+    you rejected. Sometimes the right answer really is a keyword index, and an
+    ADR reaching that conclusion on evidence is a good one.
+  mastery:
+    - >-
+      Build the bag-of-words representation of a short document by hand, given a
+      vocabulary.
+    - >-
+      Give two sentences with different meanings and identical bags, and explain
+      why no amount of tuning separates them.
+    - >-
+      Name one task bag-of-words handles well and one where it fails for a
+      structural rather than a tuning reason.
+    - >-
+      Say why bag-of-words vectors are sparse, and how long one of them is.
+  pitfall: >-
+    Looking for the setting that fixes word order. There is not one. Order was
+    discarded when the bag was made, so this is the method working correctly
+    rather than working badly, and every later rung of the ladder is an attempt
+    to get some of that information back.
+  builds_on: [vocabulary, sparse-and-dense-vectors]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+    - hf-llm-embedding-primer
+
+- id: count-vectorization
+  name: Count vectorization
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The concrete way a bag of words becomes numbers: one column per vocabulary
+    term, one row per document, and in each cell the number of times that term
+    occurs in that document. The result is a **document-term matrix**. A binary
+    variant records only presence or absence rather than a count.
+  in_practice: >-
+    This is where "text into numbers" first becomes something you could do on
+    paper, and doing it once on paper is worth more than reading about it three
+    times. It is also the point at which the vocabulary stops being an abstract
+    idea and becomes the literal width of your data.
+  mastery:
+    - >-
+      Build a document-term matrix by hand for two or three short documents.
+    - >-
+      Say what the rows and columns of that matrix are, and what a single cell
+      means.
+    - >-
+      Explain when you would choose binary presence over raw counts.
+    - >-
+      Explain why a longer document gets larger counts, and what problem that
+      creates when comparing documents.
+  pitfall: >-
+    Comparing raw counts between documents of different lengths. A long document
+    beats a short one on nearly every term for no reason but its length, which
+    is what the term-frequency half of TF-IDF exists to normalise away.
+  builds_on: [bag-of-words]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+    - hf-llm-embedding-primer
+
+- id: stop-words
+  name: Stop words
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Very common words -- "the", "a", "is", "of" -- removed before counting on
+    the grounds that they are everywhere and therefore distinguish nothing. The
+    list is hand-maintained and differs between tools.
+  in_practice: >-
+    A hand-written approximation of a real statistical idea, and worth meeting
+    precisely because TF-IDF replaces it with arithmetic that does the job
+    properly and automatically. Seeing the crude version first is what makes the
+    IDF term feel like an answer rather than a formula.
+  mastery:
+    - >-
+      Say what a stop word is and what removing them is meant to achieve.
+    - >-
+      Name a task where removing stop words destroys the thing you were trying
+      to measure.
+    - >-
+      Explain how TF-IDF achieves the same goal without a maintained list.
+  pitfall: >-
+    Removing them by reflex. Stop words are exactly the words that carry
+    negation, quantity and stance -- strip "not", "all" and "no" and "the
+    treatment was not effective" becomes indistinguishable from "the treatment
+    was effective". For sentiment, stance detection or anything where a negation
+    flips the answer, a default stop-word list is a bug you installed on
+    purpose.
+  builds_on: [bag-of-words]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+
+- id: stemming
+  name: Stemming
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Chopping word endings off by rule so that related forms collapse to one
+    entry -- "running", "runs" and "runner" all becoming "run". The Porter and
+    Snowball stemmers are the usual implementations. It is fast, it uses no
+    dictionary, and the stem it produces need not be a real word.
+  in_practice: >-
+    It shrinks the vocabulary and stops "run" and "running" being counted as
+    unrelated things. In a bag-of-words pipeline that is a real gain, and it
+    costs you the distinction between the forms -- which you did not need for
+    keyword search and might badly need elsewhere.
+  mastery:
+    - >-
+      Say what stemming does and what it uses to decide -- rules, not meaning.
+    - >-
+      Give a case where a stemmer produces something that is not a word, and say
+      why that is usually acceptable.
+    - >-
+      Explain what stemming buys in a bag-of-words pipeline and what it costs.
+  pitfall: >-
+    Rules do not know about meaning, so stemmers over-merge and under-merge in
+    both directions: "university" and "universe" can collapse together, while
+    "ran" and "run" stay apart because no ending was removable. A stemmed
+    vocabulary is smaller and slightly wrong, and which errors it makes depends
+    on which stemmer you picked -- which makes it an ADR-worthy choice rather
+    than a default.
+  builds_on: [vocabulary]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+
+- id: lemmatization
+  name: Lemmatization
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Reducing a word to its dictionary form -- its **lemma** -- using an actual
+    vocabulary and the word's part of speech rather than a chopping rule. "Ran"
+    becomes "run", "better" becomes "good", and the output is always a real
+    word.
+  in_practice: >-
+    It is the more accurate half of the pair and the more expensive one: it
+    needs a language resource such as WordNet or spaCy's model, and it needs to
+    know whether your word is a noun or a verb before it can answer. The choice
+    between this and stemming is a straight accuracy-for-speed trade, and it is
+    the kind of small decision an ADR exists to record.
+  mastery:
+    - >-
+      Say what a lemma is and what lemmatization needs to know that a stemmer
+      does not.
+    - >-
+      Give a pair of words a lemmatizer handles correctly and a stemmer does not.
+    - >-
+      Choose between stemming and lemmatization for a stated task and defend the
+      choice on something other than accuracy alone.
+  pitfall: >-
+    Assuming the more accurate tool is the right one. Lemmatization is
+    considerably slower, depends on a part-of-speech tagger that can itself be
+    wrong, and needs a language resource that may not exist for your language.
+    On a large corpus where you only need keys to match, a stemmer that is
+    slightly wrong in predictable ways is often the better engineering answer.
+  builds_on: [vocabulary, stemming]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+
+- id: n-grams
+  name: N-grams
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Counting runs of adjacent words rather than single words. A **bigram** is
+    two in a row, a **trigram** three; single words are **unigrams**. Adding
+    bigrams to a bag-of-words model means "New York" and "not good" become
+    countable units in their own right.
+  in_practice: >-
+    This is the patch for bag-of-words' worst failure, and it works locally.
+    "Not good" as a bigram is finally distinguishable from "good", which is why
+    n-grams show up in every sentiment pipeline of that era. But it does not
+    give order back in general -- it gives you a window of two or three words
+    and nothing across a sentence.
+  mastery:
+    - >-
+      Write out the bigrams of a short sentence.
+    - >-
+      Explain what adding bigrams recovers that unigrams alone cannot represent.
+    - >-
+      Explain why n-grams do not solve the ordering problem in general, using a
+      sentence where the dependency is far apart.
+    - >-
+      Say what happens to the size of the vocabulary as n grows, and why that
+      limits how far this can be pushed.
+  pitfall: >-
+    Expecting a bigger n to keep helping. The vocabulary explodes combinatorially
+    while each individual n-gram gets rarer, so beyond trigrams you are counting
+    things that appear once in the corpus and learning nothing from them. This
+    ceiling is a real part of why the field went looking for a different idea
+    altogether.
+  builds_on: [bag-of-words, count-vectorization]
+  assessed_in: [responses]
+  resources:
+    - rpp-119-nlp
+    - hf-llm-embedding-primer
+
+- id: term-frequency
+  name: Term frequency (TF)
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    How often a term appears in one document, divided by the total number of
+    terms in that document. A document of 100 words containing "cat" five times
+    has a term frequency of 0.05 for "cat". The division is what makes documents
+    of different lengths comparable.
+  in_practice: >-
+    It is the first half of TF-IDF and the answer to count vectorization's
+    length problem. Compute it once by hand on a paragraph and the rest of the
+    formula stops looking like notation.
+  mastery:
+    - >-
+      Compute a term frequency by hand from a count and a document length.
+    - >-
+      Explain what the division by document length corrects for.
+    - >-
+      Explain why term frequency alone still ranks "the" above every meaningful
+      word.
+  pitfall: >-
+    Stopping here. Term frequency on its own is a popularity contest that
+    function words win in every document, which is the exact problem the second
+    half of TF-IDF exists to solve.
+  builds_on: [count-vectorization]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+
+- id: inverse-document-frequency
+  name: Inverse document frequency (IDF)
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A measure of how rare a term is across the whole corpus: the log of the
+    total number of documents divided by the number of documents containing that
+    term. A term appearing in every document scores zero; a term appearing in
+    two documents out of ten scores about 1.61.
+  in_practice: >-
+    This is where a stop-word list becomes unnecessary. "The" appears in every
+    document, so its IDF is zero, so its whole TF-IDF score is zero -- deleted
+    by arithmetic rather than by a list somebody maintains. That is a genuinely
+    elegant idea and worth appreciating as one.
+  mastery:
+    - >-
+      Compute an IDF by hand given a document count and how many contain the
+      term.
+    - >-
+      Say what happens to the score of a term that appears in every single
+      document, and why.
+    - >-
+      Explain how IDF makes a hand-maintained stop-word list redundant.
+    - >-
+      Explain why IDF is a property of the corpus rather than of any one
+      document.
+  pitfall: >-
+    Forgetting that it depends entirely on the corpus you computed it over.
+    Change the collection and every IDF changes, so a term that is rare and
+    highly weighted in one corpus is common and worthless in another. Scores
+    computed over one collection cannot be reused against a different one, which
+    is a thing people do by accident.
+  builds_on: [corpus, term-frequency]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+
+- id: tf-idf
+  name: TF-IDF
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Term frequency multiplied by inverse document frequency: a score that is
+    high when a term is frequent in *this* document and rare across the rest.
+    It is the second rung, and it is bag-of-words with the weighting fixed.
+  in_practice: >-
+    A strong, cheap, fully interpretable baseline for search and keyword
+    extraction, and every number in it can be explained to a person -- which is
+    more than any later rung offers. It also marks the ceiling of the counting
+    approach, and knowing exactly where that ceiling is makes the next idea
+    inevitable rather than arbitrary.
+  mastery:
+    - >-
+      Compute a full TF-IDF score by hand from counts and a document count.
+    - >-
+      Explain why the two halves are multiplied rather than added.
+    - >-
+      Explain why the TF-IDF space has no semantic structure, using the primer's
+      two-dimensional plot as your evidence.
+    - >-
+      Say when you would still choose TF-IDF over an embedding model, and defend
+      it on something other than cost.
+  pitfall: >-
+    Assuming better weighting eventually produces meaning. It cannot get there
+    from here. TF-IDF knows only which documents a term appeared in, so two
+    synonyms that never co-occur are exactly as unrelated as any random pair,
+    and numbers are as unrelated to each other as they are to verbs. When the
+    primer's plot shows the vocabulary collapsed into a single blob, that is the
+    method succeeding at what it does -- and the reason a different question had
+    to be asked.
+  builds_on: [term-frequency, inverse-document-frequency]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-119-nlp
+
+# --- The third rung: learned embeddings -----------------------------------
+
+- id: distributional-hypothesis
+  name: The distributional hypothesis
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A word's meaning can be inferred from the company it keeps: words appearing
+    in similar contexts have similar meanings. Every learned embedding in this
+    course rests on it, and it is a bet rather than a theorem.
+  in_practice: >-
+    This is the hinge of the entire week. TF-IDF asks which *documents* a word
+    appeared in; word2vec asks which *words* appeared around it. That single
+    change of question is what produces a space where "cat" and "dog" are
+    neighbours, and nothing before it could. It is also why embeddings inherit
+    the biases of their corpus: if the training text reliably puts certain names
+    near certain jobs, the geometry records that faithfully and without malice,
+    and it is still there when you retrieve with it.
+  mastery:
+    - >-
+      State the hypothesis in one sentence, and name what it assumes about
+      language.
+    - >-
+      Explain why asking about neighbouring words yields semantic structure
+      while counting documents does not.
+    - >-
+      Explain how social bias enters an embedding space, arguing from the
+      hypothesis rather than from anyone's intent.
+    - >-
+      Name a kind of meaning the hypothesis cannot capture, and say why it
+      cannot.
+  pitfall: >-
+    Hearing it as a claim about what words mean, rather than a claim about what
+    can be recovered from a corpus. It is a bet that distribution approximates
+    meaning -- a good bet, with known failure cases: sarcasm, negation, rare
+    senses, and anything a corpus does not happen to exemplify. When an embedding
+    surprises you, the corpus is the first place to look, not the model's
+    "understanding".
+  builds_on: [corpus, embedding-space]
+  assessed_in: [responses]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+    - rpp-119-nlp
+
+- id: sliding-window
+  name: The sliding window
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The mechanism that turns a corpus into training examples. Move a window of
+    fixed width along the text one position at a time; at each stop, the word in
+    the middle and the words around it become one training example. **Window
+    size** is how many words on each side count as context.
+  in_practice: >-
+    This is how the distributional hypothesis becomes something a computer can
+    do. It is also where a real design decision hides: a small window learns
+    that words are interchangeable in a sentence -- it will put "Monday" next to
+    "Tuesday" -- while a large window learns that words belong to the same
+    subject, putting "Monday" next to "calendar". Neither is correct; they
+    answer different questions.
+  mastery:
+    - >-
+      Generate the training examples a sliding window produces from a short
+      sentence, given a window size.
+    - >-
+      Say what the window size controls, and what a small versus a large one
+      each learn.
+    - >-
+      Explain why this is the step that turns the distributional hypothesis into
+      an algorithm.
+  pitfall: >-
+    Treating window size as a knob with a best value. It selects what kind of
+    similarity your space will encode, so "which window size is best" has no
+    answer until you say what you want close together. This is precisely the
+    shape of decision the course wants written down rather than defaulted into.
+  builds_on: [corpus, distributional-hypothesis]
+  assessed_in: [responses]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+
+- id: cbow
+  name: CBOW (continuous bag of words)
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    One of word2vec's two training set-ups. Take the words surrounding a
+    position, hide the word in the middle, and train the network to predict the
+    missing word from its neighbours. Input: the context. Output: the one word.
+  in_practice: >-
+    Read the name literally and it explains itself -- the *context* is treated
+    as a bag, unordered, exactly as in bag-of-words, and "continuous" refers to
+    the dense vectors it produces. It is faster than skip-gram and better on
+    frequent words, because a common word gets a great many contexts averaged
+    into it.
+  mastery:
+    - >-
+      Say what CBOW is given and what it is asked to predict, in that order.
+    - >-
+      Walk through the steps from context words to a predicted word, naming the
+      one-hot input and the softmax output.
+    - >-
+      Explain why the word "bag" appears in the name of this architecture.
+    - >-
+      Say what CBOW is better at than skip-gram, and why.
+  pitfall: >-
+    Getting the direction backwards, which is the single most common exam error
+    on this pair. CBOW predicts the *middle from the outside*. Fix it by the
+    name: a bag of context, one word out.
+  builds_on: [sliding-window, neural-network-and-layers, softmax, one-hot-encoding]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - alammar-illustrated-word2vec
+
+- id: skip-gram
+  name: Skip-gram
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Word2vec's other training set-up, and CBOW's mirror image. Take one word and
+    train the network to predict the words around it. Input: the one word.
+    Output: the context.
+  in_practice: >-
+    It is the variant most often used in practice, and the one Alammar develops
+    at length. Because each word generates a separate training example for every
+    one of its neighbours, rare words get many more chances to be learned than
+    they do under CBOW -- slower to train, better on the long tail.
+  mastery:
+    - >-
+      Say what skip-gram is given and what it predicts, and contrast it with
+      CBOW in one sentence.
+    - >-
+      Generate the (input, output) training pairs skip-gram produces from a
+      short sentence.
+    - >-
+      Explain why skip-gram handles rare words better than CBOW.
+  pitfall: >-
+    Thinking the choice between the two is the interesting part of word2vec. It
+    is a real trade-off but a small one; both run the same bet, both learn from
+    context windows, and both throw the prediction task away at the end. If you
+    can only hold one thing about word2vec, hold that, not this.
+  builds_on: [sliding-window, cbow]
+  assessed_in: [responses]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+
+- id: negative-sampling
+  name: Negative sampling
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The trick that made word2vec trainable at scale. Rather than a softmax over
+    the entire vocabulary at every step -- a calculation involving every word
+    you know, millions of times over -- take the true neighbour as a positive
+    example, draw a handful of random words as negatives, and train the model
+    only to tell those apart.
+  in_practice: >-
+    It converts an impossible calculation into an easy one by changing the
+    question: not "which of 50,000 words comes next" but "did these two words
+    really appear together, yes or no". The number of negatives is a
+    hyperparameter -- a few for a large corpus, more for a small one. This is
+    also a good first example of the field's characteristic move, which is
+    replacing an exact expensive computation with a cheap approximate one and
+    finding it works better than it has any right to.
+  mastery:
+    - >-
+      Say what negative sampling replaces and why the full softmax was too
+      expensive.
+    - >-
+      Describe how a negative example is produced and what the model is asked
+      about it.
+    - >-
+      Explain how the question the network answers changes when negative
+      sampling is introduced.
+    - >-
+      Say what the number of negative samples controls.
+  pitfall: >-
+    Filing it as an implementation detail beneath your notice. It is the reason
+    word2vec was usable at all, and the pattern -- approximate the expensive
+    thing, check that quality holds -- recurs everywhere in this field,
+    including in the retrieval systems you will build.
+  builds_on: [softmax, skip-gram, vocabulary]
+  assessed_in: [responses]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+
+- id: word2vec
+  name: word2vec
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The 2013 model that made learned word embeddings practical, and the third
+    rung of the ladder. It runs CBOW or skip-gram over a sliding window across a
+    corpus, made tractable by negative sampling, and keeps the hidden layer. The
+    product is one dense vector per word type, fixed once training ends.
+  in_practice: >-
+    The model whose limits define everything that came after it. One vector per
+    word means "bank" gets exactly one, averaged over every sense it ever had,
+    and no sentence can change it. It also works on any sequence where the
+    distributional bet holds, which is why the same algorithm embeds playlists,
+    products and click streams -- if things that appear together are related,
+    word2vec does not care that they are not words.
+  mastery:
+    - >-
+      Describe what word2vec produces and what it discards when training ends.
+    - >-
+      Name its two architectures and the optimisation that makes it trainable.
+    - >-
+      Explain what "one vector per word type" costs you, with an example of a
+      word it handles badly.
+    - >-
+      Explain why word2vec gets applied to playlists and click streams, and what
+      must be true of the data for that to work.
+  pitfall: >-
+    Calling word2vec an LLM, or assuming a modern model contains one. It is a
+    two-layer network with no attention and no notion of a sentence: it cannot
+    generate text, answer a question, or tell you which sense of a word you
+    meant. It is where embeddings started, and its failures are what the next
+    rung was built to fix.
+  builds_on: [cbow, skip-gram, negative-sampling, distributional-hypothesis]
+  assessed_in: [responses, labs]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+    - tf-embedding-projector
+
+- id: pretext-task
+  name: The pretext task
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A training objective nobody wants the answers to, set up so that the network
+    must learn a useful internal representation in order to succeed at it.
+    Word2vec is trained to predict missing words and its output layer is then
+    thrown away; the hidden layer it was propping up was the goal all along.
+  in_practice: >-
+    Once you have seen it you will see it everywhere: BERT's masked-word game,
+    an LLM's next-token prediction. In each case the visible task is a pretext
+    and the representation is the product. It makes "what was this model trained
+    to do?" the first question to ask about any model, and the answer usually
+    explains its failures better than its size or its architecture does.
+  mastery:
+    - >-
+      Explain what a pretext task is, and why a trained network's output layer
+      can be thrown away afterwards.
+    - >-
+      Take word2vec and say what the visible task was and what was actually
+      being bought.
+    - >-
+      Name the pretext task behind BERT and behind a modern LLM, and say what
+      each one buys.
+    - >-
+      Given a model that fails at something, argue from its training objective
+      rather than from its size.
+  pitfall: >-
+    Assuming the model was optimised for what you are using it for. It was
+    optimised for its pretext task. A model trained to predict the next token is
+    extremely good at producing plausible continuations, which is not the same
+    thing as producing true ones -- and the distance between those two is most
+    of what the rest of this course is about.
+  builds_on: [training-and-inference, word2vec]
+  assessed_in: [responses, project]
+  resources:
+    - alammar-illustrated-word2vec
+    - hf-llm-embedding-primer
+
+# --- The fourth rung: context ---------------------------------------------
+
+- id: polysemy
+  name: Polysemy
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    One word carrying several distinct meanings -- "bank" as a riverside and as
+    a financial institution, "run" as a verb and as a noun and as a sequence.
+    It is ordinary rather than exotic: the most common words in English are the
+    most polysemous ones.
+  in_practice: >-
+    This is the specific problem that breaks word2vec, and naming it is what
+    makes the next rung legible. A static embedding must give "bank" one vector,
+    so it stores a blend of all its senses -- a point that is somewhere between
+    rivers and money and correct about neither. Every sentence you use that
+    vector in gets the blend.
+  mastery:
+    - >-
+      Define polysemy and give an example that is not "bank".
+    - >-
+      Explain what a single fixed vector for a polysemous word actually
+      represents.
+    - >-
+      Explain why polysemy is a problem for a static embedding and not for a
+      contextual one.
+  pitfall: >-
+    Assuming it is a rare edge case affecting a handful of trick words. Sense
+    ambiguity is the normal condition of frequent vocabulary, so a static
+    embedding is blending senses constantly rather than occasionally -- you just
+    do not notice until a retrieval system hands you the wrong sort of bank.
+  builds_on: [word2vec, embedding]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - alammar-illustrated-word2vec
+
+- id: encoder-and-decoder
+  name: Encoders and decoders
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Two jobs a network can be built for. An **encoder** reads a sequence and
+    produces a representation of it. A **decoder** takes a representation and
+    produces a sequence. A model can be built with both, as translation models
+    are, or with only one.
+  in_practice: >-
+    This is the vocabulary that sorts the whole model landscape and it is worth
+    twenty minutes now. BERT is encoder-only: it reads, and produces
+    representations, and is therefore what you want for search, classification
+    and retrieval. GPT-style models are decoder-only: they write. Translation
+    models are both. When someone asks whether to use an embedding model or a
+    chat model for a task, this is the distinction they are really asking about.
+  mastery:
+    - >-
+      Say what an encoder does and what a decoder does, in terms of what goes in
+      and what comes out.
+    - >-
+      Classify BERT and a chat model as encoder-only or decoder-only, and say
+      why each suits its job.
+    - >-
+      Explain why a translation model needs both halves.
+    - >-
+      Given a task, say which of the two you need and defend it.
+  pitfall: >-
+    Assuming a generative model is the strictly more capable choice because it
+    can hold a conversation. For retrieval, an encoder-only model is usually
+    faster, cheaper and better, and reaching for a chat model to compute a
+    similarity is using the wrong tool at considerable expense.
+  builds_on: [neural-network-and-layers]
+  assessed_in: [responses, project]
+  resources:
+    - alammar-seq2seq-attention
+    - hf-llm-embedding-primer
+    - rpp-121-transformers
+
+- id: pretraining-and-fine-tuning
+  name: Pretraining and fine-tuning
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Training in two stages. **Pretraining** runs once on an enormous general
+    corpus and is where nearly all the cost and nearly all the capability come
+    from. **Fine-tuning** then continues training on a small task-specific
+    dataset, adjusting a model that already works into one that works on your
+    job.
+  in_practice: >-
+    It explains the economics of the entire field. Almost nobody pretrains --
+    it costs millions -- and almost everyone consumes something pretrained. BERT
+    was designed for exactly this: pretrain once, fine-tune per task. It is also
+    the correct place in the landscape for prompting, which is the third and
+    cheapest option: change neither stage, change only what you put in front of
+    the model. Most of this course lives there.
+  mastery:
+    - >-
+      Say what happens in each of the two stages and which one costs the money.
+    - >-
+      Explain why fine-tuning needs far less data than pretraining.
+    - >-
+      Place prompting relative to these two stages, and say what it changes and
+      what it cannot.
+    - >-
+      Given a task, say whether prompting or fine-tuning is the right reach and
+      why.
+  pitfall: >-
+    Reaching for fine-tuning as the answer to a model getting things wrong.
+    Fine-tuning teaches a form and a style; it is a poor way to install facts,
+    it needs data you probably do not have, and it dates the moment your facts
+    change. When the problem is that the model lacks information, the answer is
+    usually to supply the information -- which is retrieval, and it is Week 10.
+  builds_on: [training-and-inference]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-121-transformers
+
+- id: masked-language-modelling
+  name: Masked language modelling
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    BERT's pretraining task: hide a fraction of the words in a sentence and
+    train the model to recover them, using the words on *both* sides. This is
+    what "bidirectional" means in BERT's name, and the masking is what makes it
+    possible -- a model allowed to see the answer cannot be asked to predict it.
+  in_practice: >-
+    It is word2vec's CBOW idea taken seriously: predict the hidden word from its
+    surroundings, but with a full transformer stack doing the predicting and the
+    whole sentence available rather than a small window. That is why the
+    representation that falls out is contextual where word2vec's was not.
+  mastery:
+    - >-
+      Describe the masked language modelling task in terms of what is hidden and
+      what the model is asked for.
+    - >-
+      Explain what "bidirectional" means here and why the masking is necessary
+      for it.
+    - >-
+      Compare masked language modelling to CBOW and say what the transformer
+      version has that word2vec did not.
+    - >-
+      Explain why a model trained this way is not built to generate text.
+  pitfall: >-
+    Confusing it with next-token prediction, the objective behind chat models.
+    Masked language modelling looks in both directions and fills gaps;
+    next-token prediction looks only backwards and continues. That difference in
+    objective is exactly why one model retrieves well and the other writes well,
+    and it is the pretext-task lesson arriving with consequences.
+  builds_on: [pretext-task, encoder-and-decoder, sliding-window]
+  assessed_in: [responses]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-121-transformers
+
+- id: bert
+  name: BERT
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    Bidirectional Encoder Representations from Transformers, 2018, and the
+    fourth rung. An encoder-only transformer in four parts -- a tokenizer, an
+    embedding layer, a stack of self-attention blocks, and a task head -- 
+    pretrained on masked language modelling plus next-sentence prediction, then
+    fine-tuned for whatever you actually want. The `[CLS]` token accumulates the
+    whole sequence for classification; `[SEP]` separates a pair of sentences.
+  in_practice: >-
+    BERT is where embeddings became contextual: it produces a different vector
+    for "bank" in "river bank" than in "bank robbery", because every layer's
+    output is computed from the entire sentence. Encoder-only means it reads
+    rather than writes -- it is not a chatbot and was never meant to be. Most of
+    what you will meet as an "embedding model" in a retrieval stack today is a
+    descendant, which is why it is worth an hour now rather than in Week 10.
+  mastery:
+    - >-
+      Name BERT's four components and say what each one does.
+    - >-
+      Name its two pretraining tasks and say what each teaches the model.
+    - >-
+      Say what the `[CLS]` and `[SEP]` tokens are for.
+    - >-
+      Say why a BERT-style model is often the right choice for retrieval even
+      when a chat model is sitting right there.
+  pitfall: >-
+    Judging BERT by what it will not do. It does not hold a conversation, and
+    asking why is asking why a thermometer will not boil water. The finer trap:
+    "contextual" does not mean the whole model is context-dependent from the
+    start. BERT's own embedding layer is a static lookup table exactly like
+    word2vec's, and context is what the layers above it add.
+  builds_on: [encoder-and-decoder, masked-language-modelling, pretraining-and-fine-tuning]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - rpp-121-transformers
+
+- id: static-vs-contextual-embeddings
+  name: Static and contextual embeddings
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A **static** embedding assigns one fixed vector per word type, computed once
+    during training and looked up thereafter -- word2vec. A **contextual**
+    representation is computed per occurrence from the whole surrounding
+    sequence, so the same word produces a different vector in every sentence it
+    appears in.
+  in_practice: >-
+    What it buys is polysemy: "bank" stops being an average of a riverbank and a
+    financial institution and becomes whichever one this sentence meant. What it
+    costs is the lookup. There is no dictionary of vectors to inspect, ship or
+    diff any more; every representation needs a forward pass over its context
+    and exists only relative to that context.
+
+
+    The precision that matters, because almost nothing states it plainly: an
+    LLM's *input* embedding layer is still static -- a lookup table, one vector
+    per token id. The contextual part is everything above it, where each layer
+    mixes in the rest of the sequence. Both get called "embeddings" in the
+    literature, and the primer flags that confusion itself.
+  mastery:
+    - >-
+      Say what "bank" gets from word2vec and what it gets from an LLM, and where
+      exactly the difference is introduced.
+    - >-
+      Name what contextual representations buy and what they cost, with a
+      concrete case for each.
+    - >-
+      Point at where in an LLM the static part ends and the contextual part
+      begins.
+    - >-
+      Given a claim about "the embedding of a word" in a paper or blog post, say
+      which of the two senses is meant.
+  pitfall: >-
+    Calling an LLM's embedding layer contextual. It is a lookup table: "bank"
+    enters both sentences as the identical vector and only becomes two different
+    things on the way up through the layers. Getting this backwards makes the
+    rest of the architecture impossible to reason about, because it removes the
+    thing the layers are *for*.
+  builds_on: [word2vec, bert, polysemy]
+  assessed_in: [responses, project]
+  resources:
+    - hf-llm-embedding-primer
+    - alammar-illustrated-word2vec
+    - rpp-121-transformers
+
+# --- Sequences, and the problem attention was invented for ----------------
+
+- id: recurrent-neural-network
+  name: Recurrent neural networks (RNNs)
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The pre-transformer way of handling sequences: read one item at a time,
+    keeping a running summary of everything read so far and updating it at each
+    step. **LSTMs** are the best-known refinement, built specifically to hold on
+    to information for longer.
+  in_practice: >-
+    Worth knowing for one reason -- it is what the field was doing before 2017,
+    and its limits are why the transformer exists. Reading strictly one word at
+    a time means two things: information from early in a long sentence fades by
+    the end, and none of the work can be done in parallel, which caps how large
+    a model you can afford to train. Burchell's episode 121 covers both, with
+    the vanishing-gradient problem as the technical name for the first.
+  mastery:
+    - >-
+      Describe how an RNN processes a sequence, and what it carries from one
+      step to the next.
+    - >-
+      Name the two limitations of RNNs that the transformer removed.
+    - >-
+      Explain why processing strictly in order limits how big a model can
+      practically be trained.
+  pitfall: >-
+    Filing RNNs as merely obsolete. They are the reason the Week 3 paper is
+    titled the way it is: "attention is all you need" is a claim aimed at
+    exactly this architecture, saying that the recurrence everyone assumed was
+    essential could be dropped. Without knowing what was being dropped, the
+    title is not a joke and the paper is not an argument.
+  builds_on: [neural-network-and-layers]
+  assessed_in: [responses]
+  resources:
+    - rpp-121-transformers
+    - alammar-seq2seq-attention
+
+- id: hidden-state
+  name: Hidden state
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The running summary an RNN carries from one step to the next: a vector
+    holding whatever the network has decided is worth keeping about everything
+    it has read so far. It is updated at every step and it is a fixed size, no
+    matter how much has been read.
+  in_practice: >-
+    Fixed size regardless of input length is the detail the rest of this section
+    turns on. Whether the encoder has read five words or fifty, its hidden state
+    is the same number of slots -- so the fiftieth word is written into a space
+    already holding forty-nine others. Alammar's attention post spends its whole
+    argument here, and the animated heatmaps at the end are hidden states being
+    used individually rather than summarised.
+  mastery:
+    - >-
+      Say what a hidden state holds and when it is updated.
+    - >-
+      Explain why its size does not grow with the length of the input, and why
+      that matters.
+    - >-
+      Explain what the final hidden state of an encoder is supposed to represent.
+  pitfall: >-
+    Imagining it as a record of what was read. It is not a transcript, it is a
+    lossy summary the network chose, and what it chose to keep is neither
+    inspectable nor guaranteed to be the part you cared about.
+  builds_on: [recurrent-neural-network, vector]
+  assessed_in: [responses]
+  resources:
+    - alammar-seq2seq-attention
+    - rpp-121-transformers
+
+- id: sequence-to-sequence
+  name: Sequence-to-sequence (seq2seq)
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The architecture behind neural machine translation: an encoder reads the
+    input sequence and produces a representation, a decoder reads that
+    representation and produces the output sequence. The two halves are separate
+    networks, and the only thing passed between them is the encoder's final
+    hidden state, called the **context vector**.
+  in_practice: >-
+    It is the first architecture in this course that takes text in and puts text
+    out, which makes it the ancestor of everything you use. It also introduces
+    the handover -- one vector between the two halves -- and the handover is
+    where the trouble is.
+  mastery:
+    - >-
+      Describe the two halves of a seq2seq model and what passes between them.
+    - >-
+      Say what the context vector is, in terms of hidden states.
+    - >-
+      Explain why translation was the task this architecture was built for.
+  pitfall: >-
+    Assuming the decoder can look back at the input. In the original design it
+    cannot: it never sees the source sentence, only the single vector the
+    encoder handed over. Everything the decoder will ever know about the input
+    has to have survived that compression.
+  builds_on: [encoder-and-decoder, hidden-state]
+  assessed_in: [responses]
+  resources:
+    - alammar-seq2seq-attention
+    - rpp-121-transformers
+
+- id: fixed-length-bottleneck
+  name: The fixed-length bottleneck
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The flaw in seq2seq, and the problem attention was invented to solve. The
+    encoder must compress the whole input into a single fixed-length context
+    vector, which is the only thing the decoder receives -- so a fifty-word
+    sentence goes through exactly the same size of vector as a five-word one.
+  in_practice: >-
+    This is Tuesday's second discussion question with the answer attached. Stay
+    with Alammar's animated alignment heatmaps: instead of one vector at the
+    end, the decoder is handed *every* encoder hidden state and decides, at each
+    step, how much of each to use. Carry this into Week 3 -- that session opens
+    by asking what problem attention solved, and this is the assigned answer.
+  mastery:
+    - >-
+      Explain what the context vector has to carry, and why length makes that
+      harder.
+    - >-
+      Predict how a seq2seq model without attention degrades as input gets
+      longer, and say why it degrades that way.
+    - >-
+      Describe, without any mathematics, what the decoder is given instead once
+      attention is added.
+    - >-
+      Read an alignment heatmap and say what a bright cell in it means.
+  pitfall: >-
+    Treating attention as a performance optimisation. It is a change in what
+    information is available, not a faster route to the same information: the
+    bottleneck is removed rather than widened. Making the context vector bigger
+    would not have fixed it, because a longer sentence would still be squeezed
+    into the same fixed size. The fix was to stop squeezing.
+  builds_on: [sequence-to-sequence, hidden-state]
+  assessed_in: [responses]
+  resources:
+    - alammar-seq2seq-attention
+    - rpp-121-transformers
+
+# --- The output end -------------------------------------------------------
+
+- id: logits
+  name: Logits
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    The raw, unnormalised scores a model produces before they are turned into
+    probabilities -- one number for every token in the vocabulary. In an LLM
+    they come from multiplying the final vector by the **unembedding** matrix,
+    which is the embedding step run backwards: vector in, one score per possible
+    token out.
+  in_practice: >-
+    Logits are where "the model predicts the next word" becomes concrete. It
+    does not choose a word; it scores all fifty thousand of them at once, every
+    time, and something afterwards has to turn that list into a choice. Knowing
+    the scores exist -- and that they are a ranking rather than a decision -- is
+    what makes temperature and sampling comprehensible instead of magical.
+  mastery:
+    - >-
+      Say what a logit is and how many of them a model produces per step.
+    - >-
+      Explain what the unembedding matrix does, and how it relates to the
+      embedding matrix.
+    - >-
+      Explain why logits have to be converted before they can be treated as
+      probabilities.
+  pitfall: >-
+    Thinking of generation as the model picking a word. It produces a full
+    ranking over the vocabulary at every step, and the picking is a separate,
+    configurable stage that happens afterwards. That separation is precisely
+    what you are adjusting when you set a temperature.
+  builds_on: [vector, vocabulary, embedding]
+  assessed_in: [responses, labs]
+  resources:
+    - 3blue1brown-transformers
+
+- id: temperature
+  name: Temperature
+  theme: foundations
+  week: 2
+  day: tue
+  definition: >-
+    A number the logits are divided by before softmax runs. Raise it and the
+    resulting distribution flattens towards uniform, so unlikely tokens get a
+    real chance. Lower it and probability piles onto the leading candidates. At
+    zero it is greedy: always the top-scoring token.
+  in_practice: >-
+    The one idea from Tuesday you can turn into a decision on Thursday. It is
+    not a creativity dial, whatever the documentation implies -- it changes how
+    much probability mass sits away from the model's top choice, which reads as
+    creativity when a task has many good answers and as unreliability when it
+    has one. Extraction, classification and anything you will parse want it low.
+    Brainstorming can afford it high. Say which you chose and why, in the ADR.
+  mastery:
+    - >-
+      Say where temperature is applied, relative to the logits and the softmax.
+    - >-
+      Say what raising and lowering it does to the distribution, in those terms
+      rather than in terms of creativity.
+    - >-
+      Choose a temperature for a stated task and defend it by what the task
+      tolerates going wrong.
+    - >-
+      Explain why a temperature of zero still does not guarantee the same answer
+      twice.
+  pitfall: >-
+    Reaching for temperature when the prompt is the problem. If the model is
+    wrong about a fact, lowering the temperature makes it wrong *consistently*,
+    which is worse rather than better because it now looks stable. The second
+    error is reading zero as deterministic: it takes the top token every step,
+    but batching and floating-point effects mean identical prompts can still
+    diverge. Deterministic-looking is not deterministic, and an ADR claiming
+    reproducibility on that basis is claiming more than it has.
+  builds_on: [logits, softmax]
+  assessed_in: [labs, project]
+  resources:
+    - 3blue1brown-transformers
+    - anthropic-token-counting

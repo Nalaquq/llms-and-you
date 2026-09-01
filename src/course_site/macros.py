@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 import sys
+from itertools import groupby
 from pathlib import Path
 
 # mkdocs-macros imports this file directly rather than as an installed package,
@@ -104,13 +105,19 @@ def define_env(env) -> None:
         """Every concept, grouped by theme and ordered by when it was taught.
 
         Theme order matches the Readings page so the two can be read side by
-        side; inside a theme, concepts run in the order the course met them,
-        which is the order a student revising will want them in.
+        side; inside a theme, concepts run in the order the course met them.
+
+        Within one session that order is the order they appear in
+        ``concepts.yml``, which is deliberate rather than incidental: the file is
+        written so that nothing needs an entry printed below it, and the loader
+        enforces that. Sorting these by name instead would put BERT above bag of
+        words and break the ladder the page exists to show. See ADR-018.
         """
         by_slug = {d.slug: d for d in schedule}
         assignments = {a.id: a for a in load_assignments()}
         resources = load_resources()
         concepts = load_concepts()
+        written = {cid: i for i, cid in enumerate(concepts)}
 
         grouped: dict[str, list[Concept]] = {tid: [] for tid in themes}
         for c in concepts.values():
@@ -118,7 +125,7 @@ def define_env(env) -> None:
 
         out: list[str] = []
         for tid, theme in themes.items():
-            items = sorted(grouped[tid], key=lambda c: (by_slug[c.slug].date, c.name))
+            items = sorted(grouped[tid], key=lambda c: (by_slug[c.slug].date, written[c.id]))
             if not items:
                 continue
             out.append(f"## Theme {theme.number} — {theme.name}\n")
@@ -130,23 +137,42 @@ def define_env(env) -> None:
 
     @env.macro
     def concept_checklist() -> str:
-        """The whole study guide as one table, for checking yourself against.
+        """The whole study guide as one table per session, for checking yourself.
 
         Deliberately the first thing on the page: a student revising wants to
         know how many things there are before they want to know what any one of
-        them means.
+        them means. Grouped by the meeting that introduced them, because that is
+        how revision is actually scoped -- "what came out of Week 2" is a
+        question people ask and "what is filed under foundations" is not.
+
+        The prerequisite column is the point of the table. Read down it and the
+        order to learn things in is visible without reading a single definition.
         """
         by_slug = {d.slug: d for d in schedule}
-        assignments = {a.id: a for a in load_assignments()}
-        rows = ["| Concept | Introduced | Assessed in |", "|:---|:---|:---|"]
-        for c in sorted(load_concepts().values(), key=lambda c: (by_slug[c.slug].date, c.name)):
-            d = by_slug[c.slug]
-            graded = ", ".join(assignments[aid].title for aid in c.assessed_in)
-            rows.append(
-                f"| [{c.name}](#{c.id}) | [Week {c.week} ({d.date_label})]"
-                f"(sessions/{c.slug}.md) | {graded} |"
+        concepts = load_concepts()
+        written = {cid: i for i, cid in enumerate(concepts)}
+        ordered = sorted(concepts.values(), key=lambda c: (by_slug[c.slug].date, written[c.id]))
+
+        out: list[str] = []
+        for slug, items in groupby(ordered, key=lambda c: c.slug):
+            d = by_slug[slug]
+            items = list(items)
+            out.append(
+                f"**[Week {d.session.week} — {d.session.topic}](sessions/{slug}.md)** "
+                f"<small>({d.date_label} · {len(items)} "
+                f"{'concept' if len(items) == 1 else 'concepts'})</small>\n"
             )
-        return "\n".join(rows)
+            out.append("| Concept | Understand first |")
+            out.append("|:---|:---|")
+            for c in items:
+                before = (
+                    ", ".join(f"[{concepts[o].name}](#{o})" for o in c.builds_on)
+                    if c.builds_on
+                    else "—"
+                )
+                out.append(f"| [{c.name}](#{c.id}) | <small>{before}</small> |")
+            out.append("")
+        return "\n".join(out)
 
     @env.macro
     def burchell_arc() -> str:

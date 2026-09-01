@@ -84,8 +84,16 @@ def concept_entry(
         f"### {c.name} {{ #{c.id} }}\n",
         f"<small>:material-school-outline: Introduced {where} &nbsp;·&nbsp; "
         f":material-flag-checkered: Assessed in {graded}</small>\n",
-        f"{c.definition.strip()}\n",
     ]
+
+    # Prerequisites go above the definition, not below it. A student who does not
+    # have these is reading the wrong entry, and the cheapest moment to tell them
+    # is before they have read a paragraph that will not land.
+    if c.builds_on:
+        first = ", ".join(f"[{concepts[o].name}](#{o})" for o in c.builds_on)
+        out.append(f"<small>:material-stairs-up: **Understand first:** {first}</small>\n")
+
+    out.append(f"{c.definition.strip()}\n")
 
     if c.in_practice:
         out.append(f"**In this course.** {c.in_practice.strip()}\n")
@@ -101,6 +109,14 @@ def concept_entry(
         out.append("**Review and go further**\n")
         out.append(reading_block(resources, c.resources))
         out.append("")
+
+    # The downward edge is derived rather than typed. Nobody remembers to go back
+    # and add "leads to" when adding a concept in November, so the page computes
+    # it from what later entries declare they need.
+    leads_to = [o for o in concepts.values() if c.id in o.builds_on]
+    if leads_to:
+        links = ", ".join(f"[{o.name}](#{o.id})" for o in leads_to)
+        out.append(f"<small>:material-stairs-down: **Needed for:** {links}</small>\n")
 
     if c.related:
         links = ", ".join(f"[{concepts[o].name}](#{o})" for o in c.related)
