@@ -29,7 +29,7 @@ jobs:
           cache: pip
 
       - name: Install
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,slides]"
 
       - name: Lint
         run: |
@@ -38,6 +38,14 @@ jobs:
 
       - name: Test course data
         run: pytest
+
+      # The deck media is generated, never committed — same rule as the
+      # session pages. gen_slides.py fails the build if this step is skipped.
+      - name: Generate lecture media
+        run: |
+          cd scripts
+          for f in gen_*.py; do python "$f"; done
+          python build_deck.py
 
       - name: Build site
         run: mkdocs build --strict

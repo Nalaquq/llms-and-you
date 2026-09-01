@@ -27,3 +27,8 @@ CLAUDE.md
 # Local secrets — never commit
 .env
 .env.*
+
+# Generated lecture media — rebuilt from scripts/gen_*.py; see scripts/README.md
+scripts/demo_photos/
+scripts/*.pptx
+.~lock.*#

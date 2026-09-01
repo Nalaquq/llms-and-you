@@ -1386,3 +1386,89 @@ sub-concepts explicitly. It is a deliberately unusual test — it asserts a
 pedagogical decision rather than a structural one — and it exists so that a
 future tidying pass that folds "stemming" back into "bag of words" has to argue
 with this ADR rather than quietly reverse it.
+
+---
+
+## ADR-019: Host the lecture decks, and publish how they were made
+
+**Status:** Accepted
+
+### Context
+
+The Week 2 lecture deck is twenty-seven animated slides generated entirely by
+Python scripts, which were themselves written by Claude Code from four
+instructor prompts. Two questions followed. Where do the decks live, so
+students can get them after class? And what happens to the making-of story —
+the prompt sequence — which in a prompt-engineering course is arguably more
+instructive than the deck itself?
+
+The second question cuts against an earlier default. `prompts/` is gitignored
+with a note calling AI working notes "drafting artifacts, not course content."
+That remains true of drafting notes in general. But this particular process is
+a finished worked example of the course's central skill: a brief with real
+constraints, two targeted revisions, and a structural disagreement with the
+model that the instructor won. Hiding it would be teaching the course while
+declining to show the course's own homework.
+
+There is also a hosting question with a wrong answer available. The deck is
+~11 MB and the GIFs ~8 MB, regenerated every time a slide is touched.
+Committing them writes twenty megabytes into git history per iteration,
+forever, for files that are pure build products.
+
+### Decision
+
+A top-level **Slides** page (`docs/slides/index.md`), holding each deck as it
+is taught: the PPTX for download, and the full GIF sequence embedded in
+teaching order, lazy-loaded so the page stays light.
+
+The media is **generated at build time, never committed** — the same rule the
+session pages established in ADR-001. `src/course_site/gen_slides.py` copies
+the generator outputs into the site during `mkdocs build` and fails loud, with
+the command to run, if they are missing. CI gained a "generate lecture media"
+step and a `[slides]` dependency group. The scripts in `scripts/` are the
+committed source of truth.
+
+Teaching order lives once, in `scripts/deck_order.py`, read by both the PPTX
+builder and the site's gallery macro — so the file students download and the
+page they scroll cannot disagree. The same file is where the order's
+*reasoning* is recorded (chronological, so counting fails before learned
+embeddings appear — itself the product of the instructor's prompt 4).
+
+The making-of is published on the Slides page itself, quoting the four real
+prompts and stating the AI attribution in exactly the form the syllabus asks
+of students.
+
+### Alternatives considered
+
+**Commit the media.** Simplest, and wrong twice: git history grows by the full
+media size on every regeneration, and it breaks the repo's one rule that
+generated things are not source. ADR-001 already settled this for session
+pages; slides are the same case with bigger files.
+
+**A guide (`docs/guides/making-slides-with-ai.md`).** Guides are procedures a
+student follows, wired to sessions by the reachability test. This page is
+primarily *hosting* with a narrative attached; filing it under guides would
+bury the decks students come looking for on Thursday night. The narrative
+still teaches, but it teaches from where the decks are.
+
+**Git LFS.** Solves history bloat, adds a toolchain requirement for every
+student who clones the template-adjacent repo, and still commits build
+products. Rejected as complexity in the wrong place.
+
+**Keep the making-of private, host only the decks.** The default the
+`prompts/` rule would suggest. Rejected for this artifact specifically: the
+course grades students on documenting their prompting decisions, and the
+instructor publishing his own is the cheapest credibility the course will ever
+buy. The `prompts/` default stays for genuine drafts.
+
+### Consequences
+
+Deploys now run matplotlib and take about a minute longer. Local
+`mkdocs build` fails unless the generators have run once — loudly, with
+instructions, which is the intended behaviour rather than a bug. The Slides
+page must be updated as decks are added, and the making-of convention is now a
+promise: future decks should arrive with their prompts, or say why not.
+
+The subtler consequence is the precedent: course artifacts generated with AI
+are published *with their provenance*, in the citation form the syllabus
+demands of students. The course now models its own policy.

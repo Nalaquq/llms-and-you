@@ -354,7 +354,10 @@
       Episodes 119 and 121 were recorded two weeks apart, in the last summer
       before ChatGPT. What does Burchell expect to matter, and what does she not
       see coming?
-  activity: Embedding-space exploration; the classic king/queen analogy, and where it fails.
+  activity: >-
+    Embedding-space exploration; the classic king/queen analogy, and where it
+    fails. The lecture slides — and the story of how they were generated from
+    four prompts — are on the [Slides page](../slides/index.md).
   optional: [tf-embedding-projector]
 
 - week: 2

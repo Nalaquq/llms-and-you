@@ -20,6 +20,27 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — lecture slides, hosted, with their provenance **[student-facing]**
+
+The Week 2 deck — 27 animated slides on how text becomes numbers — is now on
+the site: [Slides](https://Nalaquq.github.io/llms-and-you/slides/). Download
+the PPTX or scroll the whole sequence in the browser; four slides are
+discussion prompts and are marked as such.
+
+The same page documents **how the deck was made**: the four real prompts that
+produced it, what each one changed, and the moment the instructor disagreed
+with the model about slide order and the deck got restructured. In this course
+that process is content — it is the loop your own project log should record,
+and the page states its AI attribution in exactly the form the
+[policy](https://Nalaquq.github.io/llms-and-you/syllabus/#using-ai) asks of
+you.
+
+Slide media is generated from
+[committed scripts](https://github.com/Nalaquq/llms-and-you/tree/main/scripts)
+at deploy time, never committed — reasoning in
+[ADR-019](https://Nalaquq.github.io/llms-and-you/adr/#adr-019-host-the-lecture-decks-and-publish-how-they-were-made).
+
+
 ### Added — the whole of Week 2 on the study guide **[student-facing]**
 
 The [study guide](https://Nalaquq.github.io/llms-and-you/study-guide/) now
