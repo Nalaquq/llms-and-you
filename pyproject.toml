@@ -22,6 +22,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
+slides = ["matplotlib>=3.8", "numpy>=1.26", "pillow>=10.0", "python-pptx>=1.0"]
 
 [project.urls]
 Homepage = "https://github.com/Nalaquq/llms-and-you"

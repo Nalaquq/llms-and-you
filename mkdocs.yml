@@ -65,6 +65,7 @@ plugins:
   - gen-files:
       scripts:
         - src/course_site/gen_sessions.py
+        - src/course_site/gen_slides.py
 
 markdown_extensions:
   - abbr
@@ -119,6 +120,7 @@ nav:
   - Assignments: assignments.md
   - Readings: resources.md
   - Study guide: study-guide.md
+  - Slides: slides/index.md
   - Guides:
       - guides/index.md
       - guides/setup.md

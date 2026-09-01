@@ -175,6 +175,26 @@ def define_env(env) -> None:
         return "\n".join(out)
 
     @env.macro
+    def slide_deck() -> str:
+        """The Week 2 deck as an in-page gallery, in teaching order.
+
+        Order comes from ``scripts/deck_order.py`` — the same list that builds
+        the PPTX — so the page and the file students download cannot disagree.
+        Images lazy-load; each GIF plays once on scroll-in and holds its final
+        frame, so the page reads as a deck rather than a wall of motion.
+        """
+        sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+        from deck_order import ORDER
+
+        out: list[str] = []
+        for i, name in enumerate(ORDER, 1):
+            label = name.split("_", 2)[-1].rsplit(".", 1)[0].replace("_", " ")
+            discuss = " · **discussion prompt**" if "discuss" in name else ""
+            out.append(f"![Slide {i}: {label}](media/{name}){{ loading=lazy }}")
+            out.append(f"<small>Slide {i:02d} — {label}{discuss}</small>\n")
+        return "\n".join(out)
+
+    @env.macro
     def burchell_arc() -> str:
         """The Real Python episodes with the same guest, in the order they aired.
 

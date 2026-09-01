@@ -630,6 +630,26 @@ def test_every_resource_is_used_or_deliberately_reference_only():
 # data.
 
 
+def test_deck_order_is_well_formed():
+    """The slides page and the PPTX both read scripts/deck_order.py.
+
+    The media itself is generated in CI after these tests run, so existence
+    cannot be asserted here — but a typo'd or duplicated filename would
+    otherwise only surface as a failed deploy. Shape-check it early.
+    """
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    from deck_order import ORDER
+
+    assert len(ORDER) == len(set(ORDER)), "duplicate slide in deck_order"
+    for name in ORDER:
+        assert re.fullmatch(r"w\d{2}_s\d{2}[a-z]?_[a-z0-9_]+\.(gif|png)", name), (
+            f"deck_order entry {name!r} does not look like generated slide media"
+        )
+
+
 def test_every_concept_is_introduced_at_a_real_meeting():
     slugs = {d.slug for d in SCHEDULE}
     for c in CONCEPTS.values():
