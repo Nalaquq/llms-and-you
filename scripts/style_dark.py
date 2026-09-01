@@ -92,22 +92,27 @@ def fig_to_pil(fig, close=True):
 
 
 def save_gif(frames, durations, name):
-    """loop=1, 60s hold on the final frame, plus a _preview.png for QC."""
+    """loop=1, 60s hold on the final frame.
+
+    Also writes ``<name>_final.png`` at full resolution — the slide's fully
+    built state. PowerPoint and LibreOffice render a GIF's FIRST frame when
+    printing or in the editor, which for a build-up animation is nearly blank;
+    the print edition of the deck uses these finals instead. They double as
+    the QC previews.
+    """
     durations = list(durations)
     durations[-1] = 60_000
     path = os.path.join(OUT_DIR, name)
     frames[0].save(
         path, save_all=True, append_images=frames[1:], duration=durations, loop=1, optimize=True
     )
-    frames[-1].resize((800, 450), Image.LANCZOS).save(path.replace(".gif", "_preview.png"))
+    frames[-1].save(path.replace(".gif", "_final.png"))
     print(f"saved {path} ({len(frames)} frames, {os.path.getsize(path) / 1e6:.1f} MB)")
 
 
 def save_png(fig, name):
     path = os.path.join(OUT_DIR, name)
     fig.savefig(path, dpi=DPI, facecolor=BG)
-    img = Image.open(path)
-    img.resize((800, 450), Image.LANCZOS).save(path.replace(".png", "_preview.png"))
     print(f"saved {path}")
 
 

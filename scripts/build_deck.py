@@ -15,7 +15,8 @@ import sys
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.util import Inches
+from pptx.enum.shapes import PP_PLACEHOLDER
+from pptx.util import Inches, Pt
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SCRIPT_DIR)
@@ -24,6 +25,7 @@ from deck_order import ORDER  # noqa: E402
 
 PHOTOS = os.path.join(SCRIPT_DIR, "demo_photos")
 OUT = os.path.join(SCRIPT_DIR, "W02_How_Text_Becomes_Numbers.pptx")
+OUT_PRINT = os.path.join(SCRIPT_DIR, "W02_How_Text_Becomes_Numbers_print.pptx")
 BG = RGBColor(0x1B, 0x1E, 0x26)
 
 
@@ -214,14 +216,58 @@ NOTES = {
 }
 
 
-def main():
+def _layout_notes_page(notes_slide, note_text):
+    """Write the note and give the notes page explicit 16:9-aware geometry.
+
+    python-pptx's default template lays notes pages out for a 4:3 deck: the
+    slide-image placeholder is a 5x3.75in box and everything inherits from a
+    notes master PowerPoint treats poorly once the deck is 16:9 — Notes Page
+    view renders squashed or misplaced. Explicit per-shape geometry overrides
+    the master, and an explicit font size stops PowerPoint guessing.
+
+    The notes page itself is 7.5x10in (portrait), PowerPoint's default.
+    """
+    notes_slide.notes_text_frame.text = note_text
+    for ph in notes_slide.placeholders:
+        kind = ph.placeholder_format.type
+        if kind == PP_PLACEHOLDER.SLIDE_IMAGE:
+            # 16:9 box, centred: 6.5in wide -> 3.656in tall
+            ph.left, ph.top = Inches(0.5), Inches(0.4)
+            ph.width, ph.height = Inches(6.5), Inches(3.656)
+        elif kind == PP_PLACEHOLDER.BODY:
+            ph.left, ph.top = Inches(0.6), Inches(4.3)
+            ph.width, ph.height = Inches(6.3), Inches(5.0)
+            for para in ph.text_frame.paragraphs:
+                for run in para.runs:
+                    run.font.size = Pt(12)
+
+
+def _build(files, out_path, print_edition=False):
     prs = Presentation()
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
     blank = prs.slide_layouts[6]
 
+    for path in files:
+        if print_edition and path.endswith(".gif"):
+            path = path.replace(".gif", "_final.png")
+        slide = prs.slides.add_slide(blank)
+        slide.background.fill.solid()
+        slide.background.fill.fore_color.rgb = BG
+        slide.shapes.add_picture(path, 0, 0, width=prs.slide_width, height=prs.slide_height)
+        key = "_".join(os.path.basename(path).split("_")[:2])
+        note = NOTES.get(key)
+        if note:
+            _layout_notes_page(slide.notes_slide, note)
+
+    prs.save(out_path)
+    print(f"saved {out_path} ({len(files)} slides, {os.path.getsize(out_path) / 1e6:.1f} MB)")
+
+
+def main():
     ordered = [os.path.join(PHOTOS, f) for f in ORDER]
-    missing = [f for f in ordered if not os.path.exists(f)]
+    finals = [f.replace(".gif", "_final.png") for f in ordered if f.endswith(".gif")]
+    missing = [f for f in [*ordered, *finals] if not os.path.exists(f)]
     if missing:
         raise SystemExit(
             "missing media (run the gen scripts first): "
@@ -230,24 +276,16 @@ def main():
     extra = sorted(
         os.path.basename(f)
         for f in glob.glob(os.path.join(PHOTOS, "w02_s*.*"))
-        if not f.endswith("_preview.png") and os.path.basename(f) not in ORDER
+        if not f.endswith(("_final.png", "_preview.png")) and os.path.basename(f) not in ORDER
     )
     if extra:
         raise SystemExit(f"media not listed in ORDER (add them): {extra}")
-    files = ordered
 
-    for path in files:
-        slide = prs.slides.add_slide(blank)
-        slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = BG
-        slide.shapes.add_picture(path, 0, 0, width=prs.slide_width, height=prs.slide_height)
-        key = "_".join(os.path.basename(path).split("_")[:2])
-        note = NOTES.get(key)
-        if note:
-            slide.notes_slide.notes_text_frame.text = note
-
-    prs.save(OUT)
-    print(f"saved {OUT} ({len(files)} slides, {os.path.getsize(OUT) / 1e6:.1f} MB)")
+    # Animated deck for presenting; print edition (final frames as stills)
+    # for Notes Page printing and handouts, where GIFs show their first,
+    # nearly-empty frame.
+    _build(ordered, OUT)
+    _build(ordered, OUT_PRINT, print_edition=True)
 
 
 if __name__ == "__main__":

@@ -35,6 +35,11 @@ and the page states its AI attribution in exactly the form the
 [policy](https://Nalaquq.github.io/llms-and-you/syllabus/#using-ai) asks of
 you.
 
+There are two downloads: the animated deck for presenting, and a **print
+edition** — the same slides and speaker notes with each animation replaced by
+its final frame, because PowerPoint prints a GIF's first, nearly-empty frame.
+Print that one.
+
 Slide media is generated from
 [committed scripts](https://github.com/Nalaquq/llms-and-you/tree/main/scripts)
 at deploy time, never committed — reasoning in
