@@ -15,7 +15,6 @@ import sys
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.enum.shapes import PP_PLACEHOLDER
 from pptx.util import Inches, Pt
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -217,29 +216,20 @@ NOTES = {
 
 
 def _layout_notes_page(notes_slide, note_text):
-    """Write the note and give the notes page explicit 16:9-aware geometry.
+    """Write the note, pinning the font size and touching nothing else.
 
-    python-pptx's default template lays notes pages out for a 4:3 deck: the
-    slide-image placeholder is a 5x3.75in box and everything inherits from a
-    notes master PowerPoint treats poorly once the deck is 16:9 — Notes Page
-    view renders squashed or misplaced. Explicit per-shape geometry overrides
-    the master, and an explicit font size stops PowerPoint guessing.
-
-    The notes page itself is 7.5x10in (portrait), PowerPoint's default.
+    Hard-won constraint: Microsoft PowerPoint drops the slide image from a
+    notes page if the sldImg placeholder carries a local <a:xfrm> it did not
+    write itself — schema-legal, verified empirically. So geometry is left to
+    inherit from the notes master, exactly as PowerPoint expects; the only
+    intervention is an explicit 12pt run size so text renders predictably.
+    The blank-slide-when-printing problem is solved by the print edition
+    (final frames as stills), not by touching this layout.
     """
     notes_slide.notes_text_frame.text = note_text
-    for ph in notes_slide.placeholders:
-        kind = ph.placeholder_format.type
-        if kind == PP_PLACEHOLDER.SLIDE_IMAGE:
-            # 16:9 box, centred: 6.5in wide -> 3.656in tall
-            ph.left, ph.top = Inches(0.5), Inches(0.4)
-            ph.width, ph.height = Inches(6.5), Inches(3.656)
-        elif kind == PP_PLACEHOLDER.BODY:
-            ph.left, ph.top = Inches(0.6), Inches(4.3)
-            ph.width, ph.height = Inches(6.3), Inches(5.0)
-            for para in ph.text_frame.paragraphs:
-                for run in para.runs:
-                    run.font.size = Pt(12)
+    for para in notes_slide.notes_text_frame.paragraphs:
+        for run in para.runs:
+            run.font.size = Pt(12)
 
 
 def _build(files, out_path, print_edition=False):
