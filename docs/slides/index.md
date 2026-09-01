@@ -15,10 +15,15 @@ learned-embedding idea, the geometry, word2vec, and the arrival of context.
 Four of them are discussion prompts — in class we stop and argue before the
 next slide answers the question.
 
-[:material-download: Download the deck (PPTX, ~11&nbsp;MB)](media/W02_How_Text_Becomes_Numbers.pptx){ .md-button }
+[:material-download: Deck for presenting (PPTX, ~11&nbsp;MB)](media/W02_How_Text_Becomes_Numbers.pptx){ .md-button }
+[:material-printer: Print edition (PPTX, ~3&nbsp;MB)](media/W02_How_Text_Becomes_Numbers_print.pptx){ .md-button }
 
-GIFs animate only in PowerPoint's **slideshow mode** (F5), not in the editor.
-Speaker notes are under View → Notes.
+Two files on purpose. In the **presenting deck** the GIFs animate in slideshow
+mode (F5) — but anywhere a slide is rendered *still* (the editor, Notes Page
+view, printing, PDF export) you get each animation's first, nearly-empty
+frame. The **print edition** is the same 27 slides and the same speaker notes
+with every animation replaced by its final, fully-built frame — use it for
+printing notes pages, handouts, or reading the deck as a document.
 
 ### How this deck was made { #how-this-deck-was-made }
 
