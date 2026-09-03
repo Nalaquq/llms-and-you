@@ -1059,14 +1059,15 @@
     files go. Worth fifteen minutes once, in Week 2.
 
 - id: scikit-learn-text
-  title: "Working With Text Data — scikit-learn"
+  title: "Classification of Text Documents — scikit-learn"
   kind: guide
-  url: https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html
+  url: https://scikit-learn.org/stable/auto_examples/text/plot_document_classification_20newsgroups.html
   themes: [foundations, ecosystem]
   est_minutes: 40
   assign_note: >-
-    The reference behind the Week 2 notebook's bag-of-words and TF-IDF sections.
-    Start at "Extracting features from text files" if you want the parts we used.
+    The Week 2 notebook stops at "these documents are similar". This carries the
+    same TF-IDF vectors on to an actual classifier, on a real corpus. Read it if
+    you want to see where the notebook was heading.
 
 - id: sklearn-feature-extraction
   title: "Text feature extraction — scikit-learn user guide"

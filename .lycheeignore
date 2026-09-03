@@ -20,3 +20,19 @@ amazon\.com
 
 # LinkedIn / X and similar walled platforms, should any reading ever cite one
 linkedin\.com
+
+# Verified by hand on 2026-09-03. Same story as the publishers above: these
+# answer a browser and refuse a bot.
+
+# Anthropic and OpenAI product pages — 403 to non-browser clients
+claude\.ai
+platform\.openai\.com
+
+# DeepLearning.AI — 403 to bots; the short course is genuinely free
+deeplearning\.ai
+
+# Lecture-deck media is generated at deploy time and never committed, so the
+# links on the Slides page resolve in the built site and not in a bare checkout.
+# The link checker runs against the checkout, so it can only ever see them
+# missing -- see ADR-019 for why the media is not in the repository.
+docs/slides/media/
