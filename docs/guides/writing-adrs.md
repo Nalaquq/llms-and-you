@@ -79,6 +79,13 @@ chose is a note. An ADR that records what you rejected, and why, is a decision
 record. When you reread it in November wondering why you did not use retrieval,
 the answer needs to be in there.
 
+**Keep it under a page.** A reader should get the decision and its justification
+in half a minute. Length is not thoroughness — it is usually the reasoning not
+yet being finished, and a log nobody rereads records nothing. One or two
+sentences of context, the decision, a line per alternative, and the honest cost.
+[This site's own log](../adr/index.md) is written to that standard, and had to be
+cut by two thirds to reach it.
+
 **Write it when you decide, not afterwards.** Retroactive ADRs read as
 justification rather than reasoning, and they are easy to spot — they never
 contain doubt, and real decisions almost always do.
