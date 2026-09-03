@@ -9,10 +9,11 @@ hide:
 **Hampden-Sydney College · Fall 2026**
 
 Large language models are reshaping how we write, research, and solve problems.
-This course is about the principles and practice of prompt engineering using
-**Python** and **Anthropic's Claude** to
-build systems that work, and to tell the difference between one that works and
-one that only appears to.
+This course is about the principles and practice of prompt engineering — how to
+build systems that work, and how to tell the difference between one that works
+and one that only appears to. The hands-on work runs in your browser, in
+notebooks built on **scikit-learn**, **Hugging Face**, and the rest of the
+ordinary Python toolkit.
 
 We will read the 2017 paper this course is named after. We will also read the 2025 paper
 arguing that the field's most celebrated technique is an illusion. You will learn by doing, and you will be doing some serious learning. Enjoy!
@@ -49,13 +50,18 @@ arguing that the field's most celebrated technique is an illusion. You will lear
     TruthfulQA alongside the benchmark critique that says TruthfulQA is
     miscategorised. Chain-of-thought alongside the paper calling it a mirage.
 
--   :material-flask-outline:{ .lg .middle } **Write code on Thursdays**
+-   :material-flask-outline:{ .lg .middle } **Run things on Thursdays, then show what you found**
 
     ---
 
-    Twelve hands-on labs. We will install Claude Code and the desktop app in week one,
-    then Python the week after. We will break a tokenizer. We will build an evaluation set.
-    We will give a model a tool, and see what happens. You will learn how to measure what your project costs per user and then fine-tune an open-weight model on your own hardware and ask whether self-hosting wins.
+    Ten hands-on labs, each a notebook that opens in your browser with nothing
+    installed. We will break a tokenizer. We will watch counting words run out
+    of road, and see what word vectors do about it. We will build an evaluation
+    set, give a model a tool, measure what a system costs per user, and run an
+    open-weight model on a free GPU to ask whether self-hosting wins.
+
+    You explore beforehand; Thursday is you showing the room one thing you
+    found. Preferably one that broke.
 
 -   :material-file-document-edit-outline:{ .lg .middle } **Document every decision as you make it**
 
@@ -78,12 +84,17 @@ arguing that the field's most celebrated technique is an illusion. You will lear
 
 Every reading in this course is free and open access.
 
-I will provide tutorials and how-to-guides for installing specific libraries and toolkits. If you fall behind in a lab it is your responsibility to meet with me in office hours so we can troubleshoot your machine. When a
-paper contains mathematics you do not understand, you will be told which sections
-to skip and what to take from the rest. Learning to read a paper you cannot
-fully understand is itself one of the skills this course teaches.
+**There is also nothing to install.** The labs run in Google Colab, on a Google
+login, from any machine including a Chromebook or a library computer. If you
+would rather build a local toolchain, the guide covers that too and I will sit
+with you while you do it — but it is an option, never a requirement.
+
+When a paper contains mathematics you do not understand, you will be told which
+sections to skip and what to take from the rest. Learning to read a paper you
+cannot fully understand is itself one of the skills this course teaches.
 
 [Set up your tools](guides/setup.md){ .md-button }
+[Working in Colab](guides/colab.md){ .md-button }
 
 ---
 

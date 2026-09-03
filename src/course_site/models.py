@@ -255,6 +255,44 @@ class Session(Base):
     so this is a field with a test behind it rather than a link someone
     remembers to paste in.
     """
+    notebook: str | None = None
+    """Stem of the notebook in ``notebooks/`` that this session explores with.
+
+    The file is the source of truth for its own title and its own contents; this
+    field only says which one belongs to this session. ``tests/test_notebooks.py``
+    checks the file exists, that no two sessions claim the same one, and that
+    every lab either names one or is listed as deliberately not needing one.
+    """
+    notebook_exempt: str | None = None
+    """Why this lab has no notebook. Required if a lab declares none.
+
+    A lab with no notebook is a lab a student cannot prepare for on their own,
+    which is the whole shape of a Thursday now. That is sometimes right -- W1
+    is account setup and nothing to run -- but it has to be a decision someone
+    wrote down, not a gap.
+    """
+
+    @field_validator("notebook")
+    @classmethod
+    def _notebook_is_a_slug(cls, v: str | None) -> str | None:
+        if v is not None and not re.fullmatch(r"[a-z0-9-]+", v):
+            raise ValueError(f"notebook must be a bare filename stem, got {v!r}")
+        return v
+
+    @model_validator(mode="after")
+    def _notebook_exemption_is_explained(self) -> Session:
+        if self.notebook and self.notebook_exempt:
+            raise ValueError(
+                f"session {self.slug!r} names a notebook and also claims an exemption "
+                "from having one. It cannot be both."
+            )
+        if self.kind is SessionKind.LAB and not self.notebook and not self.notebook_exempt:
+            raise ValueError(
+                f"lab {self.slug!r} has no notebook and no `notebook_exempt` saying why. "
+                "Thursdays are shown, not followed -- a lab with nothing to work through "
+                "beforehand leaves students with nothing to bring."
+            )
+        return self
 
     @field_validator("guides")
     @classmethod
@@ -282,6 +320,10 @@ class Session(Base):
     @property
     def is_lab(self) -> bool:
         return self.kind is SessionKind.LAB
+
+    @property
+    def notebook_file(self) -> str | None:
+        return f"{self.notebook}.ipynb" if self.notebook else None
 
 
 class DatedSession(Base):

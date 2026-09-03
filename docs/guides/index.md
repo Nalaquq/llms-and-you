@@ -5,14 +5,23 @@ of them are things students ask about.
 
 <div class="grid cards" markdown>
 
+-   :material-notebook-outline:{ .lg .middle } **[Working in Google Colab](colab.md)**
+
+    ---
+
+    Where every Thursday notebook runs, on a Google login and nothing else.
+    Running cells, saving your own copy, why the runtime forgets everything
+    overnight, and the errors you will actually hit. Also: why working through
+    a notebook with a chatbot is allowed here, and where that line sits.
+
 -   :material-console:{ .lg .middle } **[Setting up your tools](setup.md)**
 
     ---
 
-    GitHub, Git, your project repository, Claude Code and VS Code in Week 1;
-    Python and a virtual environment in Week 2. Assumes you have never opened
-    a terminal. We do both together in class — this page is the reference and
-    the fallback.
+    A GitHub account and your project repository in Week 1 — all in the browser,
+    nothing installed. Then, entirely optionally, Python and a local toolchain
+    for anyone who wants one. Assumes you have never opened a terminal and never
+    asks you to.
 
 -   :material-robot-outline:{ .lg .middle } **[Using BoodleBox to understand a reading](boodlebox.md)**
 
@@ -61,20 +70,37 @@ of them are things students ask about.
 
 ## Tools you will need
 
-All free. Set up in the Week 1 lab.
+All free. The required ones need a browser and nothing else.
+
+**Required — two free accounts, both in a browser:**
 
 | Tool | Used for |
 |:---|:---|
-| [GitHub](https://github.com/) | Your account and your project repository. Set up Week 1 |
-| [Git](https://git-scm.com/downloads) + [GitHub CLI](https://cli.github.com/) | Cloning, committing, pushing. Installed Week 1, before anything else works |
-| [Claude Code](https://claude.com/claude-code) + [VS Code](https://code.visualstudio.com/) | Installed Week 1; used all term |
-| [Python](https://www.python.org/downloads/) | Installed Week 2; every lab after |
-| [Claude desktop app](https://claude.ai/download) | Optional. A comfortable surface for long conversations |
+| [GitHub](https://github.com/) | Your account and your project repository. Set up Week 1, in the browser |
+| [Google Colab](https://colab.research.google.com/) | Every Thursday notebook. A Google login; nothing installed |
 | [Microsoft Co-Pilot](https://m365.cloud.microsoft/) · [BoodleBox](https://boodlebox.ai/) | College-provided chat access — use these, not a personal subscription |
-| [Claude API](https://docs.claude.com/en/api/overview) | The labs and your project. Needs an API key, arranged at the start of term |
-| [Hugging Face](https://huggingface.co/) | Datasets, leaderboards, the `evaluate` library |
 | [HackAPrompt](https://www.hackaprompt.com/) | Red-teaming midterm, Weeks 8–9 |
 | [Project template](https://github.com/Nalaquq/llms-and-you-project) | The starting point for your semester project |
+
+**Used inside the notebooks.** Nothing to install — Colab has them, or the
+setup cell adds them:
+
+| Library | Used for |
+|:---|:---|
+| [scikit-learn](https://scikit-learn.org/stable/) | Bag of words, TF-IDF, cosine similarity, PCA. Week 2 onward |
+| [Hugging Face](https://huggingface.co/docs) | Tokenizers, open-weight models, datasets, the `evaluate` library |
+| [gensim](https://radimrehurek.com/gensim/) | word2vec — pretrained vectors, and training your own. Week 2 |
+| [NLTK](https://www.nltk.org/) | Stemming and lemmatization. Week 2 |
+
+**Optional, for anyone who wants a local toolchain.** None of this is graded and
+no lab requires it:
+
+| Tool | Used for |
+|:---|:---|
+| [Python](https://www.python.org/downloads/) + [VS Code](https://code.visualstudio.com/) | Running the notebooks on your own machine |
+| [Git](https://git-scm.com/downloads) + [GitHub CLI](https://cli.github.com/) | The command-line route to the same repository |
+| [Claude Code](https://claude.com/claude-code) · [desktop app](https://claude.ai/download) | A model that can read and edit a folder. Nothing assumes it |
+| [Claude API](https://docs.claude.com/en/api/overview) | A few later labs and, if you want it, your project |
 
 If cost is ever a barrier to any of these, tell me early. It is a solvable
 problem and not one you should be quietly working around.

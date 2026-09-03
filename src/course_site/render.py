@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from .guides import split_ref
 from .models import Access, Assignment, Concept, DatedSession, Guide, Resource
+from .notebooks import Notebook
 
 
 def reading_entry(r: Resource) -> str:
@@ -142,4 +143,40 @@ def concept_block(concepts: list[Concept], prefix: str = "") -> str:
     ]
     for c in concepts:
         lines.append(f"    - :material-school-outline: **[{c.name}]({prefix}{c.anchor})**")
+    return "\n".join(lines) + "\n"
+
+
+def notebook_block(nb: Notebook) -> str:
+    """The notebook for a session, as the first thing under the header.
+
+    Placed above the guides rather than in the activity prose, because opening it
+    is the entire instruction for a Thursday now and a student should not have to
+    read a paragraph to find the button. The Colab link is first and the GitHub
+    link second: one click versus a working Python install is not a choice most
+    of the room should have to make, but it stays available for the people who
+    want it.
+
+    A draft says so, in the one place a student would otherwise waste an evening
+    finding out for themselves.
+    """
+    lines = [
+        '!!! example "Work through this before Thursday"',
+        "",
+        f"    :material-notebook-outline: **[{nb.title}]({nb.colab_url})**",
+        "",
+        "    Opens in Google Colab, in your browser. Nothing to install and no",
+        "    account beyond a Google login. Explore what interests you, then bring",
+        "    **one thing you found** to show the room.",
+        "",
+        f"    <small>[:material-github: View or download the notebook]({nb.github_url})",
+        "    &nbsp;·&nbsp; [:material-compass-outline: How to use Colab]"
+        "(../guides/colab.md)</small>",
+    ]
+    if nb.is_draft:
+        lines += [
+            "",
+            "    :material-progress-pencil: **This notebook is still a draft.** The",
+            "    structure is settled but the worked code is not written yet. It will be",
+            "    finished before the session and announced in the changelog.",
+        ]
     return "\n".join(lines) + "\n"

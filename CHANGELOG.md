@@ -20,6 +20,102 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — the course now runs in a browser **[student-facing]**
+
+**You no longer have to install anything.** Not Python, not Git, not a terminal,
+not an editor. A browser and two free accounts — GitHub and Google — cover every
+graded thing in this course.
+
+This is a direct response to how Weeks 1 and 2 actually went. Too much of the
+room spent the first fortnight fighting PATH variables and PowerShell execution
+policies instead of learning anything about language models, and that is the
+worst possible two weeks to spend that way.
+
+**Week 1 Thursday** is now a GitHub account, a copy of the project template made
+with the green *Use this template* button, and ADR-001 written and committed in
+GitHub's web editor. No `git`, no `gh`, no installs. The commit button does
+exactly what `git commit` does.
+
+**Every lab from Week 2** is a notebook that opens in
+[Google Colab](https://Nalaquq.github.io/llms-and-you/guides/colab/) from a link
+on the session page. Nothing to install, and it works on a Chromebook or a
+library computer.
+
+**The local toolchain is still fully documented and now entirely optional.**
+Python, VS Code, Git, the GitHub CLI, and Claude Code all keep their
+instructions, in sections marked optional. If you want that route it is better
+in the long run and I will sit with you while you set it up — but no assignment
+assumes it and nothing is graded on it.
+
+Reasoning in
+[ADR-020](https://Nalaquq.github.io/llms-and-you/adr/#adr-020-make-the-browser-the-supported-path-and-the-local-toolchain-optional).
+
+### Changed — Thursdays are now a showcase, not a guided lab **[student-facing]**
+
+Labs used to be a sequence of steps we worked through together. They are now the
+other way round: **you explore the notebook beforehand, and Thursday is you
+showing the room one thing you found.**
+
+Ten minutes each, informally, laptop open. A finding is a claim plus the
+evidence you ran — *I expected X, I ran Y, I got Z* — and **a method that broke
+is worth more than one that worked.** The labs were always graded on the
+write-up rather than the result; this is the format that finally makes that
+true.
+
+You do not need working code to have something to show. A table, a screenshot, a
+chatbot conversation where you worked out what an output meant, or a confusion
+you can state precisely all count. Using a chatbot to work through a notebook is
+explicitly allowed — it is the tooling half of the course.
+
+Notebooks assign no reading, so the Tuesday/Thursday workload promise is intact.
+Reasoning in
+[ADR-021](https://Nalaquq.github.io/llms-and-you/adr/#adr-021-make-thursday-a-showcase-and-put-the-exploration-before-it).
+
+### Changed — Week 2's lab is now about Week 2 **[student-facing]**
+
+The Thursday lab was Python setup plus a token counter. It is now
+**[Counting Words, and Where Counting Runs
+Out](https://Nalaquq.github.io/llms-and-you/sessions/w02-thu/)** — the whole of
+Tuesday, run rather than read.
+
+Tokenization with a real Hugging Face tokenizer, bag of words and TF-IDF with
+scikit-learn, cosine similarity, stemming and lemmatization, and word2vec with
+gensim — pretrained vectors, your own trained on a tiny corpus, and the
+difference between them. It exercises about nineteen of the week's study-guide
+entries.
+
+Three things the notebook makes you find out for yourself rather than telling
+you: TF-IDF's famous behaviour does **not** appear on a small corpus until you
+remove stop words, and you can measure how much that decision bought you; two
+sentences meaning the same thing with no shared words score **0.00** similarity,
+which is the entire motivation for word vectors; and `king - man + woman` works
+beautifully while `doctor - man + woman` returns something nobody puts in a blog
+post.
+
+**It needs no API key and no account.** Everything in it runs on free libraries,
+which is also why it is the first one finished.
+
+### Added — a Colab guide, and notebooks as course data
+
+[Working in Google Colab](https://Nalaquq.github.io/llms-and-you/guides/colab/)
+covers running cells, saving your own copy, why the runtime forgets everything
+overnight, where API keys go when a notebook needs one, and the errors you will
+actually hit.
+
+Behind the site, `notebooks/` is now validated the same way readings and guides
+are: a session names its notebook by id, a lab must either have one or record
+why it does not, and tests check that every notebook is valid JSON, carries no
+saved output, contains nothing shaped like a credential, and — for Week 2
+specifically — still covers the concepts the session promises.
+
+**Nine of the ten lab notebooks are still drafts.** Their structure is settled
+and their code is not written yet; each says so on its own session page, and
+they will be finished and announced here before their sessions.
+
+### Fixed
+
+- The Thursday Labs component said "twelve hands-on sessions". There are ten.
+
 ### Added — lecture slides, hosted, with their provenance **[student-facing]**
 
 The Week 2 deck — 27 animated slides on how text becomes numbers — is now on

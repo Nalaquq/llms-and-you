@@ -50,9 +50,11 @@
   title: Thursday Labs
   weight: 20
   summary: >-
-    Twelve hands-on sessions. Graded on the write-up rather than the result --
-    a lab that failed and was documented honestly scores better than one that
-    worked and was not.
+    Ten hands-on sessions. Each has a notebook you work through beforehand, at
+    whatever depth interests you; the session itself is you showing the room one
+    thing you found. Graded on the write-up rather than the result -- a lab that
+    failed and was documented honestly scores better than one that worked and
+    was not. You do not need working code to have something to show.
 
 - id: responses
   title: Reading Responses and Burchell Reflections

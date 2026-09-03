@@ -34,6 +34,15 @@ packages = ["src/course_site"]
 line-length = 100
 src = ["src", "tests"]
 
+# Lab notebooks are teaching material, not library code, and ruff's defaults
+# fight the pedagogy rather than improve it. Imports are introduced beside the
+# section that explains them -- `from nltk.stem import PorterStemmer` belongs in
+# the stemming cell, not hoisted to the top of a notebook nobody reads top to
+# bottom -- and import order follows the order concepts are met. A notebook is
+# verified by being run, which is the check that actually matters here and the
+# one no linter can perform. See ADR-020.
+extend-exclude = ["notebooks/"]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "N", "SIM", "RUF"]
 ignore = [

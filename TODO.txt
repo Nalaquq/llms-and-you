@@ -20,13 +20,28 @@ Something the next version of a file in prompts/ has to do differently.
 - [ ] 03-design-schedule.md: say explicitly that labs assign no reading.
       It has had to be corrected in every run so far.
 
+- [ ] every prompt that touches a lab has to say the browser is the
+      supported path now. The install-first habit is baked into the
+      older prompts and it came back twice while doing ADR-020.
+
 
 ## Change in data/
 A fact that is wrong, missing, or stated in prose where it should be a
 field. Course content lives in data/*.yml and nowhere else.
 
 - [ ] check est_minutes on the Week 2 readings against how long they
-      actually took
+      actually took. NB: w02-tue is pinned at exactly 241 in
+      HEAVY_SESSIONS, so re-timing fails the build until that number is
+      updated deliberately. That is the point of it.
+
+- [ ] nine lab notebooks are still drafts: w03 w04 w06 w07 w08 w11 w12
+      w13. Structure is settled, code is not written. Each one must be
+      RUN END TO END before its status flips to complete -- w02 had two
+      factually wrong paragraphs that only running it caught.
+
+- [ ] w08-thu (red-teaming) may not want a notebook at all -- most of
+      that session happens on hackaprompt.com. Decide before Week 8
+      whether it is a logging notebook or a notebook_exempt.
 
 
 ## Worth an ADR
@@ -34,11 +49,22 @@ A choice a reader could not reconstruct from the files themselves.
 Write it up in docs/adr/index.md while the rejected alternatives are
 still fresh — that section is the part that is worth anything.
 
-- [ ]
+- [ ] if Colab's free tier changes, the fallback (Kaggle? Binder?) is a
+      real decision and should be written up before it is needed rather
+      than during the week it breaks.
 
 
 ## Ask about
 Open questions, and anything to verify before it goes in front of
 students.
 
-- [ ]
+- [ ] does the project template still assume a local clone? Its README
+      walks through venv + API key, and Week 1 no longer does either.
+      It is a separate repo, so it did not move with the rest of this.
+
+- [ ] gensim needs a Python version with a prebuilt wheel. Colab is on
+      3.12 and fine; it does NOT build on 3.14. Worth re-checking in
+      August in case Colab has moved.
+
+- [ ] w02-thu wants a real check that thirteen students can all pull
+      glove-wiki-gigaword-50 in one room without the wifi dying.

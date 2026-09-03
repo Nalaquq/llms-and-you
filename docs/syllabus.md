@@ -56,7 +56,20 @@ The course is named after Vaswani et al.'s 2017 paper. We read it in Week 3.
 
 !!! info "No prerequisites"
 
-    You do not need prior experience with coding, Machine Learning, or AI. We will cover the math at a high level so it is digestible, but also accessible for those in the class that have not taken linear algebra, algorithms, or differential equations. We install the tools together in class and you can choose an ecosystem that works best for you (e.g., browser-based chats with GPT, Claude's CLI in VS Code, or a standalone desktop app). When we cover technical reports and white papers containing model architectures and math, I will tell you which sections to focus on.
+    You do not need prior experience with coding, Machine Learning, or AI. We
+    will cover the math at a high level so it is digestible, but also accessible
+    for those in the class that have not taken linear algebra, algorithms, or
+    differential equations. When we cover technical reports and white papers
+    containing model architectures and math, I will tell you which sections to
+    focus on.
+
+    **You also do not need to install anything.** Everything hands-on in this
+    course runs in a browser tab: the lab notebooks in
+    [Google Colab](guides/colab.md), your project repository on
+    [GitHub](guides/setup.md#week-1-your-repository-in-the-browser), and the
+    college's own chat tools. If you would rather work locally — Python, an
+    editor, a terminal — that route is written up in full and I will help you
+    set it up, but nothing is graded on it.
 
 ## Learning objectives
 
@@ -108,9 +121,19 @@ The full library is on the [Readings](resources.md) page.
 
 **Tuesdays cover a new idea or concept.** I will assign one or two substantial items, typically 45–75 minutes of preparation, plus discussion questions posted on the session page in advance. Come able to answer them, and come with questions. 
 
-**Thursdays are lab days.** This is deliberate. Labs
-are for building, breaking, and writing up what happened. Your total preparation
-load for these days will involve installing libraries, software, and testing different approaches before class. In the best world, we use lab days to showcase what we learned rather than following a series of steps together as a class like robots. 
+**Thursdays are lab days, and they are yours.** Each lab has a
+[notebook](guides/colab.md) that opens in your browser. Explore it beforehand at
+whatever depth interests you — change the inputs, break things, follow the
+question you actually find interesting rather than the one I wrote down.
+
+Then **Thursday is you showing what you found.** Ten minutes each, informally,
+laptop open. We are not working through steps together as a class like robots;
+we are comparing what happened when thirteen people poked at the same thing.
+
+A method that broke is worth more than one that worked, and these labs are
+graded on the write-up rather than the result. You also do not need working code
+to have something to show — a table, a screenshot, or a confusion you can state
+precisely all count.
 
 **Five sessions are individual meetings rather than a group class.** See
 [individual meetings](#individual-meetings) below.

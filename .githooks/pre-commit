@@ -32,6 +32,29 @@ if [ -n "$hits" ]; then
   exit 1
 fi
 
+# Notebooks: refuse saved output.
+#
+# Committed output makes every diff unreadable, can carry whatever was on screen
+# when the cell ran, and lies to students -- a notebook showing results looks
+# like it works, so nobody notices when it stops. tests/test_notebooks.py checks
+# the same thing; this catches it before it is in history rather than after.
+nbs=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.ipynb$' || true)
+for nb in $nbs; do
+  # "output_type" appears only inside a real output; a numeric execution_count
+  # only on a cell that has been run. A cleared notebook has neither.
+  if git show ":$nb" | grep -qE '"output_type"|"execution_count": [0-9]'; then
+    echo
+    echo "BLOCKED: $nb has saved cell output."
+    echo
+    echo "Clear it before committing:"
+    echo "    jupyter nbconvert --clear-output --inplace $nb"
+    echo
+    echo "In Colab: Edit -> Clear all outputs, then File -> Download .ipynb."
+    echo
+    exit 1
+  fi
+done
+
 # Belt and braces: never allow a .env file in.
 if git diff --cached --name-only --diff-filter=ACM | grep -qE '(^|/)\.env(\.|$)'; then
   echo

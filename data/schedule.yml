@@ -44,264 +44,133 @@
   kind: lab
   topic: 'Lab: Your Repository, and a Decision Record'
   theme: methodology
+  notebook_exempt: >-
+    Nothing to run today. This session is a GitHub account and the first
+    decision record, both done in the browser -- the notebooks start in Week 2.
   due: >-
-    ADR-001 -- any one of today's decisions, written up, committed, and pushed
+    ADR-001 -- any one of today's decisions, written up and committed
   summary: >-
     We build the thing you will work in for the rest of the semester -- a GitHub
-    account, your own copy of the project template, and the two tools that read
-    it. Then the practice that runs through the whole course: writing down what
-    you decided and why, while you are deciding it.
+    account and your own copy of the project template. Then the practice that
+    runs through the whole course: writing down what you decided and why, while
+    you are deciding it.
+
+
+    **Everything today happens in a web browser.** Nothing is installed on your
+    machine and there is no terminal. If you would rather work from the command
+    line, the setup guide has that route as well and you are welcome to it --
+    but it is an option, not the path.
   guides:
-    - 'setup#week-1-your-repository-and-your-tools'
+    - 'setup#week-1-your-repository-in-the-browser'
     - writing-adrs
   activity: |-
-    Steps 1 to 8 are done together, one line at a time, on whatever machine you
-    brought. Nothing is assumed. If something does not work on your machine that
-    is normal, and it is my problem to solve rather than yours.
+    Steps 1 to 5 are done together, one at a time, on whatever machine you
+    brought. Nothing is assumed and nothing gets installed.
 
     Every step below is also written out in
-    [the setup guide](../guides/setup.md#week-1-your-repository-and-your-tools).
+    [the setup guide](../guides/setup.md#week-1-your-repository-in-the-browser).
     That page is the fallback: use it if you miss this session, if you get a
     step wrong, or if you are setting up a second machine later in the term.
 
-    **Windows, macOS, or Linux -- all three are fine.** Every command on this
-    site is given twice, once for macOS and Linux and once for Windows
-    PowerShell, including the ones that are identical. Pick your tab once and
-    the whole site follows you. Today's commands happen to be the same on every
-    platform; from Week 2 they are not, which is why the tabs are there.
+    **Windows, macOS, Linux, or a Chromebook -- all four are fine.** That is the
+    point of doing it this way. A browser is the only requirement in this course
+    until you decide otherwise.
 
     ### 1. Make a GitHub account
 
-    Free. Pick a username you would be willing to put on a CV -- this account
-    will outlive the course.
+    Free, at [github.com](https://github.com). Pick a username you would be
+    willing to put on a CV -- this account will outlive the course.
+
+    Use an email address you will still have after you graduate. It goes on
+    every commit you make, permanently and in public; if you would rather it
+    were not your real one, GitHub will give you a private forwarding address
+    and the guide explains where.
     [:material-compass-outline: Guide](../guides/setup.md#a-github-account)
 
-    ### 2. Install Git, and tell it who you are
+    ### 2. Make your own copy of the project template
 
-    Git is what does the cloning and the committing. It is not GitHub: Git runs
-    on your machine, GitHub is the website that keeps a copy. You need both, and
-    most machines do not have Git yet.
+    Open [the course project
+    template](https://github.com/Nalaquq/llms-and-you-project) and press the
+    green **Use this template** button, then **Create a new repository**. Name
+    it whatever you like. Make it **public**.
 
-    === "macOS / Linux"
+    That gives you a repository that is *yours*, on your own account, with a
+    clean history starting at your first commit.
 
-        ```bash
-        git --version
-        ```
+    **Why not fork it?** A fork stays tied to mine -- it is presented as a
+    contribution to my project rather than a project of your own, and it carries
+    my whole history with it. A template copy is a genuine start.
 
-    === "Windows (PowerShell)"
-
-        ```powershell
-        winget install --id Git.Git -e --source winget
-        ```
-
-    On macOS that either prints a version or offers to install the tools that
-    provide it -- accept, and wait. On Windows, **open a new PowerShell window
-    afterwards**, or it will not find the command you just installed. On Linux
-    the guide has the `apt` and `dnf` lines.
-
-    Then tell it who you are, once per machine. Git refuses to commit without
-    this, and you are committing today:
-
-    === "macOS / Linux"
-
-        ```bash
-        git config --global user.name "Your Name"
-        git config --global user.email "you@example.com"
-        ```
-
-    === "Windows (PowerShell)"
-
-        ```powershell
-        git config --global user.name "Your Name"
-        git config --global user.email "you@example.com"
-        ```
-
-    Use the address on your GitHub account. It goes on every commit you push,
-    permanently and in public -- if you would rather it were not your real one,
-    the guide explains GitHub's private forwarding address.
-    [:material-compass-outline: Guide](../guides/setup.md#install-git)
-
-    ### 3. Install the GitHub CLI and sign in
-
-    GitHub stopped accepting passwords for pushing in 2021. `gh` deals with the
-    credential so you do not have to make an access token in your first week.
-
-    === "macOS / Linux"
-
-        ```bash
-        brew install gh
-        ```
-
-    === "Windows (PowerShell)"
-
-        ```powershell
-        winget install --id GitHub.cli -e --source winget
-        ```
-
-    Then:
-
-    === "macOS / Linux"
-
-        ```bash
-        gh auth login
-        ```
-
-    === "Windows (PowerShell)"
-
-        ```powershell
-        gh auth login
-        ```
-
-    Answer **GitHub.com**, then **HTTPS**, then **yes** to letting it
-    authenticate Git. That last answer is what makes the push at the end of
-    today work without asking you for anything.
-    [:material-compass-outline: Guide](../guides/setup.md#install-the-github-cli-and-sign-in)
-
-    ### 4. Make your own copy of the project template, and clone it
-
-    One command, run from wherever you want the folder to live. It creates a
-    repository on **your** GitHub account from the course template, then clones
-    it to your machine. Call it whatever you like:
-
-    === "macOS / Linux"
-
-        ```bash
-        gh repo create llms-project \
-          --template Nalaquq/llms-and-you-project \
-          --public --clone
-        cd llms-project
-        ```
-
-    === "Windows (PowerShell)"
-
-        ```powershell
-        gh repo create llms-project `
-          --template Nalaquq/llms-and-you-project `
-          --public --clone
-        cd llms-project
-        ```
-
-    **Why not just clone mine?** Because you could not push to it -- a plain
-    clone points at my repository, which you have no write access to, and the
-    commit at the end of today would have nowhere to go. `--template` gives you
-    a repository that is yours, with a clean history starting at your first
-    commit. It is not a fork either; a fork stays tied to mine.
-
-    Where you put it sounds trivial. It is the first of today's decisions, and
-    you will be writing it up before you leave.
+    Where the repository lives and what it is called sounds trivial. It is the
+    first of today's decisions, and you will be writing it up before you leave.
     [:material-compass-outline: Guide](../guides/setup.md#your-own-copy-of-the-project-template)
 
-    ### 5. Turn on the credential guard
+    ### 3. Look at what you just got
 
-    Once per clone:
+    Read the `README.md` on your new repository's front page, then open
+    `PROMPTING.md`, the `adr/` folder, and `TODO.txt`. Five minutes, in the
+    browser.
 
-    === "macOS / Linux"
+    You are looking for where things go, not understanding all of it. The one
+    thing worth noticing today: prompts are kept as **files**, with a history,
+    rather than pasted into a chat window and lost.
 
-        ```bash
-        git config core.hooksPath .githooks
-        ```
+    ### 4. Edit a file on github.com and commit it
 
-    === "Windows (PowerShell)"
+    This is the whole Git workflow, and you can do all of it from the web page.
 
-        ```powershell
-        git config core.hooksPath .githooks
-        ```
+    Open `adr/ADR-001.md` in your repository, press the pencil icon, and write.
+    When you are done, scroll to the bottom, put a real sentence in the commit
+    message box, and press **Commit changes**.
 
-    It refuses any commit containing something shaped like an API key. A key
-    pushed to GitHub is scraped within minutes, and deleting it in the next
-    commit does not remove it -- it stays in the history.
-    [:material-compass-outline: Guide](../guides/setup.md#clone-it)
+    That is a commit. It is a saved, dated, described version of your work that
+    you can return to. Nothing else in this course requires more Git than that
+    -- and the button you just pressed is doing exactly what `git commit` does.
+    [:material-compass-outline: Guide](../guides/setup.md#editing-and-committing-in-the-browser)
 
-    ### 6. Install the Claude Code CLI
+    ### 5. Write ADR-001, and commit it
 
-    `claude`, in a terminal. Sign in when it asks. The difference that matters
-    is that it can **see and change the files in a folder**: a chat window only
-    knows what you paste into it, while Claude Code reads the directory, opens
-    the files, and edits them in place.
+    A decision record is not a note. It says what you decided, what else you
+    could have done, and what it cost you. The template is in your repository
+    and the [guide](../guides/writing-adrs.md) explains each section.
 
-    Start it inside your clone and ask it something ordinary:
+    You made at least four decisions in the last hour without noticing:
 
-    ```
-    what is in this repository, and what is each folder for?
-    ```
+    - what to call your repository, and whether to make it public
+    - whether to use your real email address on your commits
+    - whether to work in the browser or set up a local toolchain later
+    - what to write in that first commit message
 
-    Read the answer against step 8 below. It will be broadly right. Notice where
-    it is confident and wrong -- we spend Week 6 on why that happens.
-    [:material-compass-outline: Guide](../guides/setup.md#claude-code-the-cli-we-use-all-term)
+    Pick **one**. Write it up. Commit it.
 
-    ### 7. Install VS Code
+    **What is graded is whether the alternatives section contains a real
+    alternative** -- something you actually considered and rejected, with the
+    reason. "I could have done it differently" is not an alternative.
 
-    Then open your cloned folder in it -- **File > Open Folder**, not open-a-file
-    -- and run `claude` again from VS Code's built-in terminal, so the editor and
-    the model are looking at the same directory. The Python extension comes next
-    week. Today it is somewhere to see the files.
-    [:material-compass-outline: Guide](../guides/setup.md#vs-code)
+    ### If you want the command line
 
-    ### 8. Walk the structure
+    Some of you will prefer it, and it is genuinely better once you are past the
+    first week -- branching, history, and working offline are all easier. It is
+    written up in full at [the command-line
+    route](../guides/setup.md#the-command-line-route-optional), and I will help
+    anyone who wants it in office hours.
 
-    You did not build this layout, so none of it is obvious. Every folder in it
-    is something the course grades, and we go through them together -- the same
-    table is in [the setup guide](../guides/setup.md#what-is-in-the-folder) for
-    when you need it again:
-
-    | Path | What it is for |
-    |:---|:---|
-    | `TODO.txt` | What the next version of your prompt needs to do |
-    | `PROMPTING.md` | The practices this course grades. Read this one first |
-    | `prompts/` | Your prompts, as versioned files -- one file per prompt |
-    | `src/project/` | Your code. `client.py` is written for you; the rest is yours |
-    | `evals/` | Your test set. Started in week one, not the week before it is due |
-    | `docs/adr/` | Your decision log -- why you chose things. Graded |
-    | `CHANGELOG.md` | What changed and when. Graded alongside the ADRs |
-    | `tests/` | Ordinary tests, for the parts that are ordinary code |
-
-    Open `TODO.txt` and put a line in it before you leave. It is a running list
-    of what the next draft of your prompt has to do, in sections by where each
-    item ends up -- in the prompt itself, in `evals/`, in an ADR, or in a
-    question for me. Keeping it is the cheap version of what the rest of this
-    lab is about. An hour after you have the thought, you no longer have it.
-
-    ### 9. Then the actual lab
-
-    All of that required decisions, and you made them without noticing: which
-    install method, what you named the repository, where you put the folder,
-    whether you took the first thing Claude Code suggested or pushed back. Go
-    back and write three of them up as Architectural Decision Records, using the
-    [Nygard template](../guides/writing-adrs.md#the-template) -- context,
-    decision, alternatives, consequences. They go in `docs/adr/`, where the
-    template is already waiting for you.
-
-    Read [Writing ADRs](../guides/writing-adrs.md) before you start. It has the
-    template, the four required ADRs and when each is due, and -- the part worth
-    your time -- [what separates a good one from a bad
-    one](../guides/writing-adrs.md#what-separates-a-good-adr-from-a-bad-one).
-
-    Then keep going. Give Claude Code a small task in your repository and **write
-    the record as you decide, not afterwards.** You will notice these are
-    different activities: the second is harder, slower, and honest, and the
-    difference between them is most of what this practice is worth.
-
-    **ADR-001 is due** -- any one of them, your choice. Commit it and push it, so
-    it is on GitHub rather than only on your laptop. What is graded is whether
-    the alternatives section contains a real alternative.
+    It is not required at any point this semester, and choosing not to use it
+    costs you no marks. That is itself a decision worth recording.
 
     Something not working? [When something
     breaks](../guides/setup.md#when-something-breaks) lists the errors this lab
     actually produces and what each one means. Bring the exact error text.
   optional:
     - github
-    - git-scm
-    - github-cli
     - project-template
     - github-hello-world
     - git-handbook
-    - claude-code
-    - claude-code-setup
-    - claude-code-quickstart
-    - vscode
     - adr-github
     - adr-templates
-    - claude-desktop
+    - git-scm
+    - github-cli
+    - vscode
 
 # ===========================================================================
 # WEEK 2 — How text becomes numbers
@@ -363,29 +232,61 @@
 - week: 2
   day: thu
   kind: lab
-  topic: 'Lab: Python, and Why "Strawberry" Has Three R''s'
+  topic: 'Lab: Counting Words, and Where Counting Runs Out'
   theme: foundations
+  notebook: w02-thu
   summary: >-
-    Python and VS Code set up, then the first thing we measure with them: how
-    text becomes tokens, and what that costs you.
+    Everything from Tuesday, run rather than read. Tokenization, bag of words,
+    TF-IDF, and word2vec -- in a notebook that opens in your browser with
+    nothing installed.
+
+
+    **Thursday is you showing what you found, not us working through it
+    together.** Explore the notebook before class, at whatever depth interests
+    you, and bring one thing worth ten minutes.
   guides:
-    - 'setup#week-2-python-and-vs-code'
+    - colab
+    - 'setup#week-2-python-on-your-own-machine-optional'
   activity: >-
-    First, the toolchain. Install Python and VS Code, make a virtual
-    environment, and `pip install anthropic`. Again: line by line, together, no
-    experience assumed.
+    Everyone takes ten minutes, informally, laptop open. No slides required and
+    no presentation expected -- open the cell, say what you did, say what
+    happened.
 
 
-    Then use it. Call the API's own token counter on text you write and watch
-    where the boundaries fall. Find three tasks that fail for tokenization
-    reasons and write up why -- counting letters is the famous one, but it is
-    not the most interesting.
+    A finding is a claim plus the evidence you ran, and it fits in three
+    sentences: *I expected X, I ran Y, I got Z, which surprised me because...*
+    **A method that broke is worth more than one that worked.** These labs are
+    graded on the write-up, not the result, and "I could not get this to work
+    and here is exactly where it stopped" is a legitimate ten minutes that
+    usually helps four other people.
 
 
-    One thing to carry forward: the counter is **model-specific**. A token count
-    from a different vendor's tokenizer is simply wrong here, and guessing is
-    how cost estimates go wrong. First Burchell reflection due.
-  optional: [anthropic-token-counting, anthropic-sdk-python, claude-quickstart, vscode]
+    What people tend to bring, roughly in order of how interesting it turns out
+    to be: a method that broke -- a stemming collision, an analogy that failed
+    absurdly, a similarity score that is plainly wrong. Their own corpus run
+    through TF-IDF, and whether the top terms matched what those documents are
+    actually about. A tokenization failure that is *not* letter counting. How
+    much text word2vec needs before it stops producing nonsense. Bias found in
+    the pretrained vectors, with the line that produced it.
+
+
+    You do not need working code to have something to show. A screenshot, a
+    table pasted into a document, or a conversation with a chatbot where you
+    worked out what an output meant are all fine. **A confusion you can state
+    precisely is a contribution** -- half of what makes these sessions useful is
+    somebody saying the thing four other people were quietly stuck on.
+
+
+    Bring a laptop. If you have not opened the notebook at all, come anyway and
+    sit with someone who has.
+  optional:
+    - google-colab
+    - colab-intro-notebook
+    - scikit-learn-text
+    - sklearn-feature-extraction
+    - gensim-word2vec
+    - hf-tokenizers-summary
+    - tf-embedding-projector
 
 # ===========================================================================
 # WEEK 3 — The architecture
@@ -422,10 +323,14 @@
   kind: lab
   topic: 'Lab: Watching Attention Work'
   theme: foundations
+  notebook: w03-thu
   summary: Attention weights made visible on real sentences.
   activity: >-
-    Use an attention-visualisation tool on ambiguous sentences. Predict where
-    the model will attend before you look, then find a case where you were wrong.
+    Predict where the model will attend before you look, then find a case where
+    you were wrong. Same format as last week: explore beforehand, bring one
+    thing, ten minutes each.
+  optional:
+    - hf-transformers
 
 # ===========================================================================
 # WEEK 4 — Prompting fundamentals  (Tuesday: individual meetings)
@@ -458,6 +363,7 @@
   kind: lab
   topic: 'Lab: Iteration Under Constraint'
   theme: technique
+  notebook: w04-thu
   summary: Same task, five prompts, one measurable outcome — driven from Python.
   activity: >-
     You are given a task and a scoring rubric. Improve your prompt across five
@@ -545,6 +451,7 @@
   kind: lab
   topic: 'Lab: Testing the Mirage'
   theme: technique
+  notebook: w06-thu
   summary: Run the disagreement yourself.
   activity: >-
     Construct tasks inside and outside the plausible training distribution.
@@ -578,6 +485,7 @@
   kind: lab
   topic: 'Lab: Build an Evaluation'
   theme: truthfulness
+  notebook: w07-thu
   summary: >-
     You cannot claim a prompt is better without a way to measure it. This is that
     way.
@@ -595,6 +503,7 @@
   kind: lab
   topic: 'Midterm Kickoff: Red-Teaming'
   theme: responsible
+  notebook: w08-thu
   summary: >-
     Fall Break takes Tuesday, so the week is a single working session -- which
     suits a lab that needs no advance reading.
@@ -708,6 +617,7 @@
   kind: lab
   topic: 'Lab: Giving a Model a Tool'
   theme: agents
+  notebook: w11-thu
   summary: Tool descriptions are prompts. Write them badly and watch what happens.
   activity: >-
     Define a tool, write its description three different ways, and measure how
@@ -742,6 +652,7 @@
   kind: lab
   topic: 'Lab: Build the Simplest Thing That Works'
   theme: agents
+  notebook: w12-thu
   summary: >-
     Anthropic's advice is to avoid building an agent. We take that seriously and
     test it.
@@ -788,6 +699,7 @@
   kind: lab
   topic: 'Lab: Instrument It, Then Run One Yourself'
   theme: deployment
+  notebook: w13-thu
   summary: >-
     Measure what your project costs, then ask the build-versus-buy question by
     running an open-weight model on your own hardware.

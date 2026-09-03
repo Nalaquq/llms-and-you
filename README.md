@@ -29,6 +29,9 @@ edit the YAML instead.
 
 ## Quick start
 
+These commands are for working on **the site**. Students need none of them —
+the course itself runs in a browser.
+
 **macOS / Linux**
 
 ```bash
@@ -61,7 +64,12 @@ data/semester.yml ──┼──> Pydantic validation ──> mkdocs-macros ─
 data/themes.yml ────┤         (loaders.py)      mkdocs-gen-files ─> 28 session pages
 data/assignments.yml┤                                              ──> readings page
 data/concepts.yml ──┘                                              ──> study guide
+notebooks/*.ipynb ──────> notebooks.py ────────────────────────────> Colab links
 ```
+
+Lab notebooks live in `notebooks/` and are referenced from a session by id, the
+same way a reading is. Students open them in Google Colab from a link on the
+session page; nothing has to be installed to run one.
 
 `semester.yml` holds term bounds, two holidays, and three windows where sessions
 run as individual meetings. `calendar.py` turns those into 28 dated meetings and
@@ -86,9 +94,11 @@ Conventions and common maintenance tasks are documented in the local
 - every guide is linked from the session that needs it
 - every study-guide concept names a real session and a real graded component
 - every shell command that differs by platform is given for both
+- every lab has a notebook, or records why it does not
+- no notebook ships with saved output or anything shaped like a credential
 
 ```
-169 passed
+196 passed
 ```
 
 ## Course themes

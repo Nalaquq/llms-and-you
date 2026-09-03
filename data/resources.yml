@@ -1032,3 +1032,79 @@
   url: https://www.cs.cmu.edu/~breaux/prompting/syllabus.html
   themes: [ecosystem]
   note: Benchmarked for structure. Not assigned to students.
+
+# --- Notebook toolchain -----------------------------------------------------
+# The libraries the Thursday notebooks actually use. Listed so a student who
+# wants to go past what a notebook does has the real documentation rather than
+# whatever a search returns. See ADR-020.
+
+- id: google-colab
+  title: "Welcome to Colab"
+  kind: tool
+  url: https://colab.research.google.com/
+  themes: [ecosystem]
+  est_minutes: 10
+  assign_note: >-
+    Where every Thursday notebook runs. A Google login is the only requirement;
+    there is nothing to install and nothing to pay for.
+
+- id: colab-intro-notebook
+  title: "Overview of Colab Features"
+  kind: guide
+  url: https://colab.research.google.com/notebooks/basic_features_overview.ipynb
+  themes: [ecosystem]
+  est_minutes: 15
+  assign_note: >-
+    Google's own tour, as a notebook you run. Cells, the runtime, and where the
+    files go. Worth fifteen minutes once, in Week 2.
+
+- id: scikit-learn-text
+  title: "Working With Text Data — scikit-learn"
+  kind: guide
+  url: https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html
+  themes: [foundations, ecosystem]
+  est_minutes: 40
+  assign_note: >-
+    The reference behind the Week 2 notebook's bag-of-words and TF-IDF sections.
+    Start at "Extracting features from text files" if you want the parts we used.
+
+- id: sklearn-feature-extraction
+  title: "Text feature extraction — scikit-learn user guide"
+  kind: guide
+  url: https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
+  themes: [foundations, ecosystem]
+  est_minutes: 30
+  assign_note: >-
+    Every option on CountVectorizer and TfidfVectorizer, including the exact
+    IDF formula the notebook reproduces by hand.
+
+- id: gensim-word2vec
+  title: "Word2Vec Model — gensim documentation"
+  kind: guide
+  url: https://radimrehurek.com/gensim/auto_examples/tutorials/run_word2vec.html
+  themes: [foundations, ecosystem]
+  est_minutes: 35
+  assign_note: >-
+    Training your own vectors, and the parameters the notebook sweeps: window,
+    sg, negative sampling. The section on why a small corpus fails is the useful
+    one.
+
+- id: hf-tokenizers-summary
+  title: "Summary of the Tokenizers"
+  kind: guide
+  url: https://huggingface.co/docs/transformers/tokenizer_summary
+  themes: [foundations, ecosystem]
+  est_minutes: 25
+  assign_note: >-
+    WordPiece, BPE, and SentencePiece -- why "strawberry" survives whole and
+    "raspberry" does not. Read this if the Week 2 tokenizer section interested
+    you.
+
+- id: hf-transformers
+  title: "Hugging Face Transformers"
+  kind: tool
+  url: https://huggingface.co/docs/transformers/index
+  themes: [ecosystem, openweight]
+  assign_note: >-
+    The library the notebooks use for tokenizers and open-weight models. Free,
+    no account needed for anything we do.

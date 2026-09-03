@@ -17,7 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from course_site.guides import load_guides
 from course_site.loaders import load_concepts, load_resources, load_schedule, load_themes
 from course_site.models import DatedSession, GenAI, SessionKind
-from course_site.render import concept_block, guide_block, reading_block
+from course_site.notebooks import load_notebooks
+from course_site.render import concept_block, guide_block, notebook_block, reading_block
 
 KIND_LABEL = {
     SessionKind.SEMINAR: "Seminar",
@@ -55,6 +56,11 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
 
     if s.summary:
         out.append(f"{s.summary.strip()}\n")
+
+    # First thing after the summary. On a Thursday the notebook IS the
+    # instruction -- everything else on the page is context for it.
+    if s.notebook:
+        out.append(notebook_block(load_notebooks()[s.notebook]))
 
     # Above the reading, not below the activity: a student who is stuck is
     # stuck before they start, and this is the page they are already on.
@@ -95,10 +101,18 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
             out.append(f"<small>Estimated preparation: about {total} minutes.</small>\n")
     elif s.kind is SessionKind.LAB:
         out.append("## Read before class\n")
-        out.append(
-            '!!! success "Nothing new to read"\n\n'
-            "    Labs assign no new preparation. Bring what you built last session.\n"
-        )
+        if s.notebook:
+            out.append(
+                '!!! success "Nothing to read"\n\n'
+                "    Labs assign no reading. Work through as much of the notebook above\n"
+                "    as interests you instead, and come with something to show.\n"
+            )
+        else:
+            # A lab with no notebook has said why in `notebook_exempt`. Print the
+            # reason rather than a generic line -- the generic one told Week 1
+            # students to bring what they built last session, which was nothing.
+            why = (s.notebook_exempt or "Labs assign no new preparation.").strip()
+            out.append(f'!!! success "Nothing to prepare"\n\n    {why}\n')
 
     if s.questions:
         out.append("## Come prepared to answer\n")

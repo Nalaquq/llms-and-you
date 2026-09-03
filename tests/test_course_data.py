@@ -617,6 +617,15 @@ def test_every_resource_is_used_or_deliberately_reference_only():
         "adr-github",
         "ms-copilot",
         "boodlebox",
+        # The optional local toolchain. Linked from the setup guide's
+        # command-line section rather than from a session, because no lab
+        # requires any of it any more -- see ADR-020.
+        "claude-code",
+        "claude-code-setup",
+        "claude-code-quickstart",
+        "claude-desktop",
+        "claude-quickstart",
+        "anthropic-sdk-python",
     }
     orphans = set(RESOURCES) - used - reference_only
     assert not orphans, f"unused resources: {sorted(orphans)}"

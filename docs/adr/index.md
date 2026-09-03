@@ -1472,3 +1472,190 @@ promise: future decks should arrive with their prompts, or say why not.
 The subtler consequence is the precedent: course artifacts generated with AI
 are published *with their provenance*, in the citation form the syllabus
 demands of students. The course now models its own policy.
+
+
+---
+
+## ADR-020: Make the browser the supported path, and the local toolchain optional
+
+**Status:** Accepted
+
+**Supersedes:** [ADR-007](#adr-007-put-students-in-version-control-on-day-two-not-at-the-project)
+in part — students are still in version control on day two, but through
+github.com rather than a terminal.
+
+### Context
+
+Week 1 asked students with no programming background to install Git, sign in to
+the GitHub CLI, install Claude Code and VS Code, and push a commit — in one
+75-minute session, on whatever laptop they own. Week 2 added Python, a virtual
+environment, and `pip install anthropic`.
+
+It did not work. A substantial part of the room was still failing on installs
+after the sessions ended, and the failures were the unhelpful kind: PATH not
+updated until a new terminal, PowerShell script execution disabled, `python3`
+versus `python`, a `winget` that is not present. Each is individually solvable
+and collectively they consumed the first two weeks and a good deal of office
+hours.
+
+The deeper problem is what that time was spent *on*. This is a course about
+prompt engineering and language models. The install sequence taught none of it,
+and it front-loaded the whole term's frustration into the two weeks where
+students are deciding whether they belong here. A student who cannot run
+anything by Week 3 has not learned that toolchains are hard; they have learned
+that this course is not for them.
+
+The tooling was also more Anthropic-specific than the subject matter warrants.
+Tokenization, bag of words, TF-IDF and word2vec are library work — scikit-learn,
+gensim, Hugging Face — and require no commercial API at all. The Week 2 lab was
+calling a paid token-counting endpoint to teach an idea that `AutoTokenizer`
+demonstrates better, for free, with no account.
+
+### Decision
+
+**The browser is the supported path for everything the course grades.**
+
+- **Week 1** is a GitHub account and a template copy made with the *Use this
+  template* button, with the first ADR written and committed in GitHub's web
+  editor. No Git, no CLI, no installs.
+- **Week 2 onward**, every lab is a Jupyter notebook opened in Google Colab from
+  a link on the session page. A Google login is the only requirement.
+- **Labs prefer libraries to APIs.** Where a concept can be shown with
+  scikit-learn, gensim, or a Hugging Face tokenizer, it is — no key, no account,
+  no spend. A commercial model is used only where the lab is genuinely about one.
+- **The local toolchain is documented in full and required by nothing.** Python,
+  VS Code, Git, the GitHub CLI and Claude Code all keep their instructions, moved
+  into sections explicitly marked optional.
+
+`Session` grows a `notebook` field, validated against `notebooks/` the same way
+`guides` is validated against `docs/guides/`. A lab must either name a notebook
+or carry a `notebook_exempt` string saying why it has none.
+
+### Alternatives considered
+
+**Keep the local toolchain and teach it harder.** Longer setup session, more
+office hours, a troubleshooting appendix. Rejected: we had already done the
+appendix, and the failures are environmental rather than instructional. More
+teaching does not install `winget` on a machine that lacks it.
+
+**A shared cloud environment we control** — Codespaces, a JupyterHub, a class
+server. Better ergonomics than Colab in several ways, and Codespaces would have
+kept the Git workflow intact. Rejected on cost, on the administrative overhead of
+provisioning accounts for a course this size, and because both would leave
+students with nothing after the semester ends. Colab persists to their own Drive
+on their own Google account.
+
+**Drop GitHub as well, and keep decision logs in a shared document.** This was
+seriously considered: it removes the last account requirement. Rejected because
+the ADR log is 35% of the grade and version control is the thing that makes it
+honest — a document can be quietly backdated and a commit cannot. The browser
+workflow keeps that property at nearly zero setup cost, which made the trade
+clearly worth it.
+
+**Full pivot: delete the local instructions.** Rejected. Some students want the
+terminal, several arrive already comfortable with it, and Week 13 asks whether
+self-hosting an open-weight model is worth it — a question that reads
+differently if nobody in the room has ever run anything locally.
+
+### Consequences
+
+Nobody is blocked on an install. A Chromebook or a library computer is now
+sufficient for every graded thing, which also quietly removes a hardware cost
+barrier nobody had named.
+
+Students no longer learn `git` in Week 1. That is a real loss and it is
+deliberate: the commit button does the same job, and the students who want the
+command line will find it — the guide has it, and it is offered in every session
+that could use it.
+
+Two things get harder. The `test_labs_do_not_use_a_tool_the_guide_never_installs`
+guard now covers almost nothing, because labs no longer run shell commands at
+all; the equivalent guarantee for notebooks is that they are executed before
+release rather than checked statically. And Colab is a Google dependency the
+course does not control, which can change its free tier at any time. The
+notebooks are plain `.ipynb` files that run in Jupyter, VS Code, or Kaggle
+unchanged, so the exit cost is a link change rather than a rewrite.
+
+Reading responses, the Burchell reflections, and the AI policy are unaffected.
+
+---
+
+## ADR-021: Make Thursday a showcase, and put the exploration before it
+
+**Status:** Accepted
+
+### Context
+
+Thursdays were written as guided labs: a sequence of steps the room works
+through together. The syllabus had already conceded the problem — *"in the best
+world, we use lab days to showcase what we learned rather than following a
+series of steps together as a class like robots"* — but nothing in the schedule
+made that possible.
+
+Lockstep labs have two failure modes and both are common. The class moves at the
+speed of whoever is most stuck, so the students who are ready are bored; and
+following steps successfully produces no evidence of understanding, because
+nobody has made a decision. A student can complete a guided lab perfectly and
+have learned to type.
+
+There is also a structural mismatch. The course grades labs on the write-up
+rather than the result — but a lab where everyone runs the same cells produces
+thirteen identical write-ups, which is a rubric that cannot discriminate.
+
+### Decision
+
+**The exploration moves before the session, and the session becomes the
+showcase.**
+
+Each lab has a notebook that works out of the box and is explicitly not a
+worksheet. Every section ends with a *Your turn* block: open questions the code
+can answer that the notebook does not answer, deliberately including ones with
+no clean answer. Students work through whatever depth interests them.
+
+Thursday is then ten minutes each, informally, laptop open. A finding is a claim
+plus the evidence — *I expected X, I ran Y, I got Z* — and **a method that broke
+is worth more than one that worked**. Working code is not required to have
+something to show; a table, a screenshot, or a precisely stated confusion counts.
+
+Using a chatbot to work through a notebook is explicitly permitted and named as
+such on the Colab guide. It is the tooling half of the course, and pretending
+otherwise would only mean students do it without saying so.
+
+### Alternatives considered
+
+**Keep guided labs, add optional extensions at the end.** The common fix.
+Rejected because the extensions are what the session is for, and anything placed
+after the required part is read as optional by everybody — the students who most
+need to make a decision are exactly the ones who stop at the end of the required
+part.
+
+**Assign a specific deliverable per lab** — "answer questions 1, 2 and 3."
+Rejected: it recreates the worksheet with extra steps, and it makes the
+interesting finding — the one nobody predicted — worth no marks.
+
+**Group presentations rather than individual.** Rejected. Thirteen ten-minute
+slots fit a 75-minute session with room to spare, and a group of four produces
+one exploration rather than four.
+
+### Consequences
+
+Thursday preparation is now real work done alone, which is a change students
+must be told about explicitly rather than discovering. It does not violate the
+workload promise — labs still assign no reading, and
+`test_labs_assign_no_new_reading` still enforces that — but the promise now
+means something slightly different, and the session pages say so plainly.
+
+The showcase format degrades gracefully. A student who did nothing can still
+attend, sit with someone who did, and contribute; a student who got stuck has a
+legitimate ten minutes in describing exactly where. Both are better outcomes
+than a lockstep lab produced for the same student.
+
+It also makes the labs rubric work for the first time: thirteen different
+explorations are gradeable on the write-up in a way that thirteen identical ones
+were not.
+
+The cost is preparation. Every notebook must be genuinely runnable before its
+session, because a student who hits a broken cell alone at 9pm has no recourse.
+Drafts are therefore marked as drafts on the site — `metadata.course.status` in
+the notebook, surfaced on the session page — rather than quietly shipped.
+
