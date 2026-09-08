@@ -34,20 +34,67 @@ field. Course content lives in data/*.yml and nowhere else.
       HEAVY_SESSIONS, so re-timing fails the build until that number is
       updated deliberately. That is the point of it.
 
-- [ ] nine lab notebooks are still drafts: w03 w04 w06 w07 w08 w11 w12
+- [ ] seven lab notebooks are still drafts: w04 w06 w07 w08 w11 w12
       w13. Structure is settled, code is not written. Each one must be
       RUN END TO END before its status flips to complete -- w02 had two
       factually wrong paragraphs that only running it caught.
+
+- [ ] w03-thu is complete and every cell has been run, but NOT in Colab
+      -- it was run locally on the same library versions. Open it in
+      Colab once before the session. The only cell with real Colab risk
+      is the bertviz widget in section 7, which is why nothing above it
+      depends on bertviz.
 
 - [ ] w08-thu (red-teaming) may not want a notebook at all -- most of
       that session happens on hackaprompt.com. Decide before Week 8
       whether it is a logging notebook or a notebook_exempt.
 
 
+## Slides
+Decks in flight. Generated media is never committed; the scripts are.
+
+- [ ] W03 is 31 slides and the speaker notes carry a clock from 0:00 to
+      1:16. THAT CLOCK IS A GUESS. Time the first run and write the real
+      numbers here. The review is budgeted at 20 min and the five
+      discussion stops at 4-5 min each, which is 25 min of the 55 left
+      -- if the room argues well, something has to give, and it should
+      be s25 (the block) rather than a discussion.
+
+- [ ] s14b-s17b run on a two-number toy model (embeddings and three 2x2
+      lenses at the top of gen_w03_05_attention.py) and say so on the
+      slide; s22's scores are illustrative too. Every number on those
+      slides is computed from the toy, so changing one embedding moves
+      the whole sequence. If a real head ever turns out legible enough
+      -- coreference at layer 3 rather than 5 -- it could replace the toy,
+      but 64-number vectors will not fit on the score slide.
+
+- [ ] w03_s08 (perceptron) and w03_s09 (CNN) say "not a study-guide
+      entry" on the slide. If that ever stops being true they need
+      concepts.yml entries with mastery + assessed_in, not just a
+      footer edit.
+
+
+## Syllabus PDF
+The filed copy is a build artifact. It goes stale silently.
+
+- [ ] RE-RUN scripts/build_syllabus_pdf.py and re-file before the term
+      starts, and after any change to semester.yml or schedule.yml. There
+      is no test that can catch a stale PDF sitting in someone's inbox.
+
+- [ ] check with the registrar whether anything else is required boilerplate
+      -- the F26 210.02 syllabus only had the disability-services statement,
+      but that was one course's document, not a College template. Ask for
+      the actual template if there is one.
+
+
 ## Worth an ADR
 A choice a reader could not reconstruct from the files themselves.
 Write it up in docs/adr/index.md while the rejected alternatives are
 still fresh — that section is the part that is worth anything.
+
+- [ ] hosting a deck the site does not show yet is a real choice --
+      deck_order.py grew a publish flag for it. Worth an ADR if a
+      second deck ever sits unpublished for more than a week.
 
 - [ ] if Colab's free tier changes, the fallback (Kaggle? Binder?) is a
       real decision and should be written up before it is needed rather

@@ -1101,6 +1101,42 @@
     "raspberry" does not. Read this if the Week 2 tokenizer section interested
     you.
 
+- id: annotated-transformer
+  title: "The Annotated Transformer"
+  kind: tool
+  url: https://harvardnlp.github.io/annotated-transformer/
+  themes: [foundations, openweight]
+  authors: ["Alexander Rush"]
+  assign_note: >-
+    The paper reimplemented line by line in PyTorch, with the paper's own text
+    beside the code that does it. Optional and genuinely code-heavy -- for
+    anyone who wants to see every equation in Section 3 as something that runs.
+
+
+    This is the 2022 rewrite. The much-linked 2018 original needs PyTorch 0.3
+    and no longer runs; it now redirects here.
+
+- id: bertviz
+  title: "BertViz: visualize attention in transformer models"
+  kind: tool
+  url: https://github.com/jessevig/bertviz
+  themes: [foundations, ecosystem]
+  assign_note: >-
+    The interactive attention viewer used at the end of the Week 3 lab. It draws
+    the same numbers the notebook slices by hand, for every layer and head at
+    once. Free, runs in the notebook, no account.
+
+- id: opus-mt-en-de
+  title: "Helsinki-NLP/opus-mt-en-de (English-German translation model)"
+  kind: tool
+  url: https://huggingface.co/Helsinki-NLP/opus-mt-en-de
+  themes: [foundations, openweight]
+  assign_note: >-
+    The model the Week 3 lab opens. Six encoder layers, six decoder layers,
+    eight heads, d_model 512 -- the base transformer's own numbers, doing the
+    English-to-German task the 2017 paper was written about. 74M parameters,
+    CC-BY-4.0, downloads in a minute.
+
 - id: hf-transformers
   title: "Hugging Face Transformers"
   kind: tool

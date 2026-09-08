@@ -757,3 +757,57 @@ rather than discover. Labs still assign no reading, so the workload promise hold
 
 Every notebook must now be genuinely runnable before its session, because a
 student hitting a broken cell alone at 9pm has no recourse.
+
+## ADR-022: Generate the submission PDF from the course data, not from the website
+
+**Status:** Accepted
+
+**Context.** The College requires a syllabus as a PDF. This course's syllabus is
+a website, and every fact on it — dates, session count, grading weights, which
+weeks are individual meetings — is derived from `data/*.yml` at build time.
+
+The obvious move is to open the syllabus page and print it to PDF. That produces
+a document immediately, and it is wrong in a way that gets worse over time: it
+is a manual step, so the PDF is a snapshot taken on one day, and the moment a
+date moves in `semester.yml` the filed PDF disagrees with the site the students
+are reading. There is then no way to tell which one is the syllabus.
+
+It also prints badly. The page is styled for a screen: Material's icon
+shortcodes render as unresolved text in anything but the theme, links lose their
+destinations on paper, and the calendar is on a different page entirely.
+
+**Decision.** `scripts/build_syllabus_pdf.py` renders `docs/syllabus.md` through
+the same macro environment mkdocs uses, appends the calendar from
+`schedule_table()`, and prints it with WeasyPrint and a small stylesheet written
+for paper. The PDF is generated, gitignored, and rebuilt on demand — identical
+treatment to the session pages (ADR-001) and the lecture decks (ADR-019).
+
+Three things the print build does that a browser print cannot:
+
+- **Icons become words.** `:material-flag-checkered:` in the calendar means a
+  deliverable is due. On paper it says `(deliverable due)`; the decorative ones
+  are dropped.
+- **Links state their destination.** A printed link that cannot be clicked has
+  to say where it goes, so external URLs are printed after the link text.
+- **The calendar is attached**, from the same table the website shows.
+
+**Consequences.** Producing the PDF is one command, so re-filing after a
+schedule change is cheap enough to actually happen. The cost is a second
+rendering path: the print stylesheet does not know about Material's components,
+so a page that starts using tabbed content or a fancy card will print plainly or
+not at all. The syllabus is prose, tables and admonitions, and that is the
+constraint accepted here — this pipeline is for the syllabus, not for the site.
+
+WeasyPrint is an optional dependency (`pip install -e ".[pdf]"`). Nobody who is
+only editing course content has to install it.
+
+**Rejected: `mkdocs-with-pdf` or `mkdocs-print-site-plugin`.** Both work by
+rendering the themed site, which means inheriting the theme's CSS and its
+assumptions about a browser. They also want to export every page; a syllabus
+submission is a specific document, not the whole site with a cover on it.
+
+**Rejected: keeping the required accessibility language only in the PDF.** The
+College's disability-services statement is now in `docs/syllabus.md` verbatim,
+so it appears on the website too. A policy the filed document promises and the
+page students actually read does not carry is not a policy.
+

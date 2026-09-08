@@ -289,12 +289,19 @@ applies in full. In this course the operative question is always the same: can
 you account for the work you submitted? Collaboration is encouraged on labs and
 expected in discussion; the project and its decision log are yours.
 
-### Accessibility
+### Accessibility { #accessibility }
 
-If you have a documented disability, or think you may have an undocumented one,
-contact the Office of Disability Services and come talk to me. Accommodations
-are straightforward to arrange and I would rather set them up in Week 1 than in
-Week 10.
+Please let me know if you need any special accommodations and assistance for the
+course for any reason. Hampden Sydney College will make reasonable
+accommodations for students with documented disabilities. If you need support or
+assistance, you may be eligible for academic accommodations. Students should
+contact Teresa Laughlin, the Disability Services Coordinator in the Office of
+Academic Success (tlaughlin@hsc.edu, 434-223-6324, Bortz 232) as soon as
+possible to coordinate accommodations.
+
+If you think you may have an undocumented disability, come talk to me anyway.
+Accommodations are straightforward to arrange and I would rather set them up in
+Week 1 than in Week 10.
 
 ---
 

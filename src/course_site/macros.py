@@ -175,8 +175,8 @@ def define_env(env) -> None:
         return "\n".join(out)
 
     @env.macro
-    def slide_deck() -> str:
-        """The Week 2 deck as an in-page gallery, in teaching order.
+    def slide_deck(deck: str = "w02") -> str:
+        """One deck as an in-page gallery, in teaching order.
 
         Order comes from ``scripts/deck_order.py`` — the same list that builds
         the PPTX — so the page and the file students download cannot disagree.
@@ -184,10 +184,17 @@ def define_env(env) -> None:
         frame, so the page reads as a deck rather than a wall of motion.
         """
         sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
-        from deck_order import ORDER
+        from deck_order import DECKS
+
+        try:
+            order = next(d.order for d in DECKS if d.prefix == deck)
+        except StopIteration:  # a page asking for a deck that does not exist
+            raise ValueError(
+                f"no deck {deck!r}; deck_order.DECKS has {[d.prefix for d in DECKS]}"
+            ) from None
 
         out: list[str] = []
-        for i, name in enumerate(ORDER, 1):
+        for i, name in enumerate(order, 1):
             label = name.split("_", 2)[-1].rsplit(".", 1)[0].replace("_", " ")
             discuss = " · **discussion prompt**" if "discuss" in name else ""
             out.append(f"![Slide {i}: {label}](media/{name}){{ loading=lazy }}")

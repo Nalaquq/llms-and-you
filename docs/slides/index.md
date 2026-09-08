@@ -108,4 +108,56 @@ To rebuild everything from the scripts:
 Scroll through in order — this is the sequence as taught. Slides marked
 **discussion prompt** are where class stops and argues.
 
-{{ slide_deck() }}
+{{ slide_deck("w02") }}
+
+
+---
+
+## Week 3 — Attention and the Transformer { #w03 }
+
+Thirty-one slides. The first eleven are a compressed review — five ways of
+turning text into numbers, then the perceptron, the CNN and the RNN, each on one
+slide with the formula along the bottom. The remaining twenty are the paper:
+one attention head taken apart on a single sentence — where the query, key and
+value come from, with the numbers on screen, through to the moment a word's
+vector moves and its neighbours change — then multi-head, position, the mask,
+cross-attention, and the block that stacks six times.
+
+Five of them are discussion prompts, one after each part of the model.
+
+[:material-download: Deck for presenting (PPTX, ~6&nbsp;MB)](media/W03_Attention_and_the_Transformer.pptx){ .md-button }
+[:material-printer: Print edition (PPTX, ~3&nbsp;MB)](media/W03_Attention_and_the_Transformer_print.pptx){ .md-button }
+
+### The numbers on these slides are real { #w03-measured }
+
+Wherever a slide shows an attention weight from a working model — the head that
+resolves *it* to *animal* at 0.87, the alignment head where the German verb at
+the end of the clause reaches back nine words to the English one in the middle,
+the pronoun that carries none of the decision it appears to explain — that
+number was **measured**, not drawn. It comes from
+[opus-mt-en-de](https://huggingface.co/Helsinki-NLP/opus-mt-en-de), the same
+model Thursday's lab opens, and every one of them can be reproduced in that
+notebook.
+
+Six slides are marked *illustrative* instead: the ones that take a single
+attention head apart step by step, and the mask. Real weights are messier than
+a first explanation can survive, and the slides say so where it matters.
+Thursday is where the mess arrives.
+
+The pictures on those slides are 3Blue1Brown's, from the Chapter 6 video
+assigned for this week, redrawn on this deck's sentence: a question and a
+label as two arrows that line up or do not, the grid of every word against
+every word, softmax turning that grid into shares, the mask stamping minus
+infinity before the softmax, and a word's vector nudged through embedding
+space by the words around it. If the video made sense, the deck should too —
+same pictures, same order.
+
+The deck was built the same way as Week 2's — Python scripts rendering
+matplotlib frames into GIFs, from instructor prompts, with every frame reviewed
+before it reached this page. The scripts are in
+[`scripts/` on GitHub](https://github.com/Nalaquq/llms-and-you/tree/main/scripts);
+nothing generated is committed.
+
+### The deck { #w03-deck }
+
+{{ slide_deck("w03") }}

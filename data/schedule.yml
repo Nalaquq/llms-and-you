@@ -306,7 +306,7 @@
     - alammar-illustrated-transformer
     - 3blue1brown-attention
     - vaswani-2017-attention
-  optional: [prince-understanding-deep-learning]
+  optional: [prince-understanding-deep-learning, annotated-transformer]
   questions:
     - What problem was attention invented to solve?
     - >-
@@ -329,7 +329,15 @@
     Predict where the model will attend before you look, then find a case where
     you were wrong. Same format as last week: explore beforehand, bring one
     thing, ten minutes each.
+
+
+    The notebook opens a real transformer doing the paper's own task -- English
+    to German -- so all three attentions from Figure 1 are there to look at:
+    the encoder's, the decoder's masked one, and the cross-attention between
+    them.
   optional:
+    - opus-mt-en-de
+    - bertviz
     - hf-transformers
 
 # ===========================================================================

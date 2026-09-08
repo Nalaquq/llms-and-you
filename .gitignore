@@ -31,4 +31,8 @@ CLAUDE.md
 # Generated lecture media — rebuilt from scripts/gen_*.py; see scripts/README.md
 scripts/demo_photos/
 scripts/*.pptx
+
+# Generated submission PDF — rebuilt from docs/syllabus.md + data/ by
+# scripts/build_syllabus_pdf.py. See ADR-022.
+LLMs-and-You-Syllabus-*.pdf
 .~lock.*#

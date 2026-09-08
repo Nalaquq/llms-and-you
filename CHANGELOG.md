@@ -20,6 +20,170 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — five Week 3 slides redrawn after the assigned 3Blue1Brown chapter **[student-facing]**
+
+The slides that take one attention head apart (query and key, the score, the
+share, the blend) and the mask slide now use the pictures from *Attention in
+transformers, step-by-step*, the Chapter 6 video on the Week 3 reading list,
+redrawn on the deck's own sentence. The query and the key are two arrows that
+line up or do not; the score is a grid of every word against every word, a dot
+per cell; softmax turns that grid into shares, row by row, each row adding to
+one; the mask stamps minus infinity on the not-yet-written cells before the
+softmax, and they come out exactly zero; and the value is a nudge added to the
+vector a word arrived with, which moves *it* to point where *animal* points.
+The grid keeps Thursday's notebook orientation — the asking word on the rows —
+rather than the video's, so the picture on Tuesday and the heatmap on Thursday
+are the same shape. Speaker notes updated to match. Nothing about what is
+assigned or assessed changed.
+
+### Changed — the perceptron slide prices a house, and the CNN and RNN are built from it **[student-facing]**
+
+Week 3's perceptron slide used a sentiment example that failed on "not good",
+and the CNN slide put a 4×6 grid of embedding numbers on screen. Both were
+harder than the review needs. The perceptron now does the classic thing:
+bedrooms and miles to downtown in, a price out, with the multiplication and
+the sum built term by term for two houses so the unit is seen calculating. The
+CNN slide then shows that same unit, three weighted edges into a sum, copied
+along a sentence with identical weights; the RNN slide shows it once more with
+one extra input, its own answer from the word before. The flaw is stated the
+same way in both worlds: a single unit is a straight line, so a bedroom is
+worth the same downtown or forty miles out, and "not" cannot modify "good".
+
+### Changed — the position slide, the "attention is not a reason" slide, and one discussion question **[student-facing]**
+
+Three places in the Week 3 deck that were hard to follow. The position slide
+no longer shows a heatmap of all 512 sinusoid dimensions; it shows the stamp
+itself — six computed numbers per position, in a column under the word they
+get added to — so "the same word at two positions becomes two different
+vectors" is something you can see. The slide on attention weights not being
+explanations is now drawn in four steps: what a reader takes *it* to mean in
+each sentence, what the model wrote in German and whether it was right, where
+its attention pointed while writing the pronoun, and the conclusion that the
+picture is the same for the right answer and the wrong one. And the first
+question after the cross-attention slide is rewritten so it actually asks
+something: distance is free now, so what is the transformer paying instead?
+
+### Added — two Week 3 slides on where the query, key and value come from, and what moving a vector does **[student-facing]**
+
+The head-anatomy sequence did not show where the three vectors come from, and
+never showed a word's vector actually changing. Two slides fix that. After the
+query-and-key slide, a new one pushes one word's vector through the three
+learned lenses and prints the outputs — question, label, offer — for *animal*
+and for *it*, with one product worked in the maths strip so it reads as the
+perceptron again. After the blend slide, a new one shows the moved vector with
+its nearest words: *it* on its own sits among pronouns; in "…because it was too
+tired" it lands among creatures; in "…because it was too wide" the same
+arithmetic lands it among roads. The blend slide itself now prints the vectors
+being added. The deck is thirty-one slides.
+
+### Changed — every circle on the score slide is now a dot product you can check **[student-facing]**
+
+The score slide used to draw circles from hand-picked weights. Now the whole
+head-anatomy sequence runs on one small toy model: a two-number vector per
+word and three 2×2 lenses, all shown on the query-key-value slide. Every circle
+on the grid is the dot product of a real query with a real key, and the slide
+works two of them out on screen — the numbers multiplied pair by pair, added,
+and the circle drawn at that size — for the best match and the worst. Softmax,
+the blend and the moved vector all follow from the same numbers. The slides
+say it is a toy; the paper uses 64 numbers per head where these use two.
+
+### Added — a syllabus PDF for the College, generated from the course data **[student-facing]**
+
+`python scripts/build_syllabus_pdf.py` writes a nine-page PDF: the full syllabus
+followed by the calendar of all 28 meetings. It renders `docs/syllabus.md`
+through the same macros the website uses, so the filed document and the site
+carry the same dates, the same grading weights and the same policies. Re-running
+it after a schedule change is one command, which is the point — a
+printed-from-the-browser PDF is a snapshot that starts disagreeing with the site
+the moment anything moves. See
+[ADR-022](https://Nalaquq.github.io/llms-and-you/adr/#adr-022-generate-the-submission-pdf-from-the-course-data-not-from-the-website).
+
+### Changed — the accessibility policy now carries the College's required language **[student-facing]**
+
+The Accessibility section of the syllabus previously pointed at "the Office of
+Disability Services" in general terms. It now reproduces Hampden-Sydney's
+required disability-services statement verbatim, naming the Disability Services
+Coordinator in the Office of Academic Success with her email, phone and office.
+If you need accommodations, the syllabus now tells you exactly who to contact.
+
+### Added — Week 3's lab is written, and it opens a real transformer **[student-facing]**
+
+The Thursday lab is no longer a draft. It loads
+[opus-mt-en-de](https://huggingface.co/Helsinki-NLP/opus-mt-en-de), a
+transformer doing **English to German** — the task *Attention Is All You Need*
+was written about — and looks at the attention weights directly. Six encoder
+layers, six decoder layers, eight heads, d_model 512: the paper's own numbers,
+printed by the model you are touching.
+
+All three attention types from the paper's Figure 1 are there, which is the
+reason for the model choice. An encoder-only model like BERT would have shown
+one of the three.
+
+Six sections, each ending in questions the code can answer and the notebook does
+not: translate something and find an error; the masked triangle, checked rather
+than asserted; predict which word `it` attends to before you look; cross-attention
+read as a word alignment, including the German verb at the end of the clause
+reaching back to the English verb in the middle; scoring all 48 heads to find the
+one that does nothing but look at the previous token; and a pair of sentences
+where the German pronoun forces the model to commit to what `it` means, gets it
+wrong, and leaves no trace of the decision in its attention weights.
+
+No account, no API key, nothing to pay for. It downloads 300 MB and runs in
+Colab.
+
+### Added — the Week 3 deck, and it is on the site **[student-facing]**
+
+Twenty-nine slides for *Attention and the Transformer*, in two halves.
+
+The first eleven are a **twenty-minute review** that compresses everything
+before the transformer into one slide per idea, so the paper itself gets the
+rest of the class.
+
+Five representations — tokenization, binary vectorization, bag of words,
+TF-IDF, word2vec — then the three architectures the transformer replaced: the
+perceptron, the CNN, and the RNN. Each slide carries the technique running, the
+deal it strikes, and the formula in a band along the bottom for anyone who
+wants it. The architecture slides are ported from the computer-vision course's
+slide scripts and re-exampled in language: a filter slides along a sentence
+rather than across an image, and the thing a single unit gets wrong is "not
+good", not XOR.
+
+Perceptrons and CNNs are deliberately **not** study-guide entries — they are
+scaffolding for reading the paper, and each of those slides says so on its face
+rather than implying an assessment that is not coming. RNNs are assessed, and
+their slide names the entries.
+
+The numbers on the slides are computed by the scripts rather than typed in:
+TF-IDF really does score `the` at 0.00 on the corpus shown, and the perceptron
+really does read "not good" as positive.
+
+The remaining **eighteen are the transformer**, built for a room with no
+mathematics: one attention head taken apart on a single sentence — the question
+a word asks, the label every other word wears, the score, the share, the blend —
+and then multi-head, positional encoding, the mask, cross-attention, and the
+block that stacks six times. The formula that Week 2's deck left as a question
+mark is finally completed on the slide that earns it.
+
+**Five discussion slides**, one after each part of the model. Questions only —
+no hints and no answer line on the slide, because a room that can read what the
+instructor is fishing for stops thinking and starts guessing; that guidance
+lives in the speaker notes instead. Every set asks the same underlying thing in
+a different place: *how is this different from what we did before the break?*
+All fifteen are answerable by a student with no technical background from what
+they have watched that morning.
+
+**Where a slide shows a real attention weight, it was measured** — from
+opus-mt-en-de, the model Thursday's lab opens, so the deck and the notebook are
+looking at the same numbers. The head that resolves *it* to *animal* at 0.87 is
+real. So is the German verb reaching back nine words to the English one. So is
+the slide where the model gets a pronoun wrong and its attention weights show no
+trace of the decision. The three slides that take one head apart step by step
+are marked *illustrative* instead, because a first explanation cannot survive
+real weights — and that is what Thursday is for.
+
+Both decks are on the [slides
+page](https://Nalaquq.github.io/llms-and-you/slides/).
+
 ### Changed — the course now runs in a browser **[student-facing]**
 
 **You no longer have to install anything.** Not Python, not Git, not a terminal,

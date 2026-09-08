@@ -1,4 +1,4 @@
-"""Shared style for the Week 2 (embeddings) slide GIFs.
+"""Shared style for the lecture-deck slide GIFs.
 
 Dark theme matched to the course site's Material slate palette, with the
 site's own accent tokens (--course-virtual #a48fff, --course-due #ff922b)
@@ -14,7 +14,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
 from PIL import Image
 
 # ── Palette (site-matched) ───────────────────────────────────────────
@@ -218,3 +218,209 @@ def tween(frames, durations, render_at, n=16, ms=50):
     for i in range(1, n + 1):
         frames.append(render_at(i / n))
         durations.append(ms)
+
+
+# ── Review-slide furniture (Week 3's compressed recaps) ──────────────
+# A review slide is one technique on one slide: a demo of it running, an
+# honest pros/cons column, and the formula itself in a band along the
+# bottom for the students who want to see the mathematics. The band sits
+# ABOVE the study-guide footer, which keeps its meaning everywhere.
+def math_strip(fig, exprs, note=None):
+    """Formula band across the bottom. `exprs` is one mathtext string or a list.
+
+    Mathtext, never Unicode subscripts -- the cv_course style guide's rule,
+    and the only one that survives being projected.
+    """
+    if isinstance(exprs, str):
+        exprs = [exprs]
+    top, bottom = (0.158, 0.072) if len(exprs) == 1 else (0.174, 0.058)
+    band = FancyBboxPatch(
+        (0.045, bottom),
+        0.91,
+        top - bottom,
+        boxstyle="round,pad=0.004,rounding_size=0.012",
+        facecolor=PANEL,
+        edgecolor=PANEL_EDGE,
+        linewidth=1.4,
+        transform=fig.transFigure,
+        zorder=0,
+    )
+    fig.add_artist(band)
+    fig.text(
+        0.062,
+        (top + bottom) / 2,
+        "MATH",
+        fontsize=9.5,
+        color=FAINT,
+        va="center",
+        fontweight="bold",
+    )
+    step = (top - bottom) / (len(exprs) + 1)
+    for i, expr in enumerate(exprs, start=1):
+        fig.text(
+            0.53,
+            top - i * step,
+            expr,
+            fontsize=17 if len(exprs) == 1 else 13.5,
+            color=TEXT,
+            ha="center",
+            va="center",
+        )
+    if note:
+        fig.text(0.938, (top + bottom) / 2, note, fontsize=11, color=SUB, ha="right", va="center")
+
+
+def pros_cons(fig, rect, pros, cons, header="the deal"):
+    """Left-hand column: what the technique bought, and what it cost."""
+    ax = blank_axes(fig, rect)
+    box = FancyBboxPatch(
+        (0.0, 0.0),
+        1.0,
+        1.0,
+        boxstyle="round,pad=0.012,rounding_size=0.03",
+        facecolor=PANEL,
+        edgecolor=PANEL_EDGE,
+        linewidth=1.6,
+        transform=ax.transAxes,
+    )
+    ax.add_patch(box)
+    ax.text(0.06, 0.955, header.upper(), fontsize=10.5, color=FAINT, fontweight="bold", va="top")
+
+    # Spacing adapts to how much was written. A panel that silently overflows
+    # its box is the failure mode here, and it only shows up once the slide is
+    # rendered -- so the layout is computed rather than tuned per slide.
+    items = [*pros, *cons]
+    lines = sum(1 + t.count("\n") for t in items)
+    unit = min(0.058, 0.80 / (lines + 0.45 * len(items)))
+
+    y = 0.885
+    for mark, colour, group in (("+", GREEN, pros), ("−", RED, cons)):
+        for text in group:
+            ax.text(0.06, y, mark, fontsize=15, color=colour, fontweight="bold", va="top")
+            ax.text(
+                0.145,
+                y + 0.004,
+                text,
+                fontsize=12.5,
+                color=TEXT if mark == "+" else SUB,
+                va="top",
+                linespacing=1.4,
+            )
+            y -= unit * (1 + text.count("\n") + 0.45)
+        y -= 0.03
+    return ax
+
+
+# ── Attention-grid furniture (Week 3's s15, s16, s22) ────────────────
+# The picture is 3Blue1Brown's (Chapter 6, "Attention in transformers"): a
+# grid of every word against every word, a dot at each cell whose size is the
+# score, then softmax turning the dots into shares. Rows are the asking word
+# and columns the words it looks at -- the orientation of every heatmap in
+# Thursday's notebook -- so softmax runs along a row, not down a column as it
+# does in the video.
+def grid_axes(fig, rect, n):
+    """Square cells whatever the figure's shape: equal aspect, anchored bottom-left.
+
+    Cell (r, c) is the unit square with corner (c, n - 1 - r), so row 0 is the
+    top row and reads like text.
+    """
+    ax = fig.add_axes(rect)
+    ax.set_aspect("equal")
+    ax.set_anchor("SW")
+    ax.set_xlim(-0.15, n + 0.15)
+    ax.set_ylim(-0.15, n + 0.15)
+    ax.axis("off")
+    ax.set_facecolor(BG)
+    return ax
+
+
+def grid_labels(ax, n, words, row_colours=None, col_colours=None, fontsize=11):
+    row_colours = row_colours or {}
+    col_colours = col_colours or {}
+    for r, w in enumerate(words):
+        ax.text(
+            -0.35,
+            n - 0.5 - r,
+            w,
+            ha="right",
+            va="center",
+            fontsize=fontsize,
+            color=row_colours.get(r, SUB),
+            fontweight="bold" if r in row_colours else "normal",
+            clip_on=False,
+        )
+    for c, w in enumerate(words):
+        ax.text(
+            c + 0.55,
+            n + 0.3,
+            w,
+            ha="left",
+            va="bottom",
+            rotation=45,
+            rotation_mode="anchor",
+            fontsize=fontsize - 1,
+            color=col_colours.get(c, SUB),
+            fontweight="bold" if c in col_colours else "normal",
+            clip_on=False,
+        )
+
+
+def grid_cell(ax, n, r, c, score_norm, weight, t, wmax=1.0, alpha=1.0, dot_colour=SUB, label=None):
+    """One cell, part-way (t) between a score-dot and a share-fill.
+
+    Dot radius is the score (the video's convention); fill intensity is the
+    share, scaled against `wmax` -- the largest share anywhere on the grid,
+    not in the row -- so a row that concentrates its budget on one word reads
+    brighter than a row that spreads it.
+    """
+    x, y = c, n - 1 - r
+    ax.add_patch(
+        Rectangle(
+            (x + 0.04, y + 0.04),
+            0.92,
+            0.92,
+            facecolor=GREEN,
+            alpha=alpha * t * (0.08 + 0.92 * min(1.0, weight / wmax)),
+            edgecolor=PANEL_EDGE,
+            lw=0.7,
+        )
+    )
+    if t < 1.0:
+        ax.add_patch(
+            Circle(
+                (x + 0.5, y + 0.5),
+                (0.07 + 0.38 * score_norm) * (1.0 - t),
+                facecolor=dot_colour,
+                edgecolor="none",
+                alpha=alpha * 0.9,
+            )
+        )
+    if label is not None and t > 0.5:
+        ax.text(
+            x + 0.5,
+            y + 0.5,
+            label,
+            ha="center",
+            va="center",
+            fontsize=8.5,
+            color=(BG if weight > 0.30 else TEXT),
+            alpha=alpha * (t - 0.5) * 2,
+            fontfamily="monospace",
+        )
+
+
+def grid_outline_row(ax, n, r, colour=YELLOW):
+    ax.add_patch(
+        Rectangle(
+            (-0.02, n - 1 - r - 0.02),
+            n + 0.04,
+            1.04,
+            facecolor="none",
+            edgecolor=colour,
+            lw=1.8,
+        )
+    )
+
+
+def grid_legend(ax, text, y=-0.55):
+    ax.text(0.0, y, text, fontsize=10.5, color=FAINT, va="top", clip_on=False)
