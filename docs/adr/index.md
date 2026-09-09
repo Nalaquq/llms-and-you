@@ -811,3 +811,94 @@ College's disability-services statement is now in `docs/syllabus.md` verbatim,
 so it appears on the website too. A policy the filed document promises and the
 page students actually read does not carry is not a policy.
 
+---
+
+## ADR-023: Assess the individual meetings, and retire reading responses and participation
+
+**Status:** Accepted
+
+**Context.** The course graded two things that no artifact could pin down.
+Reading responses (20%) asked for a few hundred words on each Tuesday reading,
+and participation (10%) was a judgement about the quality of what someone said
+in a room. Both had the same weakness from opposite directions: the response
+proves that words were produced, not that a person understood anything, and the
+participation grade measures a personality trait at least as much as it measures
+learning. A student who reads carefully and says little was being scored down
+twice.
+
+Individual meetings already existed for a different reason: five sessions across
+Weeks 4, 5 and 10 where the class is replaced by fifteen-minute one-to-one slots
+(ADR-005). They carried no grade of their own. Attendance counted toward
+participation, which is the weakest possible use of the only time in the term
+when the instructor and one student are looking at each other.
+
+Separately, the study guide had been built into something the course was not yet
+using. `data/concepts.yml` states, for every concept, what a student should be
+able to *do* with it, and the page promises that everything on it is assessable
+(ADR-017, ADR-018). Forty-four of its forty-seven entries named reading
+responses as the place they were assessed. The promise was real and nothing was
+collecting on it.
+
+**Decision.** The thirty points move onto the meetings, split in two:
+
+| Component | Weight | What happens |
+|:---|---:|:---|
+| Concept Checks at Individual Meetings | 20% | Roughly ten minutes. Questions drawn from the study guide, covering everything taught up to that week, answered out loud. |
+| Oral Progress Reports | 10% | Roughly five minutes. Where the project stands, what broke, what was decided, what is next. Ends with a written goal. |
+
+The study guide becomes the syllabus for the concept check, in the strict sense:
+nothing outside that page can be asked, and each entry's **You should be able
+to** lines are the questions. The `assessed_in` field on all forty-four concepts
+was repointed, which is the whole of the mechanical change — the page did not
+need rewriting, because it had been written for this all along.
+
+The no-AI boundary moves with the work. Reading responses were the course's only
+prohibited component; the prohibition now sits on the concept check, which is
+spoken and answered from memory. Preparing with a model is studying and is
+explicitly permitted.
+
+`meeting_study_guide()` renders what each meeting covers, derived from the
+schedule and the concepts rather than typed, so the guide cannot promise a scope
+the study guide does not hold.
+
+**Consequences.** Nothing is due weekly any more. This is the real cost and it
+should be stated plainly: the course loses its only per-week signal that reading
+happened, and a student can now drift for five weeks between meetings without
+anything catching it. The bet is that three graded conversations reveal more than
+eleven short essays, and that the essays were mostly measuring compliance.
+
+Assessment now depends on attendance in a way it did not before. Missing a
+meeting is a missed assessment rather than a participation deduction, so the
+scheduling has to be genuinely flexible or the policy becomes a penalty for
+having a job.
+
+The Burchell arc keeps its six episodes and loses its three written reflections.
+It is fair game at the meetings as far as it has run, and the Week 15 session
+that ended in a hand-written reflection is now that argument held in the room.
+Because the last meeting is in Week 10 and the arc ends in Week 15, its final
+two episodes are discussed but never assessed one-to-one. That is an accepted
+gap, not an oversight; closing it would mean a fourth conference window in
+November, which costs another group session.
+
+Oral assessment is also less defensible after the fact than a stack of paper. A
+disputed grade rests on the instructor's notes, so the notes have to be written
+during the meeting rather than after it.
+
+**Rejected: keeping reading responses at a reduced weight.** It would have
+preserved the weekly rhythm and split the difference. It also preserves the
+thing that was actually wrong: a written response is the format a language model
+is best at producing, which is why the component needed a prohibition and an
+Honor Court sentence attached to it. Removing the format removes the temptation
+more reliably than a rule about it does.
+
+**Rejected: one combined component at 30%.** Simpler in the data and worse as
+feedback. Knowing the transformer and being able to say where your project
+stands are different skills, and a student who is strong at one and weak at the
+other learns nothing from a single blended number.
+
+**Rejected: adding a fourth meeting window in November.** It would let the
+Burchell arc finish inside the assessed meetings and spread the checks more
+evenly across the term. It costs a group session in the stretch where the
+projects most need the room, and the three existing windows already sit where
+the project milestones are. Revisit if the Week 10 to Week 15 gap turns out to
+be where students go quiet.

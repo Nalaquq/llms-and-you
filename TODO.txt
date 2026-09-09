@@ -45,6 +45,23 @@ field. Course content lives in data/*.yml and nowhere else.
       is the bertviz widget in section 7, which is why nothing above it
       depends on bertviz.
 
+- [ ] THE STUDY GUIDE STOPS AT WEEK 2 AND IT IS NOW THE EXAM. All 47
+      concepts are filed to w01-tue and w02-tue. Nothing from Week 3
+      exists: no attention, query/key/value, multi-head, positional
+      encoding, masking, cross-attention. Since ADR-023 the concept
+      check may only ask what is on that page, so as it stands the
+      Week 4 meeting cannot ask a single question about the paper the
+      course is named after. Write those entries before Sep 15.
+      Each needs definition + mastery + assessed_in: [concept-checks].
+      The Week 3 deck footers already name the entries they teach --
+      that is the list to work from.
+
+- [ ] concept checks and progress reports have no rubric. The
+      assignments page says what happens in the meeting and what is
+      graded, but not what separates a strong answer from a weak one.
+      Write it before the first meeting, or the first grade is
+      unjustifiable.
+
 - [ ] w08-thu (red-teaming) may not want a notebook at all -- most of
       that session happens on hackaprompt.com. Decide before Week 8
       whether it is a logging notebook or a notebook_exempt.
