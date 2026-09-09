@@ -228,16 +228,20 @@ def test_reading_sessions_offer_help_understanding_the_reading():
 def test_the_boodlebox_guide_states_the_no_ai_boundary():
     """It promotes a tool into the one place the course restricts it.
 
-    Reading responses and the Burchell reflections are no-AI work. A guide
-    encouraging model use on the reading has to say so itself -- a student who
-    lands on it from a session page may never open the syllabus.
+    The concept check is spoken and no-AI. A guide encouraging model use has to
+    name that boundary itself -- a student who lands on it from a session page
+    may never open the syllabus. Derived from the assignment data rather than a
+    hardcoded phrase, so retiring or renaming a prohibition updates the rule.
     """
     text = (GUIDES_DIR / "boodlebox.md").read_text(encoding="utf-8")
     assert "syllabus.md#using-ai" in text, "the guide must link the AI policy"
     lowered = text.lower()
-    assert "reading response" in lowered and "reflection" in lowered, (
-        "the guide must name the work GenAI is prohibited on"
-    )
+    prohibited = [a for a in load_assignments() if a.genai is GenAI.PROHIBITED]
+    assert prohibited, "no prohibited work left; this guide's warning has nothing to name"
+    for a in prohibited:
+        assert a.id in text or a.title.lower() in lowered, (
+            f"the guide must name {a.title!r}, which prohibits GenAI"
+        )
 
 
 def test_setup_sessions_point_at_the_setup_guide():
@@ -546,9 +550,19 @@ def test_notes_only_accompany_prohibitions():
 
 
 def test_in_class_written_work_prohibits_genai():
-    """Anything written by hand in the room cannot permit AI without contradiction."""
-    d = next(x for x in SCHEDULE if x.slug == "w15-tue")
-    assert d.session.genai is GenAI.PROHIBITED
+    """Anything written by hand in the room cannot permit AI without contradiction.
+
+    Stated as a rule rather than pinned to one session. The Week 15 reflection
+    used to be the only in-class written work and is now a discussion, but the
+    rule outlives it: if a session ever again says it is written in the room,
+    this catches a missing prohibition.
+    """
+    for d in SCHEDULE:
+        text = (d.session.activity or "").lower()
+        if "written in class" in text or "written by hand" in text:
+            assert d.session.genai is GenAI.PROHIBITED, (
+                f"{d.slug} is written in the room and permits GenAI"
+            )
 
 
 def test_college_platforms_are_in_the_library():

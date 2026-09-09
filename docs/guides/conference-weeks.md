@@ -18,8 +18,32 @@ week — including some outside the normal class hour. Pick one.
 
 If nothing on the sheet works, email me. There is almost always another time.
 
-Attending counts toward your [participation
-grade](../assignments.md#participation) exactly as attending class does.
+These meetings are where 30% of your grade is earned: a [concept
+check](../assignments.md#concept-checks) from the study guide and an [oral
+progress report](../assignments.md#progress-reports) on your project. Missing
+one is not a participation deduction; it is a missed assessment, so if the sheet
+does not work for you, say so and we find another time.
+
+---
+
+## What happens in the fifteen minutes
+
+Every meeting runs the same way, and both halves are graded.
+
+| | | |
+|:---|:---|:---|
+| **~10 min** | [Concept check](../assignments.md#concept-checks) | Questions from the [study guide](../study-guide.md), covering everything taught up to that week. Out loud, in your own words. |
+| **~5 min** | [Progress report](../assignments.md#progress-reports) | Where your project stands: what you built, what broke, what you decided. Ends with a written goal for the next stretch. |
+
+### What is fair game, meeting by meeting
+
+The [study guide](../study-guide.md) is the whole of it, scoped to the point in
+the term you have reached:
+
+{{ meeting_study_guide() }}
+
+That page grows through the term, so a later meeting covers more ground than an
+earlier one. Nothing is ever asked that is not on it.
 
 ---
 

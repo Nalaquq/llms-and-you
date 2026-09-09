@@ -25,7 +25,7 @@ from course_site.loaders import (
     load_semester,
     load_themes,
 )
-from course_site.models import Concept, DatedSession, GenAI, Kind, Resource
+from course_site.models import Concept, DatedSession, Day, GenAI, Kind, Resource
 from course_site.render import concept_entry, reading_block, reading_entry
 
 
@@ -281,6 +281,50 @@ def define_env(env) -> None:
                     f"| **Week {d.session.week}** ([{d.date_label}]"
                     f"(sessions/{d.slug}.md)) | {d.session.due.strip()} |"
                 )
+        return "\n".join(rows)
+
+    @env.macro
+    def meeting_study_guide(prefix: str = "../") -> str:
+        """What the concept check can cover at each individual meeting.
+
+        Derived, never typed: a concept is in scope for a meeting if the session
+        that introduced it happened before that meeting. The scope is taken from
+        the FIRST meeting in each window, so a student who books the Tuesday slot
+        is never asked about something a Thursday student had seen and they had
+        not. Weeks 5 and 10 run meetings on both days; this table promises the
+        smaller set, which is the only honest thing it can promise.
+
+        Counts and a boundary rather than a list of names. The study guide is
+        the list, it is one click away, and forty-seven linked names in a table
+        cell is not something anyone reads.
+        """
+        order = {Day.TUE: 0, Day.THU: 1}
+        meetings = sorted(
+            {d.session.week: d for d in reversed(schedule) if d.is_conference}.values(),
+            key=lambda d: d.date,
+        )
+        concepts = list(load_concepts().values())
+
+        rows = ["| Meeting | Everything taught through | On the study guide |", "|:---|:---|---:|"]
+        for d in meetings:
+            cut = (d.session.week, order[d.session.day])
+            scope = [c for c in concepts if (c.week, order[c.day]) < cut]
+            # The boundary is the last session before the meeting, not the last
+            # one that happened to add a concept -- otherwise every row reads
+            # the same until the study guide catches up with the schedule.
+            before = [x for x in schedule if x.date < d.date]
+            if before:
+                last = before[-1]
+                through = (
+                    f"[Week {last.session.week} — {last.session.topic}]"
+                    f"({prefix}sessions/{last.slug}.md) <small>({last.date_label})</small>"
+                )
+            else:
+                through = "—"
+            rows.append(
+                f"| **Week {d.session.week}** <small>({d.date_label})</small> "
+                f"| {through} | {len(scope)} |"
+            )
         return "\n".join(rows)
 
     @env.macro

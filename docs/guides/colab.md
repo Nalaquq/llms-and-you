@@ -134,7 +134,7 @@ The difference is visible immediately and it is the whole point of the session.
 
 !!! info "Where the line is"
 
-    Reading responses and the Burchell reflections are **no-AI work** — see the
+    The concept check at your individual meeting is **no-AI work** — see the
     [AI policy](../syllabus.md#using-ai). Lab notebooks are not: use whatever
     helps, and say what you used when you show it. Citing a model you leaned on
     is normal practice here, not a confession.

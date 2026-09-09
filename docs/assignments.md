@@ -130,51 +130,57 @@ The lowest two lab grades are dropped. Things happen.
 
 ---
 
-## Reading Responses and Burchell Reflections { #responses }
+## Concept Checks at Individual Meetings { #concept-checks }
 
 **20%**
 
-{{ genai_banner('responses') }}
+{{ genai_banner('concept-checks') }}
 
-### Weekly responses
+At each [individual meeting](guides/conference-weeks.md) you are asked about
+concepts from the [study guide](study-guide.md) — everything the course has
+covered up to that week. Out loud, in your own words, across a desk.
 
-Short written responses to Tuesday readings — a few hundred words, posted
-before class. Each session page lists discussion questions; answer one, or
-raise something better.
+**The study guide is the whole of what can be asked.** Nothing outside that page
+appears, and each entry already tells you what you are expected to be able to
+*do* with the idea: the **You should be able to** lines are the questions. A
+concept you can only recite in the words it was defined in is one you cannot yet
+apply, and applying it is what is being graded.
 
-These are graded lightly and quickly. The purpose is that you arrive having
-thought about the reading, and that I know what the room is thinking before I
-walk into it.
+The [Burchell arc](resources.md#the-burchell-arc) is fair game at the same
+meetings, as far as it has run by then. Not the episode summaries — what has
+changed across them, and what has changed in her.
 
-### The Burchell reflections
+### How it is graded
 
-Three longer pieces, due **Weeks 2, 7, and 15**, tracking the [Burchell
-arc](resources.md#the-burchell-arc) — six *Real Python* episodes with the same
-guest, from July 2022 to April 2026.
+Roughly ten minutes of the fifteen. You are not being caught out: if you cannot
+get to an answer, we work toward it together and that is worth something.
+Fluency in the vocabulary is worth less than knowing when an idea applies and
+when it does not.
 
-The first two were recorded four and three months before ChatGPT was released.
-The last, two months before this class started. Read consecutively they are a record of a
-field changing under someone who was paying close attention throughout, and the
-reflections ask you to track both what changed in the field and what changed in
-her.
-
-The Week 15 reflection is written in class, and asks a harder version of the
-question: which of your own beliefs from Week 1 do you now think was wrong?
+Three meetings, in Weeks 4, 5, and 10. Later meetings cover more ground, because
+more has been taught.
 
 ---
 
-## Participation { #participation }
+## Oral Progress Reports { #progress-reports }
 
 **10%**
 
-Judged on the quality of what you contribute, not the frequency. A student who
-speaks twice a semester and both times moves the discussion forward is doing
-better than one who talks constantly.
+{{ genai_banner('progress-reports') }}
 
-**Attending your scheduled individual meeting counts here.** There are five
-such sessions across Weeks 4, 5, and 10; see [Individual
-meetings](guides/conference-weeks.md).
+The other half of each meeting. Five minutes on where your project stands: what
+you built since we last met, what broke, what you decided and why, and what you
+intend next.
 
-If speaking in class is genuinely difficult for you, come talk to me in the
-first two weeks. There are other ways to demonstrate engagement and I would
-rather arrange one early than grade you down for a term.
+**Graded on whether you can say plainly where you are.** A project that stalled
+and is described accurately scores better than one described vaguely. This is
+the spoken version of what your [decision log](guides/writing-adrs.md) does in
+writing, and the two should agree — if the log says one thing and you say
+another in the room, that gap is the interesting part.
+
+Each report ends with a **written goal** for the next stretch, agreed between
+us. The following meeting starts by checking it.
+
+Attending your scheduled meeting is how both of these components are earned.
+There is no separate participation grade; if something makes a slot impossible,
+email me and we find another time. The one thing that does not work is silence.

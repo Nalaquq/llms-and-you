@@ -36,3 +36,8 @@ scripts/*.pptx
 # scripts/build_syllabus_pdf.py. See ADR-022.
 LLMs-and-You-Syllabus-*.pdf
 .~lock.*#
+
+# Editor and Jupyter scratch. Checkpoints in particular can carry saved cell
+# output, which the notebooks themselves are required not to.
+notebooks/.ipynb_checkpoints/
+*.kate-swp

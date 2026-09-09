@@ -485,8 +485,9 @@
     - Why would a LARGER model be less truthful? What is it learning to imitate?
     - Is "truthful" the same property as "not hallucinating"?
   activity: >-
-    Run TruthfulQA-style questions live and score them as a room. Second
-    Burchell reflection due.
+    Run TruthfulQA-style questions live and score them as a room. Episode 188 is
+    the halfway point of the Burchell arc; where the arc has got to is fair game
+    at your Week 10 meeting.
 
 - week: 7
   day: thu
@@ -782,13 +783,11 @@
       Trace the Burchell arc from Episode 119 to Episode 291. What changed in
       the field, and what changed in her?
     - Which claim from Week 1 of this course do you now think was wrong?
-  genai: prohibited
-  genai_note: >-
-    The final reflection is written by hand, in class, about your own change of
-    mind over fifteen weeks. Nothing else can write it and nothing else should.
   activity: >-
-    Final Burchell reflection, written in class: what you believed in August and
-    what you believe now.
+    The Burchell arc, end to end, argued as a room: what changed in the field
+    across four years, what changed in her, and which of your own Week 1 beliefs
+    you now think was wrong. Nothing is submitted. This is the last session
+    before the project is due, and it is a conversation on purpose.
 
 - week: 15
   day: thu

@@ -20,6 +20,37 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — reading responses and participation are replaced by assessed individual meetings **[student-facing]**
+
+The two components that were graded on written responses and on class
+contribution are gone. Their thirty points now sit on the individual meetings,
+which become an assessment rather than an optional check-in:
+
+| Component | Weight |
+|:---|---:|
+| Concept Checks at Individual Meetings | 20% |
+| Oral Progress Reports | 10% |
+
+At each meeting you are asked about concepts from the study guide — everything
+taught up to that week, answered out loud — and then give a short spoken account
+of where your project stands and what you intend next. The meetings stay in
+Weeks 4, 5 and 10; the individual-meetings guide now says what each one covers,
+derived from the study guide rather than typed, so it cannot drift from the page
+it promises to draw on.
+
+Nothing is due weekly any more. The reading is checked when a meeting comes
+round, which is a real change in rhythm: there is no longer a weekly artifact
+that says you did it.
+
+The Burchell arc survives as listening and as argument. The three written
+reflections are gone; the arc is fair game at the meetings as far as it has run,
+and the Week 15 session that used to end in a written reflection is now that
+argument held in the room.
+
+The no-AI boundary moves with the work. It used to sit on the reading
+responses; it now sits on the concept check, which is spoken and answered from
+your own head. Preparing with a model is studying and is fine.
+
 ### Changed — five Week 3 slides redrawn after the assigned 3Blue1Brown chapter **[student-facing]**
 
 The slides that take one attention head apart (query and key, the score, the

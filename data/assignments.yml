@@ -56,25 +56,32 @@
     failed and was documented honestly scores better than one that worked and
     was not. You do not need working code to have something to show.
 
-- id: responses
-  title: Reading Responses and Burchell Reflections
+- id: concept-checks
+  title: Concept Checks at Individual Meetings
   weight: 20
   genai: prohibited
   genai_note: >-
-    These measure whether you did the reading and what you made of it. A model
-    that has not done the reading can still produce a competent-looking response,
-    which is exactly why one is not acceptable here. Use of GenAI on any reading
-    response or reflection fails the assignment and goes to the Honor Court.
-    Asking a model to explain a passage you did not follow is fine -- that is
-    reading. Asking it to write your response is not.
+    These are spoken, one to one, from the study guide. You answer out of your
+    own head; there is nothing to submit and nothing to consult while you are
+    answering. Preparing with a model is fine and is just studying -- ask it to
+    quiz you on the mastery lines. Putting a model between you and the answer
+    during the meeting is not, and it is the one thing fifteen minutes across a
+    desk makes obvious.
   summary: >-
-    Short written responses to Tuesday readings, plus three longer reflections
-    tracking the Burchell podcast arc across Weeks 2, 7, and 15 -- one guest,
-    four years, and a field that changed underneath her.
+    At each individual meeting you are asked to define and apply concepts drawn
+    from the study guide -- everything taught up to that week, including the
+    Burchell arc as it stands. Answered out loud, in your own words. The study
+    guide is the whole of what can be asked, which is the point of keeping it:
+    nothing outside that page appears, and the page tells you in advance what
+    you should be able to do with each idea.
 
-- id: participation
-  title: Participation
+- id: progress-reports
+  title: Oral Progress Reports
   weight: 10
   summary: >-
-    Judged on the quality of what you contribute, not the frequency. Attending
-    your scheduled individual meetings counts here.
+    The other half of each individual meeting. A short spoken account of where
+    your project stands: what you built since we last met, what broke, what you
+    decided and why, and what you intend next. Graded on whether you can say
+    plainly where you are -- a project that stalled and is described accurately
+    scores better than one described vaguely. Each report ends with the written
+    goal for the next stretch, which is where the following meeting starts.

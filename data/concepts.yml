@@ -127,7 +127,7 @@
     selection leaves things out. "Trained on the internet" is not a description
     of everything ever written; it is a description of what was reachable, in
     the languages that dominate the web, in the years the crawl ran.
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
     - hf-llm-embedding-primer
@@ -167,7 +167,7 @@
     well anyway. The design question is not "how many words" but "what is the
     right size of piece".
   builds_on: [corpus]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - rpp-119-nlp
@@ -205,7 +205,7 @@
     "gender number" is time wasted. Position 412 has a value because of how
     training went, and it is only interpretable in combination with all the
     others.
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - 3blue1brown-transformers
     - hf-llm-embedding-primer
@@ -242,7 +242,7 @@
     mean different things, so a similarity between them is a meaningless number,
     computed successfully.
   builds_on: [vector]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - 3blue1brown-transformers
@@ -278,7 +278,7 @@
     emerges across layers is a result of training, is only partly understood
     even by researchers, and reading tidy roles into it is a guess dressed as an
     explanation.
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - 3blue1brown-neural-networks
     - hf-llm-embedding-primer
@@ -318,7 +318,7 @@
     stored by you and supplied again, which is the entire argument for
     retrieval in Week 10.
   builds_on: [neural-network-and-layers]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - 3blue1brown-transformers
     - 3blue1brown-neural-networks
@@ -357,7 +357,7 @@
     answer at inference time, which is why it can produce sentences nobody ever
     wrote, both the useful ones and the fabricated ones.
   builds_on: [corpus, parameters-and-weights]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - rpp-121-transformers
@@ -396,7 +396,7 @@
     number describes the arithmetic, not the state of the world, and this gap is
     the beginning of the hallucination unit in Week 6.
   builds_on: [vector]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - 3blue1brown-transformers
     - hf-llm-embedding-primer
@@ -483,7 +483,7 @@
     corpus. Everything in this week that deserves the word "embedding" was
     trained; one-hot was merely assigned.
   builds_on: [vector, vocabulary]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - alammar-illustrated-word2vec
@@ -522,7 +522,7 @@
     produce. A retrieval design that dismisses them without testing them has
     skipped its own comparison.
   builds_on: [vector, one-hot-encoding]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - rpp-119-nlp
@@ -565,7 +565,7 @@
     It is a property of a word *under one model* -- change the model and every
     number changes, including which words are neighbours.
   builds_on: [vector, dimensionality, token-and-tokenization, one-hot-encoding]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - 3blue1brown-word-vectors
@@ -607,7 +607,7 @@
     hair. The three-dimensional picture is a teaching aid, and the moment you
     start reasoning from it you are reasoning about a different space.
   builds_on: [embedding, dimensionality]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - 3blue1brown-word-vectors
@@ -644,7 +644,7 @@
     ranked list of dot products can be a ranked list of word frequency wearing a
     disguise. That is the bug cosine similarity fixes.
   builds_on: [vector]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - alammar-illustrated-word2vec
@@ -685,7 +685,7 @@
     synonymy. When retrieval confidently returns the passage saying the exact
     opposite of what you asked, this is why, and no prompt fixes it downstream.
   builds_on: [dot-product, embedding-space]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - tf-embedding-projector
@@ -724,7 +724,7 @@
     happily return five irrelevant ones, confidently, and that failure looks
     identical to success until you read the scores.
   builds_on: [cosine-similarity, embedding-space]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - tf-embedding-projector
     - hf-llm-embedding-primer
@@ -762,7 +762,7 @@
     you want to know whether two things are close, compute the similarity; the
     picture is for orientation, not for measurement.
   builds_on: [embedding-space, dimensionality]
-  assessed_in: [responses, labs]
+  assessed_in: [concept-checks, labs]
   resources:
     - tf-embedding-projector
     - hf-llm-embedding-primer
@@ -805,7 +805,7 @@
     the result as proof of reasoning skips the actual explanation, which is that
     the corpus put those words in those positions relative to each other.
   builds_on: [embedding-space, nearest-neighbours]
-  assessed_in: [responses, labs]
+  assessed_in: [concept-checks, labs]
   resources:
     - 3blue1brown-word-vectors
     - alammar-illustrated-word2vec
@@ -848,7 +848,7 @@
     rather than working badly, and every later rung of the ladder is an attempt
     to get some of that information back.
   builds_on: [vocabulary, sparse-and-dense-vectors]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
     - hf-llm-embedding-primer
@@ -884,7 +884,7 @@
     beats a short one on nearly every term for no reason but its length, which
     is what the term-frequency half of TF-IDF exists to normalise away.
   builds_on: [bag-of-words]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
     - hf-llm-embedding-primer
@@ -919,7 +919,7 @@
     flips the answer, a default stop-word list is a bug you installed on
     purpose.
   builds_on: [bag-of-words]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
 
@@ -954,7 +954,7 @@
     on which stemmer you picked -- which makes it an ADR-worthy choice rather
     than a default.
   builds_on: [vocabulary]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
 
@@ -990,7 +990,7 @@
     On a large corpus where you only need keys to match, a stemmer that is
     slightly wrong in predictable ways is often the better engineering answer.
   builds_on: [vocabulary, stemming]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
 
@@ -1028,7 +1028,7 @@
     ceiling is a real part of why the field went looking for a different idea
     altogether.
   builds_on: [bag-of-words, count-vectorization]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-119-nlp
     - hf-llm-embedding-primer
@@ -1060,7 +1060,7 @@
     function words win in every document, which is the exact problem the second
     half of TF-IDF exists to solve.
   builds_on: [count-vectorization]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
 
@@ -1098,7 +1098,7 @@
     computed over one collection cannot be reused against a different one, which
     is a thing people do by accident.
   builds_on: [corpus, term-frequency]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
 
@@ -1137,7 +1137,7 @@
     method succeeding at what it does -- and the reason a different question had
     to be asked.
   builds_on: [term-frequency, inverse-document-frequency]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - rpp-119-nlp
@@ -1182,7 +1182,7 @@
     surprises you, the corpus is the first place to look, not the model's
     "understanding".
   builds_on: [corpus, embedding-space]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1221,7 +1221,7 @@
     answer until you say what you want close together. This is precisely the
     shape of decision the course wants written down rather than defaulted into.
   builds_on: [corpus, distributional-hypothesis]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1256,7 +1256,7 @@
     on this pair. CBOW predicts the *middle from the outside*. Fix it by the
     name: a bag of context, one word out.
   builds_on: [sliding-window, neural-network-and-layers, softmax, one-hot-encoding]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - alammar-illustrated-word2vec
@@ -1290,7 +1290,7 @@
     context windows, and both throw the prediction task away at the end. If you
     can only hold one thing about word2vec, hold that, not this.
   builds_on: [sliding-window, cbow]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1332,7 +1332,7 @@
     thing, check that quality holds -- recurs everywhere in this field,
     including in the retrieval systems you will build.
   builds_on: [softmax, skip-gram, vocabulary]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1372,7 +1372,7 @@
     meant. It is where embeddings started, and its failures are what the next
     rung was built to fix.
   builds_on: [cbow, skip-gram, negative-sampling, distributional-hypothesis]
-  assessed_in: [responses, labs]
+  assessed_in: [concept-checks, labs]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1414,7 +1414,7 @@
     thing as producing true ones -- and the distance between those two is most
     of what the rest of this course is about.
   builds_on: [training-and-inference, word2vec]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - alammar-illustrated-word2vec
     - hf-llm-embedding-primer
@@ -1452,7 +1452,7 @@
     embedding is blending senses constantly rather than occasionally -- you just
     do not notice until a retrieval system hands you the wrong sort of bank.
   builds_on: [word2vec, embedding]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - alammar-illustrated-word2vec
@@ -1491,7 +1491,7 @@
     faster, cheaper and better, and reaching for a chat model to compute a
     similarity is using the wrong tool at considerable expense.
   builds_on: [neural-network-and-layers]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - alammar-seq2seq-attention
     - hf-llm-embedding-primer
@@ -1533,7 +1533,7 @@
     change. When the problem is that the model lacks information, the answer is
     usually to supply the information -- which is retrieval, and it is Week 10.
   builds_on: [training-and-inference]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - rpp-121-transformers
@@ -1572,7 +1572,7 @@
     objective is exactly why one model retrieves well and the other writes well,
     and it is the pretext-task lesson arriving with consequences.
   builds_on: [pretext-task, encoder-and-decoder, sliding-window]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - hf-llm-embedding-primer
     - rpp-121-transformers
@@ -1613,7 +1613,7 @@
     start. BERT's own embedding layer is a static lookup table exactly like
     word2vec's, and context is what the layers above it add.
   builds_on: [encoder-and-decoder, masked-language-modelling, pretraining-and-fine-tuning]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - rpp-121-transformers
@@ -1662,7 +1662,7 @@
     rest of the architecture impossible to reason about, because it removes the
     thing the layers are *for*.
   builds_on: [word2vec, bert, polysemy]
-  assessed_in: [responses, project]
+  assessed_in: [concept-checks, project]
   resources:
     - hf-llm-embedding-primer
     - alammar-illustrated-word2vec
@@ -1703,7 +1703,7 @@
     essential could be dropped. Without knowing what was being dropped, the
     title is not a joke and the paper is not an argument.
   builds_on: [neural-network-and-layers]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - rpp-121-transformers
     - alammar-seq2seq-attention
@@ -1738,7 +1738,7 @@
     lossy summary the network chose, and what it chose to keep is neither
     inspectable nor guaranteed to be the part you cared about.
   builds_on: [recurrent-neural-network, vector]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-seq2seq-attention
     - rpp-121-transformers
@@ -1772,7 +1772,7 @@
     encoder handed over. Everything the decoder will ever know about the input
     has to have survived that compression.
   builds_on: [encoder-and-decoder, hidden-state]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-seq2seq-attention
     - rpp-121-transformers
@@ -1812,7 +1812,7 @@
     would not have fixed it, because a longer sentence would still be squeezed
     into the same fixed size. The fix was to stop squeezing.
   builds_on: [sequence-to-sequence, hidden-state]
-  assessed_in: [responses]
+  assessed_in: [concept-checks]
   resources:
     - alammar-seq2seq-attention
     - rpp-121-transformers
@@ -1851,7 +1851,7 @@
     configurable stage that happens afterwards. That separation is precisely
     what you are adjusting when you set a temperature.
   builds_on: [vector, vocabulary, embedding]
-  assessed_in: [responses, labs]
+  assessed_in: [concept-checks, labs]
   resources:
     - 3blue1brown-transformers
 

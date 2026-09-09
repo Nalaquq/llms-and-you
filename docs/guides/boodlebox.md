@@ -9,7 +9,8 @@ line is.
 
 !!! warning "Read this before you use it on coursework"
 
-    **Reading responses and Burchell reflections are no-AI work in this course.**
+    **The concept-checks at your individual meetings are no-AI work in this
+    course.**
     Asking a model to explain a passage you did not follow is fine — that is
     reading. Asking it to write your response is not, and it fails the
     assignment. The full policy is in the
@@ -99,8 +100,8 @@ questions where you cannot yet tell. Week 7 is about why.
 | Explaining a passage you did not follow | **Fine.** That is reading |
 | Quizzing you on whether you understood it | **Fine**, and underused |
 | Comparing how models answer, for a lab | **Fine** — often the assignment |
-| Drafting or writing a reading response | **No.** Fails the assignment |
-| Drafting a Burchell reflection | **No.** Fails the assignment |
+| Asking it to quiz you on the study guide | **Yes.** That is studying |
+| Consulting it during an individual meeting | **No.** Fails the assessment |
 | Anything on a page with a red no-AI banner | **No.** Honor Court |
 | Project work, cited | **Fine** — see [acknowledging use](../syllabus.md#acknowledging-use) |
 

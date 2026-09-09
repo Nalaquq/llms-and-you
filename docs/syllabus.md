@@ -172,8 +172,11 @@ self-paced.
 
 {{ conference_table() }}
 
-The sign-up sheet goes out the Thursday before. Attending counts toward
-participation exactly as attending class does.
+The sign-up sheet goes out the Thursday before. **These meetings are an
+assessment**, not an optional office hour: 30% of the grade is earned in them,
+as a concept check drawn from the [study guide](study-guide.md) and a short oral
+report on your project. Miss one and it is a missed assessment, so tell me early
+and we find another time.
 
 Both project milestones fall in these weeks by design: your proposal (Week 5)
 and your prototype (Week 10) are the two points where individual feedback is
