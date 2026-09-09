@@ -324,6 +324,7 @@
   topic: 'Lab: Watching Attention Work'
   theme: foundations
   notebook: w03-thu
+  deep_dive: w03-thu-translation
   summary: Attention weights made visible on real sentences.
   activity: >-
     Predict where the model will attend before you look, then find a case where
@@ -331,11 +332,18 @@
     thing, ten minutes each.
 
 
-    The notebook opens a real transformer doing the paper's own task -- English
-    to German -- so all three attentions from Figure 1 are there to look at:
-    the encoder's, the decoder's masked one, and the cross-attention between
-    them.
+    The notebook opens a real transformer -- an encoder-decoder, so all three
+    attentions from Figure 1 are there to look at: the encoder's, the decoder's
+    masked one, and the cross-attention between them. It answers questions in
+    English, so every sentence on screen is one you can argue with.
+
+
+    A second notebook is linked underneath for anyone who wants it. Same work,
+    done on English-to-German translation, which is the task the 2017 paper was
+    written about and the model Tuesday's measured numbers come from. It is
+    optional and nothing depends on it.
   optional:
+    - flan-t5-base
     - opus-mt-en-de
     - bertviz
     - hf-transformers

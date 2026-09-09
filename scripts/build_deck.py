@@ -401,7 +401,8 @@ NOTES = {
         "Say that -- it is why the lab exists.\n"
         "5-0 does the coreference our title slide asked about, at 0.87. 3-1 does "
         "nothing but look left. Two useful, two plumbing.\n"
-        "Reproduce: notebooks/w03-thu.ipynb section 5."
+        "Reproduce: notebooks/w03-thu-translation.ipynb section 5 -- the optional\n"
+        "deep dive, not the main lab. Say so if anyone asks."
     ),
     "w03_s20": (
         "0:46. The trap: if everything sees everything at once, order is gone -- "
@@ -430,7 +431,7 @@ NOTES = {
         "there, which is the whole problem. Two: stamp minus infinity on those "
         "BEFORE the softmax. Three: after it they are exactly zero. Not small. Zero.\n"
         "It is s15's grid again -- rows are the word being written -- so the "
-        "triangle is above the diagonal, as it is in Thursday's notebook, section 2.\n"
+        "triangle is above the diagonal, as it is in both Thursday notebooks.\n"
         "Why: without it the model reads the answer while learning to write it, "
         "and learns nothing."
     ),
@@ -474,7 +475,7 @@ NOTES = {
         "at 'it' -- 0.58 and 0.61 -- and at neither noun, in either sentence.\n"
         "Four: so the attention picture is the same for the right answer and the "
         "wrong one. Whatever decided the gender is not in these weights.\n"
-        "Both numbers reproduce in Thursday's notebook, section 6."
+        "Both numbers reproduce in notebooks/w03-thu-translation.ipynb, section 6."
     ),
     "w03_s29": (
         "DISCUSSION (5 min). Last stop.\n"

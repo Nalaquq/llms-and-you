@@ -10,10 +10,9 @@ room. The point the slide has to land is that the same word at two positions
 becomes two different vectors, and a table under the words shows that.
 
 The four heads on s19 are MEASURED, not invented -- from
-Helsinki-NLP/opus-mt-en-de, the model students open in Thursday's lab. Any of
-them can be reproduced in that notebook, which is the point of using it: the
-deck and the lab are looking at the same weights. See notebooks/w03-thu.ipynb,
-sections 3 and 5.
+Helsinki-NLP/opus-mt-en-de, the model students open in the optional Week 3
+deep dive. Any of them can be reproduced there. See
+notebooks/w03-thu-translation.ipynb, sections 3 and 5.
 """
 
 import matplotlib.pyplot as plt
@@ -44,7 +43,7 @@ SENT = ["The", "animal", "didn't", "cross", "the", "street", "because", "it", "w
 IT = 7
 
 # (layer, head, plain-language job, source word index, target index, weight, colour)
-# Measured on this sentence unless noted. Reproduce with notebooks/w03-thu.ipynb.
+# Measured here. Reproduce with notebooks/w03-thu-translation.ipynb.
 HEADS = [
     (5, 0, "finds the noun the pronoun stands for", IT, 1, 0.87, GREEN),
     (1, 7, "looks at the word straight after", IT, 8, 1.00, BLUE),
@@ -143,7 +142,7 @@ def make_heads():
             fig,
             r"$\mathrm{MultiHead}(Q,K,V) = \mathrm{Concat}(\mathrm{head}_1, \ldots, "
             r"\mathrm{head}_h)\, W^O$",
-            note="h = 8 heads · measured in opus-mt-en-de, Thursday's model",
+            note="h = 8 heads · measured in opus-mt-en-de",
         )
         footer(fig, "study guide: parameters-and-weights · neural-network-and-layers")
         return fig_to_pil(fig)

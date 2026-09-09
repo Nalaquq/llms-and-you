@@ -135,9 +135,11 @@ resolves *it* to *animal* at 0.87, the alignment head where the German verb at
 the end of the clause reaches back nine words to the English one in the middle,
 the pronoun that carries none of the decision it appears to explain — that
 number was **measured**, not drawn. It comes from
-[opus-mt-en-de](https://huggingface.co/Helsinki-NLP/opus-mt-en-de), the same
-model Thursday's lab opens, and every one of them can be reproduced in that
-notebook.
+[opus-mt-en-de](https://huggingface.co/Helsinki-NLP/opus-mt-en-de), and every
+one of them can be reproduced in the **optional translation notebook** offered
+alongside Thursday's lab. The lab itself now runs on an English question
+answerer, so that nobody has to read German to follow it; the translation
+notebook is there for anyone who wants the model these slides were measured on.
 
 Six slides are marked *illustrative* instead: the ones that take a single
 attention head apart step by step, and the mask. Real weights are messier than

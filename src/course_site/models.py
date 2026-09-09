@@ -263,6 +263,15 @@ class Session(Base):
     checks the file exists, that no two sessions claim the same one, and that
     every lab either names one or is listed as deliberately not needing one.
     """
+    deep_dive: str | None = None
+    """Stem of a second, optional notebook for students who want to go further.
+
+    The primary ``notebook`` is what the session is built on and what everyone is
+    expected to open. A deep dive is genuinely optional -- a longer or harder
+    treatment of the same material that nothing else depends on. It renders below
+    the primary one and says plainly that it is extra, because a student short of
+    time needs to know which of two notebooks they can skip.
+    """
     notebook_exempt: str | None = None
     """Why this lab has no notebook. Required if a lab declares none.
 
@@ -272,7 +281,7 @@ class Session(Base):
     wrote down, not a gap.
     """
 
-    @field_validator("notebook")
+    @field_validator("notebook", "deep_dive")
     @classmethod
     def _notebook_is_a_slug(cls, v: str | None) -> str | None:
         if v is not None and not re.fullmatch(r"[a-z0-9-]+", v):
@@ -285,6 +294,16 @@ class Session(Base):
             raise ValueError(
                 f"session {self.slug!r} names a notebook and also claims an exemption "
                 "from having one. It cannot be both."
+            )
+        if self.deep_dive and not self.notebook:
+            raise ValueError(
+                f"session {self.slug!r} offers a deep-dive notebook and no primary one. "
+                "A deep dive is the optional second notebook, not the only one."
+            )
+        if self.deep_dive and self.deep_dive == self.notebook:
+            raise ValueError(
+                f"session {self.slug!r} names {self.notebook!r} as both its notebook "
+                "and its deep dive."
             )
         if self.kind is SessionKind.LAB and not self.notebook and not self.notebook_exempt:
             raise ValueError(
@@ -324,6 +343,10 @@ class Session(Base):
     @property
     def notebook_file(self) -> str | None:
         return f"{self.notebook}.ipynb" if self.notebook else None
+
+    @property
+    def deep_dive_file(self) -> str | None:
+        return f"{self.deep_dive}.ipynb" if self.deep_dive else None
 
 
 class DatedSession(Base):

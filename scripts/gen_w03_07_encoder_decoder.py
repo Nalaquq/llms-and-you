@@ -6,14 +6,14 @@
 
 The German on both slides is what opus-mt-en-de actually produces, and the
 alignment weights on s23 are measured from layer 3, head 4 of that model.
-Reproduce either in notebooks/w03-thu.ipynb, sections 2 and 4.
+Reproduce either in notebooks/w03-thu-translation.ipynb, sections 2 and 4.
 
 s22 is staged the way 3Blue1Brown stages masking (Chapter 6, the ShowMasking
 scene): scores exist for every pair first, including the words not yet
 written; those are stamped minus infinity BEFORE the softmax; and after it
 they are exactly zero. The grid is the same one s15 and s16 used -- rows are
 the word being written, columns the words it looks at, so the blocked
-triangle is above the diagonal, as it is in Thursday's notebook. The scores
+triangle is above the diagonal, as it is in both Thursday notebooks. The scores
 on it are illustrative and the slide says so; the triangle is not.
 """
 
@@ -225,7 +225,7 @@ def make_mask():
             fig.text(
                 x0,
                 0.255,
-                "The triangle is what Thursday's notebook checks, in section 2.",
+                "The triangle is what both Thursday notebooks check, in section 2.",
                 fontsize=11.5,
                 color=SUB,
                 va="top",

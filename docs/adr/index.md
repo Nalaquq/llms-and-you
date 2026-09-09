@@ -902,3 +902,76 @@ evenly across the term. It costs a group session in the stretch where the
 projects most need the room, and the three existing windows already sit where
 the project milestones are. Revisit if the Week 10 to Week 15 gap turns out to
 be where students go quiet.
+
+---
+
+## ADR-024: Teach Week 3 on an English model, and keep the translation one as a deep dive
+
+**Status:** Accepted
+
+**Context.** The Week 3 lab opened `opus-mt-en-de` and asked students to read
+its output. The model choice was right for one reason and wrong for another.
+
+Right, because it is an encoder-decoder, and the paper's Figure 1 has three
+attention blocks. An encoder-only model like BERT shows one of them and a
+decoder-only model like GPT-2 shows one. Translation also happens to be the task
+*Attention Is All You Need* was written about.
+
+Wrong, because two of the lab's best sections depended on knowing German. The
+cross-attention section turned on German sending the verb to the end of a
+subordinate clause, and the closing section turned on German pronouns carrying a
+gender, which is the device that forced the model to commit to a referent. This
+is a prompt-engineering course at a liberal arts college; it does not assume
+German, and a student without it was watching both of those on faith. The point
+of the exercise is to compare what *you* understand about a sentence with what
+the model appears to be doing, which cannot be done in a language you are
+guessing at.
+
+**Decision.** The lab runs on `flan-t5-base`, an instruction-tuned
+encoder-decoder doing English question answering. All three attention types
+survive because it is still an encoder-decoder. The translation notebook stays,
+renamed and offered underneath as an optional deep dive, because it is the task
+the paper was written about and it is the model the Tuesday slides measured their
+numbers from.
+
+`Session` gains a `deep_dive` field beside `notebook`, mirroring the
+`readings`/`optional` split the schedule already uses for reading. It renders as
+a collapsed admonition below the primary notebook and says it is skippable,
+because two notebooks on one page is a hazard: somebody will work through the
+wrong one the night before.
+
+**Consequences.** The lab's ending got better rather than merely translatable.
+The German version closed on the model getting a Winograd sentence wrong while
+its attention pointed nowhere useful. The English one closes on a control the
+student runs: scoring all 144 encoder heads surfaces one whose `it` row peaks on
+`trophy` at 0.85, which looks exactly like a coreference head; flipping one word
+so the referent changes leaves it still pointing at `trophy`, in the sentence the
+model correctly answers `suitcase`. They find a convincing explanation and watch
+it fail a test they designed. That is the "attention is not an explanation"
+lesson arriving as an experiment instead of an assertion.
+
+The costs are real and worth stating. The model is 248M parameters against 74M,
+so the download is about 1 GB rather than 300 MB, on a shared classroom
+connection. And the Tuesday deck quotes numbers measured from `opus-mt-en-de` —
+the coreference head at 0.87, the alignment head at layer 3 head 4, the
+cross-attention weights of 0.58 and 0.61. Those slides now name the translation
+notebook as where they reproduce, which keeps them honest at the cost of sending
+a curious student to the optional notebook to check them.
+
+Two notebooks is also two things to maintain. The deep dive is the one that will
+rot, because nothing in the session depends on it.
+
+**Rejected: BERT or GPT-2.** Either would be English and either would be
+smaller. Both would cost the thing the model was chosen for — BERT has no
+decoder and therefore no mask and no cross-attention, GPT-2 has no encoder — and
+Figure 1's three blocks are most of what Tuesday is about.
+
+**Rejected: keeping the translation notebook as the only lab and explaining the
+German.** Tried, in the sense that the notebook already carried explanatory
+prose. The explanation makes a student able to follow the sentence; it does not
+make them able to disagree with the model, which is what the exercise asks.
+
+**Rejected: deleting the translation notebook.** It is the paper's own task, it
+is the model the slides were measured on, and it is a genuinely better artifact
+for a student who reads German or who wants to see the same mechanism twice.
+Keeping it costs a field on the schema and a collapsed block on one page.

@@ -30,6 +30,10 @@ def test_there_are_notebooks_at_all():
 def test_every_session_notebook_reference_resolves():
     """A session may only point at a notebook that exists."""
     for d in SCHEDULE:
+        if d.session.deep_dive:
+            assert d.session.deep_dive in NOTEBOOKS, (
+                f"{d.slug} points at missing deep dive {d.session.deep_dive!r}"
+            )
         if d.session.notebook:
             assert d.session.notebook in NOTEBOOKS, (
                 f"{d.slug} points at missing notebook {d.session.notebook!r}"
@@ -44,6 +48,7 @@ def test_every_notebook_belongs_to_a_session():
     they do not do.
     """
     named = {d.session.notebook for d in SCHEDULE if d.session.notebook}
+    named |= {d.session.deep_dive for d in SCHEDULE if d.session.deep_dive}
     orphans = sorted(set(NOTEBOOKS) - named)
     assert not orphans, f"notebooks no session points at: {orphans}"
 

@@ -67,7 +67,7 @@ W03_ORDER = [
     "w03_s17_blend.gif",  # ...and the formula the recap slide asked for
     "w03_s17b_meaning.gif",  # the moved vector: same word, two sentences
     "w03_s18_discuss_head.gif",  # DISCUSS: is that understanding?
-    "w03_s19_heads.gif",  # eight at once, measured in Thursday's model
+    "w03_s19_heads.gif",  # eight at once, measured in the translation notebook
     "w03_s20_position.gif",  # the word-order problem, back again
     "w03_s21_discuss_heads.gif",  # DISCUSS: two design choices
     "w03_s22_mask.gif",  # writing without reading ahead

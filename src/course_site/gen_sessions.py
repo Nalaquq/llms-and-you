@@ -18,7 +18,13 @@ from course_site.guides import load_guides
 from course_site.loaders import load_concepts, load_resources, load_schedule, load_themes
 from course_site.models import DatedSession, GenAI, SessionKind
 from course_site.notebooks import load_notebooks
-from course_site.render import concept_block, guide_block, notebook_block, reading_block
+from course_site.render import (
+    concept_block,
+    deep_dive_block,
+    guide_block,
+    notebook_block,
+    reading_block,
+)
 
 KIND_LABEL = {
     SessionKind.SEMINAR: "Seminar",
@@ -61,6 +67,8 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
     # instruction -- everything else on the page is context for it.
     if s.notebook:
         out.append(notebook_block(load_notebooks()[s.notebook]))
+    if s.deep_dive:
+        out.append(deep_dive_block(load_notebooks()[s.deep_dive]))
 
     # Above the reading, not below the activity: a student who is stuck is
     # stuck before they start, and this is the page they are already on.

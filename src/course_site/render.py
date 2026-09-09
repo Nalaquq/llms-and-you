@@ -146,6 +146,30 @@ def concept_block(concepts: list[Concept], prefix: str = "") -> str:
     return "\n".join(lines) + "\n"
 
 
+def deep_dive_block(nb: Notebook) -> str:
+    """The optional second notebook, under the one everybody opens.
+
+    Deliberately quieter than ``notebook_block``: a collapsed admonition rather
+    than a call to action, and it says "optional" in the title where a student
+    skimming will see it. Two notebooks on a page is a hazard -- somebody will
+    work through the wrong one the night before -- so this one has to look like
+    what it is.
+    """
+    lines = [
+        f'??? abstract "Optional deep dive: {nb.title}"',
+        "",
+        "    Nothing on Thursday depends on this one. It is here for anyone who wants",
+        "    to go further, and it is a reasonable thing to skip.",
+        "",
+        f"    :material-notebook-outline: **[{nb.title}]({nb.colab_url})**",
+        "",
+        f"    <small>[:material-github: View or download]({nb.github_url})</small>",
+    ]
+    if nb.is_draft:
+        lines += ["", "    :material-progress-pencil: Still a draft."]
+    return "\n".join(lines) + "\n"
+
+
 def notebook_block(nb: Notebook) -> str:
     """The notebook for a session, as the first thing under the header.
 

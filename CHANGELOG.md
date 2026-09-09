@@ -20,6 +20,28 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — the Week 3 lab no longer requires German **[student-facing]**
+
+Thursday's notebook now opens `flan-t5-base` and answers questions in English.
+It is still an encoder-decoder, so all three attention types from the paper's
+Figure 1 are still there to look at; what has gone is the assumption that you
+read German.
+
+The old notebook is still here, linked underneath the new one as an **optional
+deep dive**. It does the same work on English-to-German translation, which is
+the task *Attention Is All You Need* was written about, and it is the model the
+Tuesday slides quote their measured numbers from. Nothing on Thursday depends on
+it and it is a reasonable thing to skip.
+
+The new lab ends on a control experiment rather than an assertion. You find a
+head that looks exactly like it resolves a pronoun, then change one word so the
+answer flips and watch that head keep pointing at the old answer while the model
+gets the new one right. See
+[ADR-024](https://Nalaquq.github.io/llms-and-you/adr/#adr-024-teach-week-3-on-an-english-model-and-keep-the-translation-one-as-a-deep-dive).
+
+**Note the download.** The new model is about 1 GB where the old one was 300 MB.
+Get it on wifi you trust.
+
 ### Changed — reading responses and participation are replaced by assessed individual meetings **[student-facing]**
 
 The two components that were graded on written responses and on class

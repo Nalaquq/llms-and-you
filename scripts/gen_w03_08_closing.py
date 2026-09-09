@@ -7,8 +7,8 @@
 s27 is measured, and it is the slide the Thursday lab is built to continue.
 opus-mt-en-de really does translate both sentences with "sie", which is wrong
 for the second one, and the cross-attention for that pronoun really does point
-at "it" rather than at either noun. Reproduce in notebooks/w03-thu.ipynb,
-section 6.
+at "it" rather than at either noun. Reproduce in
+notebooks/w03-thu-translation.ipynb, section 6.
 """
 
 import numpy as np
@@ -153,7 +153,7 @@ def make_parallel():
 # =====================================================================
 # The Winograd pair. English tokens, the German opus-mt-en-de writes for each,
 # the noun a reader resolves "it" to, and where the model's cross-attention
-# went when it wrote the pronoun (measured; notebooks/w03-thu.ipynb, section 6).
+# went when it wrote the pronoun (measured; w03-thu-translation.ipynb, section 6).
 _EN = ["The", "trophy", "would", "not", "fit", "in", "the", "suitcase"]
 _EN += ["because", "it", "was", "too"]
 EN_A = [*_EN, "big"]
@@ -335,7 +335,7 @@ def make_not_explanation():
         footer(
             fig,
             "study guide: static-vs-contextual-embeddings · polysemy · measured: "
-            "opus-mt-en-de, notebook section 6",
+            "opus-mt-en-de, translation notebook section 6",
         )
         return fig_to_pil(fig)
 

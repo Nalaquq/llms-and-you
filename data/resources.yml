@@ -1126,14 +1126,27 @@
     the same numbers the notebook slices by hand, for every layer and head at
     once. Free, runs in the notebook, no account.
 
+- id: flan-t5-base
+  title: "google/flan-t5-base (instruction-tuned encoder-decoder)"
+  kind: tool
+  url: https://huggingface.co/google/flan-t5-base
+  themes: [foundations, openweight]
+  assign_note: >-
+    The model the Week 3 lab opens. Twelve encoder layers, twelve decoder layers,
+    twelve heads, d_model 768, 248M parameters -- an encoder-decoder like the one
+    in Figure 1 of the paper, so all three kinds of attention are there to look
+    at, and it answers questions in English rather than translating. Apache-2.0.
+    About 1 GB, so download it on wifi you trust.
+
 - id: opus-mt-en-de
   title: "Helsinki-NLP/opus-mt-en-de (English-German translation model)"
   kind: tool
   url: https://huggingface.co/Helsinki-NLP/opus-mt-en-de
   themes: [foundations, openweight]
   assign_note: >-
-    The model the Week 3 lab opens. Six encoder layers, six decoder layers,
-    eight heads, d_model 512 -- the base transformer's own numbers, doing the
+    The model the Week 3 *deep dive* opens, and the one the Tuesday slides
+    measure their numbers from. Six encoder layers, six decoder layers, eight
+    heads, d_model 512 -- the base transformer's own numbers, doing the
     English-to-German task the 2017 paper was written about. 74M parameters,
     CC-BY-4.0, downloads in a minute.
 
