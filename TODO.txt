@@ -40,11 +40,11 @@ field. Course content lives in data/*.yml and nowhere else.
       factually wrong paragraphs that only running it caught.
 
 - [ ] THE NEW w03-thu HAS NEVER BEEN OPENED IN COLAB and it is now the
-      primary lab. Every cell was run end to end on CPU locally, but the
-      bertviz cell in section 7 could NOT be tested that way and bertviz
-      with a T5 encoder-decoder is the least certain part of it. Open it
-      in Colab before the session. If bertviz fails, delete the cell --
-      nothing above it depends on it.
+      primary lab. Every cell was run end to end on CPU locally,
+      INCLUDING the bertviz cell in section 7 -- model_view accepts the
+      T5 encoder/decoder/cross tuples and returns its HTML, checked with
+      html_action="return". What is still untested is Colab itself: its
+      library versions and whether the widget renders in that iframe.
 
 - [ ] the 1 GB flan-t5-base download on one room's wifi is untested.
       Same worry as glove-wiki-gigaword-50 in w02-thu, three times the

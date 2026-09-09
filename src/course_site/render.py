@@ -149,14 +149,15 @@ def concept_block(concepts: list[Concept], prefix: str = "") -> str:
 def deep_dive_block(nb: Notebook) -> str:
     """The optional second notebook, under the one everybody opens.
 
-    Deliberately quieter than ``notebook_block``: a collapsed admonition rather
-    than a call to action, and it says "optional" in the title where a student
-    skimming will see it. Two notebooks on a page is a hazard -- somebody will
-    work through the wrong one the night before -- so this one has to look like
-    what it is.
+    Quieter than ``notebook_block`` but not hidden. It was collapsed at first, on
+    the reasoning that two notebooks on a page is a hazard -- somebody will work
+    through the wrong one the night before. Collapsed turned out to read as
+    missing: a thin summary bar under a big call-to-action panel is something the
+    eye skips. So it is open by default (``???+``) and carries its own weight in
+    the title instead: "optional", and a first line saying nothing depends on it.
     """
     lines = [
-        f'??? abstract "Optional deep dive: {nb.title}"',
+        f'???+ abstract "Optional deep dive: {nb.title}"',
         "",
         "    Nothing on Thursday depends on this one. It is here for anyone who wants",
         "    to go further, and it is a reasonable thing to skip.",
