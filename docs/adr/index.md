@@ -975,3 +975,76 @@ make them able to disagree with the model, which is what the exercise asks.
 is the model the slides were measured on, and it is a genuinely better artifact
 for a student who reads German or who wants to see the same mechanism twice.
 Keeping it costs a field on the schema and a collapsed block on one page.
+
+---
+
+## ADR-025: Make the Week 4 lab fine-tuning, and lose the prompt-iteration lab
+
+**Status:** Accepted
+
+**Context.** Week 4 Thursday was *Iteration Under Constraint*: one task, a
+scoring rubric, five documented prompt iterations driven from Python. Its
+notebook was never written — `w04-thu.ipynb` was a draft of section headings and
+`TODO` cells.
+
+The course had no session anywhere in which a student changes a model. Ten
+themes, twenty-eight meetings, and every model the students touch arrives
+finished. Theme 9 is *Open-Weight Models*, and until now "open" was something
+read about rather than something done.
+
+**Decision.** Week 4 Thursday becomes *Lab: Fine-Tuning a Language Model*,
+adapted from Hugging Face's own `language_modeling.ipynb`. `distilgpt2` is
+fine-tuned on WikiText-2 with perplexity measured before and after, then
+`distilroberta-base` on the masked objective. The session's theme moves from
+`technique` to `openweight`.
+
+The notebook is **vendored and adapted, not linked.** Three changes were
+necessary rather than stylistic:
+
+- `load_dataset("wikitext", ...)` now raises `HfUriError: Repository id must be
+  'namespace/name'`. The dataset moved to `Salesforce/wikitext`.
+- The install cell omits `accelerate`, so `Trainer` fails several cells later
+  with an import error that names a package the notebook never mentions.
+- `notebook_login()`, `push_to_hub=True` and `trainer.push_to_hub()` require a
+  Hugging Face account, a write token and `git-lfs`. ADR-020 says a lab needs no
+  key and no account, so all five are gone and the models stay in the runtime.
+
+The first two are left visible in the notebook and explained, because "the
+tutorial is older than the library" is a thing worth having met once.
+
+**Consequences.** The course loses its only lab on iterating a prompt, in the
+week before students write their project proposals. This is a real cost and it
+is taken deliberately: the iteration lesson survives as Week 4 Tuesday's
+assignment, which already asks for a worked before/after example on the
+discussion board, and Week 7 builds an evaluation, which is the same discipline
+with the measurement made explicit.
+
+This is also the first lab that wants a GPU. The notebook says so at the top,
+prints which runtime it got, and gives a smaller `TRAIN_ROWS` for a student who
+has exhausted their free Colab quota — a worse model, but a model. Nothing is
+bought and no card is entered, so ADR-020 holds.
+
+The MLM section ends on a warning rather than a result: its perplexity is far
+lower than the causal model's and it is not a better model, because it is being
+scored on an easier task. Two numbers with the same name measuring different
+things is the most common way a benchmark comparison lies, and Week 7 meets it
+again.
+
+**Rejected: linking Hugging Face's notebook where it lives.** One click, nothing
+to maintain, and it is what was asked for. But `test_notebooks_are_named_for_their_session`
+requires the file to be `notebooks/w04-thu.ipynb`, and more importantly the
+upstream notebook is on `master` — a link that follows someone else's default
+branch changes under a student mid-semester, which is the same reason
+`notebooks.py` pins our own Colab links to `main`. It also does not currently
+run, and we would not know when it started or stopped doing so.
+
+**Rejected: keeping both labs, fine-tuning as a deep dive.** ADR-024 added
+`deep_dive` for exactly this and it would fit. But the prompt-iteration notebook
+does not exist, so this amounts to keeping a `TODO` file, and a fine-tuning lab
+offered as skippable is one nobody runs — it is the section that needs the GPU
+switched on.
+
+**Rejected: putting fine-tuning in Week 13, with the open-weight material.**
+Where it thematically belongs. Week 13 already has *Instrument It, Then Run One
+Yourself*, which is the deployment-cost lab and is not obviously worse than this
+one, and Week 4 would then need the prompt-iteration notebook actually written.

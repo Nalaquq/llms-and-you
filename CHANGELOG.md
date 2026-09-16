@@ -20,6 +20,31 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 4's Thursday lab is now fine-tuning, not prompt iteration **[student-facing]**
+
+*Lab: Iteration Under Constraint* is gone. Thursday of Week 4 is now **Lab:
+Fine-Tuning a Language Model**: you take `distilgpt2`, train it on WikiText-2,
+and measure its perplexity before and after, so "it got better" is a number
+rather than an impression. Then the same pipeline on `distilroberta-base`, which
+predicts a masked token rather than the next one.
+
+This is the first lab in the course where the weights actually move, and the
+first that wants a GPU — **Runtime → Change runtime type → T4 GPU** before you
+run the setup cell. It still needs no account, no token and no card, and there
+is a smaller setting in section 2 for anyone who has used up their free GPU
+quota for the day.
+
+What you lose is the prompt-iteration lab, in the week before project proposals.
+The iteration work has not disappeared: Tuesday of Week 4 still asks for a
+worked before/after example on the discussion board, and Week 7 builds a real
+evaluation. See
+[ADR-025](https://Nalaquq.github.io/llms-and-you/adr/#adr-025-make-the-week-4-lab-fine-tuning-and-lose-the-prompt-iteration-lab).
+
+The lab is adapted from Hugging Face's own fine-tuning notebook, which no longer
+runs as published — the dataset it loads was renamed on the Hub, and a `Trainer`
+argument was renamed under it. Both breakages are left in the notebook and
+explained rather than silently patched.
+
 ### Changed — the Week 3 lab no longer requires German **[student-facing]**
 
 Thursday's notebook now opens `flan-t5-base` and answers questions in English.

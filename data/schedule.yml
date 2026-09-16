@@ -377,22 +377,28 @@
 - week: 4
   day: thu
   kind: lab
-  topic: 'Lab: Iteration Under Constraint'
-  theme: technique
+  topic: 'Lab: Fine-Tuning a Language Model'
+  theme: openweight
   notebook: w04-thu
-  summary: Same task, five prompts, one measurable outcome — driven from Python.
+  summary: Take an open model, train it on new text, and measure whether it improved.
   activity: >-
-    You are given a task and a scoring rubric. Improve your prompt across five
-    documented iterations, run from a script so the comparison is real rather
-    than remembered.
+    Every model you have used so far arrived finished. Today you change one:
+    `distilgpt2` is fine-tuned on WikiText-2, and its perplexity is measured
+    before and after, so the claim that it improved is a number rather than an
+    impression.
 
 
-    We also settle a question that trips up anyone learning from older material:
-    frontier models have **removed** `temperature` and `top_p` -- sending them
-    returns an error -- and replaced them with an `effort` setting. Sweep effort
-    instead, and notice that the knob the internet still tells you to turn no
-    longer exists. Tutorials rot; the API reference does not.
-  optional: [anthropic-pricing]
+    Then the same pipeline on `distilroberta-base`, which predicts a *masked*
+    token rather than the next one -- the encoder objective from Week 3, and a
+    warning about comparing two benchmark numbers that share a name and measure
+    different tasks.
+
+
+    The lab is adapted from Hugging Face's own fine-tuning notebook, which no
+    longer runs as published: the dataset it loads was renamed, and one
+    `Trainer` argument was renamed under it. Both breakages are left visible and
+    explained. Tutorials rot; the API reference does not.
+  optional: [hf-transformers]
 
 # ===========================================================================
 # WEEK 5 — Taxonomy and project launch  (both sessions: individual meetings)
