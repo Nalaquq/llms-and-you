@@ -400,11 +400,18 @@
     explained. Tutorials rot; the API reference does not.
 
 
-    **Required, uploaded to Canvas before class:** the notebook's six closing
-    questions, answered in full sentences. Four ask what you found at the
-    **Your turn** prompts; the last two ask you to name a task of your own worth
-    fine-tuning and to think through where the corpus would come from, who owns
-    it, and what is in it that should not end up in a model's weights.
+    **Bring one discussion question.** That is all that is due on Thursday --
+    nothing is uploaded beforehand. A question you want the room to argue about,
+    that came out of something you ran; a question you cannot answer beats a
+    result you can.
+
+
+    **Then, on Canvas by our next meeting:** the notebook's six closing
+    questions, answered in full sentences, written *after* the session so the
+    discussion is in them. Four ask what you found at the **Your turn** prompts;
+    the last two ask you to name a task of your own worth fine-tuning and to
+    think through where the corpus would come from, who owns it, and what is in
+    it that should not end up in a model's weights.
   optional: [hf-transformers]
 
 # ===========================================================================
@@ -415,6 +422,7 @@
   day: tue
   topic: 'Individual Meetings: Technique Selection'
   theme: technique
+  due: Week 4 lab write-up -- the six fine-tuning questions, on Canvas
   summary: >-
     Fifty-eight named techniques and the vocabulary to tell them apart -- read
     on your own, then narrowed to three in conversation.

@@ -22,27 +22,35 @@ the record, not the announcement.
 
 ### Added — the Week 4 lab now has something to hand in **[student-facing]**
 
-The fine-tuning notebook closes with **six questions, answered in full sentences
-and uploaded to Canvas before Thursday's session.** This is the first time the
-course has said where a lab write-up goes — `labs` is 20% of the grade and has
-always been "graded on the write-up", which until now named an artefact with no
-home.
+**Before Thursday: bring one discussion question.** That is the whole of it,
+and nothing is uploaded beforehand. A question you want the room to argue
+about, that came out of something you ran — a question you cannot answer is
+worth more than a result you can, and if your notebook broke, the reason it
+broke is usually the best question in the room.
+
+**After Thursday: six questions on Canvas, due by our next meeting.** They are
+written *after* the session on purpose, so that whatever the discussion did to
+your thinking is in them. You are expected to have changed your mind about at
+least one; if somebody else's result contradicted yours, say so and name them.
 
 Four of the questions ask what you found at the **Your turn** prompts scattered
-through the notebook, so read those as you go rather than saving them for the
-end. The last two are new work: name a task of your own that would be worth
-fine-tuning a model for, then think through where its corpus would come from —
-how many examples you could realistically gather, who owns that text, and
-whether anything in it should not end up inside a model's weights.
+through the notebook, so read those as you go. The last two are new work: name a
+task of your own that would be worth fine-tuning a model for, then think through
+where its corpus would come from — how many examples you could realistically
+gather, who owns that text, and whether anything in it should not end up inside
+a model's weights.
+
+This is the first time the course has said where a lab write-up goes. `labs` is
+20% of the grade and has always been "graded on the write-up", which until now
+named an artefact with no home.
 
 Two things worth knowing before you worry about it. "I did not get to this one"
 is an acceptable answer to any single question and costs you nothing. And on
 question 5, concluding that a careful prompt would do the job better than
-fine-tuning is a good answer — it is the right one more often than not.
-
-The spoken Thursday showcase is unchanged. The upload is written; the ten
-minutes in the room are still one finding, argued. See
-[ADR-026](https://Nalaquq.github.io/llms-and-you/adr/#adr-026-give-the-week-4-lab-a-written-deliverable-and-name-canvas-as-where-it-goes).
+fine-tuning is a good answer — it is the right one more often than not. See
+[ADR-026](https://Nalaquq.github.io/llms-and-you/adr/#adr-026-give-the-week-4-lab-a-written-deliverable-and-name-canvas-as-where-it-goes)
+and
+[ADR-027](https://Nalaquq.github.io/llms-and-you/adr/#adr-027-move-the-week-4-write-up-to-after-the-session-and-ask-for-a-question-before-it).
 
 ### Changed — Week 4's Thursday lab is now fine-tuning, not prompt iteration **[student-facing]**
 

@@ -1055,7 +1055,9 @@ one, and Week 4 would then need the prompt-iteration notebook actually written.
 
 **Status:** Accepted. Narrows
 [ADR-021](#adr-021-make-thursday-a-showcase-and-put-the-exploration-before-it)
-for one session
+for one session. Amended by
+[ADR-027](#adr-027-move-the-week-4-write-up-to-after-the-session-and-ask-for-a-question-before-it)
+— the write-up is now due after the session, not before
 
 **Context.** ADR-021 made Thursdays a showcase: the notebook is an invitation,
 the student explores alone, and the session is ten minutes each of claim plus
@@ -1113,3 +1115,72 @@ consistent with a course that teaches version control, and it keeps the work
 beside the ADR log. But ADR-020 made the browser the supported path precisely
 because Git was costing students weeks, and a reflection due before class is the
 wrong place to reintroduce that friction.
+
+---
+
+## ADR-027: Move the Week 4 write-up to after the session, and ask for a question before it
+
+**Status:** Accepted. Amends
+[ADR-026](#adr-026-give-the-week-4-lab-a-written-deliverable-and-name-canvas-as-where-it-goes)
+
+**Context.** ADR-026 put six questions at the end of the Week 4 notebook and
+made them due on Canvas *before* Thursday. That put the whole written deliverable
+on the wrong side of the only part of the week where thirteen people compare
+results.
+
+It also contradicted the thing the lab is for. Question 3 asks whether the
+fine-tuned model is better or merely more Wikipedia-shaped; question 4 asks where
+the student has seen two benchmark numbers wrongly compared. Those are exactly
+the answers that improve by hearing somebody else's. Collecting them beforehand
+guarantees thirteen unrevised first drafts and makes the session itself
+consequence-free — nothing a student hears on Thursday can change a grade,
+because the grade was submitted on Wednesday night.
+
+And it made the pre-class ask heavy at the point in the term where it can least
+afford to be. Week 4 Tuesday is individual meetings about project direction; Week
+5 is the proposal. Six paragraphs due Wednesday night, in that week, is the kind
+of load that gets a lab skimmed rather than run.
+
+**Decision.** What is due *before* Thursday is **one discussion question** —
+something the student wants the room to argue about, arising from what they ran.
+Nothing is uploaded beforehand.
+
+The six questions are written *after* the session and uploaded to Canvas by the
+next meeting, which is Week 5 Tuesday. The notebook says outright that students
+are expected to have changed their mind about at least one answer in the room,
+and that contradicting somebody else's result by name is a good thing to do.
+
+The deadline is expressed as the `due` field on Week 5 Tuesday rather than as a
+clock time, so it moves when the calendar does.
+
+**Consequences.** Thursday acquires stakes it did not have. The discussion is now
+upstream of the graded artefact, which is the only arrangement in which "I
+changed my mind because of what somebody said" is a thing a student can be
+rewarded for writing.
+
+This moves further from ADR-021 than ADR-026 did, and in a direction ADR-021 did
+not anticipate. ADR-021 asked for *one finding* — a claim plus evidence. A
+discussion question is deliberately weaker: it is a claim the student could not
+finish. That is a better fit for a lab where the honest outcome is usually
+"perplexity improved and I cannot tell what that bought me," and it is a lower
+bar for a student whose notebook broke, who now has something real to contribute
+rather than an apology.
+
+The cost is that Thursday is no longer self-contained. A student who skips the
+session can still submit good answers, and the write-up is no longer evidence
+they attended. Attendance is tracked separately and this is not the mechanism
+for enforcing it.
+
+**Rejected: keeping it due before class and adding a revision window.** Two
+deadlines per lab, one of which most students would ignore, and it doubles the
+marking.
+
+**Rejected: due immediately after class, same day.** Cleaner to chase, but the
+session ends at 3:30 and the point of the change is to leave room for a second
+thought. A deadline three hours after the discussion is the before-class problem
+wearing a different hat.
+
+**Rejected: dropping the pre-class ask entirely.** Then nobody opens the notebook
+until Thursday and the showcase has nothing in it. One question is a small enough
+ask to be honest about and large enough that it cannot be produced without having
+run something.
