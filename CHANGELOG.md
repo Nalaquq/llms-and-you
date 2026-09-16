@@ -20,6 +20,30 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — the Week 4 lab now has something to hand in **[student-facing]**
+
+The fine-tuning notebook closes with **six questions, answered in full sentences
+and uploaded to Canvas before Thursday's session.** This is the first time the
+course has said where a lab write-up goes — `labs` is 20% of the grade and has
+always been "graded on the write-up", which until now named an artefact with no
+home.
+
+Four of the questions ask what you found at the **Your turn** prompts scattered
+through the notebook, so read those as you go rather than saving them for the
+end. The last two are new work: name a task of your own that would be worth
+fine-tuning a model for, then think through where its corpus would come from —
+how many examples you could realistically gather, who owns that text, and
+whether anything in it should not end up inside a model's weights.
+
+Two things worth knowing before you worry about it. "I did not get to this one"
+is an acceptable answer to any single question and costs you nothing. And on
+question 5, concluding that a careful prompt would do the job better than
+fine-tuning is a good answer — it is the right one more often than not.
+
+The spoken Thursday showcase is unchanged. The upload is written; the ten
+minutes in the room are still one finding, argued. See
+[ADR-026](https://Nalaquq.github.io/llms-and-you/adr/#adr-026-give-the-week-4-lab-a-written-deliverable-and-name-canvas-as-where-it-goes).
+
 ### Changed — Week 4's Thursday lab is now fine-tuning, not prompt iteration **[student-facing]**
 
 *Lab: Iteration Under Constraint* is gone. Thursday of Week 4 is now **Lab:

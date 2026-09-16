@@ -1048,3 +1048,68 @@ switched on.
 Where it thematically belongs. Week 13 already has *Instrument It, Then Run One
 Yourself*, which is the deployment-cost lab and is not obviously worse than this
 one, and Week 4 would then need the prompt-iteration notebook actually written.
+
+---
+
+## ADR-026: Give the Week 4 lab a written deliverable, and name Canvas as where it goes
+
+**Status:** Accepted. Narrows
+[ADR-021](#adr-021-make-thursday-a-showcase-and-put-the-exploration-before-it)
+for one session
+
+**Context.** ADR-021 made Thursdays a showcase: the notebook is an invitation,
+the student explores alone, and the session is ten minutes each of claim plus
+evidence. It explicitly rejected "a specific deliverable per lab" on the grounds
+that it recreates the worksheet and makes the unpredicted finding worth no marks.
+
+Two things have not held up. The first is that `labs` is 20% of the grade and
+says it is "graded on the write-up" — and the course had never said, anywhere,
+where a write-up goes or what it looks like. The rubric named an artefact that
+had no home. The second is specific to fine-tuning: the notebook's **Your turn**
+prompts are the whole lab, and there was nothing that made a student answer one
+rather than skim past it on the way to the next cell.
+
+**Decision.** The Week 4 notebook closes with six questions, answered in full
+sentences and uploaded to Canvas before the session. Four of them ask what the
+student found at the **Your turn** prompts, so the reflection is collected rather
+than assumed. The last two are new work: name a task of your own worth
+fine-tuning, then think through where its corpus would come from, how long
+gathering it would take, who owns that text, and whether anything in it should
+not end up inside a model's weights.
+
+This is the first time the course names a submission channel. Canvas is where
+the College's grades live, so it is where this goes.
+
+**Consequences.** ADR-021's objection stands and is answered rather than
+dismissed. The questions ask what you found, not whether you got the right
+answer; "I did not get to this one" is stated in the notebook as an acceptable
+response worth no penalty, and question 5 says outright that concluding
+*prompting would do this better than fine-tuning* is a good answer and usually
+the correct one. A student who fine-tunes nothing and reasons well about why
+scores full marks.
+
+The spoken showcase survives unchanged, and the notebook now says explicitly
+that the upload and the ten minutes are different things — one written, one
+argued — because a student who conflates them will read the six paragraphs aloud.
+
+Question 6 is doing quiet work beyond this lab. Data provenance, consent and
+licensing are Theme 6 material that the course otherwise only reads about in
+Week 14. Asking it here, about a corpus the student wants for a task they chose,
+gets the question asked while it is concrete.
+
+**Rejected: doing this for all ten labs at once.** Almost certainly right, and
+it is the obvious next step. Not taken here because the other nine notebooks
+were written under ADR-021's no-deliverable assumption and their closing
+sections would each need rewriting to match. One lab is a thing to try before
+the pattern is imposed on the term.
+
+**Rejected: grading the six answers separately from the lab.** Another weight in
+a grading scheme that already has five components. The answers *are* the lab
+write-up that `labs` has always described; this ADR gives it a shape and an
+address, not a new line in the table.
+
+**Rejected: collecting it in the project repository instead of Canvas.** More
+consistent with a course that teaches version control, and it keeps the work
+beside the ADR log. But ADR-020 made the browser the supported path precisely
+because Git was costing students weeks, and a reflection due before class is the
+wrong place to reintroduce that friction.
