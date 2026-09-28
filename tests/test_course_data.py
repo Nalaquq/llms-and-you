@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import datetime as dt
 import re
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -587,10 +588,21 @@ def test_resource_url_is_https(rid: str):
 
 
 def test_no_known_paywalled_hosts():
-    """Belt and braces: these hosts gate content regardless of how it is marked."""
+    """Belt and braces: these hosts gate content regardless of how it is marked.
+
+    Matched against the URL's host and its parent domains, not as a substring of
+    the whole URL. `amazon.com` is the storefront; `aws.amazon.com` is vendor
+    documentation that reads free and without an account, and a substring test
+    cannot tell the two apart. Exceptions are named here, one host at a time, so
+    that adding one is a decision somebody reviewed rather than a rewritten rule.
+    """
     blocked_hosts = ("dl.acm.org", "sciencedirect.com", "nytimes.com", "amazon.com")
+    open_subdomains = ("aws.amazon.com",)
     for r in RESOURCES.values():
-        host_hit = next((h for h in blocked_hosts if h in str(r.url)), None)
+        host = (urlsplit(str(r.url)).hostname or "").lower()
+        if host in open_subdomains:
+            continue
+        host_hit = next((h for h in blocked_hosts if host == h or host.endswith(f".{h}")), None)
         assert host_hit is None, f"{r.id} links to gated host {host_hit}"
 
 

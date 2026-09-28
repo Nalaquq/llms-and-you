@@ -20,6 +20,33 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 6 now reads chain-of-thought before reading its critics **[student-facing]**
+
+**Four required readings instead of one.** In this order: the
+[AWS explainer](https://aws.amazon.com/what-is/chain-of-thought-prompting/), the
+[IBM explainer](https://www.ibm.com/think/topics/chain-of-thoughts), the
+[Google Research post](https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought/)
+written by two of the paper's authors, and then
+[Wei et al. (2022)](https://arxiv.org/abs/2201.11903) itself. Eighty minutes of
+close reading, which is inside the 120-minute cap the course promises.
+
+Read them in that order and read the paper last. The two explainers are there so
+that the paper is not the first place you meet the vocabulary, and so that you
+have the industry's description of the technique in front of you when its authors
+turn out to be more careful than that.
+
+**The mirage paper is now optional.** *Is Chain-of-Thought Reasoning of LLMs a
+Mirage?* is still on the Week 6 page and is still what Thursday's lab tests — it
+is no longer required. It is the hardest reading in the first half of the term and
+it was being read by people who had not yet read what it argues against. Tuesday's
+debate now runs off Section 6 of Wei et al., which you have all read. If you do
+read the mirage paper, you will have the best material in the room.
+
+**One Tuesday question changed.** The question about what the mirage paper claims
+is gone, since it can no longer be assumed. In its place: where do the vendor
+pages and the paper stop saying the same thing? See
+[ADR-028](https://Nalaquq.github.io/llms-and-you/adr/#adr-028-teach-chain-of-thought-from-its-own-sources-and-make-the-mirage-paper-optional).
+
 ### Added — the Week 4 lab now has something to hand in **[student-facing]**
 
 **Before Thursday: bring one discussion question.** That is the whole of it,

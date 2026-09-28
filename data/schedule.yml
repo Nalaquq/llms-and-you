@@ -466,22 +466,36 @@
   topic: Chain-of-Thought — and Whether It Is Real
   theme: technique
   summary: >-
-    The most-cited technique in the field, assigned alongside the paper arguing
-    it is an illusion. Held in person because the argument is the lesson.
+    The most-cited technique in the field, read in the words of the people
+    selling it and then in the words of the people who invented it -- who are
+    the more cautious of the two. Held in person because the argument is the
+    lesson.
   guides:
     - reading-papers
     - boodlebox
-  readings: [cot-mirage]
-  optional: [theoretical-framework-pe]
+  readings:
+    - aws-chain-of-thought
+    - ibm-chain-of-thought
+    - google-cot-blog
+    - wei-2022-chain-of-thought
+  optional: [cot-mirage, theoretical-framework-pe]
   questions:
-    - What exactly does the "mirage" paper claim, and what does it NOT claim?
-    - What experiment would settle this? Could you run it?
+    - >-
+      The vendor pages and the paper describe the same technique. Where do they
+      not say the same thing about what it is doing?
+    - >-
+      Wei et al. leave "whether the neural network is actually reasoning" as an
+      open question. What would an answer even look like?
+    - What experiment would settle it? Could you run it?
     - >-
       If chain-of-thought works but not for the reasons people say, does that
       change how you should use it?
   activity: >-
     Structured debate. Half the room defends chain-of-thought as reasoning; half
-    argues it is pattern-matching over the training distribution.
+    argues it is pattern-matching over the training distribution. Section 6 of
+    Wei et al. is enough to argue from; the optional mirage paper is the
+    strongest ammunition either side can bring, and it is hard going, so it is
+    offered rather than assigned.
 
 - week: 6
   day: thu

@@ -6,7 +6,7 @@
 # We do not host PDFs. `access` is the honest answer to "can a student open this
 # right now?" and renders as a badge next to the reading.
 #
-# All URLs verified 2026-08-25.
+# All URLs verified 2026-08-25; the Week 6 chain-of-thought block 2026-09-28.
 
 # ---------------------------------------------------------------------------
 # Theme 1 — How LLMs Work
@@ -280,6 +280,70 @@
   assign_note: >-
     Read the taxonomy sections and the vocabulary list. Skim the rest. Treat it
     as a field guide you will return to during your project.
+
+# The Week 6 chain-of-thought block, in the order it is meant to be read: two
+# vendor explainers, the authors' own summary, then the paper. The explainers
+# agree with each other almost word for word, which is the point -- a student
+# who has read all three has met the consensus account before meeting the
+# paper that is more careful than any of them.
+
+- id: aws-chain-of-thought
+  title: What is Chain-of-Thought Prompting?
+  authors: [Amazon Web Services]
+  kind: guide
+  url: https://aws.amazon.com/what-is/chain-of-thought-prompting/
+  themes: [technique]
+  est_minutes: 10
+  assign_note: >-
+    Read this one first. It is the shortest correct statement of what the
+    technique is, and it is here so that nothing later in the week is the first
+    time you meet the vocabulary.
+
+- id: ibm-chain-of-thought
+  title: What is chain of thought (CoT) prompting?
+  authors: [IBM]
+  kind: guide
+  url: https://www.ibm.com/think/topics/chain-of-thoughts
+  themes: [technique]
+  est_minutes: 15
+  assign_note: >-
+    Longer than the AWS page, and worth it for the variants -- zero-shot CoT,
+    self-consistency, tree of thoughts. Notice how often the page says the model
+    is "reasoning" and mark one of those sentences; that word is Tuesday's
+    argument.
+
+- id: google-cot-blog
+  title: Language Models Perform Reasoning via Chain of Thought
+  authors: [Jason Wei, Denny Zhou]
+  year: 2022
+  kind: article
+  url: https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought/
+  themes: [technique]
+  est_minutes: 10
+  assign_note: >-
+    The authors' own summary of the paper you read next, with the headline
+    results in chart form. Read it as the trailer, not the substitute.
+
+- id: wei-2022-chain-of-thought
+  title: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models
+  authors: [Wei, et al.]
+  year: 2022
+  kind: paper
+  url: https://arxiv.org/abs/2201.11903
+  themes: [technique]
+  est_minutes: 45
+  assign_note: >-
+    The paper itself, and the reading to spend your desk time on. Read Sections
+    1 to 3 closely -- Table 20 in Appendix G is the eight exemplars that *are*
+    the technique, so read it alongside Section 2. Then read Section 6,
+    "Discussion", where the authors say in one sentence that their work "does
+    not answer whether the neural network is actually 'reasoning,'" and leave it
+    open. Skim Sections 4 and 5 and the rest of the appendix.
+  note: >-
+    The original chain-of-thought paper (NeurIPS 2022) and the most-cited thing
+    on this list. Required from Fall 2026 so the week's argument has a primary
+    source rather than a summary of one; the limitations paragraph in Section 6
+    is what makes the debate possible without the mirage paper. See ADR-028.
 
 - id: theoretical-framework-pe
   title: 'A Theoretical Framework for Prompt Engineering: Approximating Smooth
@@ -606,8 +670,10 @@
   themes: [critical, technique]
   est_minutes: 40
   assign_note: >-
-    Assigned deliberately in the same week you learn chain-of-thought. Your job
-    is not to decide who wins; it is to describe what would settle it.
+    Optional, and hard going -- it argues with Wei et al. in the terms of a
+    distribution analysis, so read it after the required four, not instead of
+    them. Your job is not to decide who wins; it is to describe what would
+    settle it. Thursday's lab builds that experiment whether or not you read it.
 
 - id: rpp-264-scaling-laws
   title: 'Real Python #264: Large Language Models on the Edge of the Scaling Laws'

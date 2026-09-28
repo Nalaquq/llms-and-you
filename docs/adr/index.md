@@ -1184,3 +1184,73 @@ wearing a different hat.
 until Thursday and the showcase has nothing in it. One question is a small enough
 ask to be honest about and large enough that it cannot be produced without having
 run something.
+
+---
+
+## ADR-028: Teach chain-of-thought from its own sources, and make the mirage paper optional
+
+**Status:** Accepted. Amends
+[ADR-003](#adr-003-assign-chain-of-thought-and-its-refutation-in-the-same-week)
+
+**Context.** Week 6 assigned exactly one reading: the 2025 paper arguing that
+chain-of-thought reasoning is a mirage. It is a good paper and the wrong first
+reading. It is written for people who already know the technique, it argues about
+a data-distribution claim before the student has seen the claim being disputed,
+and at forty minutes of dense evaluation tables it is the hardest single reading
+in the first half of the term. A student arriving at Tuesday's debate had read the
+rebuttal and never the thing being rebutted.
+
+The week also had room. The close-reading cap is 120 minutes and Week 6 was using
+40 of them.
+
+**Decision.** Four required readings, in order: the AWS explainer, the IBM
+explainer, the Google Research blog post by two of the paper's authors, and then
+Wei et al. (2022) itself. Eighty minutes of close reading, still inside the cap.
+
+The mirage paper moves to `optional`, alongside the theory paper already there.
+It stays named on the page and stays the subject of Thursday's lab, which builds
+the experiment its claim implies.
+
+Two explainers of the same technique is not redundancy, it is the setup. AWS and
+IBM both describe chain-of-thought as the model reasoning, in nearly the same
+words, and both are what a student would find if they searched for this on their
+own. Wei et al. then say, in Section 6, that their work "does not answer whether
+the neural network is actually 'reasoning,'" and leave it open. The gap between
+the vendor page and the authors' own caution is the lesson, and it is a lesson
+about how to read a vendor page that generalises past this week.
+
+**Consequences.** The debate now runs off a primary source. Section 6 of Wei et
+al. is enough to argue from, so the argument survives the reading that used to
+carry it becoming optional; a student who does read the mirage paper arrives with
+the strongest material in the room, which is the right incentive for an optional
+reading.
+
+The Tuesday questions changed with the readings. The old first question asked
+what the mirage paper claims, which nobody can now be assumed to know; the new
+one asks where the explainers and the paper stop agreeing.
+
+That question was ADR-003's named safeguard against students concluding that
+chain-of-thought does not work, so the safeguard moves rather than disappears.
+It is now Thursday's job: the lab notebook states the distribution claim
+precisely before asking anyone to test it, and testing it is the only way to
+find that the technique does work, inside the distribution.
+
+`test_no_known_paywalled_hosts` had to be narrowed to let the AWS page in. It
+matched `amazon.com` as a substring of the whole URL, which catches
+`aws.amazon.com` — free vendor documentation, no account — along with the
+storefront. It now matches on host and parent domain with the one exception named
+explicitly, so a genuinely gated Amazon link still fails the build.
+
+**Rejected: keeping the mirage paper required and adding the four.** 120 minutes
+exactly, at the cap, in a week that also carries a lab. The cap is a promise, and
+spending all of it on the week's fifth reading is how the promise gets quietly
+broken later.
+
+**Rejected: the paper alone, without the explainers.** Cheaper, and it loses the
+part that makes the week work. The mismatch students are being taught to notice is
+between what the industry says the technique does and what its authors claimed,
+and that needs the industry's own words on the reading list.
+
+**Rejected: dropping the mirage paper entirely.** ADR-003 is the reason this
+course exists in the shape it does, and Thursday's lab is built on the paper's
+experiment. Optional is a demotion, not a removal.
