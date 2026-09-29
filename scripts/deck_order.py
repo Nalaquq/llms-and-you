@@ -81,6 +81,73 @@ W03_ORDER = [
 ]
 
 
+# Week 6: chain-of-thought, for students with no programming or mathematics
+# beyond school algebra. Five parts: what it is and how to use it (s01-s11),
+# the evidence (s12-s18), the words the critique needs (s19-s24), the critique
+# in full with its equations (s25-s39), and weighing both papers (s40-s45).
+# Every term gets a slide before it is used. The Appendix C mathematics comes
+# AFTER the closing slide (s46-s49): backup for the room, or for students who
+# ask -- the main flow keeps the equations in the paper's main text.
+# Research-design sections are shown from the paper first, then redrawn.
+W06_ORDER = [
+    "w06_s01_title.png",
+    "w06_s02_cold_open.gif",  # Wei Fig. 1: same model, 27 or 9
+    "w06_s03_roadmap.gif",
+    # --- part 1: what it is, how to use it ----------------------------------
+    "w06_s04_next_token.gif",  # one token at a time; it reads its own writing
+    "w06_s05_prompt_vocab.gif",  # zero-shot, few-shot, exemplar
+    "w06_s06_anatomy.gif",  # Wei's definition, drawn
+    "w06_s07_four_claims.gif",  # and where each claim gets tested
+    "w06_s08_zero_shot.gif",  # "Let's think step by step"; reasoning models
+    "w06_s09_variants.gif",  # self-consistency, least-to-most, tree of thoughts
+    "w06_s10_how_to_use.gif",  # a recipe, with evidence per line
+    "w06_s11_discuss_vendors.gif",  # DISCUSS: sellers vs inventors
+    # --- part 2: the evidence ------------------------------------------------
+    "w06_s12_benchmark.gif",  # GSM8K; which 58% is which
+    "w06_s13_emergence.gif",  # hurts small models, helps big ones
+    "w06_s14_ablation_idea.gif",  # a cake, then Wei's ingredient grid
+    "w06_s15_paper_ablation.gif",  # Figure 5 as printed
+    "w06_s16_ablation.gif",  # redrawn: three stories ruled out
+    "w06_s17_caveats.gif",  # §6: the cautious inventors
+    "w06_s18_discuss_answer.gif",  # DISCUSS: what would an answer look like?
+    # --- part 3: words the critique needs ------------------------------------
+    "w06_s19_distribution.gif",
+    "w06_s20_ood.gif",
+    "w06_s21_leakage.gif",
+    "w06_s22_training.gif",  # scratch vs fine-tuned; model sizes
+    "w06_s23_temperature.gif",
+    "w06_s24_metrics.gif",  # exact match, edit distance, BLEU
+    # --- part 4: the critique ------------------------------------------------
+    "w06_s25_hypothesis.gif",
+    "w06_s26_paper_dataalchemy.gif",  # Figure 2 as printed: why a toy
+    "w06_s27_dataalchemy.gif",  # the toy running
+    "w06_s28_risk.gif",  # eq. (1)-(3)
+    "w06_s29_tv.gif",  # eq. (4)-(5)
+    "w06_s30_bound.gif",  # eq. (6), Theorem 3.1
+    "w06_s31_dials.gif",  # eq. (7)
+    "w06_s32_task_ladder.gif",  # ID / CMP / POOD / OOD
+    "w06_s33_collapse.gif",  # Tables 1 and 5
+    "w06_s34_sft.gif",  # Figure 4: the patch
+    "w06_s35_length.gif",
+    "w06_s36_format.gif",
+    "w06_s37_unfaithful.gif",  # Table 2, App. E.1.1
+    "w06_s38_robustness.gif",  # temperature, size, architecture, real models
+    "w06_s39_conclusions.gif",  # what they conclude, what they concede
+    # --- part 5: weighing it -------------------------------------------------
+    "w06_s40_questions_critique.gif",
+    "w06_s41_questions_original.gif",
+    "w06_s42_use_now.gif",
+    "w06_s43_debate.gif",
+    "w06_s44_discuss_session.gif",  # DISCUSS: after the debate
+    "w06_s45_closing.gif",  # -> Thursday's lab
+    # --- backup: Appendix C mathematics ---------------------------------------
+    "w06_s46_task_decay.gif",
+    "w06_s47_length_curve.gif",
+    "w06_s48_format_cosine.gif",
+    "w06_s49_proof.gif",
+]
+
+
 class Deck:
     """One lecture deck: its slides, its filenames, and whether the site shows it."""
 
@@ -94,6 +161,7 @@ class Deck:
 DECKS = [
     Deck("w02", "W02_How_Text_Becomes_Numbers", W02_ORDER, publish=True),
     Deck("w03", "W03_Attention_and_the_Transformer", W03_ORDER, publish=True),
+    Deck("w06", "W06_Chain_of_Thought", W06_ORDER, publish=True),
 ]
 
 # Week 2's order, still importable under its old name.

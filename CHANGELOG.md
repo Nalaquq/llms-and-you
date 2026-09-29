@@ -20,6 +20,26 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — Week 6 study guide: thirteen entries for chain of thought and its critique **[student-facing]**
+
+The [study guide](https://nalaquq.github.io/llms-and-you/study-guide/) now covers
+Week 6, and like everything on it, these can come up at your concept checks:
+zero-shot and few-shot prompting, chain-of-thought prompting, benchmark,
+emergent abilities, ablation study, training and test distributions,
+out-of-distribution generalization, data leakage, exact match / edit distance /
+BLEU, faithfulness of a chain of thought, loss and risk, total variation
+distance, and generalization bound.
+
+The last three are the mathematics of the optional mirage paper. You are asked
+to read its equations in words and work small examples by hand — not to prove
+anything. Tuesday's slides take each equation apart a term at a time.
+
+### Added — Week 6 lecture deck, on the [slides page](https://nalaquq.github.io/llms-and-you/slides/#w06)
+
+A 45-slide deck for Tuesday, with four backup slides on the mirage paper's
+appendix mathematics. Figures and tables from the two papers are shown as
+printed, cut from the arXiv PDFs at build time, and then redrawn.
+
 ### Changed — Week 6 now reads chain-of-thought before reading its critics **[student-facing]**
 
 **Four required readings instead of one.** In this order: the

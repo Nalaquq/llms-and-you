@@ -22,7 +22,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
-slides = ["matplotlib>=3.8", "numpy>=1.26", "pillow>=10.0", "python-pptx>=1.0"]
+# pypdfium2 renders the paper crops on the Week 6 slides (scripts/paper_crops.py).
+slides = [
+  "matplotlib>=3.8", "numpy>=1.26", "pillow>=10.0", "python-pptx>=1.0", "pypdfium2>=4.0",
+]
 # The submission PDF. mkdocs already brings jinja2, markdown and pyyaml.
 pdf = ["weasyprint>=62"]
 

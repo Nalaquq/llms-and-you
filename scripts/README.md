@@ -31,6 +31,12 @@ Get-ChildItem gen_*.py | ForEach-Object { python $_.Name }
 python build_deck.py
 ```
 
+To check layout while you build, set `SLIDE_QC=1` (`$env:SLIDE_QC=1` in
+PowerShell) before running a generator. Every frame is measured as it is
+drawn, and the script prints any text that runs off the slide or out of its
+panel, text that lands on other text, and any box cut off at the edge of its
+region -- the ways a slide gets "cut off" that only show up once rendered.
+
 Outputs land in `demo_photos/` (a GIF per animated slide, plus a full-res
 `_final.png` of its finished state) and two files per deck: the animated
 `.pptx` for presenting, and `..._print.pptx` — final frames as stills — for
@@ -45,6 +51,28 @@ nothing else needs to change.
 |:---|:---|:---|
 | `W02_How_Text_Becomes_Numbers` | 27 | yes |
 | `W03_Attention_and_the_Transformer` | 31 | yes |
+| `W06_Chain_of_Thought` | 49 (45 + 4 backup) | yes |
+
+Week 6 is written for a room with no programming or mathematics beyond
+school algebra, so every term the mirage paper uses without defining gets a
+slide of its own before it is needed (Part 3), and every equation in the
+paper's main text is taken apart a term at a time with `equation()` and
+`brace_note()` from `style_dark.py`: the whole line once, then one term lit,
+its meaning underneath, then a worked number. The Appendix C mathematics
+sits after the closing slide as backup. `mirage_toy.py` holds the paper's two
+operations and every model output the deck quotes, checked against the
+paper's ground truth on import, so no rotated string on a slide is typed by
+hand.
+
+Week 6 shows its sources. The slides that explain a paper's research design
+put the figure or table the students read on screen first, cut straight from
+the arXiv PDF by `paper_crops.py`, and redraw it on the next slide. The crops
+are rendered at build time like everything else here: the PDFs are fetched
+from the URLs in `data/resources.yml` into `.paper_cache/` (gitignored), at a
+pinned arXiv version, because the crop boxes are page coordinates and a new
+version moves them. After bumping a version, run `python paper_crops.py` and
+check the contact sheet it writes to `demo_photos/`. Where a redrawn number is
+read off a figure rather than a table, the slide says so.
 
 Week 3 is a twenty-minute review (five representations, then the
 perceptron, CNN and RNN, then the three problems the 2017 paper answers)

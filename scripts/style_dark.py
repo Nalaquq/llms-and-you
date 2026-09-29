@@ -82,8 +82,98 @@ def footer(fig, text):
     fig.text(0.045, 0.035, text, fontsize=11.5, color=FAINT, va="bottom")
 
 
+# ── Layout check (opt-in: SLIDE_QC=1) ────────────────────────────────
+# Text that runs off the slide, spills out of the panel it was placed in, or
+# lands on other text only shows up once a slide is rendered, and on a
+# projector. With SLIDE_QC=1 every frame is measured as it is drawn and the
+# problems are printed when the slide is saved, named, once each.
+_QC = os.environ.get("SLIDE_QC") == "1"
+_QC_ISSUES = {}
+
+
+def _text_boxes(fig, renderer):
+    from matplotlib.text import Text
+
+    out = []
+    for t in fig.findobj(Text):
+        if not t.get_visible() or not t.get_text().strip() or t.get_alpha() == 0:
+            continue
+        out.append((t, t.get_window_extent(renderer)))
+    return out
+
+
+def _check_layout(fig):
+    renderer = fig.canvas.get_renderer()
+    w, h = fig.canvas.get_width_height()
+    boxes = _text_boxes(fig, renderer)
+    for t, bb in boxes:
+        label = t.get_text().strip().replace("\n", " ")[:50]
+        if bb.x0 < -1 or bb.y0 < -1 or bb.x1 > w + 1 or bb.y1 > h + 1:
+            _QC_ISSUES.setdefault(f"off the slide: {label!r}", None)
+        box = getattr(t, "_qc_box", None)
+        if box is not None:
+            pb = box.get_window_extent(renderer)
+            if bb.x0 < pb.x0 - 1 or bb.x1 > pb.x1 + 1 or bb.y0 < pb.y0 - 1 or bb.y1 > pb.y1 + 1:
+                _QC_ISSUES.setdefault(f"spills out of its box: {label!r}", None)
+        ax = t.axes
+        if (
+            ax is not None
+            and getattr(ax, "_qc_region", False)
+            and not getattr(ax, "_qc_panel", False)
+        ):
+            ab = ax.get_window_extent(renderer)
+            if bb.x1 > ab.x1 + 6 or bb.y0 < ab.y0 - 6:
+                _QC_ISSUES.setdefault(f"runs past its region: {label!r}", None)
+        if ax is not None and getattr(ax, "_qc_panel", False):
+            ab = ax.get_window_extent(renderer)
+            if bb.x1 > ab.x1 + 2 or bb.y0 < ab.y0 - 2 or bb.x0 < ab.x0 - 2 or bb.y1 > ab.y1 + 2:
+                _QC_ISSUES.setdefault(f"outside its panel: {label!r}", None)
+    # Shapes are clipped to their axes by default, so a box drawn a hair past
+    # the edge of its region is silently cut off -- the most common way a
+    # slide ends up "cut off" without any text leaving the frame.
+    for ax in fig.axes:
+        ab = ax.get_window_extent(renderer)
+        for patch in ax.patches:
+            if not isinstance(patch, (FancyBboxPatch, Rectangle)) or not patch.get_clip_on():
+                continue
+            if not patch.get_visible() or patch.get_alpha() == 0:
+                continue
+            pb = patch.get_window_extent(renderer)
+            if pb.width < 1 or pb.height < 1:
+                continue
+            if (
+                pb.x0 < ab.x0 - 1.5
+                or pb.x1 > ab.x1 + 1.5
+                or pb.y0 < ab.y0 - 1.5
+                or pb.y1 > ab.y1 + 1.5
+            ):
+                _QC_ISSUES.setdefault(
+                    f"shape clipped by its region at ({pb.x0:.0f},{h - pb.y1:.0f}) px", None
+                )
+    for i, (t1, b1) in enumerate(boxes):
+        for t2, b2 in boxes[i + 1 :]:
+            ix = min(b1.x1, b2.x1) - max(b1.x0, b2.x0)
+            iy = min(b1.y1, b2.y1) - max(b1.y0, b2.y0)
+            if ix > 3 and iy > 3:
+                small = min(b1.width * b1.height, b2.width * b2.height)
+                if ix * iy > 0.15 * small:
+                    a = t1.get_text().strip().replace("\n", " ")[:30]
+                    b = t2.get_text().strip().replace("\n", " ")[:30]
+                    _QC_ISSUES.setdefault(f"overlap: {a!r} / {b!r}", None)
+
+
+def _report(name):
+    if _QC and _QC_ISSUES:
+        print(f"LAYOUT {name}:")
+        for issue in _QC_ISSUES:
+            print(f"    {issue}")
+    _QC_ISSUES.clear()
+
+
 def fig_to_pil(fig, close=True):
     fig.canvas.draw()
+    if _QC:
+        _check_layout(fig)
     w, h = fig.canvas.get_width_height()
     img = Image.frombytes("RGBA", (w, h), bytes(fig.canvas.buffer_rgba())).convert("RGB")
     if close:
@@ -107,12 +197,16 @@ def save_gif(frames, durations, name):
         path, save_all=True, append_images=frames[1:], duration=durations, loop=1, optimize=True
     )
     frames[-1].save(path.replace(".gif", "_final.png"))
+    _report(name)
     print(f"saved {path} ({len(frames)} frames, {os.path.getsize(path) / 1e6:.1f} MB)")
 
 
 def save_png(fig, name):
     path = os.path.join(OUT_DIR, name)
     fig.savefig(path, dpi=DPI, facecolor=BG)
+    if _QC:
+        _check_layout(fig)
+    _report(name)
     print(f"saved {path}")
 
 
@@ -145,8 +239,11 @@ def chip(
         alpha=alpha,
         transform=ax.transAxes,
     )
+    # A chip's rounded padding pokes past the point it was placed at; clipping it
+    # to its axes shaves the edge off any chip set at x = 0. Never clip a chip.
+    box.set_clip_on(False)
     ax.add_patch(box)
-    ax.text(
+    txt = ax.text(
         x + w / 2,
         y + h / 2,
         label,
@@ -159,6 +256,7 @@ def chip(
         fontfamily="monospace" if mono else "DejaVu Sans",
         fontweight="bold" if bold else "normal",
     )
+    txt._qc_box = box  # the label must fit inside its chip
 
 
 def arrow(ax, p0, p1, color=BLUE, lw=3.0, alpha=1.0, style="-|>", shrink=0.0, mutation=22):
@@ -180,6 +278,7 @@ def arrow(ax, p0, p1, color=BLUE, lw=3.0, alpha=1.0, style="-|>", shrink=0.0, mu
 
 def blank_axes(fig, rect, xlim=(0, 1), ylim=(0, 1)):
     ax = fig.add_axes(rect)
+    ax._qc_region = True
     ax.set_xlim(*xlim)
     ax.set_ylim(*ylim)
     ax.axis("off")
@@ -424,3 +523,165 @@ def grid_outline_row(ax, n, r, colour=YELLOW):
 
 def grid_legend(ax, text, y=-0.55):
     ax.text(0.0, y, text, fontsize=10.5, color=FAINT, va="top", clip_on=False)
+
+
+# ── Paper cards (Week 6: the source first, then the redraw) ─────────
+# A crop from an assigned paper, framed so it reads as a thing held up to the
+# room rather than a hole punched in the slide. The crop stays true -- white
+# page, the authors' colours -- because recognising it from the reading is the
+# point; the dark frame and margin are what stop it glaring on a projector.
+# Crops come from paper_crops.py, never from a saved screenshot.
+def paper_card(fig, rect, img, cite, tag="FROM THE READING"):
+    """Draw `img` as large as fits in `rect` (figure coords), framed, with a citation."""
+    ax = fig.add_axes(rect)
+    ax.imshow(np.asarray(img), interpolation="lanczos")
+    ax.set_anchor("N")
+    ax.axis("off")
+    ax.apply_aspect()
+    x0, y0, w, h = ax.get_position().bounds
+    pad = 0.012
+    fig.add_artist(
+        FancyBboxPatch(
+            (x0 - pad, y0 - pad),
+            w + 2 * pad,
+            h + 2 * pad,
+            boxstyle="round,pad=0.0,rounding_size=0.01",
+            facecolor="#f7f7f5",
+            edgecolor=PANEL_EDGE,
+            linewidth=2.0,
+            transform=fig.transFigure,
+            zorder=-1,
+        )
+    )
+    fig.text(x0 - pad, y0 + h + pad + 0.012, tag, fontsize=10.5, color=FAINT, fontweight="bold")
+    fig.text(x0 - pad, y0 - pad - 0.014, cite, fontsize=12, color=SUB, va="top", style="italic")
+    return ax
+
+
+# ── Week 6 furniture: kicker titles, token lines, equations taken apart ──
+def kicker_title(fig, kicker, title, subtitle=None):
+    """The purple section kicker, the title, and an optional subtitle."""
+    fig.text(0.045, 0.945, kicker, fontsize=13, color=PURPLE, fontweight="bold", va="top")
+    fig.text(0.045, 0.895, title, fontsize=30, color=TEXT, fontweight="bold", va="top")
+    if subtitle:
+        fig.text(0.045, 0.838, subtitle, fontsize=15.5, color=SUB, va="top")
+
+
+def mono_advance(ax, fontsize):
+    """One DejaVu Sans Mono character's width, in `ax`'s x units (0..1 axes).
+
+    Token lines are laid out a token at a time so each can take its own colour;
+    measuring the advance, rather than guessing a constant per slide, is what
+    keeps a coloured line spaced exactly like the plain line above it.
+    """
+    fig = ax.figure
+    width_in = ax.get_position().width * fig.get_figwidth()
+    xspan = ax.get_xlim()[1] - ax.get_xlim()[0]
+    return 0.6021 * fontsize / 72 / width_in * xspan
+
+
+def token_line(ax, x, y, tokens, colours, fontsize=17, alpha=1.0, bold=None, sep=1):
+    """Monospace tokens on one line, each in its own colour. Returns the end x."""
+    step = mono_advance(ax, fontsize)
+    bold = bold or ()
+    for tok, colour in zip(tokens, colours, strict=True):
+        ax.text(
+            x,
+            y,
+            tok,
+            fontsize=fontsize,
+            color=colour,
+            va="center",
+            fontfamily="monospace",
+            alpha=alpha,
+            fontweight="bold" if tok in bold else "normal",
+        )
+        x += step * (len(tok) + sep)
+    return x
+
+
+def equation(fig, parts, y, fontsize=34, x=None, gap=0.006):
+    """Set an equation as separately coloured pieces on one baseline.
+
+    `parts` is a list of (mathtext without $, colour, alpha). The pieces are
+    measured first and the whole line centred unless `x` is given, so a slide
+    can dim every term but one and still have the equation sit still while the
+    highlight moves -- the 3b1b way of reading a formula a term at a time.
+    Returns each piece's box in figure coordinates: (x0, y0, x1, y1).
+    """
+    renderer = fig.canvas.get_renderer()
+    inv = fig.transFigure.inverted()
+    widths = []
+    for tex, _, _ in parts:
+        t = fig.text(0, y, f"${tex}$", fontsize=fontsize, va="baseline")
+        bb = t.get_window_extent(renderer=renderer).transformed(inv)
+        widths.append(bb.width)
+        t.remove()
+    if x is None:
+        x = 0.5 - (sum(widths) + gap * (len(parts) - 1)) / 2
+    boxes = []
+    for (tex, colour, alpha), w in zip(parts, widths, strict=True):
+        t = fig.text(x, y, f"${tex}$", fontsize=fontsize, color=colour, alpha=alpha, va="baseline")
+        bb = t.get_window_extent(renderer=renderer).transformed(inv)
+        boxes.append((bb.x0, bb.y0, bb.x1, bb.y1))
+        x += w + gap
+    return boxes
+
+
+def brace_note(fig, box, text, colour, below=True, dy=0.035, fontsize=13, alpha=1.0, x=None):
+    """A bracket under (or over) one equation piece, with its meaning in words."""
+    x0, y0, x1, y1 = box
+    yb = y0 - 0.012 if below else y1 + 0.012
+    tick = -0.01 if below else 0.01
+    fig.add_artist(
+        plt.Line2D(
+            [x0, x0, x1, x1],
+            [yb - tick, yb, yb, yb - tick],
+            transform=fig.transFigure,
+            color=colour,
+            lw=2.0,
+            alpha=alpha,
+        )
+    )
+    cx = (x0 + x1) / 2 if x is None else x
+    if x is not None:
+        fig.add_artist(
+            plt.Line2D(
+                [(x0 + x1) / 2, cx],
+                [yb, yb - dy + 0.012] if below else [yb, yb + dy - 0.012],
+                transform=fig.transFigure,
+                color=colour,
+                lw=1.0,
+                alpha=0.6 * alpha,
+            )
+        )
+    fig.text(
+        cx,
+        yb - dy if below else yb + dy,
+        text,
+        fontsize=fontsize,
+        color=colour,
+        ha="center",
+        va="top" if below else "bottom",
+        alpha=alpha,
+        linespacing=1.35,
+    )
+
+
+def panel_box(ax, x, y, w, h, edge=PANEL_EDGE, face=PANEL, lw=1.4, alpha=1.0, rounding=0.02):
+    """A rounded panel in axes coordinates."""
+    if (x, y, w, h) == (0, 0, 1, 1):
+        ax._qc_panel = True  # the panel IS the axes: text must stay inside it
+    ax.add_patch(
+        FancyBboxPatch(
+            (x, y),
+            w,
+            h,
+            boxstyle=f"round,pad=0.0,rounding_size={rounding}",
+            facecolor=face,
+            edgecolor=edge,
+            linewidth=lw,
+            alpha=alpha,
+            transform=ax.transAxes,
+        )
+    )

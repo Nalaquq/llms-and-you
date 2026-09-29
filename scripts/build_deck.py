@@ -494,6 +494,391 @@ NOTES = {
         "version of s27. Tell them to come with one thing.\n"
         "SG: encoder-and-decoder · static-vs-contextual-embeddings."
     ),
+    # Week 6 -- for students with no programming or math background. Every
+    # term gets its own slide before it is used; the Appendix C math is backup
+    # after the close (s46-s49). Numbers in these notes are the papers'.
+    "w06_s01": (
+        "Cold open is the next slide. One line here: this technique is in every "
+        "prompting guide, and today we read the people who sell it, the people who "
+        "invented it, and the people who doubt it.\n"
+        "Session: Chain-of-Thought -- and Whether It Is Real (w06-tue)."
+    ),
+    "w06_s02": (
+        "Let them read Figure 1 before you say anything. Then: same model, same "
+        "question; the ONLY difference is one worked example in the prompt.\n"
+        "Land the third note -- it is the whole day's question.\n"
+        "Ask: who has typed 'show your working' into a chatbot? Did it help?"
+    ),
+    "w06_s03": (
+        "Five parts. Part 3 exists because the critique is unreadable without "
+        "about a dozen words; nobody is expected to know them yet.\n"
+        "The 'reasoning' box: ask them to jot, as they go, each time a slide or a "
+        "reading uses the word, and whether anyone defines it. They will need the "
+        "list for the debate."
+    ),
+    "w06_s04": (
+        "The one mechanical fact the whole technique rests on. A model writes one "
+        "token at a time and re-reads EVERYTHING before the next -- including what "
+        "it just wrote. So 'show your working' is not a metaphor: the working is "
+        "more input.\n"
+        "The bars are illustrative (the slide says so). The point is the last "
+        "stop: with '3 + 6 =' already written, '9' is an easy next word.\n"
+        "SG: token-and-tokenization · training-and-inference · softmax (Week 2 review)."
+    ),
+    "w06_s05": (
+        "Vocabulary on one prompt. A 'shot' is one worked example; each is an "
+        "exemplar. Few-shot CoT = the exemplars show their working.\n"
+        "The Roger / cafeteria pair is Wei's own Figure 1.\n"
+        "SG: few-shot-prompting · chain-of-thought-prompting."
+    ),
+    "w06_s06": (
+        "Wei's definition, verbatim (§2). Two things to stress: (1) the whole "
+        "technique is eight hand-written exemplars (Appendix Table 20) -- no "
+        "retraining; (2) the chain comes BEFORE the answer, which is why they did "
+        "not call it an explanation (§2: explanations 'typically come after').\n"
+        "SG: chain-of-thought-prompting."
+    ),
+    "w06_s07": (
+        "Wei §2's four 'attractive properties', quoted. Point at the hedges: "
+        "'in principle', 'at least in principle', 'sufficiently large', and "
+        "claim 2's own parenthesis that characterizing the computation 'remains "
+        "an open question'.\n"
+        "Claim 1 is tested by Wei's ablation (Part 2); claim 2 by Zhao (Part 4).\n"
+        "Ask: which of these would a vendor page leave the hedge off?"
+    ),
+    "w06_s08": (
+        "Zero-shot CoT: Kojima et al. 2022 ('Let's think step by step'), cited in "
+        "Zhao §2.1. AWS and IBM both list zero-shot CoT; the quoted instructions "
+        "are theirs.\n"
+        "Reasoning models (the o-series, DeepSeek-R1 and kin): the chain is now "
+        "trained in, so students meet CoT whether or not they ask for it.\n"
+        "SG: chain-of-thought-prompting · few-shot-prompting."
+    ),
+    "w06_s09": (
+        "One slide, not a lecture: each variant keeps the chain and changes how "
+        "many or what shape. Self-consistency's 74% is from the Google blog "
+        "('follow-up work on self-consistency'). Least-to-most is on the AWS "
+        "page; tree of thoughts in Zhao §2.1 and IBM's navigation.\n"
+        "Don't linger -- none of these is tested today."
+    ),
+    "w06_s10": (
+        "The take-home recipe. Every line has a source: one-step problems gained "
+        "little (Wei Table 3, SingleOp); CoT made every model under ~10B worse "
+        "(Table 2); cost (IBM, AWS). The 'Check' line previews Part 4.\n"
+        "The banana prompt is the AWS reading's own example; the chain in yellow "
+        "is worked by hand, not a model output.\n"
+        "Ask: what's a problem from another class where you'd use this?"
+    ),
+    "w06_s11": (
+        "DISCUSSION (4-5 min). Q1: incentives -- a vendor sells capability; a "
+        "paper is judged on what it can defend. Q2: fish for 'you can see where "
+        "it went wrong' -- then ask whether seeing the chain shows you the cause "
+        "(Part 4 will). Q3: IBM repeats 'think out loud' and 'emergent'; the "
+        "hedges ('open question', 'in principle') are gone.\n"
+        "Don't resolve Q2. It comes back at s37."
+    ),
+    "w06_s12": (
+        "Benchmark vocabulary. GSM8K: ~8,500 grade-school problems (Cobbe et al. "
+        "2021).\n"
+        "The 58% lesson: Google's blog figure uses an external calculator (the "
+        "blog says so: 'for a fair comparison against fine-tuned GPT-3 "
+        "baselines'). Model alone: 56.9 (Table 2); with calculator 58.6 (Table 1).\n"
+        "SG: benchmark."
+    ),
+    "w06_s13": (
+        "Wei Table 2, GSM8K, redrawn. Below ~10B parameters CoT made EVERY model "
+        "worse (GPT 350M: 2.2 -> 0.5; PaLM 8B: 4.9 -> 4.1; LaMDA the same). Above "
+        "~100B it pays hugely.\n"
+        "'Emergent' = absent, then present, above some size. Wei §3.2: smaller "
+        "models 'produced fluent but illogical chains of thought' -- worth "
+        "flagging; Side B will use it.\n"
+        "SG: emergent-abilities · parameters-and-weights."
+    ),
+    "w06_s14": (
+        "Ablation, first on a cake. The rule: change one thing at a time against "
+        "a control. Then the same grid for Wei's five prompts.\n"
+        "Reading of the grid: no single ingredient does it -- equations, words "
+        "and length-before-answer only work together.\n"
+        "SG: ablation-study."
+    ),
+    "w06_s15": (
+        "Hold the figure up before explaining it: this is the one they skimmed. "
+        "Walk the five prompts down the right. Only the text before 'The answer "
+        "is 11' changes -- that is the whole design.\n"
+        "Reading: Wei §3.3, Figure 5. The worked problem is theirs (Figure 1); "
+        "the five answer lines illustrate each condition.\n"
+        "Ask: which of these do you expect to work?"
+    ),
+    "w06_s16": (
+        "Each story appears with no bar. PAUSE and let the room guess before it "
+        "grows. Equation only: ~22 vs 17.9. Dots: flat. Reasoning after the "
+        "answer: flat -- so the chain has to come BEFORE the answer to help.\n"
+        "The ≈ bars are read off Figure 5; the paper tabulates ablations for "
+        "LaMDA only (Table 6: 6.5 / 5.4 / 6.4 / 6.1 / 14.3). Say so -- reading a "
+        "figure is legitimate if you admit it.\n"
+        "Land the last line: three stories ruled out is not the fourth proved."
+    ),
+    "w06_s17": (
+        "§6, quoted. The inventors decline to say 'reasoning'. The hand check "
+        "(§3.2): of 50 correct LaMDA 137B answers, 48 chains sound, 2 right by "
+        "coincidence. Of 50 WRONG answers, 46% of chains were almost right, 54% "
+        "had major errors.\n"
+        "Note for later: reading a chain and finding it sound is not the same "
+        "as showing the model used it (s41 Q3).\n"
+        "SG: chain-of-thought-prompting."
+    ),
+    "w06_s18": (
+        "DISCUSSION (5 min) -- the session's own questions 2 and 3. Q1: push for "
+        "something observable, not a definition. Q3 is the intervention idea: "
+        "corrupt a middle step and see if the answer follows. Zhao §2.2 cites "
+        "work doing exactly this (Lanham et al. 2023) that found answers often "
+        "do NOT change -- don't reveal it; let them propose it.\n"
+        "Transition: to test any of this you need Part 3's words."
+    ),
+    "w06_s19": (
+        "The question-space picture is a picture, not data (footer says so). "
+        "Axes chosen so a student can place their own homework problem.\n"
+        "Distribution = what kinds of example, how often. Test data drawn from "
+        "the same cloud = in-distribution.\n"
+        "SG: training-and-test-distributions · corpus."
+    ),
+    "w06_s20": (
+        "Watch the test cloud slide away: that movement is 'distribution shift'. "
+        "Red stars: out-of-distribution.\n"
+        "The key distinction: generalizing to new questions of the SAME kind is "
+        "expected; to new KINDS is the contested case, and today's argument.\n"
+        "The three shifts are Zhao's axes, in homework terms. They come back as "
+        "the three dials (s31).\n"
+        "SG: out-of-distribution-generalization."
+    ),
+    "w06_s21": (
+        "Data leakage / benchmark contamination. The exam-posted-online analogy "
+        "does the work.\n"
+        "Be even-handed: this is why Zhao build their own data (§1: pretrained "
+        "models 'suffer from data leakage'), and it is an open question -- not "
+        "an accusation -- for Wei's GSM8K results.\n"
+        "SG: data-leakage · benchmark."
+    ),
+    "w06_s22": (
+        "Three ways to meet a task, then the size strip. Zhao's from-scratch "
+        "models: 62K-3B (Table 8), GPT- and LLaMA-style; real-model check: "
+        "LLaMA3-8B and Qwen3-14B-Instruct, fine-tuned on DataAlchemy (§8.2). "
+        "Wei: up to PaLM 540B.\n"
+        "The x180 gap is the heart of Side A's size objection; the fine-tuned "
+        "8B/14B results are Zhao's answer to it.\n"
+        "SG: pretraining-and-fine-tuning · parameters-and-weights."
+    ),
+    "w06_s23": (
+        "Week 2 review: logits, divided by T, then softmax. Watch the bars "
+        "sharpen (cold) and flatten (hot).\n"
+        "Why it's here: Zhao run at T = 1e-5 (F.1) and re-ran from 1e-5 to 10 "
+        "(D.5) to rule out 'it's just the decoding setting' -- a control, like "
+        "Wei's ablation. Same pattern up to T = 1; at 10 'essentially uniform "
+        "sampling'.\n"
+        "SG: temperature · softmax · logits."
+    ),
+    "w06_s24": (
+        "The answer is real: Appendix E.1.1, truth HUSP, model HFCU.\n"
+        "Exact match: all or nothing. Edit distance (Levenshtein): 3 changes "
+        "(F->U, C->S, U->P); the paper reports it scaled 0-1. BLEU: shared short "
+        "runs, from machine translation; don't compute it, just the idea.\n"
+        "The paper scores reasoning, answer and full chain separately -- that "
+        "split is what makes s37 possible.\n"
+        "SG: exact-match-and-edit-distance."
+    ),
+    "w06_s25": (
+        "The hypothesis (§3), verbatim, then glossed phrase by phrase. 'Inductive "
+        "bias' = a learned lean. The one-sentence version is the thing to "
+        "remember.\n"
+        "Note the parenthesis in the paper: effectiveness is governed by "
+        "distribution discrepancy 'rather than by model architecture or scale' "
+        "-- a strong claim, and the one s22/s38 bear on."
+    ),
+    "w06_s26": (
+        "Why a toy: you cannot test 'outside the training data' on a model whose "
+        "training data is secret. So build the data.\n"
+        "Don't read Figure 2 panel by panel -- the next slide runs it.\n"
+        "Ask: what do you give up by using letters instead of language?"
+    ),
+    "w06_s27": (
+        "APPLE is the paper's example. ROT13: count 13 on from A, land on N. "
+        "Shift: the A wraps round. Then the CoT format exactly as trained: the "
+        "middle step, the operation still to do, the answer.\n"
+        "Here every step has one right answer -- fully checkable, which Wei's "
+        "math problems could not give.\n"
+        "Notation warning for keen readers: the paper's 'f1 ∘ f2' means f1 "
+        "FIRST, the reverse of the usual convention."
+    ),
+    "w06_s28": (
+        "Equations (1)-(3). Start with the four practice questions; the math is "
+        "just that average, written generally. Walk each coloured term.\n"
+        "Hat = measured on a sample. 𝔼 = the true average over the whole "
+        "distribution. The paper's question in one line at the end.\n"
+        "Cross-entropy (the paper's example loss) need not be named.\n"
+        "SG: loss-and-risk."
+    ),
+    "w06_s29": (
+        "TV distance with bars. Mild example first: TV = 0.4. Show the 'sup' "
+        "reading with A = first two kinds: 0.7 vs 0.3.\n"
+        "Then morph to the composition test (train on three kinds, test only on "
+        "the fourth): TV = 1, the maximum. Tell them to remember the number -- "
+        "the next slide needs it.\n"
+        "SG: total-variation-distance."
+    ),
+    "w06_s30": (
+        "Theorem 3.1, term by term. It is a CEILING ('at most'), not a "
+        "prediction.\n"
+        "The numbers are illustrative (B=1, n=10,000, delta=0.05, practice "
+        "penalty 0.02; sampling term 0.012). Past Δ ≈ 0.48 the ceiling exceeds "
+        "the worst possible penalty, so it rules nothing out; at Δ = 1 -- the "
+        "OOD tests -- it is 2.03.\n"
+        "Pose it as a question, not a gotcha: the theorem motivates the lens; "
+        "the experiments carry the evidence. This is s40 Q3.\n"
+        "SG: generalization-bound."
+    ),
+    "w06_s31": (
+        "Equation (7): three dials combined by some increasing function Φ. The "
+        "paper never picks Φ -- it only requires 'turning any dial up never "
+        "turns the total down'.\n"
+        "Each dial gets its own measure in Appendix C: backup slides s46-s48. "
+        "Skip them unless asked.\n"
+        "SG: out-of-distribution-generalization."
+    ),
+    "w06_s32": (
+        "The four task tests on the paper's own lines (Appendix B.2.1), for APPL. "
+        "Let them predict each before the next slide.\n"
+        "CMP = operations it knows in a new order; POOD = one never-seen "
+        "operation; OOD = nothing seen.\n"
+        "Ask: which would YOU get right, given only the practice lines?"
+    ),
+    "w06_s33": (
+        "Let each row grow before reading it. ID perfect; CMP 0.01% (LLaMA3-8B "
+        "manages 8.52%); POOD and OOD zero for all.\n"
+        "Pre-empt 'tiny models': Table 5 is two real pretrained models, "
+        "fine-tuned, on the same cliff. But the task is still letters, not "
+        "language (Limitations (i)) -- and Wei's ablation said words mattered.\n"
+        "Reading: §5.1 Table 1; Appendix D.7 Table 5."
+    ),
+    "w06_s34": (
+        "Figure 4: mix a tiny share of the new task into fine-tuning. By ~4e-4 "
+        "(four in ten thousand) every curve is near the top; CMP recovers first, "
+        "OOD last.\n"
+        "Interpolation vs extrapolation: define both, they return in s38.\n"
+        "Two readings, genuinely open: 'a patch, not a panacea' (App. G) vs "
+        "'that is what learning looks like'. Don't pick one."
+    ),
+    "w06_s35": (
+        "Length, two ways. Text length (Table 4): 100% at the trained length 4, "
+        "0% at 2, 3, 5 and 6. The IGLLQ example (E.2.1) squeezes five letters "
+        "into four.\n"
+        "Steps (Figure 6, E.2.2): trained on two-step chains, asked for one, it "
+        "pads the chain back to two -- and so gets AABD, not NNOQ.\n"
+        "Both examples are quoted from Appendix E and checked by script."
+    ),
+    "w06_s36": (
+        "Format: insert / delete / modify one token (Appendix B.4). Figure 7: "
+        "insertion hurts most; noise in the letters and operations matters, noise "
+        "elsewhere less.\n"
+        "E.3: one operation deleted from the prompt, and the model pads its "
+        "answer to the practiced length (NGNGY for NNNG).\n"
+        "Ask: what's the everyday version -- a typo in your prompt?"
+    ),
+    "w06_s37": (
+        "The finding the debate can use. The HUSP output is quoted from E.1.1. "
+        "First step right; then it writes [F2] because f2 always came second in "
+        "training, and does f2. Its answer follows from its own wrong step.\n"
+        "Table 2: rows 1-2 every step right, answer wrong; rows 3-4 steps wrong, "
+        "answer right -- possible only because f1 and f2 commute (APPLE both "
+        "ways, on the slide).\n"
+        "Tie back to s07 claim 2 and s11 Q2: how much is the window worth?\n"
+        "SG: chain-of-thought-faithfulness."
+    ),
+    "w06_s38": (
+        "Zhao's controls -- the same logic as Wei's ablation, aimed at the "
+        "failure. Temperature (D.5), size and architecture (§8.1, Table 8), real "
+        "models (§8.2, Table 5).\n"
+        "The D.5 quote is their own summary on scale: bigger models interpolate "
+        "faster, not extrapolate further. Side B's best line on size."
+    ),
+    "w06_s39": (
+        "Their verdict (App. G), verbatim, and their implications -- 'fluent "
+        "nonsense' is worth repeating.\n"
+        "Then their own first limitation, verbatim.\n"
+        "Last line is a question, not a verdict: the experiments show fragility "
+        "under shift; the conclusion says what CoT 'is not'. Let the room decide "
+        "whether the second follows from the first."
+    ),
+    "w06_s40": (
+        "Questions for the critique -- none has an agreed answer. Q1 and Q2 are "
+        "Side A's; Q3-Q4 are about what the theorem can carry (s30, backup s49); "
+        "Q5 asks what 'genuine reasoning' would even do in the toy.\n"
+        "Don't answer them. They're debate material."
+    ),
+    "w06_s41": (
+        "Same scrutiny for Wei. Q1 leakage (s21). Q2 the window (s37). Q3: a "
+        "chain that READS correctly vs one the model USED. Q4: the intervention "
+        "experiment -- if nobody proposed it at s18, give them the Lanham et al. "
+        "2023 result here (Zhao §2.2: answers often unchanged when steps are "
+        "corrupted)."
+    ),
+    "w06_s42": (
+        "Practical synthesis both sides accept. Each line maps to evidence: "
+        "familiar problems (both papers), chain is not an audit trail (s37), "
+        "test odd cases (Zhao App. G 'Prioritize OOD testing'), expert checks "
+        "(App. G), and the ADR habit from the project.\n"
+        "SG: chain-of-thought-prompting."
+    ),
+    "w06_s43": (
+        "STRUCTURED DEBATE (~20 min). Split the room. Suggested: 4 min prep, 2 "
+        "min opening each, 8 min open floor, 1 min closing each.\n"
+        "Enforce the two rules: every claim cites a slide or section; each side "
+        "concedes one point. Anyone who says 'reasoning' defines it first -- "
+        "that rule alone is most of the lesson.\n"
+        "Wei §6 is enough to argue from; the mirage paper was optional."
+    ),
+    "w06_s44": (
+        "DISCUSSION (5 min) -- session question 4 plus two. Q2 is the deepest: "
+        "if people also generalize from what they have practiced, is the "
+        "dichotomy real? Q3: have them write it down -- Thursday's lab asks for "
+        "it before they run anything."
+    ),
+    "w06_s45": (
+        "Close the ledger: every term on the left had its own slide. Thursday: "
+        "the lab builds the experiment -- tasks inside and outside the "
+        "distribution, CoT vs direct, a prediction written first. Read out the "
+        "one-finding template.\n"
+        "Backup slides follow; stop here unless someone asks about Appendix C."
+    ),
+    "w06_s46": (
+        "BACKUP -- Appendix C.1. The counting in eq. (14), then eq. (18): each "
+        "novelty multiplies success by a fraction rho. Halving is the "
+        "illustration.\n"
+        "Honest notes: the multiplicative, independent-failure model is ASSUMED; "
+        "the rho values are never measured. And the 'threshold' tau = ln(pi_0)/"
+        "kappa is never positive (pi_0 <= 1), so eq. (17) holds for every task -- "
+        "the threshold is trivially met."
+    ),
+    "w06_s47": (
+        "BACKUP -- Appendix C.2, eq. (22). The paper calls it 'a modeling "
+        "ansatz': an assumed shape with sigma fitted, not derived (their "
+        "heuristic derivation follows it).\n"
+        "Against Table 4: exact match is a cliff (fit needs a tiny sigma); edit "
+        "distance rises gently. Which shape you see depends on the metric."
+    ),
+    "w06_s48": (
+        "BACKUP -- Appendix C.3. Format distance is 1 minus the cosine similarity "
+        "to the nearest training prompt's embedding -- Week 2's cosine, reused. "
+        "Appendix C.3 does not name the embedding function eta.\n"
+        "SG: cosine-similarity · embedding."
+    ),
+    "w06_s49": (
+        "BACKUP -- Appendix C.4. Split the gap into (i) a shift term, bounded by "
+        "TV (their 2B is a loose constant), and (ii) a sampling term, bounded by "
+        "Hoeffding -- shown as coin flips settling inside a narrowing band.\n"
+        "The point for s40 Q4: nothing here mentions chains of thought; it is a "
+        "standard result that holds for any model on any task.\n"
+        "SG: generalization-bound."
+    ),
 }
 
 

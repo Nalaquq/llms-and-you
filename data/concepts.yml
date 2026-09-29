@@ -1897,3 +1897,422 @@
   resources:
     - 3blue1brown-transformers
     - anthropic-token-counting
+
+# ---------------------------------------------------------------------------
+# Week 6 -- chain of thought, and the critique of it. The mirage paper is
+# written in the vocabulary of distribution shift and generalization bounds;
+# every term it uses without defining gets its own entry here, in the order
+# the Tuesday deck teaches them, so the page reads top to bottom.
+# ---------------------------------------------------------------------------
+
+- id: few-shot-prompting
+  name: Zero-shot and few-shot prompting
+  theme: technique
+  week: 6
+  day: tue
+  definition: >-
+    A **zero-shot** prompt asks the question with no worked examples. A
+    **few-shot** prompt puts one or more worked examples first -- each is an
+    **exemplar**, each counts as a "shot" -- and the model continues the
+    pattern they set. Nothing about the model changes; only the text in front
+    of the question does.
+  in_practice: >-
+    Exemplars teach format and habit more reliably than instructions do: a model
+    shown three answers that end on a one-line verdict will end on a one-line
+    verdict. That cuts both ways. An exemplar with a mistake in it teaches the
+    mistake, and exemplars that are all alike teach the model that every
+    question is like them.
+  mastery:
+    - >-
+      Say whether a given prompt is zero-shot or few-shot, and point at the
+      exemplars in it.
+    - >-
+      Explain why changing only the exemplars can change a model's answer when
+      the model's weights are untouched.
+    - >-
+      Write a few-shot prompt for a task of your own and justify the choice of
+      exemplars.
+  pitfall: >-
+    Treating exemplars as neutral illustrations. The model copies what they do,
+    not what you meant by them -- including their length, their tone, and any
+    shortcut they happen to share.
+  related: [chain-of-thought-prompting]
+  assessed_in: [concept-checks, project]
+  resources: [aws-chain-of-thought, ibm-chain-of-thought]
+
+- id: chain-of-thought-prompting
+  name: Chain-of-thought prompting
+  theme: technique
+  week: 6
+  day: tue
+  definition: >-
+    Prompting a model to write intermediate steps before its final answer --
+    "a coherent series of intermediate reasoning steps that lead to the final
+    answer" in Wei et al.'s words. Done few-shot by giving exemplars that show
+    their working, or zero-shot with a cue such as "Let's think step by step."
+    Because a model writes one token at a time and reads everything it has
+    written before the next, the steps are literally extra input to the rest of
+    the answer.
+  in_practice: >-
+    It helps most on problems with several steps and on large models; Wei et
+    al. found little gain on one-step problems and that it made models under
+    about ten billion parameters worse. It costs longer outputs. Ask for the
+    final answer on its own line, and check that answer independently -- the
+    chain is text the model produced, not a record of how it got there.
+  mastery:
+    - >-
+      Explain, in terms of how a model generates text, why writing steps first
+      could change the final answer.
+    - >-
+      Turn a standard prompt into a few-shot and a zero-shot chain-of-thought
+      prompt.
+    - >-
+      Say when chain of thought is worth its cost and when it is not, citing
+      the evidence for each.
+  pitfall: >-
+    Reading the chain as the model's reasons. The vendor pages say it
+    "simulates human-like reasoning"; its inventors say their work "does not
+    answer whether the neural network is actually 'reasoning'". A tidy chain is
+    not evidence that the answer is right, or that the chain produced it.
+  builds_on: [few-shot-prompting, token-and-tokenization]
+  assessed_in: [concept-checks, labs, project]
+  resources: [aws-chain-of-thought, google-cot-blog, wei-2022-chain-of-thought]
+
+- id: benchmark
+  name: Benchmark
+  theme: methodology
+  week: 6
+  day: tue
+  definition: >-
+    A fixed set of questions with known answers that everyone scores on, so
+    that results can be compared. GSM8K -- about 8,500 grade-school math word
+    problems -- is Wei et al.'s headline benchmark; a model's **solve rate** is
+    the percentage it gets right, and the **state of the art** is the best
+    published score so far.
+  in_practice: >-
+    A benchmark number is only comparable to another if the setup matches.
+    Google's blog reports 58% on GSM8K for chain of thought; that figure uses an
+    external calculator for the arithmetic, and the model alone scored 56.9%.
+    When you cite a score, cite which one.
+  mastery:
+    - >-
+      Explain what a benchmark score does and does not tell you about a model.
+    - >-
+      Spot when two reported scores on the same benchmark were produced under
+      different conditions.
+    - >-
+      Explain why a public benchmark becomes less trustworthy the longer it has
+      been online.
+  related: [data-leakage]
+  assessed_in: [concept-checks]
+  resources: [google-cot-blog, wei-2022-chain-of-thought]
+
+- id: emergent-abilities
+  name: Emergent abilities
+  theme: technique
+  week: 6
+  day: tue
+  definition: >-
+    An ability that is absent in small models and appears above some size,
+    rather than improving gradually. Wei et al. call chain-of-thought prompting
+    "an emergent ability of model scale": on GSM8K it made every model under
+    about ten billion parameters worse, and helped a great deal above about a
+    hundred billion.
+  in_practice: >-
+    It means a technique's published results may not transfer to the model you
+    are using. A prompting trick shown on a 540-billion-parameter model is a
+    claim about that scale, and the paper's own small models produced "fluent
+    but illogical chains of thought".
+  mastery:
+    - >-
+      Read a plot of performance against model size and say whether it shows an
+      emergent ability.
+    - >-
+      Explain why a technique that helps a large model can hurt a small one,
+      using Wei et al.'s results.
+    - >-
+      Say what model size a published prompting result was obtained at before
+      relying on it.
+  builds_on: [parameters-and-weights, benchmark]
+  related: [chain-of-thought-prompting]
+  assessed_in: [concept-checks]
+  resources: [wei-2022-chain-of-thought, google-cot-blog]
+
+- id: ablation-study
+  name: Ablation study
+  theme: methodology
+  week: 6
+  day: tue
+  definition: >-
+    An experiment that removes or replaces one part of a system at a time,
+    keeping everything else the same, and compares each version against the
+    full one -- the **control**. If the result survives a part's removal, that
+    part was not why it worked. Wei et al. ablate chain of thought into
+    "equation only", "variable compute only" and "reasoning after answer".
+  in_practice: >-
+    The same logic tests your own prompts: drop one instruction or one
+    exemplar and see whether the output changes. Ruling out explanations is
+    not proving the one that is left -- Wei et al.'s ablation rules out three
+    stories for the gain and leaves the fourth, that the steps cause the
+    answer, untested.
+  mastery:
+    - >-
+      Design an ablation for a prompt of your own, naming the control and each
+      condition.
+    - >-
+      Read Wei et al.'s Figure 5 and say what each condition rules out.
+    - >-
+      Explain why ruling out several explanations does not prove the remaining
+      one.
+  related: [chain-of-thought-prompting, benchmark]
+  assessed_in: [concept-checks, labs, project]
+  resources: [wei-2022-chain-of-thought]
+
+- id: training-and-test-distributions
+  name: Training and test distributions
+  theme: methodology
+  week: 6
+  day: tue
+  definition: >-
+    **Training data** is what a model learns from; **test data** is held back to
+    check it. A **distribution** is the pattern the examples follow -- which
+    kinds of question occur, and how often. Test data drawn from the same
+    pattern as the training data is **in-distribution**, and scoring well on it
+    is the fair re-test a practice exam is.
+  in_practice: >-
+    Whenever you evaluate a prompt, ask which distribution your test cases came
+    from. Cases you wrote while developing the prompt are practice questions;
+    the prompt has, in effect, been fitted to them.
+  mastery:
+    - >-
+      Explain what a distribution is using an example of your own.
+    - >-
+      Say whether a given test set is in-distribution for a given training set,
+      and why.
+    - >-
+      Explain why testing a prompt only on the cases you developed it with
+      overstates how well it works.
+  builds_on: [training-and-inference, corpus]
+  assessed_in: [concept-checks, labs]
+  resources: [cot-mirage]
+
+- id: out-of-distribution-generalization
+  name: Out-of-distribution generalization
+  theme: critical
+  week: 6
+  day: tue
+  definition: >-
+    **Generalization** is doing well on questions a model did not train on.
+    **Out-of-distribution** (OOD) questions lie outside the pattern of the
+    training data; the gap between the two patterns is **distribution shift**.
+    Doing well on new questions of a familiar kind is expected; doing well on
+    new *kinds* of question is OOD generalization, and whether chain of thought
+    provides it is the mirage paper's question. Zhao et al. shift the test
+    along three axes: task, length and format.
+  in_practice: >-
+    The mirage paper's practical advice is to "prioritize OOD testing": test a
+    chain-of-thought system on your oddest cases -- unusual formats, longer
+    problems than usual, new kinds of task -- because that is where its models
+    failed. Its own models went from 100% to near 0% one step outside the
+    practiced task.
+  mastery:
+    - >-
+      Explain the difference between generalizing to new questions and
+      generalizing to new kinds of question.
+    - >-
+      Give an example of a task, a length and a format shift for a prompt of
+      your own.
+    - >-
+      Describe what the mirage paper found under each kind of shift, and what
+      it concluded from it.
+  pitfall: >-
+    Treating "out of distribution" as a fixed property of a question. It is a
+    relation between a question and a training set -- and for commercial models
+    nobody outside the company knows the training set, which is why the mirage
+    paper built its own.
+  builds_on: [training-and-test-distributions]
+  related: [chain-of-thought-prompting]
+  assessed_in: [concept-checks, labs, project]
+  resources: [cot-mirage]
+
+- id: data-leakage
+  name: Data leakage
+  theme: methodology
+  week: 6
+  day: tue
+  definition: >-
+    Test questions, or their answers, turning up in a model's training data --
+    also called **benchmark contamination**. A model that has seen the answer can
+    score well by remembering it, so leakage makes it impossible to tell memory
+    from method.
+  in_practice: >-
+    Models trained on large slices of the web may have seen any benchmark that
+    has been online for long enough; nobody outside the company can check. It is
+    the reason Zhao et al. invented new data and trained models from scratch,
+    and an open question -- not an accusation -- about any headline benchmark
+    result.
+  mastery:
+    - >-
+      Explain why data leakage undermines a benchmark score, with an everyday
+      analogy.
+    - >-
+      Say how training a model from scratch on invented data rules leakage out.
+    - >-
+      Assess whether leakage could explain a published result you are relying
+      on.
+  builds_on: [training-and-test-distributions, benchmark]
+  assessed_in: [concept-checks]
+  resources: [cot-mirage]
+
+- id: exact-match-and-edit-distance
+  name: Exact match, edit distance and BLEU
+  theme: methodology
+  week: 6
+  day: tue
+  definition: >-
+    Three ways to mark an answer against the right one. **Exact match** is all
+    or nothing. **Edit distance** (Levenshtein distance) is the fewest
+    single-character insertions, deletions or replacements that turn one into
+    the other -- lower is better. **BLEU**, borrowed from machine translation,
+    counts the short runs of characters or words the two share -- 1 is
+    identical, higher is better.
+  in_practice: >-
+    The choice of metric changes the story. In the mirage paper's length tests
+    exact match falls off a cliff one letter from the practiced length, while
+    edit distance rises gently. Scoring the reasoning, the answer and the whole
+    chain separately is what let the paper see steps and answers come apart.
+  mastery:
+    - >-
+      Compute exact match and edit distance for two short strings by hand.
+    - >-
+      Explain why a "hard" and a "soft" metric can tell different stories about
+      the same outputs.
+    - >-
+      Choose a metric for a task of your own and defend the choice.
+  related: [benchmark]
+  assessed_in: [concept-checks, labs]
+  resources: [cot-mirage]
+
+- id: chain-of-thought-faithfulness
+  name: Faithfulness of a chain of thought
+  theme: critical
+  week: 6
+  day: tue
+  definition: >-
+    Whether the steps a model writes are actually how it reached its answer. A
+    chain is **unfaithful** when the two come apart: the mirage paper found
+    chains with every step right and the answer wrong, and chains with wrong
+    steps and the right answer.
+  in_practice: >-
+    Wei et al. call the chain "an interpretable window into the behavior of the
+    model"; the mirage paper's authors warn that "fluent nonsense" can be "more
+    deceptive and damaging than an outright incorrect answer". Treat a chain as
+    a draft to check, not an audit trail -- especially where the stakes are
+    high.
+  mastery:
+    - >-
+      Explain what it would mean for a chain of thought to be unfaithful, with
+      an example.
+    - >-
+      Describe an experiment that would test whether a model's written steps
+      cause its answer.
+    - >-
+      Say what Table 2 of the mirage paper shows and why it matters for using
+      chain of thought.
+  builds_on: [chain-of-thought-prompting]
+  related: [exact-match-and-edit-distance]
+  assessed_in: [concept-checks, labs]
+  resources: [cot-mirage, wei-2022-chain-of-thought]
+
+- id: loss-and-risk
+  name: Loss and risk
+  theme: foundations
+  week: 6
+  day: tue
+  definition: >-
+    **Loss** is the penalty for one answer: zero if right, larger the more
+    wrong. **Risk** is the average loss. The **empirical** risk, written with a
+    hat, is the average over the questions actually seen; the **expected**
+    risk, written with 𝔼, is the average over every question a distribution
+    could produce. Training makes the empirical training risk small; what we
+    want to know is the test risk.
+  in_practice: >-
+    The mirage paper's whole question, in these terms: how far can the test risk
+    climb above the training risk when the test comes from a different
+    distribution? Any evaluation you run on a sample is an empirical risk.
+  mastery:
+    - >-
+      Compute an empirical risk for a handful of marked answers.
+    - >-
+      Read equations (1) to (3) of the mirage paper aloud in words.
+    - >-
+      Explain the difference between empirical and expected risk.
+  builds_on: [training-and-test-distributions]
+  related: [generalization-bound]
+  assessed_in: [concept-checks]
+  resources: [cot-mirage]
+
+- id: total-variation-distance
+  name: Total variation distance
+  theme: critical
+  week: 6
+  day: tue
+  definition: >-
+    A measure of how different two distributions are: half the total of the
+    gaps between them, category by category -- equivalently, the biggest
+    disagreement about the probability of any group of outcomes. Zero means the
+    same pattern; one means no overlap at all. The mirage paper uses it as its
+    "distribution discrepancy", written Δ.
+  in_practice: >-
+    In the mirage paper's composition test the model trains on three kinds of
+    question and is tested only on a fourth, so the distance is 1 -- the
+    maximum. That number matters for what the paper's theorem can say.
+  mastery:
+    - >-
+      Compute the total variation distance between two small distributions by
+      hand.
+    - >-
+      Explain what distances of 0 and 1 mean in terms of practice and exam
+      questions.
+    - >-
+      Say what the distance is between a training set and a test set that share
+      no kinds of question.
+  builds_on: [training-and-test-distributions]
+  assessed_in: [concept-checks]
+  resources: [cot-mirage]
+
+- id: generalization-bound
+  name: Generalization bound
+  theme: critical
+  week: 6
+  day: tue
+  definition: >-
+    A guarantee of the form "test risk is at most training risk plus some
+    costs", holding with high probability. The mirage paper's Theorem 3.1 adds
+    a cost for the test distribution being different (twice the worst loss
+    times the total variation distance) and a cost for having trained on only n
+    examples, which shrinks as n grows. It is a ceiling, not a prediction.
+  in_practice: >-
+    Read a bound for when it says something. With the worst loss at 1, the
+    ceiling passes the worst possible score once the distributions differ by
+    about a half; in the paper's out-of-distribution tests the distance is 1
+    and the ceiling rules nothing out. The bound also holds for any model,
+    with or without chain of thought -- it motivates the paper's lens, and the
+    experiments carry the evidence.
+  mastery:
+    - >-
+      Name each term of Theorem 3.1 in words.
+    - >-
+      Work out when the bound's ceiling becomes larger than the worst possible
+      loss, and say what follows.
+    - >-
+      Explain why a result that holds for every model cannot by itself show
+      something about chain of thought specifically.
+  pitfall: >-
+    Reading "at most" as "about". A bound that allows the exam penalty to be
+    anything up to twice the maximum has not predicted a collapse; the
+    experiments did that.
+  builds_on: [loss-and-risk, total-variation-distance]
+  related: [out-of-distribution-generalization]
+  assessed_in: [concept-checks]
+  resources: [cot-mirage]
