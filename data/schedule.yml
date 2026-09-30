@@ -503,10 +503,20 @@
   topic: 'Lab: Testing the Mirage'
   theme: technique
   notebook: w06-thu
-  summary: Run the disagreement yourself.
+  guides:
+    - boodlebox
+    - colab
+  summary: >-
+    Catch a large model hallucinating, then test chain of thought on the big
+    models and the small ones.
   activity: >-
-    Construct tasks inside and outside the plausible training distribution.
-    Compare chain-of-thought against direct prompting on both. Report what you find.
+    Two experiments. First, in BoodleBox: get one of the models to state a
+    falsehood you can prove wrong, try the identical prompt on the other models,
+    and say why you think it happened -- then add a chain-of-thought prompt and
+    see whether it fixes, flags, or dresses up the mistake. Second, in the
+    notebook: ask the models from Weeks 3 and 4 math word problems with and
+    without chain of thought, and measure whether the chain helps. Bring a short
+    report on each, and one finding.
 
 # ===========================================================================
 # WEEK 7 — Hallucination

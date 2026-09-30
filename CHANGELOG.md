@@ -20,6 +20,23 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 6 lab: a hallucination hunt, then chain of thought big and small **[student-facing]**
+
+The [Week 6 lab notebook](https://nalaquq.github.io/llms-and-you/sessions/w06-thu/)
+is finished, and the lab has changed shape. Two experiments:
+
+- **In BoodleBox**, on the college's subscription: get one model to state a
+  falsehood you can prove wrong, paste the identical prompt into the other models,
+  and say why you think it happened. Then add *"Let's think step by step"* and see
+  whether it fixes the mistake, flags it, or dresses it up.
+- **In the notebook**: ask the models from Weeks 3 and 4 (`flan-t5-base` and
+  `distilgpt2`) math word problems with and without chain of thought, and measure
+  whether it helps.
+
+Bring a short report on each, and one finding. Part 1 needs no code. If you do
+not have a BoodleBox account yet, request one now — it takes a few days; the
+[BoodleBox guide](https://nalaquq.github.io/llms-and-you/guides/boodlebox/) says how.
+
 ### Added — Week 6 study guide: thirteen entries for chain of thought and its critique **[student-facing]**
 
 The [study guide](https://nalaquq.github.io/llms-and-you/study-guide/) now covers

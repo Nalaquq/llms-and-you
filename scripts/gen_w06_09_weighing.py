@@ -320,17 +320,17 @@ def make_closing():
             rp.text(
                 0.05,
                 0.93,
-                "Thursday: run the disagreement",
+                "Thursday: test it, big and small",
                 fontsize=15,
                 color=YELLOW,
                 fontweight="bold",
                 va="top",
             )
             steps = [
-                "Build tasks inside and outside the plausible\ntraining distribution. That is "
-                "the hard part.",
-                "Compare chain-of-thought against direct\nprompting on both sets.",
-                "Before you run it, write down what result\nwould change your mind.",
+                "In BoodleBox: catch a model hallucinating,\nthen try the same prompt on the "
+                "others.",
+                "Add “Let's think step by step.” Fixed,\nflagged, unchanged — or worse?",
+                "In Colab: the Week 3 and 4 models, with\nand without chain of thought.",
             ]
             for i, s in enumerate(steps):
                 y = 0.78 - i * 0.20

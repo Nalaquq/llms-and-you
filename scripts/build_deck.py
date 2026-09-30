@@ -844,9 +844,11 @@ NOTES = {
     ),
     "w06_s45": (
         "Close the ledger: every term on the left had its own slide. Thursday: "
-        "the lab builds the experiment -- tasks inside and outside the "
-        "distribution, CoT vs direct, a prediction written first. Read out the "
-        "one-finding template.\n"
+        "two experiments. In BoodleBox, catch a hallucination, try the identical "
+        "prompt on the other models, then add a chain-of-thought cue. In the "
+        "notebook, the Week 3 and 4 models with and without chain of thought -- "
+        "they score about 0-1 of 6 either way, which is Wei's Figure 4 in "
+        "miniature. Read out the one-finding template.\n"
         "Backup slides follow; stop here unless someone asks about Appendix C."
     ),
     "w06_s46": (
