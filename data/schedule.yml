@@ -548,12 +548,26 @@
   topic: 'Lab: Build an Evaluation'
   theme: truthfulness
   notebook: w07-thu
+  guides:
+    - colab
+    - boodlebox
   summary: >-
     You cannot claim a prompt is better without a way to measure it. This is that
     way.
   activity: >-
     Build a small evaluation set for your project domain -- 20 items, with
     ground truth. You will use it for the rest of the semester.
+
+
+    The notebook practices on twenty questions from Tuesday's TruthfulQA paper
+    before you write your own: four marking rules on the same answers, your own
+    marks against them, how far two markers agree, and a prompt that scores
+    higher by refusing to answer.
+
+
+    **Bring your items** -- as many of the twenty as you have -- and be ready to
+    hand five to a neighbor to mark. Bring one sentence naming what your
+    evaluation cannot see, and one finding.
   optional: [hf-hallucinations-leaderboard, huggingface]
 
 # ===========================================================================
