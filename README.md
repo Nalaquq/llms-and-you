@@ -98,7 +98,7 @@ Conventions and common maintenance tasks are documented in the local
 - no notebook ships with saved output or anything shaped like a credential
 
 ```
-196 passed
+204 passed
 ```
 
 ## Course themes
@@ -106,7 +106,8 @@ Conventions and common maintenance tasks are documented in the local
 1. How LLMs Work · 2. Prompt Engineering Technique · 3. Truthfulness,
 Hallucination & Evaluation · 4. RAG & Retrieval · 5. Critical Perspectives ·
 6. Responsible AI & Society · 7. Tools & Ecosystem · 8. Project Methodology &
-Documentation · 9. Open-Weight Models · 10. Agents & Tool Use
+Documentation · 9. Open-Weight Models · 10. Agents & Tool Use ·
+11. Deployment, Cost & Production
 
 ## License
 

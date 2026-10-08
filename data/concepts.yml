@@ -1899,6 +1899,470 @@
     - anthropic-token-counting
 
 # ---------------------------------------------------------------------------
+# Week 3 -- attention and the transformer. The paper the course is named
+# after, in the order the Tuesday deck takes it apart: the vocabulary for
+# naming things, one attention head from question to blended answer, then
+# the four additions that make it a model (many heads, word order, the mask,
+# the bridge), then the block, the trade, and the limit.
+#
+# Week 2 already holds the prerequisites -- softmax, dot-product,
+# encoder-and-decoder, the fixed-length bottleneck -- and the deck's review
+# slides point at those entries. Everything below is new on this page.
+# ---------------------------------------------------------------------------
+
+- id: model-architecture-technique
+  name: Model, architecture and technique
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    Three words that get used as one. An **architecture** is a design: which
+    parts a network has and how they connect. The transformer is an
+    architecture. A **model** is one trained instance of a design, with its
+    weights filled in: BERT, `flan-t5-base` and the model behind a chat window
+    are models. A **technique** is a method that works on or around a model
+    without being one: tokenization, TF-IDF, few-shot prompting.
+  in_practice: >-
+    The distinction tells you what a claim is about. "Transformers hallucinate"
+    is a claim about a design, and so about every model built on it. "This
+    model hallucinates on dates" is a claim about one set of weights and can be
+    tested. A prompt is a technique: it changes what goes in and leaves the
+    model and the architecture exactly as they were.
+  mastery:
+    - >-
+      Sort a list of names -- transformer, BERT, TF-IDF, word2vec, GPT, chain of
+      thought -- into architecture, model and technique, and defend each.
+    - >-
+      Explain why word2vec gets called both an architecture and a model, and
+      which part of it each word is naming.
+    - >-
+      Say which of the three a prompt changes, and which two it cannot.
+  pitfall: >-
+    Saying "the transformer" when you mean one model. The 2017 design has an
+    encoder and a decoder; most models you will use kept only one half. A fact
+    about one model's behavior is not automatically a fact about the design.
+  builds_on: [parameters-and-weights, training-and-inference]
+  related: [encoder-and-decoder]
+  assessed_in: [concept-checks]
+  resources:
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+
+- id: self-attention
+  name: Attention (self-attention)
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The transformer's one new idea. Every word in a sequence looks at every
+    other word in the same sequence, in a single step, and comes away with a
+    vector that has been adjusted by what it found. A recurrent network passes
+    information along one word at a time; attention lets any word reach any
+    other directly, however far apart they are.
+  in_practice: >-
+    This is why the words around a word change what the model does with it, and
+    so why context in a prompt works at all. "It" in "the animal didn't cross
+    the street because it was too tired" ends up near "animal" only because
+    "animal" and "tired" are both in view. Change "tired" to "wide" and the same
+    word lands somewhere else. Everything you put in a prompt is something every
+    other token can look at.
+  mastery:
+    - >-
+      Say what problem attention was invented to solve, naming the fixed-length
+      bottleneck and what replaced it.
+    - >-
+      Explain how many steps it takes information to get from one word to
+      another in a recurrent network and in a transformer.
+    - >-
+      Explain why the vector for "it" comes out different in two sentences that
+      differ by one word.
+    - >-
+      Give a sentence of your own where a word's meaning depends on a word far
+      away from it, and say what attention would have to connect.
+  pitfall: >-
+    Hearing "attention" as focus or awareness. It is arithmetic: scores between
+    pairs of vectors, turned into shares, used to blend. Nothing in it decides
+    to look anywhere; the pattern is whatever training left in the weights.
+  builds_on: [fixed-length-bottleneck, static-vs-contextual-embeddings]
+  related: [recurrent-neural-network]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - 3blue1brown-attention
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+
+- id: query-key-value
+  name: Query, key and value
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The three roles each word plays inside one attention head. Its **query** is
+    the question it asks of the other words. Its **key** is the label it wears,
+    which other words' questions are matched against. Its **value** is what it
+    hands over to any word that attends to it. All three are made from the same
+    word vector by three learned matrices, and those matrices are the only
+    thing an attention head learns.
+  in_practice: >-
+    Same word, three jobs. A query and a key are both vectors, and a key
+    answers a query when the two point the same way -- which is the dot product
+    from Week 2. Nobody wrote the questions. If you ask what a query "really"
+    says, the honest answer is nothing in English: it is whatever made the
+    training text easier to predict.
+  mastery:
+    - >-
+      Say what the query, the key and the value are each for, in three
+      sentences, none of which uses the other two words.
+    - >-
+      Explain where all three come from, and what is learned and what is not.
+    - >-
+      Say which two of the three decide how much one word attends to another,
+      and what the third one is used for afterwards.
+    - >-
+      Explain why the same word can have a query that matches one neighbor and a
+      key that matches a different one.
+  pitfall: >-
+    Treating the key and the value as the same thing because both belong to the
+    word being looked at. The key only decides *whether* it gets looked at. The
+    value is *what* is taken once it has been. A word can be an excellent match
+    and have little to offer.
+  builds_on: [self-attention, dot-product]
+  assessed_in: [concept-checks]
+  resources:
+    - 3blue1brown-attention
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+
+- id: attention-weights
+  name: Attention scores and attention weights
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The numbers an attention head computes on the way to its answer. A
+    **score** is the dot product of one word's query with another word's key,
+    computed for every pair. Softmax then turns each word's row of scores into
+    **weights**: shares between 0 and 1 that add up to 1. The word's new vector
+    is its old one plus the other words' values, blended in those proportions.
+    The paper writes all of it in one line: softmax(QKᵀ / √d_k) V.
+  in_practice: >-
+    Attention is a budget. A row always adds up to 1, so looking hard at one
+    word means looking less at every other, and a head with nothing useful to
+    say still has to put its weight somewhere. That is the first thing to
+    remember when a heatmap in the lab shows a bright cell: brightness is a
+    share of a fixed total, not a measure of importance.
+  mastery:
+    - >-
+      Put the steps in order -- score, softmax, blend -- and say what goes into
+      and comes out of each.
+    - >-
+      Read one row of an attention heatmap and say what its numbers add up to
+      and what each one means.
+    - >-
+      Name each part of softmax(QKᵀ / √d_k) V in words, including what the
+      division is there to do.
+    - >-
+      Explain why the result is added to the word's vector instead of replacing
+      it.
+  pitfall: >-
+    Reading a row of weights as a ranking of which words matter to the model's
+    answer. They say how one head, in one layer, blended values at one step.
+    See the entry on attention and explanation before you build an argument on
+    a heatmap.
+  builds_on: [query-key-value, softmax]
+  related: [logits]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - 3blue1brown-attention
+    - vaswani-2017-attention
+    - bertviz
+
+- id: multi-head-attention
+  name: Multi-head attention
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    Running several attention heads side by side in the same layer, each with
+    its own query, key and value matrices, and joining their results. The 2017
+    paper uses eight heads per layer. Because each head learns its own
+    questions, different heads end up tracking different relationships.
+  in_practice: >-
+    One head has one budget, so it can follow one kind of relationship at a
+    time. Several heads let a word attend to its subject, the word before it and
+    the noun a pronoun stands for, all in the same step. When you open a model
+    in the lab, some heads do something you can name and others just look one
+    word to the left. Both are normal.
+  mastery:
+    - >-
+      Explain what one head cannot do that several can, using the budget.
+    - >-
+      Say what differs between two heads in the same layer and what they share.
+    - >-
+      Given heatmaps from several heads, describe what each appears to track,
+      and say how sure you are entitled to be.
+  pitfall: >-
+    Assuming every head has a job a person could name. Researchers have been
+    trying to label heads for years, and many resist it. "This head does
+    coreference" is a description of a pattern you saw on some sentences.
+  builds_on: [attention-weights]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+    - bertviz
+
+- id: positional-encoding
+  name: Positional encoding
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    A vector that marks where in the sequence a token sits, added to the
+    token's embedding before attention sees it. Attention only scores pairs of
+    words, so without it "dog bites man" and "man bites dog" would produce
+    identical results. The 2017 paper builds each position's vector from sine
+    and cosine waves of different lengths, so that no two positions get the
+    same one.
+  in_practice: >-
+    Removing recurrence threw word order away, and this is how it was put
+    back. It is the bag-of-words problem from Week 2 returning in a model that
+    was supposed to have left it behind. It is also why position in a prompt
+    can matter: the same sentence at the top and at the bottom of a long prompt
+    is, to the model, two different sets of vectors.
+  mastery:
+    - >-
+      Explain why attention alone cannot tell "dog bites man" from "man bites
+      dog".
+    - >-
+      Say what is added to what, and at which point in the model.
+    - >-
+      Explain why the same word at two positions becomes two different vectors,
+      and why that is the fix.
+    - >-
+      Connect the problem to bag of words, and say what is different about the
+      solution.
+  pitfall: >-
+    Thinking the model reads left to right because the text is written that
+    way. Order reaches it only through these added vectors. Later models
+    changed how position is encoded; the need for it did not go away.
+  builds_on: [self-attention, bag-of-words]
+  related: [embedding]
+  assessed_in: [concept-checks]
+  resources:
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+    - annotated-transformer
+
+- id: causal-masking
+  name: Masked attention (the causal mask)
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The rule that stops a decoder from looking at words that come after the one
+    it is writing. Scores are computed for every pair as usual; the scores for
+    later positions are then set to minus infinity before the softmax, so their
+    weights come out as exactly zero. On a heatmap with the word being written
+    on the rows, the blocked cells are the triangle above the diagonal.
+  in_practice: >-
+    This is the mechanical reason a chat model writes one token at a time and
+    cannot revise what it has already produced. It also explains what
+    conditioning means in a prompt: every token the model writes can see
+    everything before it, your instructions included, and nothing after it. A
+    format instruction placed after the place it was needed arrives too late.
+  mastery:
+    - >-
+      Say what the mask blocks, and at which step of the attention calculation
+      it is applied.
+    - >-
+      Explain why the blocked weights are exactly zero and not just small.
+    - >-
+      Explain what would go wrong in training without it.
+    - >-
+      Find the mask in a decoder heatmap and say why it has the shape it has.
+    - >-
+      Say why an encoder does not need one.
+  pitfall: >-
+    Confusing this mask with masked language modeling from Week 2. BERT's mask
+    hides a word *in the input* so the model can be trained to guess it, while
+    still letting it look both ways. The causal mask hides *the future* from a
+    model that writes. Same word, different mechanism, different half of the
+    transformer.
+  builds_on: [attention-weights, encoder-and-decoder]
+  related: [masked-language-modelling]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - 3blue1brown-attention
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+
+- id: cross-attention
+  name: Cross-attention
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    Attention between the two halves of an encoder-decoder model. The queries
+    come from the decoder, at the word it is currently writing; the keys and
+    values come from the encoder's output for the input. It is how each word
+    being written gets to look back at the whole of what was read.
+  in_practice: >-
+    This is the bridge that replaced the single context vector of Week 2's
+    seq2seq models. In translation it reads as an alignment: a German verb at
+    the end of its clause reaching back to the English verb nine words earlier,
+    in one step. `flan-t5-base` has it; a decoder-only chat model has no
+    separate encoder, so your prompt and its answer share one sequence and
+    ordinary masked self-attention does this job.
+  mastery:
+    - >-
+      Say where the queries come from and where the keys and values come from,
+      and how that differs from self-attention.
+    - >-
+      Explain how cross-attention removes the fixed-length bottleneck.
+    - >-
+      Read a cross-attention heatmap from a translation and say what a bright
+      cell means.
+    - >-
+      Name the three kinds of attention in the 2017 architecture and where each
+      one sits.
+  pitfall: >-
+    Assuming a bright cross-attention cell shows which input word *caused* an
+    output word. In Tuesday's pronoun example the model's attention looks the
+    same when it gets the pronoun right and when it gets it wrong.
+  builds_on: [self-attention, encoder-and-decoder, sequence-to-sequence]
+  related: [fixed-length-bottleneck, causal-masking]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+    - bertviz
+
+- id: transformer-block
+  name: The transformer block
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The unit the model is built from, repeated. An encoder block is attention,
+    then a small feed-forward network applied to each position separately, with
+    an **add and normalize** step after each: the block's input is added back
+    to what was just computed. The 2017 model stacks six blocks in the encoder
+    and six in the decoder, whose blocks also carry cross-attention.
+  in_practice: >-
+    "Add" means nothing is ever fully overwritten: each block adjusts the
+    vector it was given and passes it on, which is why blocks can be stacked
+    without the signal dying. When a model is described by its number of
+    layers, these are what is being counted, and a head is named by its layer
+    and its position in it.
+  mastery:
+    - >-
+      List the steps inside one encoder block in order.
+    - >-
+      Explain what "add and normalize" keeps, and why that makes stacking
+      possible.
+    - >-
+      Say what a decoder block has that an encoder block does not.
+    - >-
+      Explain what "layer 3, head 4" refers to.
+  pitfall: >-
+    Picturing the model as attention and nothing else because of the paper's
+    title. In an encoder block of the original model, about two thirds of the
+    parameters sit in the feed-forward network. The title is a joke aimed at
+    recurrence, not an inventory.
+  builds_on: [multi-head-attention, neural-network-and-layers]
+  related: [parameters-and-weights]
+  assessed_in: [concept-checks]
+  resources:
+    - alammar-illustrated-transformer
+    - vaswani-2017-attention
+    - annotated-transformer
+
+- id: parallelism-and-quadratic-cost
+  name: What the transformer traded
+  theme: foundations
+  week: 3
+  day: tue
+  definition: >-
+    The exchange in Table 1 of the paper. A recurrent network handles a
+    sequence one position after another. Attention handles every position at
+    once, which is the shape of work a GPU is built for, and any two words are
+    one step apart. The price is that every pair of positions is scored, so the
+    work grows with the *square* of the length: a sequence twice as long costs
+    about four times as much.
+  in_practice: >-
+    Two consequences you meet every day. Context windows have a size, and long
+    prompts cost more than their length suggests, because of that square. And
+    only *training* is parallel. Generation still happens one token at a time,
+    each depending on the last, which is why a chat model types its answer at
+    you.
+  mastery:
+    - >-
+      Say what the paper gave up and what it got in exchange, and why the trade
+      was worth making.
+    - >-
+      Work out roughly how the cost of attention changes when a prompt gets
+      three times longer.
+    - >-
+      Explain why training can be done in parallel and generation cannot.
+    - >-
+      Give the reason the transformer displaced the recurrent network that has
+      nothing to do with accuracy.
+  pitfall: >-
+    Concluding that distance is free. It costs nothing in *steps*, and it is
+    paid for in *compute*. That every token can reach every other also does not
+    mean a model uses everything in a long prompt equally well.
+  builds_on: [self-attention, recurrent-neural-network]
+  related: [causal-masking]
+  assessed_in: [concept-checks]
+  resources:
+    - vaswani-2017-attention
+    - alammar-illustrated-transformer
+
+- id: attention-is-not-explanation
+  name: Attention weights are not explanations
+  theme: critical
+  week: 3
+  day: tue
+  definition: >-
+    An attention weight tells you how one head blended values at one step. It
+    does not tell you why the model produced its output. The same attention
+    pattern can sit behind a right answer and a wrong one, and a model's output
+    depends on every head in every layer and on the feed-forward networks
+    between them.
+  in_practice: >-
+    Tuesday's example: a translation model has to choose a gendered German
+    pronoun for "it" in two sentences that differ by one word. It writes the
+    same pronoun both times, right once and wrong once, and while writing it
+    the cross-attention points at "it" in both. Whatever decided the gender is
+    not in that picture. Treat a heatmap the way Week 6 treats a chain of
+    thought: something the model produced, and evidence to be tested.
+  mastery:
+    - >-
+      Explain what an attention weight does measure.
+    - >-
+      Describe the pronoun example and say what it shows about reading a
+      heatmap as a reason.
+    - >-
+      Given a heatmap offered as an explanation of an output, say what further
+      evidence you would want before accepting it.
+    - >-
+      Say what would have to be true for an attention pattern to count as an
+      explanation.
+  pitfall: >-
+    The opposite error: deciding attention maps are worthless. They are real
+    measurements of a real mechanism and good for forming a guess. They are
+    weak evidence for a claim about cause until you have tested the guess on a
+    case where it could fail.
+  builds_on: [attention-weights]
+  related: [cross-attention, multi-head-attention]
+  assessed_in: [concept-checks, labs]
+  resources:
+    - vaswani-2017-attention
+    - bertviz
+    - 3blue1brown-attention
+
+# ---------------------------------------------------------------------------
 # Week 6 -- chain of thought, and the critique of it. The mirage paper is
 # written in the vocabulary of distribution shift and generalization bounds;
 # every term it uses without defining gets its own entry here, in the order
@@ -2316,3 +2780,384 @@
   related: [out-of-distribution-generalization]
   assessed_in: [concept-checks]
   resources: [cot-mirage]
+
+# ---------------------------------------------------------------------------
+# Week 7 -- truthfulness, and how to measure anything. Tuesday's entries are
+# the vocabulary of the TruthfulQA paper. Thursday's are the vocabulary of the
+# lab, where students build the evaluation set they keep for the rest of the
+# term; those four are assessed in the project as well, because every later
+# claim that a prompt improved rests on them.
+# ---------------------------------------------------------------------------
+
+- id: hallucination
+  name: Hallucination
+  theme: truthfulness
+  week: 7
+  day: tue
+  definition: >-
+    A fluent, confident statement from a model that is false, or that cites
+    something which does not exist. Not a refusal and not a vague answer: a
+    specific claim, stated as fact, that can be shown to be wrong. The model
+    produces it the same way it produces everything else, one likely token
+    after another.
+  in_practice: >-
+    Nothing in the output marks it. A made-up reference has authors, a year and
+    a journal, because that is what references look like. So the defense cannot
+    be reading more carefully; it is checking against a source, and designing
+    prompts that give the model a permitted way to say it does not know. "It
+    sounds right" is the one test a hallucination always passes.
+  mastery:
+    - >-
+      Define hallucination so that a refusal and a hedged answer are both
+      excluded.
+    - >-
+      Explain why a model produces a false statement as fluently as a true one.
+    - >-
+      Name three kinds of request that tend to produce hallucinations, and say
+      why each does.
+    - >-
+      Say how you would show that a specific answer is a hallucination, naming
+      the source you would check it against.
+  pitfall: >-
+    Using the word for every kind of wrong answer. An arithmetic slip, a
+    misreading of the question and a repeated popular myth are different
+    failures with different fixes. Week 9 opens on the disagreement over where
+    the lines are; for now, say which kind you mean.
+  related: [chain-of-thought-faithfulness, softmax]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+    - burchell-lies-damned-lies
+
+- id: imitative-falsehood
+  name: Imitative falsehood
+  theme: truthfulness
+  week: 7
+  day: tue
+  definition: >-
+    Lin, Hilton and Evans's name for a false answer that the model gives
+    *because* it has learned its training text well. People write that cracking
+    your knuckles causes arthritis; a model trained to predict what people
+    write learns to say so. The answer is false and it is also the likely
+    continuation. The contrast is an error from not learning well enough, such
+    as getting a long multiplication wrong.
+  in_practice: >-
+    This is the kind of error more training on the same sort of text does not
+    remove, because the training objective is rewarding it. TruthfulQA is 817
+    questions written to draw these out. For your own project, ask where the
+    common answer and the correct answer differ: those are the inputs where the
+    model's fluency works against you.
+  mastery:
+    - >-
+      Define an imitative falsehood and give an example that is not from the
+      paper.
+    - >-
+      Tell an imitative falsehood from an error of weak learning, given two
+      wrong answers.
+    - >-
+      Explain why predicting text well and saying true things are different
+      goals, and where they come apart.
+    - >-
+      Explain how TruthfulQA's questions were chosen, and why that choice means
+      a score on it is not a score on questions in general.
+  pitfall: >-
+    Concluding that the model "believes" the myth. It has learned that the myth
+    is what tends to follow the question. The same model will often give the
+    correct answer if the prompt makes a careful source the likely voice.
+  builds_on: [hallucination, training-and-test-distributions]
+  related: [distributional-hypothesis]
+  assessed_in: [concept-checks]
+  resources:
+    - lin-2021-truthfulqa
+    - burchell-lies-damned-lies
+
+- id: inverse-scaling
+  name: Inverse scaling
+  theme: truthfulness
+  week: 7
+  day: tue
+  definition: >-
+    A result that gets worse as the model gets larger. On TruthfulQA in 2021,
+    the largest models in each family were generally the least truthful, while
+    on ordinary trivia written in the same style the larger models did better.
+    The best model tested was truthful on 58% of questions; people scored 94%.
+  in_practice: >-
+    It is the expected result if the falsehoods are imitative: a bigger model
+    is better at predicting text, and so better at predicting the popular wrong
+    answer. The lesson to keep is narrower than "bigger is worse". A score
+    improves with scale only when the thing being scored is what training
+    rewards, so before trusting a larger model on your task, ask whether your
+    task is one of those.
+  mastery:
+    - >-
+      State the paper's finding about model size, including the comparison with
+      the control questions.
+    - >-
+      Explain why the finding is what you would predict from the definition of
+      an imitative falsehood.
+    - >-
+      Say what the control trivia questions rule out as an explanation.
+    - >-
+      Explain why a 2021 result about four model families cannot simply be
+      assumed of a model released this year, and what you would do to check.
+  pitfall: >-
+    Quoting "larger models are less truthful" as a law. It was measured on
+    particular models, on questions built to trigger one kind of error, and the
+    paper's own appendix reports newer models doing better. The benchmark has
+    also been public ever since, which is Week 6's data leakage problem.
+  builds_on: [imitative-falsehood, benchmark]
+  related: [emergent-abilities, data-leakage]
+  assessed_in: [concept-checks]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+
+- id: truthful-and-informative
+  name: Truthful versus informative
+  theme: truthfulness
+  week: 7
+  day: tue
+  definition: >-
+    The two things TruthfulQA marks separately. An answer is **truthful** if it
+    avoids asserting anything false, so "I have no comment" is truthful, and so
+    is a true remark that does not answer the question. An answer is
+    **informative** if it actually addresses what was asked. The number that
+    matters is the share of answers that are both.
+  in_practice: >-
+    A prompt that tells a model to decline when unsure can raise a truthfulness
+    score a long way without the model knowing anything more. In the lab a
+    "model" that answers every question with "I have no comment" scores
+    perfectly on truthfulness alone. Whenever you give a model a way to say no,
+    which you should, count how often it takes it.
+  mastery:
+    - >-
+      Define truthful and informative as the paper uses them, and give an answer
+      that is one without the other, in both directions.
+    - >-
+      Explain how a prompt can raise a truthfulness score without improving the
+      answers.
+    - >-
+      Given a set of answers, count the truthful ones, the informative ones and
+      the ones that are both.
+    - >-
+      Say what second number you would report beside an accuracy score in your
+      own project, and what it guards against.
+  pitfall: >-
+    Treating a refusal as a failure, or as a success, without deciding which it
+    is for your task. For a medical question a refusal may be the right answer;
+    for a lookup it is a miss. Decide before you mark, and write the decision
+    down.
+  builds_on: [hallucination]
+  related: [imitative-falsehood]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+
+- id: ground-truth
+  name: Ground truth
+  theme: methodology
+  week: 7
+  day: thu
+  definition: >-
+    The answer an evaluation treats as correct: one you have checked and are
+    prepared to defend. A TruthfulQA item carries a best answer, a list of
+    other true answers, a list of known false answers and a source. Ground
+    truth is written by people, so it is a judgment that has been recorded, and
+    it can be wrong.
+  in_practice: >-
+    How you write it decides how it can be marked. A whole sentence can only be
+    marked by a person or by another model. A short key -- a name, a number, a
+    label -- can be found by a few lines of code. For a project set, write the
+    shortest thing a correct answer must contain, list the other acceptable
+    ways of saying it, and keep the source beside it.
+  mastery:
+    - >-
+      Name the four parts of a TruthfulQA item and say what each is for.
+    - >-
+      Write ground truth for an input from your own project, including at least
+      one other acceptable answer and one answer you expect to be wrong.
+    - >-
+      Explain why ground truth with no source is weaker than ground truth with
+      one.
+    - >-
+      Say what it means when two careful people disagree about the ground truth
+      for an item, and what you would do with that item.
+  pitfall: >-
+    Treating it as given because the phrase has "truth" in it. Somebody decided
+    it. An item whose ground truth is arguable measures whether the model
+    agrees with you.
+  builds_on: [benchmark]
+  related: [hallucination]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+
+- id: evaluation-set
+  name: Evaluation set
+  theme: methodology
+  week: 7
+  day: thu
+  definition: >-
+    A fixed list of inputs, each with ground truth, that you run every version
+    of a prompt against, so that "it got better" becomes a count. A benchmark
+    is an evaluation set everyone shares; yours is twenty items about your own
+    project, kept in `evals/cases.jsonl`.
+  in_practice: >-
+    Three habits make one worth having. Use real inputs, including ones you
+    expect to fail, because a set of easy items reports 100% and teaches
+    nothing. Change one thing in the prompt at a time and record the count
+    before and after. And when you find a new failure, add it to the set before
+    you fix it, so you learn whether the fix broke something else.
+  mastery:
+    - >-
+      Say what an evaluation set lets you claim that trying a few prompts by
+      hand does not.
+    - >-
+      Explain why a set should include items you expect the model to fail, and
+      items where the right answer is "no" or "this cannot be told".
+    - >-
+      Name what your own set covers and one thing your project does that it
+      cannot see.
+    - >-
+      Explain why a score belongs to a model, a prompt and a set of items
+      together, and what changes if any one of them changes.
+    - >-
+      Describe what to do with a failure you discover while using your system.
+  pitfall: >-
+    Tuning the prompt until the twenty items pass and calling it finished. You
+    have fitted the prompt to those items, which is leakage you performed
+    yourself. Keep a few items you do not look at while you iterate.
+  builds_on: [ground-truth]
+  related: [data-leakage, training-and-test-distributions]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+
+- id: marking-rule
+  name: Marking rules, and checking them against a person
+  theme: methodology
+  week: 7
+  day: thu
+  definition: >-
+    The rule that turns a model's answer and the ground truth into right or
+    wrong. The lab uses four, from strict to loose: exact match, match after
+    ignoring capitals and punctuation, whether an acceptable answer appears
+    inside the output, and whether the output shares more words with a true
+    answer than with a known false one. The rule is part of your definition of
+    correct.
+  in_practice: >-
+    The same twenty answers get a different score under each rule, and none of
+    them is the real one until you have marked the answers yourself and seen
+    which rule agrees with you. A rule can pass a wrong answer that echoes the
+    question's words, and fail a right answer that is phrased differently from
+    the ground truth. Report which rule you used whenever you report a score.
+  mastery:
+    - >-
+      Apply two different marking rules to the same short answer by hand, and
+      explain why they disagree.
+    - >-
+      Explain how you would decide which automatic rule to trust for a given
+      set of items.
+    - >-
+      Give an answer a loose rule would pass that a person would fail, and one
+      a strict rule would fail that a person would pass.
+    - >-
+      Explain why a yes-or-no item is weak evidence, and rewrite one so that a
+      lucky guess cannot pass it.
+  pitfall: >-
+    Picking the rule that gives the highest number. Choose the rule first, on
+    the grounds that it matches your own marks, and then look at the score.
+  builds_on: [exact-match-and-edit-distance, ground-truth]
+  related: [evaluation-set]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - huggingface
+
+- id: inter-annotator-agreement
+  name: Inter-annotator agreement and Cohen's kappa
+  theme: methodology
+  week: 7
+  day: thu
+  definition: >-
+    How far two people marking the same answers give the same marks. **Percent
+    agreement** is the share of items they marked alike. **Cohen's kappa**
+    corrects it for chance: it is 1 for perfect agreement and 0 when the two
+    agree no more often than their own habits would produce by accident. If
+    each of two markers passes half of twenty answers and they agree on
+    fifteen, agreement is 75%, chance alone would give 50%, and kappa is 0.5.
+  in_practice: >-
+    Where two markers disagree, either the answer is ambiguous, the ground
+    truth is, or the two were following different rules -- one marking "is it
+    true" and the other "is it a good answer". Each has a different fix.
+    Agreement is also the check on any automatic marker, including a model
+    used as a judge in Week 9: before you trust it, measure how well it agrees
+    with you.
+  mastery:
+    - >-
+      Work out percent agreement for two short lists of marks by hand.
+    - >-
+      Explain why two markers who both say "wrong" to almost everything have
+      high agreement and a kappa near zero.
+    - >-
+      Say what a kappa of 1, of 0, and of about 0.5 each tell you.
+    - >-
+      Given the items two markers disagreed on, sort them by cause and say what
+      you would change for each.
+    - >-
+      Write a marking instruction a stranger could follow, and say how you would
+      test whether it works.
+  pitfall: >-
+    Reporting percent agreement alone. It flatters whenever one mark is much
+    more common than the other. The reverse mistake is treating a kappa from
+    twenty items as precise: flipping a single mark moves it noticeably.
+  builds_on: [ground-truth]
+  related: [marking-rule]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness
+
+- id: small-sample-uncertainty
+  name: What twenty items can and cannot show
+  theme: methodology
+  week: 7
+  day: thu
+  definition: >-
+    A score from a small evaluation set is an estimate with a wide margin. With
+    twenty items, each one is worth five points, and the range of scores you
+    could plausibly have got from a different twenty is tens of points wide.
+    The lab estimates that range by redrawing the items at random, with
+    repeats, many times over.
+  in_practice: >-
+    A prompt change that moves the score by one or two items has not been shown
+    to do anything. Look at which items changed, in each direction: a new prompt
+    usually fixes some and breaks others, and the total hides both. To support
+    a smaller claim you need more items; to support any claim you need to say
+    how many you had.
+  mastery:
+    - >-
+      Say how many points one item is worth in a set of a given size.
+    - >-
+      Explain in words how redrawing the items gives a plausible range for a
+      score.
+    - >-
+      Given two prompts' scores on twenty items, say whether the difference is
+      evidence of anything, and what else you would look at.
+    - >-
+      Explain why the list of items that changed is more useful than the change
+      in the total.
+  pitfall: >-
+    Writing "improved from 35% to 45%" in an ADR as though it were a
+    measurement of ten points. On twenty items it is two answers. Give the
+    counts, and name the items.
+  builds_on: [evaluation-set]
+  related: [loss-and-risk, benchmark]
+  assessed_in: [concept-checks, labs, project]
+  resources:
+    - lin-2021-truthfulqa
+    - rpp-188-bias-truthfulness

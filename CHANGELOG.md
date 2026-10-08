@@ -20,6 +20,47 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Added — study guide: Week 3 and Week 7 **[student-facing]**
+
+The [study guide](https://nalaquq.github.io/llms-and-you/study-guide/) now covers
+the transformer and the evaluation unit. Like everything on it, these can come
+up at your concept checks, starting with the Week 10 meetings.
+
+- **Week 3, eleven entries:** model, architecture and technique; attention;
+  query, key and value; attention scores and weights; multi-head attention;
+  positional encoding; the causal mask; cross-attention; the transformer block;
+  what the transformer traded; and why attention weights are not explanations.
+- **Week 7, nine entries:** hallucination; imitative falsehood; inverse scaling;
+  truthful versus informative; ground truth; evaluation set; marking rules;
+  inter-annotator agreement and Cohen's kappa; and what twenty items can and
+  cannot show. The last five are also assessed in your project, because every
+  later claim that a prompt improved rests on them.
+
+### Changed — Week 7 lab: the evaluation notebook is finished **[student-facing]**
+
+The [Week 7 lab notebook](https://nalaquq.github.io/llms-and-you/sessions/w07-thu/)
+is no longer a draft. It builds the thing the session has always promised — a
+small evaluation set for your own project, twenty items with ground truth — and
+it practices on Tuesday's paper first:
+
+- **Items.** How TruthfulQA writes one (a best answer, other true answers, known
+  false answers, a source), twenty of its questions to practice on, and the
+  start of your own twenty.
+- **Marking.** Four rules on the same answers, from exact match to "closer to a
+  true answer than a false one", and then your own marks to see which rule to
+  believe.
+- **Agreement.** How far two markers agree on the same answers, as percent
+  agreement and as Cohen's kappa.
+- **Blind spots.** A prompt that doubles its score by answering *"I have no
+  comment"*, and how little twenty items can tell you about a small difference.
+
+It runs on `flan-t5-base`, the model from Weeks 3 and 6. No account, no key.
+
+Bring your items — as many of the twenty as you have — and be ready to hand five
+to a neighbor to mark. Bring one sentence naming what your evaluation cannot
+see, and one finding. The notebook saves your items as `cases.jsonl`, which is
+the file the `evals/` folder of your project repository expects.
+
 ### Changed — Week 6 lab: a hallucination hunt, then chain of thought big and small **[student-facing]**
 
 The [Week 6 lab notebook](https://nalaquq.github.io/llms-and-you/sessions/w06-thu/)

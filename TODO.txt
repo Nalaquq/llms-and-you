@@ -34,8 +34,8 @@ field. Course content lives in data/*.yml and nowhere else.
       HEAVY_SESSIONS, so re-timing fails the build until that number is
       updated deliberately. That is the point of it.
 
-- [ ] seven lab notebooks are still drafts: w04 w06 w07 w08 w11 w12
-      w13. Structure is settled, code is not written. Each one must be
+- [ ] four lab notebooks are still drafts: w08 w11 w12 w13.
+      Structure is settled, code is not written. Each one must be
       RUN END TO END before its status flips to complete -- w02 had two
       factually wrong paragraphs that only running it caught.
 
@@ -58,16 +58,18 @@ field. Course content lives in data/*.yml and nowhere else.
       is the bertviz widget in section 7, which is why nothing above it
       depends on bertviz.
 
-- [ ] THE STUDY GUIDE STOPS AT WEEK 2 AND IT IS NOW THE EXAM. All 47
-      concepts are filed to w01-tue and w02-tue. Nothing from Week 3
-      exists: no attention, query/key/value, multi-head, positional
-      encoding, masking, cross-attention. Since ADR-023 the concept
-      check may only ask what is on that page, so as it stands the
-      Week 4 meeting cannot ask a single question about the paper the
-      course is named after. Write those entries before Sep 15.
-      Each needs definition + mastery + assessed_in: [concept-checks].
-      The Week 3 deck footers already name the entries they teach --
-      that is the list to work from.
+- [ ] the study guide now covers Weeks 1, 2, 3, 6 and 7. Week 4 has
+      nothing (perplexity, fine-tuning, causal vs masked objectives),
+      and the Week 3 and Week 7 entries were written from the deck
+      notes, the notebooks and the two papers -- READ THEM against what
+      was actually said in the room before the Week 10 concept checks.
+
+- [ ] w07-thu HAS NEVER BEEN OPENED IN COLAB. Every cell was run end
+      to end on CPU locally, including with marks filled in and with
+      ITEMS = MY_ITEMS. Untested: Colab's library versions, and whether
+      flan-t5-base gives the same twenty answers there -- the prose in
+      sections 2-4 quotes this run (7 of 20, then 14 of 20 with eight
+      refusals) and says "on the practice items" each time it does.
 
 - [ ] concept checks and progress reports have no rubric. The
       assignments page says what happens in the meeting and what is
