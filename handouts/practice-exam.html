@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Practice Exam, Weeks 2–7 — LLMs &amp; You</title>
+<!--
+  A self-assessment, not for credit. Every question is drawn from a
+  study-guide entry (data/concepts.yml); the answer key names the entry to
+  re-read. The key starts on its own page so it can be held back or handed
+  out separately.
+
+      .venv/bin/python -m weasyprint handouts/practice-exam.html handouts/practice-exam.pdf
+-->
+<style>
+  @page { size: Letter; margin: 0.55in 0.6in 0.6in;
+          @bottom-center { content: "LLMs & You · Practice Exam, Weeks 2–7 · not for credit · page " counter(page) " of " counter(pages);
+                           font: 7pt "Adwaita Sans", "DejaVu Sans", sans-serif; color: #555; } }
+  * { box-sizing: border-box; }
+  body { font: 9.2pt/1.36 "Adwaita Sans", "DejaVu Sans", sans-serif; color: #111; margin: 0; }
+  header { border-bottom: 2pt solid #111; margin-bottom: 7pt; display: flex; justify-content: space-between; align-items: flex-end; }
+  h1 { font-size: 18pt; margin: 0 0 3pt; letter-spacing: -0.2pt; white-space: nowrap; }
+  .name { font-size: 9pt; padding-bottom: 5pt; }
+  .box { border: 1pt solid #111; background: #f2f2f2; padding: 5pt 8pt; margin: 0 0 7pt; }
+  .box p { margin: 0 0 3pt; } .box p:last-child { margin: 0; }
+  h2 { font-size: 10.6pt; margin: 9pt 0 4pt; padding: 2.5pt 6pt; background: #111; color: #fff; break-after: avoid; }
+  h2 span { font-weight: normal; font-size: 8.4pt; opacity: .85; }
+  p.how { margin: 0 0 5pt; font-style: italic; }
+  ol { margin: 0; padding-left: 18pt; }
+  ol.tf > li { margin-bottom: 3.2pt; break-inside: avoid; }
+  ol.tf > li::marker, ol.mc > li::marker { font-weight: 700; }
+  .tfmark { float: right; font-weight: 700; letter-spacing: 2pt; margin-left: 8pt; }
+  .cols { columns: 2; column-gap: 0.3in; }
+  ol.mc > li { margin-bottom: 6pt; break-inside: avoid; }
+  ol.opt { list-style: lower-alpha; padding-left: 15pt; margin-top: 1.5pt; }
+  ol.opt li { margin-bottom: .5pt; }
+  table.match { width: 100%; border-collapse: collapse; margin-bottom: 4pt; break-inside: avoid; }
+  table.match td { vertical-align: top; padding: 2pt 0; }
+  table.match td.term { width: 27%; font-weight: 600; }
+  table.match td.blank { width: 10%; white-space: nowrap; }
+  h3 { font-size: 9.4pt; margin: 7pt 0 3pt; break-after: avoid; }
+  .key { break-before: page; }
+  .key h2 { background: #444; }
+  .key ol { padding-left: 18pt; }
+  .key li { margin-bottom: 2pt; break-inside: avoid; }
+  .key .a { font-weight: 700; }
+  .key .sg { color: #444; font-style: italic; }
+  .keycols { columns: 2; column-gap: 0.3in; font-size: 8.4pt; line-height: 1.3; }
+  table.score { border-collapse: collapse; width: 100%; margin-top: 4pt; font-size: 8.6pt; }
+  table.score td, table.score th { border: .6pt solid #777; padding: 2.5pt 5pt; text-align: left; }
+</style>
+</head>
+<body>
+
+<header>
+  <div><h1>Practice Exam, Weeks 2–7</h1></div>
+  <div class="name">Name (optional): ______________________</div>
+</header>
+
+<div class="box">
+  <p><b>This is not for credit.</b> It is a way to find out what you know before somebody else asks.
+  Sixty-four questions, about forty minutes, closed notes and no model. Then mark it yourself from the key.</p>
+  <p>The graded concept checks are spoken and ask you to <i>define and apply</i> an idea in your own
+  words. This paper only asks you to <i>recognize</i> it, which is easier. Treat a wrong answer here as a
+  term to go and say out loud.</p>
+</div>
+
+<h2>Part A · True or false <span>20 questions · circle T or F</span></h2>
+<ol class="tf">
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>A token is the same thing as a word.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>“The dog bit the man” and “the man bit the dog” produce the identical bag of words.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Lemmatization always produces a real word; stemming need not.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>A term that appears in every document of a corpus has an inverse document frequency of zero.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Cosine similarity gets larger when either of the two vectors gets longer.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>word2vec gives the word “bank” a different vector in each sentence it appears in.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>In skip-gram, the input is the surrounding words and the output is the one word in the middle.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Raising the temperature gives unlikely tokens a better chance of being chosen.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>The outputs of softmax always add up to 1.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>After training, a model keeps a copy of its corpus and looks answers up in it.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>In one attention head, each word's row of attention weights adds up to 1.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>The causal mask makes the weights on later words very small, but not zero.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Without positional encoding, attention could not tell “dog bites man” from “man bites dog”.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Making a sequence twice as long roughly doubles the work attention has to do.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>A bright cell in an attention heatmap shows which word caused the model's output.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>A few-shot prompt changes the model's weights.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Wei et al. found that chain-of-thought prompting helped models of every size.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>If every step in a chain of thought is correct, the final answer must be correct.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Under TruthfulQA's definition, “I have no comment” counts as a truthful answer.</li>
+  <li><span class="tfmark">T&nbsp;&nbsp;F</span>Two markers who give the same mark to 90% of the answers must have a high Cohen's kappa.</li>
+</ol>
+
+<h2>Part B · Multiple choice <span>20 questions · one best answer each</span></h2>
+<div class="cols">
+<ol class="mc">
+  <li>A 200-word document contains the word “tiger” 10 times. Its term frequency for “tiger” is
+    <ol class="opt"><li>10</li><li>0.5</li><li>0.05</li><li>20</li></ol></li>
+  <li>TF-IDF is highest for a term that is
+    <ol class="opt"><li>frequent in this document and rare across the corpus</li><li>frequent in every document</li>
+    <li>rare in this document and rare across the corpus</li><li>on the stop-word list</li></ol></li>
+  <li>Which of these is a <i>dense</i> vector?
+    <ol class="opt"><li>a one-hot vector</li><li>a row of bag-of-words counts</li><li>a row of TF-IDF scores</li>
+    <li>a word2vec embedding</li></ol></li>
+  <li>The distributional hypothesis says that
+    <ol class="opt"><li>common words carry the most meaning</li><li>words that appear in similar contexts have similar meanings</li>
+    <li>every word has exactly one meaning</li><li>word order does not affect meaning</li></ol></li>
+  <li>Negative sampling made word2vec practical because it
+    <ol class="opt"><li>removes stop words before training</li><li>gives each word several vectors</li>
+    <li>avoids computing a softmax over the whole vocabulary at every step</li><li>shrinks the vocabulary to a few thousand words</li></ol></li>
+  <li>word2vec is trained to predict missing words. What is kept when training ends?
+    <ol class="opt"><li>its predictions for each sentence</li><li>the corpus</li><li>the sliding window</li>
+    <li>the hidden-layer weights, which are the word vectors</li></ol></li>
+  <li>The fixed-length bottleneck is the problem that
+    <ol class="opt"><li>a seq2seq encoder must squeeze the whole input into one context vector</li>
+    <li>a vocabulary cannot grow after training</li><li>attention scores every pair of words</li>
+    <li>a prompt has a maximum length</li></ol></li>
+  <li>BERT is best described as
+    <ol class="opt"><li>a decoder-only model trained to predict the next token</li>
+    <li>an encoder-only model pretrained by recovering hidden words</li>
+    <li>a counting method like TF-IDF</li><li>a recurrent network with a hidden state</li></ol></li>
+  <li>Which of these is an <i>architecture</i>?
+    <ol class="opt"><li>BERT</li><li>few-shot prompting</li><li>the transformer</li><li>TF-IDF</li></ol></li>
+  <li>In one attention head, the query and the key decide how much one word attends to another. The value is
+    <ol class="opt"><li>the position of the word in the sentence</li><li>what the attended word hands over to be blended in</li>
+    <li>the attention weight after softmax</li><li>the word's one-hot vector</li></ol></li>
+  <li>The steps inside one attention head, in order, are
+    <ol class="opt"><li>softmax, score, blend</li><li>blend, score, softmax</li><li>score, blend, softmax</li>
+    <li>score, softmax, blend</li></ol></li>
+  <li>In cross-attention,
+    <ol class="opt"><li>queries come from the decoder; keys and values come from the encoder</li>
+    <li>queries, keys and values all come from the same sequence</li>
+    <li>queries come from the encoder; keys and values come from the decoder</li>
+    <li>two attention heads exchange their weights</li></ol></li>
+  <li>The main reason the transformer displaced the recurrent network, apart from accuracy, is that it
+    <ol class="opt"><li>needs no training data</li><li>has fewer parameters</li>
+    <li>handles every position at once, which suits a GPU</li><li>does not need tokenization</li></ol></li>
+  <li>A chat model types its answer one token at a time because
+    <ol class="opt"><li>the interface is slowed down for readability</li>
+    <li>each new token depends on the ones already written</li>
+    <li>attention can only look at one word at a time</li><li>temperature is set to zero</li></ol></li>
+  <li>An ablation study
+    <ol class="opt"><li>tests a model on questions from outside its training data</li>
+    <li>scores several models on the same benchmark</li><li>adds worked examples to a prompt</li>
+    <li>removes or replaces one part at a time and compares each version with the full one</li></ol></li>
+  <li>The edit distance between “cat” and “cart” is
+    <ol class="opt"><li>0</li><li>1</li><li>2</li><li>4</li></ol></li>
+  <li>Which is the clearest example of an <i>imitative falsehood</i>?
+    <ol class="opt"><li>getting a long multiplication wrong</li><li>declining to answer</li>
+    <li>saying that cracking your knuckles causes arthritis</li><li>misspelling an author's name</li></ol></li>
+  <li>Adding “if unsure, say ‘I have no comment’” raises a prompt's truthfulness score from 7 to 14 out of 20. Before saying the prompt is better, the first thing to check is
+    <ol class="opt"><li>whether the model is larger</li><li>how many of the answers are now refusals</li>
+    <li>whether the questions were in alphabetical order</li><li>the temperature</li></ol></li>
+  <li>Two markers each pass 10 of 20 answers, and they give the same mark on 15. Their percent agreement is
+    <ol class="opt"><li>50%</li><li>15%</li><li>100%</li><li>75%</li></ol></li>
+  <li>On your 20-item evaluation set, prompt A scores 9 and prompt B scores 10. The best conclusion is that
+    <ol class="opt"><li>one item is five points, which is not evidence of a difference; look at which items changed</li>
+    <li>prompt B is 5% better and should replace A</li><li>the evaluation set is broken</li>
+    <li>prompt A is more truthful</li></ol></li>
+</ol>
+</div>
+
+<h2>Part C · Matching <span>24 questions · write the letter; each letter is used once</span></h2>
+
+<h3>Set 1 · How text becomes numbers</h3>
+<table class="match">
+  <tr><td class="blank">41. ___</td><td class="term">Corpus</td><td>A. Very common words removed before counting</td></tr>
+  <tr><td class="blank">42. ___</td><td class="term">One-hot encoding</td><td>B. The raw scores a model produces, one per token, before softmax</td></tr>
+  <tr><td class="blank">43. ___</td><td class="term">Stop words</td><td>C. One word carrying several distinct meanings</td></tr>
+  <tr><td class="blank">44. ___</td><td class="term">N-gram</td><td>D. The body of text a method learns from</td></tr>
+  <tr><td class="blank">45. ___</td><td class="term">Cosine similarity</td><td>E. A run of adjacent words counted as one unit</td></tr>
+  <tr><td class="blank">46. ___</td><td class="term">Polysemy</td><td>F. The fixed-size running summary a recurrent network carries forward</td></tr>
+  <tr><td class="blank">47. ___</td><td class="term">Hidden state</td><td>G. A vector as long as the vocabulary containing a single 1</td></tr>
+  <tr><td class="blank">48. ___</td><td class="term">Logits</td><td>H. A measure of the angle between two vectors, from −1 to 1</td></tr>
+</table>
+
+<h3>Set 2 · Attention and the transformer</h3>
+<table class="match">
+  <tr><td class="blank">49. ___</td><td class="term">Query</td><td>A. Marks where in the sequence a token sits</td></tr>
+  <tr><td class="blank">50. ___</td><td class="term">Key</td><td>B. Several sets of learned questions running side by side in one layer</td></tr>
+  <tr><td class="blank">51. ___</td><td class="term">Value</td><td>C. The question a word asks of the other words</td></tr>
+  <tr><td class="blank">52. ___</td><td class="term">Multi-head attention</td><td>D. Keeps a block's input by adding it back to what was just computed</td></tr>
+  <tr><td class="blank">53. ___</td><td class="term">Positional encoding</td><td>E. The label a word wears, matched against other words' questions</td></tr>
+  <tr><td class="blank">54. ___</td><td class="term">Causal mask</td><td>F. Lets the word being written look at the whole input that was read</td></tr>
+  <tr><td class="blank">55. ___</td><td class="term">Cross-attention</td><td>G. What a word hands over to any word that attends to it</td></tr>
+  <tr><td class="blank">56. ___</td><td class="term">Add and normalize</td><td>H. Stops a decoder from looking at words it has not written yet</td></tr>
+</table>
+
+<h3>Set 3 · Prompting, truthfulness and evaluation</h3>
+<table class="match">
+  <tr><td class="blank">57. ___</td><td class="term">Exemplar</td><td>A. Agreement between two markers, corrected for chance</td></tr>
+  <tr><td class="blank">58. ___</td><td class="term">Benchmark</td><td>B. Whether the steps a model writes are how it reached its answer</td></tr>
+  <tr><td class="blank">59. ___</td><td class="term">Out-of-distribution</td><td>C. A worked example placed in a prompt before the question</td></tr>
+  <tr><td class="blank">60. ___</td><td class="term">Faithfulness</td><td>D. The answer an evaluation treats as correct</td></tr>
+  <tr><td class="blank">61. ___</td><td class="term">Hallucination</td><td>E. Actually addresses the question that was asked</td></tr>
+  <tr><td class="blank">62. ___</td><td class="term">Ground truth</td><td>F. A fixed set of questions with known answers that everyone scores on</td></tr>
+  <tr><td class="blank">63. ___</td><td class="term">Informative</td><td>G. A fluent, confident statement that is false</td></tr>
+  <tr><td class="blank">64. ___</td><td class="term">Cohen's kappa</td><td>H. Unlike the pattern of the data a model was trained on</td></tr>
+</table>
+
+<!-- ===================================================================== -->
+<div class="key">
+<header>
+  <div><h1>Answer Key</h1></div>
+  <div class="name">Mark it yourself. The entry in italics is the one to re-read.</div>
+</header>
+
+<div class="keycols">
+<h2>Part A · True or false</h2>
+<ol>
+  <li><span class="a">F.</span> Tokens are subword pieces; rare words split into several. <span class="sg">tokens and tokenization</span></li>
+  <li><span class="a">T.</span> A bag of words discards order. <span class="sg">bag of words</span></li>
+  <li><span class="a">T.</span> A lemma comes from a dictionary; a stem is whatever the rule leaves. <span class="sg">stemming, lemmatization</span></li>
+  <li><span class="a">T.</span> log(N/N) = log 1 = 0. <span class="sg">inverse document frequency</span></li>
+  <li><span class="a">F.</span> That is the dot product. Cosine divides the lengths out. <span class="sg">dot product, cosine similarity</span></li>
+  <li><span class="a">F.</span> word2vec is static: one vector per word. <span class="sg">static and contextual embeddings</span></li>
+  <li><span class="a">F.</span> That is CBOW. Skip-gram is the mirror image. <span class="sg">CBOW, skip-gram</span></li>
+  <li><span class="a">T.</span> Higher temperature flattens the distribution. <span class="sg">temperature</span></li>
+  <li><span class="a">T.</span> That is what makes them probabilities. <span class="sg">softmax</span></li>
+  <li><span class="a">F.</span> Only the corpus's effects on the weights remain. <span class="sg">corpus, training and inference</span></li>
+  <li><span class="a">T.</span> Softmax runs on each row. Attention is a budget. <span class="sg">attention scores and weights</span></li>
+  <li><span class="a">F.</span> Minus infinity before softmax gives exactly zero. <span class="sg">masked attention</span></li>
+  <li><span class="a">T.</span> Attention only scores pairs of words. <span class="sg">positional encoding</span></li>
+  <li><span class="a">F.</span> Every pair is scored, so about four times. <span class="sg">what the transformer traded</span></li>
+  <li><span class="a">F.</span> It shows how one head blended values. <span class="sg">attention weights are not explanations</span></li>
+  <li><span class="a">F.</span> Only the text in front of the question changes. <span class="sg">zero-shot and few-shot prompting</span></li>
+  <li><span class="a">F.</span> It made models under about ten billion parameters worse. <span class="sg">emergent abilities</span></li>
+  <li><span class="a">F.</span> The mirage paper found right steps with wrong answers. <span class="sg">faithfulness of a chain of thought</span></li>
+  <li><span class="a">T.</span> Truthful means not asserting anything false. <span class="sg">truthful versus informative</span></li>
+  <li><span class="a">F.</span> If both say “wrong” to nearly everything, chance explains it. <span class="sg">inter-annotator agreement</span></li>
+</ol>
+
+<h2>Part B · Multiple choice</h2>
+<ol>
+  <li><span class="a">c.</span> 10 ÷ 200 = 0.05. <span class="sg">term frequency</span></li>
+  <li><span class="a">a.</span> Frequent here, rare elsewhere. <span class="sg">TF-IDF</span></li>
+  <li><span class="a">d.</span> The other three are long and mostly zeros. <span class="sg">sparse and dense vectors</span></li>
+  <li><span class="a">b.</span> “The company it keeps.” <span class="sg">the distributional hypothesis</span></li>
+  <li><span class="a">c.</span> A few random negatives instead of the whole vocabulary. <span class="sg">negative sampling</span></li>
+  <li><span class="a">d.</span> The prediction task was only a means. <span class="sg">the pretext task, word2vec</span></li>
+  <li><span class="a">a.</span> One vector, whatever the input's length. <span class="sg">the fixed-length bottleneck</span></li>
+  <li><span class="a">b.</span> Encoder-only, masked language modeling. <span class="sg">BERT</span></li>
+  <li><span class="a">c.</span> BERT is a model; the other two are techniques. <span class="sg">model, architecture and technique</span></li>
+  <li><span class="a">b.</span> Query and key decide whether; the value is what. <span class="sg">query, key and value</span></li>
+  <li><span class="a">d.</span> Dot products, then shares, then a blend of values. <span class="sg">attention scores and weights</span></li>
+  <li><span class="a">a.</span> The decoder asks; the encoder's output answers. <span class="sg">cross-attention</span></li>
+  <li><span class="a">c.</span> Parallel training is the column of Table 1 that mattered. <span class="sg">what the transformer traded</span></li>
+  <li><span class="a">b.</span> Training is parallel; generation is not. <span class="sg">what the transformer traded, masked attention</span></li>
+  <li><span class="a">d.</span> One part at a time, against a control. <span class="sg">ablation study</span></li>
+  <li><span class="a">b.</span> Insert one letter. <span class="sg">exact match, edit distance and BLEU</span></li>
+  <li><span class="a">c.</span> A popular myth is the likely continuation. <span class="sg">imitative falsehood</span></li>
+  <li><span class="a">b.</span> A refusal is truthful and not informative. <span class="sg">truthful versus informative</span></li>
+  <li><span class="a">d.</span> 15 ÷ 20. Chance would give 50%, so kappa is 0.5. <span class="sg">inter-annotator agreement</span></li>
+  <li><span class="a">a.</span> One item is five points. <span class="sg">what twenty items can and cannot show</span></li>
+</ol>
+
+<h2>Part C · Matching</h2>
+<p style="margin:0 0 2pt"><b>Set 1:</b> 41 D · 42 G · 43 A · 44 E · 45 H · 46 C · 47 F · 48 B</p>
+<p style="margin:0 0 2pt"><b>Set 2:</b> 49 C · 50 E · 51 G · 52 B · 53 A · 54 H · 55 F · 56 D</p>
+<p style="margin:0 0 4pt"><b>Set 3:</b> 57 C · 58 F · 59 H · 60 B · 61 G · 62 D · 63 E · 64 A</p>
+
+<h2>Reading your result</h2>
+<p style="margin:0 0 3pt">There is no pass mark. Count your misses by week and start with the week that has the most.</p>
+<table class="score">
+  <tr><th>Material</th><th>Questions</th><th>Missed</th></tr>
+  <tr><td>Week 2 · text into numbers</td><td>A 1–10 · B 1–8 · C 41–48</td><td>&nbsp;&nbsp;&nbsp;&nbsp;/ 26</td></tr>
+  <tr><td>Week 3 · the transformer</td><td>A 11–15 · B 9–14 · C 49–56</td><td>&nbsp;&nbsp;&nbsp;&nbsp;/ 19</td></tr>
+  <tr><td>Week 6 · chain of thought</td><td>A 16–18 · B 15–16 · C 57–60</td><td>&nbsp;&nbsp;&nbsp;&nbsp;/ 9</td></tr>
+  <tr><td>Week 7 · truthfulness, evaluation</td><td>A 19–20 · B 17–20 · C 61–64</td><td>&nbsp;&nbsp;&nbsp;&nbsp;/ 10</td></tr>
+</table>
+<p style="margin:5pt 0 0">For every miss, find the entry in the study guide and say its definition out loud
+without looking. Then try one of its “you should be able to” lines. That second step is what a concept
+check asks for.</p>
+</div>
+</div>
+
+</body>
+</html>

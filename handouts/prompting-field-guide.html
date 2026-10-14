@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prompting Field Guide — LLMs &amp; You</title>
+<!--
+  A two-page class handout: one sheet, front and back, US Letter.
+  Build the PDF with WeasyPrint from the repo root:
+
+      .venv/bin/python -m weasyprint handouts/prompting-field-guide.html handouts/prompting-field-guide.pdf
+
+  Terms in small capitals are study-guide entries. Keep it to two pages; if an
+  edit pushes it to three, cut something rather than shrinking the type.
+-->
+<style>
+  @page { size: Letter; margin: 0.5in 0.55in 0.55in; }
+  @page { @bottom-center { content: "LLMs & You · Hampden-Sydney College · Fall 2026 · nalaquq.github.io/llms-and-you/study-guide";
+          font: 7pt "Adwaita Sans", "DejaVu Sans", sans-serif; color: #555; } }
+  * { box-sizing: border-box; }
+  body { font: 8.6pt/1.33 "Adwaita Sans", "DejaVu Sans", sans-serif; color: #111; margin: 0; }
+  h1 { font-size: 19pt; margin: 0; letter-spacing: -0.2pt; }
+  .sub { font-size: 9pt; color: #333; margin: 2pt 0 7pt; }
+  header { border-bottom: 2pt solid #111; margin-bottom: 7pt; }
+  h2 { font-size: 10.4pt; margin: 8pt 0 3pt; padding: 2pt 5pt; background: #111; color: #fff;
+       break-after: avoid; }
+  h2 span { font-weight: normal; font-size: 8pt; opacity: .85; }
+  p { margin: 0 0 3.5pt; }
+  ul { margin: 0 0 3.5pt; padding-left: 11pt; }
+  li { margin-bottom: 2pt; }
+  .cols { columns: 2; column-gap: 0.26in; }
+  .cols > * { break-inside: avoid; }
+  .box { border: 1pt solid #111; padding: 5pt 7pt; margin-bottom: 6pt; background: #f2f2f2; }
+  .box p:last-child, .box ul:last-child { margin-bottom: 0; }
+  .t { font-variant: small-caps; letter-spacing: .3pt; font-weight: 600; }
+  .ex { font-family: "Adwaita Mono", "Liberation Mono", monospace; font-size: 7.5pt; line-height: 1.3;
+        background: #f2f2f2; border-left: 2.5pt solid #777; padding: 3pt 5pt; margin: 2pt 0 4pt;
+        white-space: pre-wrap; }
+  .limit { color: #222; font-style: italic; }
+  .limit::before { content: "Limit: "; font-weight: 700; font-style: normal; }
+  b.k { font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; margin: 2pt 0 5pt; font-size: 8.1pt; }
+  th { text-align: left; border-bottom: 1.2pt solid #111; padding: 2pt 4pt 2pt 0; font-size: 7.8pt; }
+  td { vertical-align: top; border-bottom: .5pt solid #999; padding: 2.5pt 5pt 2.5pt 0; }
+  td:first-child { width: 27%; font-weight: 600; }
+  .page2 { break-before: page; }
+  ol.check { margin: 0; padding-left: 13pt; }
+  ol.check li { margin-bottom: 2.2pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Prompting Field Guide</h1>
+  <p class="sub">Techniques for better and more truthful outputs, in the vocabulary of the study guide.
+  <span class="t">Small capitals</span> mark a study-guide entry you can look up.</p>
+</header>
+
+<div class="box">
+  <p><b>What a prompt can and cannot do.</b> A prompt is a <span class="t">technique</span>. It changes
+  the text in front of the model and nothing in the <span class="t">weights</span>. Three facts explain
+  why every technique below works:</p>
+  <ul>
+    <li>The model writes <b>one token at a time</b>, each drawn from a <span class="t">softmax</span> over
+        scores. A prompt works by changing which continuation is likely.</li>
+    <li>Through <span class="t">attention</span>, every token it writes can look at everything before it and
+        nothing after it (the <span class="t">causal mask</span>). What you put in the prompt, and in what
+        order, is what it has to work with.</li>
+    <li><b>Fluent is not true.</b> A <span class="t">hallucination</span> reads exactly like a correct
+        answer. “It sounds right” is the one test it always passes.</li>
+  </ul>
+</div>
+
+<div class="cols">
+
+<h2>1 · Say what you want <span>constraints</span></h2>
+<p>A chat box affords typing anything and signals almost nothing. The prompt is where you supply the
+<span class="t">constraints</span> the interface left out.</p>
+<ul>
+  <li><b class="k">Name the task, the audience, the format and the length.</b></li>
+  <li><b class="k">Say what a good answer contains</b>, not that it should be good.</li>
+  <li><b class="k">Say what to do when the input does not support an answer.</b></li>
+  <li><b class="k">Separate instructions from material.</b> Label the parts. Put a long document first
+      and the question after it.</li>
+  <li><b class="k">Ask for a format you can check:</b> one label from a list, a number, named fields.</li>
+</ul>
+<div class="ex">Weak:   Summarize this article well.
+Better: Summarize the article below in three
+        sentences for a first-year student. Name the
+        disagreement, not the topic. If the article
+        does not say who funded the study, write
+        "funding not stated".</div>
+
+<h2>2 · Set the frame <span>system prompt, role, context</span></h2>
+<ul>
+  <li><b class="k">System prompt.</b> Standing instructions that apply to every turn of a conversation:
+      who the answers are for, what the model must always and never do, when to decline, and the output
+      format. Write it once, keep it in a file, and change it on purpose.</li>
+  <li><b class="k">Role.</b> “You are a reference librarian” reliably changes voice and vocabulary.
+      <span class="limit">whether it changes accuracy depends on the task. Test it; do not assume it.</span></li>
+  <li><b class="k">Context.</b> Give the model the facts it cannot have: your document, your definitions,
+      today's date, anything after its training data ends.</li>
+</ul>
+<div class="ex">You answer questions about the course syllabus
+pasted below, for students in the course.
+Use only the syllabus. Quote the sentence your
+answer comes from. If the syllabus does not
+answer the question, reply "not in the syllabus"
+and suggest emailing the instructor.</div>
+
+<h2>3 · Show it <span>zero-shot and few-shot</span></h2>
+<ul>
+  <li><span class="t">Zero-shot</span>: the instruction alone. Start here.</li>
+  <li><span class="t">Few-shot</span>: two or three worked examples before the real input. Examples teach
+      format and habit faster than description does.</li>
+  <li><b class="k">Choose examples that differ from each other</b>, and include one where the right
+      answer is “no” or “not stated”.</li>
+</ul>
+<p class="limit">a mistake in an example is taught too, and three similar examples teach the model that every
+input is like them.</p>
+
+<h2>4 · Give it room <span>chain of thought and relatives</span></h2>
+<ul>
+  <li><span class="t">Chain of thought</span>: ask for the steps before the answer. Zero-shot: add
+      “Let's think step by step.” Few-shot: show a worked example with its steps (Wei et al.).</li>
+  <li><b class="k">Break the job up.</b> One prompt per step, with the output of one as the input to the
+      next, beats one prompt that does everything.</li>
+  <li><b class="k">Ask more than once.</b> Run the same prompt several times in new chats and compare.
+      Agreement is weak evidence; disagreement is a warning.</li>
+</ul>
+<p class="limit">the steps are text the model produced, not a record of how it got the answer
+(<span class="t">faithfulness</span>). In the Week 6 lab the small models wrote fluent, illogical chains.
+It helps most on problems like the ones the model has seen and least
+<span class="t">out of distribution</span>.</p>
+
+</div>
+
+<p style="font-size:7.8pt;color:#333;margin-top:10pt;border-top:.6pt solid #999;padding-top:4pt"><b>Read more:</b> Boonstra, <i>Prompt Engineering</i> (Week 4) ·
+Schulhoff et al., <i>The Prompt Report</i> (Week 5) · Wei et al. on chain of thought (Week 6) ·
+Lin, Hilton &amp; Evans, <i>TruthfulQA</i> (Week 7) · <code>PROMPTING.md</code> in your project repository.</p>
+
+<div class="page2">
+
+<h2>5 · Alignment: keeping the model on the truth <span>Week 7</span></h2>
+<p>TruthfulQA showed models repeating popular myths because the myth is the likely continuation: an
+<span class="t">imitative falsehood</span>. These are the moves that work against that, and against invention
+generally. None of them makes a model know something it does not.</p>
+
+<table>
+  <tr><th>The risk</th><th>What to put in the prompt</th><th>Why it helps, and what to watch</th></tr>
+  <tr><td>It repeats the popular answer</td>
+      <td>Ask for the careful voice: <i>“Interpret the question literally. Answer as a careful reference
+      source would. Do not repeat common myths.”</i></td>
+      <td>Makes a careful source the likely voice. The paper's best score came from its “helpful” prompt,
+      which did this.</td></tr>
+  <tr><td>It has no way to say “I don't know”</td>
+      <td>Give it one: <i>“If you are not certain, reply ‘I have no comment.’”</i> or <i>“If it is not
+      in the text, write ‘not stated’.”</i></td>
+      <td>A model with no permitted way out invents one. <b>Count how often it takes it:</b> in the lab
+      this prompt doubled the score, mostly by refusing eight of twenty questions.</td></tr>
+  <tr><td>It invents facts, quotations or sources</td>
+      <td>Supply the source text and require a quotation for each claim. If you ask for references,
+      look every one up.</td>
+      <td>A reference is a pattern (authors, year, journal) and easy to produce whether or not the paper
+      exists.</td></tr>
+  <tr><td>Your question contains a false premise</td>
+      <td>Ask neutrally, or add: <i>“First say whether the question's assumption is true.”</i></td>
+      <td>A model tends to answer the question it was asked. “Why did X win the prize?” gets a reason
+      even if X never won.</td></tr>
+  <tr><td>The fact is obscure, local or recent</td>
+      <td>Paste the facts in. Do not rely on the model's memory.</td>
+      <td>Little was written about it, so there is little to be right from. This is what retrieval
+      (Week 10) automates.</td></tr>
+  <tr><td>Earlier turns are steering it</td>
+      <td>Start a new chat for every test.</td>
+      <td>The model can see the whole conversation, including your reaction to its last answer.</td></tr>
+  <tr><td>You want it to check itself</td>
+      <td>In a new chat, give it the answer and the source and ask what in the answer the source does
+      not support.</td>
+      <td>Checking against a text is a task it can do. Asking “are you sure?” mostly tests whether it
+      will change its mind.</td></tr>
+</table>
+
+<div class="cols">
+
+<h2>6 · Measure it <span>Thursday's lab</span></h2>
+<p>You cannot claim a prompt is better without a way to measure it.</p>
+<ol class="check">
+  <li>Keep an <span class="t">evaluation set</span>: real inputs, each with <span class="t">ground
+      truth</span> and a source. Include inputs you expect to fail and ones where the right answer is
+      “no”.</li>
+  <li><b>Change one thing at a time</b>, and record the count before and after.</li>
+  <li>Choose the <span class="t">marking rule</span> first, because it matches your own marks. Then
+      look at the score.</li>
+  <li>Report <span class="t">truthful and informative</span> together. A model that says nothing false
+      by saying nothing has not improved.</li>
+  <li>With twenty items, one item is five points. Name the items that changed, in both directions.</li>
+  <li>A second person's marks will differ from yours (<span class="t">inter-annotator agreement</span>).
+      Where they differ, fix the item or the rule.</li>
+  <li>When you find a new failure, add it to the set <b>before</b> you fix it.</li>
+</ol>
+
+<h2>7 · Symptom → what to try</h2>
+<table>
+  <tr><td>Vague or generic</td><td>Add the audience, the length, and what a good answer contains.</td></tr>
+  <tr><td>Wrong format</td><td>Show one example of the format. Ask for named fields.</td></tr>
+  <tr><td>Ignores an instruction</td><td>Say it once, as what to do (“write in paragraphs”) instead of
+      what not to do. Separate it from the pasted material.</td></tr>
+  <tr><td>Makes things up</td><td>Section 5: a way to say no, the source text, a required quotation.</td></tr>
+  <tr><td>Wrong on a multi-step problem</td><td>Chain of thought, or split it into steps you can check.</td></tr>
+  <tr><td>Different every time</td><td>Chat tools sample with some <span class="t">temperature</span>.
+      Run it several times and report the spread.</td></tr>
+  <tr><td>Works on your example only</td><td>That example was one item. Add the failures to your set.</td></tr>
+</table>
+
+<div class="box">
+  <p><b>Before you trust an output</b></p>
+  <ul>
+    <li>Could I check this against a source, and did I?</li>
+    <li>Did the prompt allow “I don't know”?</li>
+    <li>Did I ask in a new chat, more than once?</li>
+    <li>Is this a prompt that works, or a prompt I can defend? Write the decision in an ADR.</li>
+  </ul>
+</div>
+
+
+</div>
+</div>
+
+</body>
+</html>

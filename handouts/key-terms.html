@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Key Terms, Weeks 1–7 — LLMs &amp; You</title>
+<!--
+  A print companion to the study guide: every entry in data/concepts.yml for
+  Weeks 1-7, cut down to a line or two. The study guide page is the full
+  version and the one concept checks are drawn from; if a definition changes
+  there, change it here too.
+
+      .venv/bin/python -m weasyprint handouts/key-terms.html handouts/key-terms.pdf
+-->
+<style>
+  @page { size: Letter; margin: 0.5in 0.55in 0.55in;
+          @bottom-center { content: "LLMs & You · Key Terms, Weeks 1–7 · page " counter(page) " of " counter(pages)
+                           " · full entries: nalaquq.github.io/llms-and-you/study-guide";
+                           font: 7pt "Adwaita Sans", "DejaVu Sans", sans-serif; color: #555; } }
+  * { box-sizing: border-box; }
+  body { font: 8.3pt/1.3 "Adwaita Sans", "DejaVu Sans", sans-serif; color: #111; margin: 0; }
+  header { border-bottom: 2pt solid #111; margin-bottom: 6pt; }
+  h1 { font-size: 18pt; margin: 0; letter-spacing: -0.2pt; }
+  .sub { font-size: 8.8pt; color: #333; margin: 2pt 0 6pt; }
+  .cols { columns: 2; column-gap: 0.26in; }
+  h2 { font-size: 9.8pt; margin: 7pt 0 3pt; padding: 2pt 5pt; background: #111; color: #fff; break-after: avoid; }
+  h2 span { font-weight: normal; font-size: 7.8pt; opacity: .85; }
+  h3 { font-size: 7.6pt; text-transform: uppercase; letter-spacing: .5pt; color: #444; margin: 5pt 0 1.5pt;
+       border-bottom: .5pt solid #999; break-after: avoid; }
+  dl { margin: 0; }
+  .e { break-inside: avoid; margin-bottom: 2.6pt; }
+  dt { display: inline; font-weight: 700; }
+  dt::after { content: " — "; font-weight: 400; }
+  dd { display: inline; margin: 0; }
+  .box { border: 1pt solid #111; background: #f2f2f2; padding: 5pt 7pt; margin: 6pt 0 0; break-inside: avoid; }
+  .box p { margin: 0 0 3pt; } .box p:last-child { margin: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Key Terms, Weeks 1–7</h1>
+  <p class="sub">Every study-guide entry so far, in a line or two. Use it to find what you cannot yet
+  define; then read the full entry, which also says what you should be able to <i>do</i> with the idea.</p>
+</header>
+
+<div class="cols">
+
+<h2>Week 1 <span>design vocabulary</span></h2>
+<dl>
+<div class="e"><dt>Affordance</dt><dd>what a designed thing makes possible for the person using it.</dd></div>
+<div class="e"><dt>Constraint</dt><dd>what it prevents, on purpose. A prompt is where you add the constraints a chat box leaves out.</dd></div>
+<div class="e"><dt>Signifier</dt><dd>the visible clue that an affordance is there at all.</dd></div>
+</dl>
+
+<h2>Week 2 <span>how text becomes numbers</span></h2>
+<h3>The machinery words</h3>
+<dl>
+<div class="e"><dt>Corpus</dt><dd>the body of text a method learns from during training. Afterwards only its effects remain.</dd></div>
+<div class="e"><dt>Vocabulary</dt><dd>the fixed list of items a method can represent. Anything else is out of vocabulary.</dd></div>
+<div class="e"><dt>Vector</dt><dd>an ordered list of numbers of fixed length: a point in a space, and an arrow with a direction.</dd></div>
+<div class="e"><dt>Dimensionality</dt><dd>how many numbers are in each vector.</dd></div>
+<div class="e"><dt>Neural network, layer</dt><dd>a stack of layers, each turning one list of numbers into another. “Deep” means many layers.</dd></div>
+<div class="e"><dt>Parameters (weights)</dt><dd>the numbers inside the layers that training adjusts. What “open weights” releases.</dd></div>
+<div class="e"><dt>Training / inference</dt><dd>training sets the parameters once from a corpus; inference is every use of the finished model.</dd></div>
+<div class="e"><dt>Softmax</dt><dd>turns any list of scores into probabilities between 0 and 1 that add up to 1.</dd></div>
+</dl>
+<h3>Text into numbers</h3>
+<dl>
+<div class="e"><dt>Token, tokenization</dt><dd>cutting text into subword pieces from the model's vocabulary. A token is not a word.</dd></div>
+<div class="e"><dt>One-hot encoding</dt><dd>a vector as long as the vocabulary with a single 1 at the word's position.</dd></div>
+<div class="e"><dt>Sparse / dense vector</dt><dd>sparse: long and mostly zeros (one-hot, counts, TF-IDF). Dense: short, every entry used (embeddings).</dd></div>
+<div class="e"><dt>Embedding</dt><dd>a token turned into a dense vector whose numbers carry something about meaning.</dd></div>
+</dl>
+<h3>The geometry</h3>
+<dl>
+<div class="e"><dt>Embedding space</dt><dd>the shared space one model's embeddings live in, where similar meaning becomes “close together”.</dd></div>
+<div class="e"><dt>Dot product</dt><dd>multiply two vectors entry by entry and add. Large when they point the same way; also grows with length.</dd></div>
+<div class="e"><dt>Cosine similarity</dt><dd>the dot product divided by both lengths, leaving only the angle: 1 same direction, 0 unrelated, −1 opposite.</dd></div>
+<div class="e"><dt>Nearest neighbors</dt><dd>the k vectors closest to a given one, usually by cosine similarity.</dd></div>
+<div class="e"><dt>Dimensionality reduction</dt><dd>squashing vectors to two or three dimensions so they can be drawn (PCA, t-SNE, UMAP).</dd></div>
+<div class="e"><dt>Vector arithmetic</dt><dd>differences between vectors encode relationships (king − man + woman ≈ queen), with real limits.</dd></div>
+</dl>
+<h3>Counting methods</h3>
+<dl>
+<div class="e"><dt>Bag of words</dt><dd>a document as the words it contains and how often, with order discarded.</dd></div>
+<div class="e"><dt>Count vectorization</dt><dd>one column per term, one row per document, counts in the cells: a document-term matrix.</dd></div>
+<div class="e"><dt>Stop words</dt><dd>very common words (“the”, “of”) removed before counting.</dd></div>
+<div class="e"><dt>Stemming</dt><dd>chopping endings off by rule. Fast; the result need not be a real word.</dd></div>
+<div class="e"><dt>Lemmatization</dt><dd>reducing a word to its dictionary form using a vocabulary. Always a real word.</dd></div>
+<div class="e"><dt>N-grams</dt><dd>runs of adjacent words counted as units: bigrams (two), trigrams (three).</dd></div>
+<div class="e"><dt>Term frequency (TF)</dt><dd>how often a term appears in one document, divided by the document's length.</dd></div>
+<div class="e"><dt>Inverse document frequency (IDF)</dt><dd>how rare a term is across the corpus. Zero for a term in every document.</dd></div>
+<div class="e"><dt>TF-IDF</dt><dd>TF × IDF: high when a term is frequent here and rare elsewhere.</dd></div>
+</dl>
+<h3>Learned embeddings</h3>
+<dl>
+<div class="e"><dt>Distributional hypothesis</dt><dd>words that appear in similar contexts have similar meanings. A bet, not a theorem.</dd></div>
+<div class="e"><dt>Sliding window</dt><dd>a fixed-width window moved along the text; each stop is one training example.</dd></div>
+<div class="e"><dt>CBOW</dt><dd>predict the middle word from its neighbors. Context in, one word out.</dd></div>
+<div class="e"><dt>Skip-gram</dt><dd>predict the neighbors from the middle word. One word in, context out.</dd></div>
+<div class="e"><dt>Negative sampling</dt><dd>train against a few random wrong words instead of a softmax over the whole vocabulary.</dd></div>
+<div class="e"><dt>word2vec</dt><dd>the 2013 model that learns one dense vector per word with CBOW or skip-gram.</dd></div>
+<div class="e"><dt>Pretext task</dt><dd>a training task nobody wants the answers to, set so the network must learn a useful representation.</dd></div>
+</dl>
+<h3>Context and sequences</h3>
+<dl>
+<div class="e"><dt>Polysemy</dt><dd>one word with several meanings (“bank”). Ordinary, not exotic.</dd></div>
+<div class="e"><dt>Encoder / decoder</dt><dd>an encoder reads a sequence into a representation; a decoder writes a sequence from one.</dd></div>
+<div class="e"><dt>Pretraining / fine-tuning</dt><dd>train once on a huge general corpus, then continue on a small task-specific one.</dd></div>
+<div class="e"><dt>Masked language modeling</dt><dd>BERT's task: hide some words and recover them using the words on both sides.</dd></div>
+<div class="e"><dt>BERT</dt><dd>an encoder-only transformer (2018) that reads text and produces representations.</dd></div>
+<div class="e"><dt>Static / contextual embedding</dt><dd>static: one fixed vector per word (word2vec). Contextual: computed per occurrence from the sentence.</dd></div>
+<div class="e"><dt>Recurrent neural network (RNN)</dt><dd>reads one item at a time, updating a running summary.</dd></div>
+<div class="e"><dt>Hidden state</dt><dd>that running summary: a fixed-size vector, however much has been read.</dd></div>
+<div class="e"><dt>Sequence-to-sequence</dt><dd>an encoder and a decoder joined only by the encoder's final hidden state, the context vector.</dd></div>
+<div class="e"><dt>Fixed-length bottleneck</dt><dd>the whole input squeezed into that one vector. The problem attention solved.</dd></div>
+</dl>
+<h3>The output end</h3>
+<dl>
+<div class="e"><dt>Logits</dt><dd>the raw scores a model produces, one per token in the vocabulary, before softmax.</dd></div>
+<div class="e"><dt>Temperature</dt><dd>a number the logits are divided by. Higher flattens the choice; zero always takes the top token.</dd></div>
+</dl>
+
+<h2>Week 3 <span>attention and the transformer</span></h2>
+<dl>
+<div class="e"><dt>Architecture / model / technique</dt><dd>a design (the transformer); one trained instance of it (BERT); a method used on or around a model (a prompt).</dd></div>
+<div class="e"><dt>Attention (self-attention)</dt><dd>every word looks at every other word in one step and is adjusted by what it finds.</dd></div>
+<div class="e"><dt>Query</dt><dd>the question a word asks of the others.</dd></div>
+<div class="e"><dt>Key</dt><dd>the label a word wears, matched against other words' queries.</dd></div>
+<div class="e"><dt>Value</dt><dd>what a word hands over to any word that attends to it.</dd></div>
+<div class="e"><dt>Attention score</dt><dd>the dot product of one word's query with another's key.</dd></div>
+<div class="e"><dt>Attention weights</dt><dd>a row of scores after softmax: shares that add up to 1. Attention is a budget.</dd></div>
+<div class="e"><dt>Multi-head attention</dt><dd>several heads side by side in a layer, each with its own learned questions.</dd></div>
+<div class="e"><dt>Positional encoding</dt><dd>a vector marking a token's position, added to its embedding so word order is not lost.</dd></div>
+<div class="e"><dt>Causal mask</dt><dd>scores for later words set to minus infinity before softmax, so a decoder cannot read ahead. Weights are exactly zero.</dd></div>
+<div class="e"><dt>Cross-attention</dt><dd>queries from the decoder, keys and values from the encoder: how the writing half looks at what was read.</dd></div>
+<div class="e"><dt>Transformer block</dt><dd>attention, then a feed-forward network, with “add and normalize” after each. Stacked many times.</dd></div>
+<div class="e"><dt>Add and normalize</dt><dd>the block's input is added back to its output, so nothing is fully overwritten.</dd></div>
+<div class="e"><dt>What the transformer traded</dt><dd>everything at once (parallel training) for cost that grows with the square of the length. Generation is still one token at a time.</dd></div>
+<div class="e"><dt>Attention is not explanation</dt><dd>a weight shows how one head blended values, not why the model produced its output.</dd></div>
+</dl>
+
+<h2>Week 6 <span>chain of thought and its critics</span></h2>
+<dl>
+<div class="e"><dt>Zero-shot / few-shot</dt><dd>a prompt with no worked examples, or with one or more (exemplars) before the question.</dd></div>
+<div class="e"><dt>Chain-of-thought prompting</dt><dd>asking for intermediate steps before the final answer.</dd></div>
+<div class="e"><dt>Benchmark</dt><dd>a fixed set of questions with known answers that everyone scores on.</dd></div>
+<div class="e"><dt>Emergent ability</dt><dd>absent in small models, appearing above some size.</dd></div>
+<div class="e"><dt>Ablation study</dt><dd>remove or replace one part at a time and compare with the full version (the control).</dd></div>
+<div class="e"><dt>Training / test distribution</dt><dd>the pattern the training examples follow, and the pattern of the held-back examples used to check.</dd></div>
+<div class="e"><dt>Out-of-distribution (OOD)</dt><dd>questions outside the pattern of the training data. Doing well on them is OOD generalization.</dd></div>
+<div class="e"><dt>Data leakage</dt><dd>test questions or answers turning up in training data, so memory cannot be told from method.</dd></div>
+<div class="e"><dt>Exact match</dt><dd>right only if identical to the expected answer.</dd></div>
+<div class="e"><dt>Edit distance</dt><dd>the fewest single-character changes that turn one string into another. Lower is better.</dd></div>
+<div class="e"><dt>BLEU</dt><dd>a score for how many short runs two texts share. 1 is identical.</dd></div>
+<div class="e"><dt>Faithfulness</dt><dd>whether the steps a model writes are how it actually reached its answer.</dd></div>
+<div class="e"><dt>Loss / risk</dt><dd>the penalty for one answer; the average penalty. Empirical risk is over the questions seen, expected risk over all a distribution could produce.</dd></div>
+<div class="e"><dt>Total variation distance</dt><dd>how different two distributions are: 0 identical, 1 no overlap.</dd></div>
+<div class="e"><dt>Generalization bound</dt><dd>a guarantee that test risk is at most training risk plus stated costs. A ceiling, not a prediction.</dd></div>
+</dl>
+
+<h2>Week 7 <span>truthfulness and evaluation</span></h2>
+<dl>
+<div class="e"><dt>Hallucination</dt><dd>a fluent, confident statement that is false or cites something that does not exist.</dd></div>
+<div class="e"><dt>Imitative falsehood</dt><dd>a false answer given because the model learned its training text well: the popular myth is the likely continuation.</dd></div>
+<div class="e"><dt>Inverse scaling</dt><dd>a result that gets worse as models get larger, as truthfulness did on TruthfulQA in 2021.</dd></div>
+<div class="e"><dt>Truthful</dt><dd>avoids asserting anything false. “I have no comment” is truthful.</dd></div>
+<div class="e"><dt>Informative</dt><dd>actually addresses what was asked. The number that matters is answers that are both.</dd></div>
+<div class="e"><dt>Ground truth</dt><dd>the answer an evaluation treats as correct: checked, sourced, and written by a person.</dd></div>
+<div class="e"><dt>Evaluation set</dt><dd>a fixed list of inputs with ground truth that every version of a prompt is run against.</dd></div>
+<div class="e"><dt>Marking rule</dt><dd>the rule that turns an answer and the ground truth into right or wrong. Part of your definition of correct.</dd></div>
+<div class="e"><dt>Inter-annotator agreement</dt><dd>how far two people marking the same answers give the same marks.</dd></div>
+<div class="e"><dt>Cohen's kappa</dt><dd>agreement corrected for chance: 1 perfect, 0 no better than chance.</dd></div>
+<div class="e"><dt>Small-sample uncertainty</dt><dd>with twenty items, one item is five points and any score has a wide plausible range.</dd></div>
+</dl>
+
+<div class="box">
+  <p><b>How to use this page.</b> Cover the right-hand side of a line and define the term out loud. If you
+  can, go on. If you cannot, mark it and read the full study-guide entry.</p>
+  <p>Knowing a definition is the start. Concept checks ask you to <i>apply</i> the idea, so for each marked
+  term also try one of the “you should be able to” lines in its entry.</p>
+</div>
+
+</div>
+</body>
+</html>
