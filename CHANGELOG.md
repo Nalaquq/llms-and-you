@@ -20,6 +20,14 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 8 lab: register for HackAPrompt, no notebook **[student-facing]**
+
+The [Week 8 lab](https://nalaquq.github.io/llms-and-you/sessions/w08-thu/) on
+Thursday, October 15 no longer has a notebook. Read the
+[midterm assignment](https://nalaquq.github.io/llms-and-you/assignments/#midterm)
+beforehand. In the session, register for the HackAPrompt competition and start
+its introduction tutorials. The draft logging notebook is now a candidate.
+
 ### Added — study guide: Week 3 and Week 7 **[student-facing]**
 
 The [study guide](https://nalaquq.github.io/llms-and-you/study-guide/) now covers

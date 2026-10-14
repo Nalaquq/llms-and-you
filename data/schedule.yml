@@ -579,14 +579,27 @@
   kind: lab
   topic: 'Midterm Kickoff: Red-Teaming'
   theme: responsible
-  notebook: w08-thu
+  notebook_exempt: >-
+    The lab is registering for HackAPrompt and working through its own
+    introduction tutorials; the competition is the environment, so there is
+    nothing for a notebook to add.
   summary: >-
     Fall Break takes Tuesday, so the week is a single working session -- which
     suits a lab that needs no advance reading.
   activity: >-
-    HackAPrompt introduction and supervised start. Adversarial prompting rules
-    of engagement, and why we are doing this in a classroom rather than on a
-    production system.
+    Today we begin the midterm. Before class, read the
+    [midterm assignment](../assignments.md#midterm) in full so that you know
+    what you will be submitting next Thursday and how it will be graded.
+
+
+    During the session, each of you should register for the HackAPrompt
+    competition at [hackaprompt.com](https://www.hackaprompt.com/). Once you
+    have an account, begin working through the introduction tutorials. They
+    explain how the challenges are structured and what counts as a successful
+    attack, and they will save you a good deal of frustration once you start on
+    the challenges themselves. You do not need to finish the tutorials in class,
+    but you should finish them before you attempt anything that will appear in
+    your write-up.
   optional: [hackaprompt]
 
 # ===========================================================================

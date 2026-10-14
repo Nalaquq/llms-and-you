@@ -77,9 +77,9 @@ field. Course content lives in data/*.yml and nowhere else.
       Write it before the first meeting, or the first grade is
       unjustifiable.
 
-- [ ] w08-thu (red-teaming) may not want a notebook at all -- most of
-      that session happens on hackaprompt.com. Decide before Week 8
-      whether it is a logging notebook or a notebook_exempt.
+- [x] w08-thu (red-teaming) may not want a notebook at all -- most of
+      that session happens on hackaprompt.com. Decided: notebook_exempt.
+      The draft logging notebook is in notebooks/candidates/.
 
 
 ## Slides
