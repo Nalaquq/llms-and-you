@@ -635,10 +635,14 @@
   theme: responsible
   summary: What broke, how, and what it implies about deploying these systems.
   due: >-
-    HackAPrompt midterm write-up, and ADR-003 (how your system handles failure)
+    A full rough draft of the HackAPrompt midterm write-up, brought to class,
+    and ADR-003 (how your system handles failure)
   activity: >-
-    Students present their most effective attack and the defence they would
-    build against it. ADR-003 due: how your project handles failure.
+    Bring a full rough draft of your midterm write-up -- the attack, why it
+    worked, and the defence -- to discuss in class. The final write-up is not
+    due until Sunday, October 25. Students present their most effective attack
+    and the defence they would build against it. ADR-003 due: how your project
+    handles failure.
 
 # ===========================================================================
 # WEEK 10 — RAG  (both sessions: individual meetings)

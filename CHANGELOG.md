@@ -20,6 +20,13 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — HackAPrompt midterm due Sunday, rough draft Thursday **[student-facing]**
+
+The [midterm](https://nalaquq.github.io/llms-and-you/assignments/#midterm) is
+now due Sunday, October 25, not Thursday, October 22. Bring a full rough draft
+to the [Week 9 Thursday session](https://nalaquq.github.io/llms-and-you/sessions/w09-thu/)
+to discuss in class. ADR-003 is still due Thursday.
+
 ### Changed — Week 9 Tuesday: read about agents, harnesses, and tools **[student-facing]**
 
 The [Week 9 Tuesday session](https://nalaquq.github.io/llms-and-you/sessions/w09-tue/)

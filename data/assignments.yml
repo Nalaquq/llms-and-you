@@ -40,7 +40,7 @@
 - id: midterm
   title: HackAPrompt Red-Team Midterm
   weight: 15
-  due: Thursday, October 22
+  due: Sunday, October 25
   summary: >-
     Adversarial prompting against the HackAPrompt environment, submitted as a
     write-up of your most effective attack, why it worked, and the defence you

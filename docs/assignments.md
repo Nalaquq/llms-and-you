@@ -72,7 +72,7 @@ stretch of work.
 
 ## HackAPrompt Red-Team Midterm { #midterm }
 
-**15% · Opens Week 8 (Thu Oct 15) · Due Week 9 (Thu Oct 22)**
+**15% · Opens Week 8 (Thu Oct 15) · Rough draft to class Week 9 (Thu Oct 22) · Due Sun Oct 25**
 
 {{ genai_banner('midterm') }}
 
