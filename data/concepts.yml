@@ -2821,8 +2821,8 @@
   pitfall: >-
     Using the word for every kind of wrong answer. An arithmetic slip, a
     misreading of the question and a repeated popular myth are different
-    failures with different fixes. Week 9 opens on the disagreement over where
-    the lines are; for now, say which kind you mean.
+    failures with different fixes. Where the lines fall is contested; say
+    which kind you mean.
   related: [chain-of-thought-faithfulness, softmax]
   assessed_in: [concept-checks, labs, project]
   resources:

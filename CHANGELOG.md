@@ -20,6 +20,14 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 9 Tuesday: read about agents, harnesses, and tools **[student-facing]**
+
+The [Week 9 Tuesday session](https://nalaquq.github.io/llms-and-you/sessions/w09-tue/)
+on October 20 no longer assigns the hallucination readings (HalluLens and
+HaluEval). Read Hugging Face's agent glossary instead. Real Python episode 314
+on coding agents is optional. The in-class activity is still LLM-as-judge. The
+hallucination papers are still on the Readings page.
+
 ### Changed — Week 8 lab: register for HackAPrompt, no notebook **[student-facing]**
 
 The [Week 8 lab](https://nalaquq.github.io/llms-and-you/sessions/w08-thu/) on

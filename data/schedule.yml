@@ -608,20 +608,25 @@
 
 - week: 9
   day: tue
-  topic: Factuality Is Not Hallucination
+  topic: 'Agents, Harnesses, and Tools: The Vocabulary'
   theme: truthfulness
   summary: >-
-    A live disagreement in the literature about what the benchmarks are even
-    measuring -- read against the TruthfulQA paper from Week 7.
+    Before the agents unit proper, the words for its parts: the model, the
+    harness around it, the tools it can call, and the loop that makes it an
+    agent.
   guides:
     - reading-papers
     - boodlebox
-  readings: [hallulens, li-2023-halueval]
-  optional: [huang-2023-hallucination-survey, awesome-hallucination-detection]
+  readings: [hf-agent-glossary]
+  optional: [rpp-314-codemoo]
   questions:
-    - On what grounds does HalluLens say TruthfulQA is miscategorised?
-    - Is your Week 7 evaluation measuring factuality, hallucination, or something else?
-  activity: LLM-as-judge — using a model to grade a model, and where that breaks.
+    - What is the difference between a model and an agent? Where does the harness sit?
+    - Which parts of an agent are prompts, and which are code?
+    - Is your Week 7 evaluation itself a harness? What would make it one?
+  activity: >-
+    LLM-as-judge -- using a model to grade a model, and where that breaks. A
+    judge wrapped around a model is a small harness; the glossary gives you the
+    words for it.
 
 - week: 9
   day: thu

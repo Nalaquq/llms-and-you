@@ -652,6 +652,13 @@ def test_every_resource_is_used_or_deliberately_reference_only():
         "claude-desktop",
         "claude-quickstart",
         "anthropic-sdk-python",
+        # Week 9 Tuesday's hallucination readings, replaced by the agent
+        # glossary in October 2026. Kept on the Readings page for the
+        # hallucination theme rather than deleted.
+        "hallulens",
+        "li-2023-halueval",
+        "huang-2023-hallucination-survey",
+        "awesome-hallucination-detection",
     }
     orphans = set(RESOURCES) - used - reference_only
     assert not orphans, f"unused resources: {sorted(orphans)}"

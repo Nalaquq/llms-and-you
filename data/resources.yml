@@ -523,6 +523,31 @@
   est_minutes: 35
   note: Optional. Self-critique as a prompting loop.
 
+- id: hf-agent-glossary
+  title: 'Harness, Scaffold, and the AI Agent Terms Worth Getting Right'
+  authors: [Sergio Paniego, Aritra Roy Gosthipaty]
+  year: 2026
+  kind: article
+  url: https://huggingface.co/blog/agent-glossary
+  themes: [agents]
+  est_minutes: 12
+  assign_note: >-
+    Read the whole thing. Keep it open for the rest of the agents unit -- the
+    definitions of model, harness, agent, and tool use are the ones we will
+    hold each other to.
+
+- id: rpp-314-codemoo
+  title: 'Real Python #314: Codemoo: Demonstrating How Coding Agents Work'
+  authors: [Christopher Bailey, Geir Arne Hjelle]
+  year: 2026
+  kind: podcast
+  url: https://realpython.com/podcasts/rpp/314/
+  themes: [agents]
+  est_minutes: 67
+  note: >-
+    Hjelle built a small tool that shows what a coding agent does inside its
+    harness. Supplements the agent glossary.
+
 - id: anthropic-building-effective-agents
   title: Building Effective Agents
   authors: [Anthropic]
