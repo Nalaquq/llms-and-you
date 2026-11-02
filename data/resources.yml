@@ -513,6 +513,31 @@
   themes: [agents]
   est_minutes: 40
 
+- id: singh-2025-agentic-rag
+  title: 'Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG'
+  authors: [Singh, et al.]
+  year: 2025
+  kind: paper
+  url: https://arxiv.org/abs/2501.09136
+  themes: [rag, agents]
+  est_minutes: 75
+  assign_note: >-
+    Sections 1-5 and Section 10. Skim Sections 6-9 (frameworks, applications,
+    tools) only for whatever touches your project. Section 2 is a review of the
+    Week 10 material; Sections 3 and 5 are where retrieval becomes something an
+    agent decides to do, rather than something that always happens.
+
+- id: graison-rag-reading-list
+  title: 'The Definitive RAG Reading List: From Foundations to GraphRAG and Agentic Systems'
+  authors: [Graison]
+  kind: article
+  url: https://medium.com/@graison/the-definitive-rag-reading-list-from-foundations-to-graphrag-and-agentic-systems-f9d40d96b8bd
+  themes: [rag]
+  est_minutes: 15
+  note: >-
+    Optional. A map of the RAG literature, not a reading in itself -- use it to
+    find the one paper behind the technique your project relies on.
+
 - id: shinn-2023-reflexion
   title: 'Reflexion: Language Agents with Verbal Reinforcement Learning'
   authors: [Shinn, et al.]

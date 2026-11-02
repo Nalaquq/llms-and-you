@@ -695,20 +695,34 @@
 
 - week: 11
   day: tue
-  topic: Reasoning and Acting
+  topic: 'Agentic RAG: When Retrieval Becomes a Decision'
   theme: agents
   summary: >-
-    From answers to actions. ReAct is a prompting pattern before it is an
-    architecture, which is exactly why it belongs in this course.
+    From answers to actions, by way of the pipeline you just built. In Week 10
+    retrieval always happened; today we ask what changes when the model decides
+    whether, where, and how many times to look.
   guides:
     - reading-papers
     - boodlebox
-  readings: [yao-2022-react, schick-2023-toolformer]
-  optional: [shinn-2023-reflexion]
+  readings: [singh-2025-agentic-rag]
+  optional:
+    - yao-2022-react
+    - schick-2023-toolformer
+    - shinn-2023-reflexion
+    - graison-rag-reading-list
   questions:
-    - What is ReAct actually adding to a prompt? Write the template from memory.
+    - >-
+      What does an agentic RAG system decide that your Week 10 prototype
+      decided for it in advance?
+    - >-
+      Section 10 argues agentic RAG is not always the right default. Is it the
+      right one for your project? Defend the answer.
     - What can go wrong in a loop that cannot go wrong in a single response?
-  activity: Trace an agent loop by hand on paper before letting a model run one.
+  activity: >-
+    Discussion: bring your Week 10 prototype's retrieval step and place it in
+    the survey's taxonomy (Section 5). Then trace, on paper, what one agentic
+    variant of it would do differently on a question your current pipeline
+    gets wrong.
 
 - week: 11
   day: thu

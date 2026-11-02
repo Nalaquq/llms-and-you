@@ -20,6 +20,15 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 11 Tuesday: discuss agentic RAG **[student-facing]**
+
+The [Week 11 Tuesday session](https://nalaquq.github.io/llms-and-you/sessions/w11-tue/)
+is now a discussion of retrieval-augmented generation as an agent design. The
+required reading is Singh et al., *Agentic Retrieval-Augmented Generation: A
+Survey on Agentic RAG* (2025), Sections 1–5 and 10. ReAct and Toolformer are
+now optional, and a RAG reading list has been added as an optional map of the
+literature.
+
 ### Changed — HackAPrompt midterm due Sunday, rough draft Thursday **[student-facing]**
 
 The [midterm](https://nalaquq.github.io/llms-and-you/assignments/#midterm) is
