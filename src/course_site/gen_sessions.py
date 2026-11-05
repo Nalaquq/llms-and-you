@@ -112,8 +112,8 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
         if s.notebook:
             out.append(
                 '!!! success "Nothing to read"\n\n'
-                "    Labs assign no reading. Work through as much of the notebook above\n"
-                "    as interests you instead, and come with something to show.\n"
+                "    Labs assign no reading. The notebook above is the preparation, and\n"
+                "    the session below says what to bring and what, if anything, is due.\n"
             )
         else:
             # A lab with no notebook has said why in `notebook_exempt`. Print the

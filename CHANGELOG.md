@@ -20,6 +20,18 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 11 lab: find your data and choose your agentic RAG design **[student-facing]**
+
+The [Week 11 Thursday lab](https://nalaquq.github.io/llms-and-you/sessions/w11-thu/)
+is now a worksheet you hand in. In class, you find the dataset (or fine-tuning
+corpus) your project will use, get an LLM to help you write the code that loads
+it into Colab, and pick the agentic RAG design from Tuesday's survey that fits.
+Then you free-write the tools your agent will use. Submit the link to your copy
+of the notebook on Canvas by
+[Week 12 Tuesday](https://nalaquq.github.io/llms-and-you/sessions/w12-tue/). All
+the instructions are in the notebook. See
+[ADR-029](https://nalaquq.github.io/llms-and-you/adr/#adr-029-make-the-week-11-lab-a-submitted-worksheet-about-each-students-own-data).
+
 ### Changed — Week 11 Tuesday: discuss agentic RAG **[student-facing]**
 
 The [Week 11 Tuesday session](https://nalaquq.github.io/llms-and-you/sessions/w11-tue/)

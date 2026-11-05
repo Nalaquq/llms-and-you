@@ -1254,3 +1254,82 @@ and that needs the industry's own words on the reading list.
 **Rejected: dropping the mirage paper entirely.** ADR-003 is the reason this
 course exists in the shape it does, and Thursday's lab is built on the paper's
 experiment. Optional is a demotion, not a removal.
+
+---
+
+## ADR-029: Make the Week 11 lab a submitted worksheet about each student's own data
+
+**Status:** Accepted. Narrows
+[ADR-021](#adr-021-make-thursday-a-showcase-and-put-the-exploration-before-it)
+for one session, on the pattern of
+[ADR-026](#adr-026-give-the-week-4-lab-a-written-deliverable-and-name-canvas-as-where-it-goes)
+and
+[ADR-027](#adr-027-move-the-week-4-write-up-to-after-the-session-and-ask-for-a-question-before-it)
+
+**Context.** The Week 11 notebook, *Giving a Model a Tool*, was still a draft on
+the morning of the session: structure settled, no code. Its subject — a tool
+description is a prompt — is also Week 12's, which reads *Building Effective
+Agents* and runs a lab on choosing the simplest design that works.
+
+Meanwhile the project had a gap. Week 10's prototype review asked for a working
+retrieval pipeline, and a pipeline can be demonstrated on toy data. Nothing in
+the schedule asked a student to name the data the final build will actually run
+on, and by Week 11 that is the decision most likely to sink a project: a dataset
+that needs someone's permission takes longer to arrive than the four weeks left.
+Tuesday's survey (Singh et al., Section 5) had also just handed students a
+taxonomy of agentic RAG designs with nowhere to apply it.
+
+**Decision.** The Week 11 lab is a worksheet, worked in class, and the notebook is
+the deliverable. In three parts, each student:
+
+1. finds a dataset for their agent, or a corpus if the project fine-tunes, and
+   records what it is, its license, what is sensitive in it — or, if it is not
+   in hand, what they have done to secure it;
+2. chats with an LLM until it produces code that loads that data in Colab, and
+   runs it there;
+3. picks the agentic RAG design from the survey's taxonomy that fits, defends it
+   against the simpler option, and free-writes the tools the agent will use.
+
+Students submit the link to their own copy on Canvas by Week 12 Tuesday, the
+next meeting, so the deadline is the `due` field on that session and moves with
+the calendar. All the instructions live in the notebook, because the notebook is
+what they will have open.
+
+**Consequences.** This is the furthest any lab has moved from ADR-021. There is
+no finding to show and no open question at the end of each section; the sections
+end in answer cells. That is deliberate for this one session — it is project work
+done in the room, with the instructor available, not exploration.
+
+A data request that has not come back yet is stated in the notebook as worth full
+marks when described honestly, for the same reason ADR-026 made "I did not get to
+this one" acceptable. The thing being graded is whether the student has looked
+the data question in the face, not whether a stranger answered their email.
+
+The tools free-write is upstream of Week 12 on purpose. Each tool's "when should
+the agent use it" line is a tool description, which is what the old Week 11
+notebook was going to teach. Week 12 now gets to start from students' own
+descriptions rather than invented ones. *Writing Tools for Agents* stays on the
+lab as optional reading for that reason.
+
+The notebook uses Markdown blockquotes, not the `!!!` admonitions the other
+notebooks use. Notebooks are opened only in Colab, which does not render
+admonitions; it shows them as indented code. The other notebooks still have that
+problem and are not changed here.
+
+The generic "Nothing to read" box on lab pages told students to work through as
+much of the notebook "as interests you." That is false for a submitted
+worksheet, so it now points at the session's own instructions, which is true
+of every lab.
+
+**Rejected: finishing the tool-description notebook instead.** It could not have
+been written and run end to end before 2:00, and it duplicates Week 12. A lab
+students cannot open is worse than a different lab.
+
+**Rejected: due at the end of class.** Part 1 often depends on someone else
+replying, which does not happen in ninety minutes. ADR-027's reasoning about
+leaving room for a second thought applies as well.
+
+**Rejected: submitting a downloaded `.ipynb` file instead of a link.** One less
+sharing setting to get wrong, but the link lets the instructor see the import
+actually ran, in the environment it has to run in, and a student who keeps
+working after the deadline is improving their project, not gaming a grade.

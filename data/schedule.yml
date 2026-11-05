@@ -727,13 +727,35 @@
 - week: 11
   day: thu
   kind: lab
-  topic: 'Lab: Giving a Model a Tool'
+  topic: 'Lab: Your Data, and the Agentic RAG Design That Fits It'
   theme: agents
   notebook: w11-thu
-  summary: Tool descriptions are prompts. Write them badly and watch what happens.
+  guides:
+    - 'colab#make-your-own-copy'
+    - boodlebox
+  summary: >-
+    An agent is only as good as what it can look things up in. Find that thing,
+    load it, and choose the system that should sit on top of it.
   activity: >-
-    Define a tool, write its description three different ways, and measure how
-    often the model calls it correctly.
+    **This lab is a worksheet, and the notebook is what you hand in.** Save your
+    own copy first (File → Save a copy in Drive). Then, in class:
+
+
+    1. **Find your data** -- a dataset for your agent to retrieve from, or a
+    corpus if your project fine-tunes -- and write down what you found, or what
+    you have done to secure it.
+
+    2. **Import it with an LLM's help.** Chat with a model until you have code
+    that loads your data into the notebook, and run it there.
+
+    3. **Pick your agentic RAG design** from Section 5 of Tuesday's survey, say
+    why it fits, and free-write the tools your agent will use.
+
+
+    **Then, on Canvas by our next meeting:** the link to your copy of the
+    notebook, shared as "Anyone with the link can view." All the instructions
+    are inside the notebook. A dataset you have requested but not yet received,
+    described honestly, scores full marks.
   optional: [anthropic-writing-tools-for-agents]
 
 # ===========================================================================
@@ -744,6 +766,7 @@
   day: tue
   topic: Agents, Workflows, and Knowing the Difference
   theme: agents
+  due: Week 11 lab -- the link to your notebook, on Canvas
   summary: >-
     Most things called agents are workflows, and most things that should be
     workflows are being built as agents.
