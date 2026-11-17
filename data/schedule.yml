@@ -785,15 +785,32 @@
 - week: 12
   day: thu
   kind: lab
-  topic: 'Lab: Build the Simplest Thing That Works'
+  topic: 'Lab: A Stack Diagram of Your Agent and Its Harness'
   theme: agents
-  notebook: w12-thu
+  notebook_exempt: >-
+    Nothing to run today. The lab is a diagram of your own project, drawn on
+    paper or in whatever drawing tool you like -- there is no code to write yet.
   summary: >-
-    Anthropic's advice is to avoid building an agent. We take that seriously and
-    test it.
+    Before you build the system, draw it. Each of you lays out your project as a
+    stack: the model, the harness around it, and the tools and data it reaches.
   activity: >-
-    Build your task twice -- once as a fixed workflow, once as an agent. Compare
-    reliability, cost, and how long each took to debug.
+    **This lab is project work, and the diagram is what you hand in.** In
+    class, each of you draws a stack diagram of your own project that outlines
+    your agent and its harness: the model at the core, the harness wrapped
+    around it, the tools the agent can call, and the data it retrieves from.
+
+
+    Before you finalize it, review the readings from the last two weeks --
+    the agentic RAG survey from Week 11, and *Building Effective Agents* and
+    τ-bench from Week 12 -- and make sure the diagram reflects them. The design
+    you picked in the Week 11 lab and the tools you free-wrote there belong on
+    it. If Tuesday convinced you your project is a workflow rather than an
+    agent, draw the workflow.
+
+
+    **Then, on Canvas by Week 13 Tuesday:** upload a copy of your stack
+    diagram. A photo of a hand-drawn diagram is fine if it is legible.
+  optional: [anthropic-writing-tools-for-agents]
 
 # ===========================================================================
 # WEEK 13 — Open weights
@@ -803,6 +820,7 @@
   day: tue
   topic: What It Costs to Run This for Other People
   theme: deployment
+  due: Week 12 lab -- your stack diagram, uploaded to Canvas
   summary: >-
     Everything changes when a system has to serve someone other than you. Token
     accounting, caching, batching, rate limits, and the arithmetic of cost per

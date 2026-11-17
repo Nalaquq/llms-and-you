@@ -34,7 +34,7 @@ field. Course content lives in data/*.yml and nowhere else.
       HEAVY_SESSIONS, so re-timing fails the build until that number is
       updated deliberately. That is the point of it.
 
-- [ ] four lab notebooks are still drafts: w08 w11 w12 w13.
+- [ ] four lab notebooks are still drafts: w08 w11 w13.
       Structure is settled, code is not written. Each one must be
       RUN END TO END before its status flips to complete -- w02 had two
       factually wrong paragraphs that only running it caught.

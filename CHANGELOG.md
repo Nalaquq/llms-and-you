@@ -20,6 +20,16 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — Week 12 lab: a stack diagram of your agent and its harness **[student-facing]**
+
+The [Week 12 Thursday lab](https://nalaquq.github.io/llms-and-you/sessions/w12-thu/)
+was spent drawing a stack diagram of each student's own project, outlining the
+agent and the harness around it. Review the readings from Weeks 11 and 12, then
+upload a copy of your diagram to Canvas by
+[Week 13 Tuesday](https://nalaquq.github.io/llms-and-you/sessions/w13-tue/).
+The draft *Build the Simplest Thing That Works* notebook moves to
+`notebooks/candidates/` and is no longer part of the lab.
+
 ### Changed — Week 11 lab: find your data and choose your agentic RAG design **[student-facing]**
 
 The [Week 11 Thursday lab](https://nalaquq.github.io/llms-and-you/sessions/w11-thu/)
