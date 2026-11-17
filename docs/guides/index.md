@@ -60,7 +60,7 @@ of them are things students ask about.
 
     ---
 
-    Five sessions are individual 15-minute meetings rather than a group class.
+    Seven sessions are individual 15-minute meetings rather than a group class.
     How to book your slot, what to bring to each one, and why both project
     milestones land there.
 

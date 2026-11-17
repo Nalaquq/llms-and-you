@@ -287,6 +287,8 @@ def define_env(env) -> None:
     def meeting_study_guide(prefix: str = "../") -> str:
         """What the concept check can cover at each individual meeting.
 
+        Meetings with ``assessed: false`` carry no concept check and are left out.
+
         Derived, never typed: a concept is in scope for a meeting if the session
         that introduced it happened before that meeting. The scope is taken from
         the FIRST meeting in each window, so a student who books the Tuesday slot
@@ -300,7 +302,11 @@ def define_env(env) -> None:
         """
         order = {Day.TUE: 0, Day.THU: 1}
         meetings = sorted(
-            {d.session.week: d for d in reversed(schedule) if d.is_conference}.values(),
+            {
+                d.session.week: d
+                for d in reversed(schedule)
+                if d.is_conference and d.session.assessed
+            }.values(),
             key=lambda d: d.date,
         )
         concepts = list(load_concepts().values())

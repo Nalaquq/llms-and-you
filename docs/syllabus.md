@@ -135,7 +135,7 @@ graded on the write-up rather than the result. You also do not need working code
 to have something to show — a table, a screenshot, or a confusion you can state
 precisely all count.
 
-**Five sessions are individual meetings rather than a group class.** See
+**Seven sessions are individual meetings rather than a group class.** See
 [individual meetings](#individual-meetings) below.
 
 ---
@@ -166,17 +166,18 @@ written afterwards.
 
 ## Individual meetings
 
-Five sessions this term are **individual meetings** rather than a group class.
+Seven sessions this term are **individual meetings** rather than a group class.
 Each student gets a scheduled 15-minute slot, and that week's work is
 self-paced.
 
 {{ conference_table() }}
 
-The sign-up sheet goes out the Thursday before. **These meetings are an
-assessment**, not an optional office hour: 30% of the grade is earned in them,
-as a concept check drawn from the [study guide](study-guide.md) and a short oral
-report on your project. Miss one and it is a missed assessment, so tell me early
-and we find another time.
+The sign-up sheet goes out the Thursday before. **The meetings in Weeks 4, 5,
+and 10 are an assessment**, not an optional office hour: 20% of the grade is
+earned in them, as a concept check drawn from the [study guide](study-guide.md).
+Miss one and it is a missed assessment, so tell me early and we find another
+time. The meetings in Weeks 13 and 14 are not graded. They are there to help
+you finish your project and get your final presentation ready.
 
 Both project milestones fall in these weeks by design: your proposal (Week 5)
 and your prototype (Week 10) are the two points where individual feedback is

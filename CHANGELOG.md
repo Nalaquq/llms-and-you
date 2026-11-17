@@ -20,6 +20,39 @@ the record, not the announcement.
 
 ## [Unreleased]
 
+### Changed — grading: a final presentation replaces oral progress reports **[student-facing]**
+
+The [final presentation](https://nalaquq.github.io/llms-and-you/assignments/#final-presentation)
+in Week 15 is now graded and worth 10% of your grade. It is a funding pitch:
+about ten minutes per team, extemporaneous, with a professional PowerPoint built
+around your stack diagram. It replaces the oral progress reports, which are no
+longer graded. The project conversation at your
+individual meetings still happens; it is feedback, not a grade.
+
+The new individual meetings in Weeks 13 and 14 are **not graded**. They have no
+concept check and are there to help you finish your project and presentation.
+Concept checks (20%) happen only at the meetings in Weeks 4, 5, and 10. See
+[ADR-031](https://nalaquq.github.io/llms-and-you/adr/#adr-031-replace-the-oral-progress-reports-with-a-graded-final-presentation).
+
+### Changed — the end of term goes to finishing your project **[student-facing]**
+
+The last four meetings are now about getting your project and presentation
+ready. No new readings are assigned for any of them.
+
+- [Week 13 Thursday](https://nalaquq.github.io/llms-and-you/sessions/w13-thu/)
+  and [Week 14 Tuesday](https://nalaquq.github.io/llms-and-you/sessions/w14-tue/)
+  are now [individual meetings](https://nalaquq.github.io/llms-and-you/guides/conference-weeks/):
+  the first to finish your project, the second to finish your presentation.
+- [Week 15 Tuesday](https://nalaquq.github.io/llms-and-you/sessions/w15-tue/) and
+  [Thursday](https://nalaquq.github.io/llms-and-you/sessions/w15-thu/) are both
+  final presentations, half the class each day. The final project is still due
+  Thursday.
+- The Week 13 lab, the Week 14 discussion on auditing and release policy, and
+  the Week 15 Burchell arc discussion are dropped. Their readings stay on the
+  [Readings page](https://nalaquq.github.io/llms-and-you/resources/).
+
+See [ADR-030](https://nalaquq.github.io/llms-and-you/adr/#adr-030-give-the-last-four-meetings-to-finishing-the-project).
+
 ### Changed — Week 12 lab: a stack diagram of your agent and its harness **[student-facing]**
 
 The [Week 12 Thursday lab](https://nalaquq.github.io/llms-and-you/sessions/w12-thu/)

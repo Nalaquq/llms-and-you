@@ -75,13 +75,14 @@
     nothing outside that page appears, and the page tells you in advance what
     you should be able to do with each idea.
 
-- id: progress-reports
-  title: Oral Progress Reports
+- id: final-presentation
+  title: Final Presentation
   weight: 10
   summary: >-
-    The other half of each individual meeting. A short spoken account of where
-    your project stands: what you built since we last met, what broke, what you
-    decided and why, and what you intend next. Graded on whether you can say
-    plainly where you are -- a project that stalled and is described accurately
-    scores better than one described vaguely. Each report ends with the written
-    goal for the next stretch, which is where the following meeting starts.
+    A pitch for your project in Week 15: about ten minutes per team, delivered
+    extemporaneously, with a professional PowerPoint. Problem, customer, and
+    pain points; competitors and what you do that they don't; then a
+    professional stack diagram of your solution, walked through layer by layer
+    -- why it fits better than the alternatives, how the agent and harness
+    work, and every tool you would use. Your project must be at least TRL 1.
+    Evaluated on whether the pitch is strong enough to lead to funding.

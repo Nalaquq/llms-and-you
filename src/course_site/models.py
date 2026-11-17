@@ -247,6 +247,15 @@ class Session(Base):
     summary: str | None = None
     genai: GenAI = GenAI.ALLOWED
     genai_note: str | None = None
+    assessed: bool = True
+    """Whether an individual meeting in this session carries a concept check.
+
+    False marks a meeting that is there only to help -- the end-of-term meetings
+    that get a project and presentation ready. Only meaningful on a session that
+    falls in a conference window; ``tests/test_course_data.py`` rejects it
+    anywhere else. The window itself cannot carry this, because
+    ``ConferenceWeek`` is deliberately limited to three fields.
+    """
     guides: list[str] = Field(default_factory=list)
     """Guides to send students to, as ``slug`` or ``slug#anchor``.
 

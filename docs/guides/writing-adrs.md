@@ -109,8 +109,7 @@ Report](https://arxiv.org/abs/2406.06608) were discovered by people noticing
 something worked and not initially knowing why.
 
 Writing decisions down as you make them is the cheapest available defence
-against that. It is also, not incidentally, what makes work auditable — which
-is the subject of Week 14, and the connection is not accidental.
+against that. It is also, not incidentally, what makes work auditable.
 
 ---
 

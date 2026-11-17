@@ -101,15 +101,17 @@ def test_broken_weeks_are_the_expected_ones():
 # --- Individual meetings and modality ------------------------------------
 
 
-def test_five_sessions_are_conference_meetings():
+def test_seven_sessions_are_conference_meetings():
     conf = [d for d in SCHEDULE if d.is_conference]
-    assert len(conf) == 5
+    assert len(conf) == 7
     assert {d.date for d in conf} == {
         dt.date(2026, 9, 15),
         dt.date(2026, 9, 22),
         dt.date(2026, 9, 24),
         dt.date(2026, 10, 27),
         dt.date(2026, 10, 29),
+        dt.date(2026, 11, 19),
+        dt.date(2026, 11, 24),
     }
 
 
@@ -119,6 +121,18 @@ def test_conference_sessions_carry_their_window():
             assert d.conference is not None, f"{d.slug} is a conference session with no window"
         else:
             assert d.modality is Modality.GROUP
+
+
+def test_only_individual_meetings_are_marked_unassessed():
+    """`assessed: false` means "no concept check here" -- meaningless on a group class."""
+    for d in SCHEDULE:
+        if not d.session.assessed:
+            assert d.is_conference, f"{d.slug} is marked unassessed but is not a meeting"
+
+
+def test_end_of_term_meetings_are_help_not_assessment():
+    unassessed = {d.date for d in SCHEDULE if d.is_conference and not d.session.assessed}
+    assert unassessed == {dt.date(2026, 11, 19), dt.date(2026, 11, 24)}
 
 
 def test_conference_windows_record_no_reason():
@@ -144,8 +158,11 @@ def test_discussion_heavy_sessions_meet_as_a_group():
 
     ADR-003 and ADR-004 both depend on this; if a conference window moves, this
     test is the thing that notices the pedagogy broke.
+
+    w14-tue left this list in November 2026, when its discussion was dropped to
+    give that meeting to individual project meetings -- see ADR-030.
     """
-    for slug in ("w06-tue", "w13-tue", "w14-tue"):
+    for slug in ("w06-tue", "w13-tue"):
         d = next(x for x in SCHEDULE if x.slug == slug)
         assert not d.is_conference, f"{slug} ({d.session.topic}) needs a room"
 
@@ -443,14 +460,14 @@ def test_foundations_week_runs_general_to_specific():
 def test_all_themes_are_taught():
     """Every theme reaches students, whether or not it owns a session.
 
-    Three themes are cross-cutting by design and carry no session of their own:
-    `ecosystem` (tools, used in every lab), `methodology` (ADRs, practised all
-    term), and `openweight` — whose readings sit inside the Week 13 cost lab
-    (self-host vs API) and the Week 14 release-policy discussion, because that
-    is where the open-weight question actually bites.
+    Some themes are cross-cutting and carry no session of their own:
+    `ecosystem` (tools, used in every lab), `openweight` (open models used in
+    the labs), and `critical`, carried by the Burchell arc episodes assigned
+    across the term. `critical` lost its own session, Week 15 Tuesday, to final
+    presentations in November 2026 -- see ADR-030.
     """
     taught = {d.session.theme for d in SCHEDULE}
-    cross_cutting = {"ecosystem", "openweight"}
+    cross_cutting = {"ecosystem", "openweight", "critical"}
     assert taught | cross_cutting == set(THEMES)
 
     # Cross-cutting themes must still be assigned somewhere, or they are simply
@@ -659,6 +676,25 @@ def test_every_resource_is_used_or_deliberately_reference_only():
         "li-2023-halueval",
         "huang-2023-hallucination-survey",
         "awesome-hallucination-detection",
+        # Readings from the Week 13 lab, Week 14 Tuesday, and Week 15 Tuesday,
+        # dropped in November 2026 for individual meetings and a second day of
+        # final presentations (ADR-030). Kept on the Readings page.
+        "amodei-2026-open-weights",
+        "auditing-ai",
+        "burchell-beyond-the-hype",
+        "cyber-risk-open-weight",
+        "dubey-2024-llama3",
+        "jiang-2023-mistral7b",
+        "karpathy-animals-vs-ghosts",
+        "lithub-replace-myself",
+        "nnsight-ndif",
+        "open-weights-timeline",
+        "pydantic-human-in-the-loop",
+        "qi-2025-durable-safeguards",
+        "rpp-264-scaling-laws",
+        "rpp-291-reassessing",
+        "stanford-hai-open-weight",
+        "verge-ai-factory",
     }
     orphans = set(RESOURCES) - used - reference_only
     assert not orphans, f"unused resources: {sorted(orphans)}"

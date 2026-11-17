@@ -813,7 +813,7 @@
   optional: [anthropic-writing-tools-for-agents]
 
 # ===========================================================================
-# WEEK 13 — Open weights
+# WEEK 13 — Cost, then finalizing  (Thursday: individual meetings)
 # ===========================================================================
 
 - week: 13
@@ -849,99 +849,79 @@
 
 - week: 13
   day: thu
-  kind: lab
-  topic: 'Lab: Instrument It, Then Run One Yourself'
-  theme: deployment
-  notebook: w13-thu
+  kind: milestone
+  topic: 'Individual Meetings: Finalizing Your Project'
+  theme: methodology
+  assessed: false
   summary: >-
-    Measure what your project costs, then ask the build-versus-buy question by
-    running an open-weight model on your own hardware.
+    No group class and nothing new to read. The time goes to your project, with
+    one-to-one time to get the build to where it needs to be by Week 15.
+  guides:
+    - conference-weeks
+    - 'writing-adrs#the-four-required-adrs'
   activity: >-
-    First: instrument your project. Log tokens and cost per call, add caching to
-    the stable part of your prompt, and measure the difference -- an unmeasured
-    optimisation is a guess.
+    Work on your project at your own pace.
 
 
-    Then the other side of the same decision: run a small open-weight model
-    locally and compare it to the frontier model on your Week 7 evaluation set.
-    The question is not which is better. It is what you would have to believe
-    about volume, latency, privacy, and your own time for self-hosting to win.
-  optional: [jiang-2023-mistral7b, open-weights-timeline, nnsight-ndif]
+    Bring to your meeting: your project as it stands, your stack diagram from
+    the Week 12 lab, and your ADR log. We agree what "finished" means for your
+    final build and what is left to get there.
 
 # ===========================================================================
-# WEEK 14 — Responsible AI  (Thanksgiving takes Thursday)
+# WEEK 14 — Getting ready  (Thanksgiving takes Thursday; individual meetings)
 # ===========================================================================
 
 - week: 14
   day: tue
-  topic: Auditing, Labour, and What Gets Released
-  theme: responsible
+  kind: milestone
+  topic: 'Individual Meetings: Finalizing Your Presentation'
+  theme: methodology
+  assessed: false
   summary: >-
-    Who is answerable when a system trained on everyone's writing makes a
-    decision about one person — and who decides what gets released at all. A
-    single session before the break, and the least technical week on purpose.
+    The last one-to-one meeting of the term, before the break. Bring your
+    presentation and leave knowing it is ready.
   guides:
-    - boodlebox
-  readings: [auditing-ai, verge-ai-factory, amodei-2026-open-weights]
-  optional:
-    - stanford-hai-open-weight
-    - dubey-2024-llama3
-    - qi-2025-durable-safeguards
-    - cyber-risk-open-weight
-    - lithub-replace-myself
-  questions:
-    - Pick one failure case from Auditing AI. What would an audit have caught?
-    - >-
-      After reading Dzieza, does anything about how you have used these tools
-      this semester look different?
-    - >-
-      Amodei runs a company that does not release its weights. How does that
-      shape his argument — and is the argument wrong because of it?
+    - conference-weeks
+    - 'writing-adrs#the-four-required-adrs'
   activity: >-
-    Two halves. First an audit design workshop: in groups, design an audit for a
-    system in the reading, then apply the same method to your own project.
+    Work on your project and your presentation at your own pace.
 
 
-    Then a position-taking exercise on release policy — you are assigned a
-    stakeholder (lab, regulator, researcher, adversary) and must argue their
-    case. The two halves are the same question at different scales: who is
-    accountable, and how would anyone check?
+    Bring to your meeting: a draft of your final pitch deck -- problem and
+    customer, competitors, your stack diagram, and the walk-through of your
+    agent, harness, and tools -- and anything still open from your Week 13
+    meeting.
 
 # ===========================================================================
-# WEEK 15 — The argument, and the finish
+# WEEK 15 — Final presentations
 # ===========================================================================
 
 - week: 15
   day: tue
-  topic: Scaling Limits and the Hype Cycle
-  theme: critical
-  summary: >-
-    The course argues with itself. Four years of one guest's commentary, ending
-    two months before this class started.
+  kind: milestone
+  topic: 'Final Presentations, Day 1'
+  theme: methodology
+  summary: Pitch your project as if to someone deciding whether to fund it.
   guides:
-    - boodlebox
-  readings: [rpp-264-scaling-laws, rpp-291-reassessing, karpathy-animals-vs-ghosts]
-  optional: [pydantic-human-in-the-loop, burchell-beyond-the-hype]
-  questions:
-    - >-
-      Trace the Burchell arc from Episode 119 to Episode 291. What changed in
-      the field, and what changed in her?
-    - Which claim from Week 1 of this course do you now think was wrong?
+    - 'writing-adrs#the-four-required-adrs'
   activity: >-
-    The Burchell arc, end to end, argued as a room: what changed in the field
-    across four years, what changed in her, and which of your own Week 1 beliefs
-    you now think was wrong. Nothing is submitted. This is the last session
-    before the project is due, and it is a conversation on purpose.
+    Final pitches, about ten minutes per team, delivered extemporaneously with
+    a professional PowerPoint. You are evaluated on whether your pitch is strong
+    enough to lead to funding -- see the [final
+    presentation](../assignments.md#final-presentation) for what it must cover.
+    Half the class presents today and half on Thursday; you will be told which
+    day is yours.
 
 - week: 15
   day: thu
   kind: milestone
-  topic: Final Presentations
+  topic: 'Final Presentations, Day 2'
   theme: methodology
-  summary: The project, the decision log, and what you would do differently.
+  summary: Pitch your project as if to someone deciding whether to fund it.
   guides:
     - 'writing-adrs#the-four-required-adrs'
   due: Final project, ADR log, and reflective introduction
   activity: >-
-    Presentations. Ten minutes each: what you built, which decisions you
-    recorded, and which one you got wrong.
+    Final pitches, continued: about ten minutes per team, evaluated on whether
+    the pitch is strong enough to lead to funding. See the [final
+    presentation](../assignments.md#final-presentation) for what it must cover.

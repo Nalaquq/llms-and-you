@@ -157,30 +157,55 @@ get to an answer, we work toward it together and that is worth something.
 Fluency in the vocabulary is worth less than knowing when an idea applies and
 when it does not.
 
-Three meetings, in Weeks 4, 5, and 10. Later meetings cover more ground, because
-more has been taught.
+The meetings in Weeks 4, 5, and 10 carry concept checks. Later meetings cover
+more ground, because more has been taught. The meetings in Weeks 13 and 14 do
+not: they are help with your project and presentation, and are not graded.
+
+Attending your scheduled meeting is how this component is earned. There is no
+separate participation grade; if something makes a slot impossible, email me
+and we find another time. The one thing that does not work is silence.
 
 ---
 
-## Oral Progress Reports { #progress-reports }
+## Final Presentation { #final-presentation }
 
-**10%**
+**10% · Week 15**
 
-{{ genai_banner('progress-reports') }}
+{{ genai_banner('final-presentation') }}
 
-The other half of each meeting. Five minutes on where your project stands: what
-you built since we last met, what broke, what you decided and why, and what you
-intend next.
+A pitch. You present your project as if to someone deciding whether to fund it.
+Half the class presents on [Week 15 Tuesday](sessions/w15-tue.md) and half on
+[Week 15 Thursday](sessions/w15-thu.md); you will be told which day is yours.
 
-**Graded on whether you can say plainly where you are.** A project that stalled
-and is described accurately scores better than one described vaguely. This is
-the spoken version of what your [decision log](guides/writing-adrs.md) does in
-writing, and the two should agree — if the log says one thing and you say
-another in the room, that gap is the interesting part.
+### Format
 
-Each report ends with a **written goal** for the next stretch, agreed between
-us. The following meeting starts by checking it.
+- **About ten minutes per team.**
+- **Extemporaneous.** Speak from your slides and your own knowledge of the
+  project. Do not read a script.
+- **A professional PowerPoint.**
+- **At least Technology Readiness Level (TRL) 1.**
 
-Attending your scheduled meeting is how both of these components are earned.
-There is no separate participation grade; if something makes a slot impossible,
-email me and we find another time. The one thing that does not work is silence.
+### What the pitch must cover, in this order
+
+1. **The problem.** The problem statement you are trying to solve, who the
+   customer is, and which pain points your solution solves for a potential
+   customer or user.
+2. **The competition.** What competing systems already exist, and what your
+   solution does that they don't.
+3. **The solution.** The overall diagram of your solution, including a
+   professional [stack diagram](sessions/w12-thu.md) of it.
+4. **The stack, explained.** Use the remaining slides to work through the stack
+   diagram: why it is the best fit (why it works better than the alternatives)
+   and how the agent and harness work. **Discuss every tool and the harness you
+   would use.**
+
+A good presentation shows research. Find out how each tool would actually be
+run, and look at existing open-source packages for tool use (Open WebUI, for
+example) before deciding to build your own.
+
+### How it is graded
+
+**You are evaluated on whether your pitch is strong enough to lead to funding.**
+
+The [individual meetings](guides/conference-weeks.md) in Weeks 13 and 14 are
+there to get you ready. They are not graded; bring a draft and use the time.

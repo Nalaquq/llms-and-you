@@ -34,7 +34,7 @@ field. Course content lives in data/*.yml and nowhere else.
       HEAVY_SESSIONS, so re-timing fails the build until that number is
       updated deliberately. That is the point of it.
 
-- [ ] four lab notebooks are still drafts: w08 w11 w13.
+- [ ] four lab notebooks are still drafts: w08 w11.
       Structure is settled, code is not written. Each one must be
       RUN END TO END before its status flips to complete -- w02 had two
       factually wrong paragraphs that only running it caught.
@@ -71,7 +71,7 @@ field. Course content lives in data/*.yml and nowhere else.
       sections 2-4 quotes this run (7 of 20, then 14 of 20 with eight
       refusals) and says "on the practice items" each time it does.
 
-- [ ] concept checks and progress reports have no rubric. The
+- [ ] concept checks and the final presentation have no rubric. The
       assignments page says what happens in the meeting and what is
       graded, but not what separates a strong answer from a weak one.
       Write it before the first meeting, or the first grade is

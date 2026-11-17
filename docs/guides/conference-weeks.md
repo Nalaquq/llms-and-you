@@ -1,6 +1,6 @@
 # Individual meetings
 
-Five sessions this term are **individual meetings** rather than a group class.
+Seven sessions this term are **individual meetings** rather than a group class.
 Each student gets a scheduled 15-minute slot, and that week's work is
 self-paced.
 
@@ -18,22 +18,28 @@ week — including some outside the normal class hour. Pick one.
 
 If nothing on the sheet works, email me. There is almost always another time.
 
-These meetings are where 30% of your grade is earned: a [concept
-check](../assignments.md#concept-checks) from the study guide and an [oral
-progress report](../assignments.md#progress-reports) on your project. Missing
+The meetings in Weeks 4, 5, and 10 are where 20% of your grade is earned, as a
+[concept check](../assignments.md#concept-checks) from the study guide. Missing
 one is not a participation deduction; it is a missed assessment, so if the sheet
 does not work for you, say so and we find another time.
+
+The meetings in Weeks 13 and 14 are **not graded**. They are there to help you
+finish your project and get your [final
+presentation](../assignments.md#final-presentation) ready.
 
 ---
 
 ## What happens in the fifteen minutes
 
-Every meeting runs the same way, and both halves are graded.
+The graded meetings in Weeks 4, 5, and 10 run the same way. Only the concept
+check is graded.
 
 | | | |
 |:---|:---|:---|
-| **~10 min** | [Concept check](../assignments.md#concept-checks) | Questions from the [study guide](../study-guide.md), covering everything taught up to that week. Out loud, in your own words. |
-| **~5 min** | [Progress report](../assignments.md#progress-reports) | Where your project stands: what you built, what broke, what you decided. Ends with a written goal for the next stretch. |
+| **~10 min** | [Concept check](../assignments.md#concept-checks) | Questions from the [study guide](../study-guide.md), covering everything taught up to that week. Out loud, in your own words. Graded. |
+| **~5 min** | Your project | Where your project stands: what you built, what broke, what you decided. Ends with a written goal for the next stretch. Not graded. |
+
+The Week 13 and 14 meetings are all project time, with no concept check.
 
 ### What is fair game, meeting by meeting
 
@@ -58,6 +64,8 @@ Fifteen minutes is short. Come with something specific.
 | **5** — Thu Sep 24 | Your one-page project proposal and ADR-002. **This is the meeting where your project gets defined** — the most important one of the term |
 | **10** — Tue Oct 27 | Whatever broke in your RAG build. Debugging together is what the time is for |
 | **10** — Thu Oct 29 | A running prototype, however rough, and ADR-004 |
+| **13** — Thu Nov 19 | Your project as it stands, your Week 12 stack diagram, and your ADR log. We agree what "finished" means |
+| **14** — Tue Nov 24 | A draft of your final pitch deck, including your stack diagram |
 
 !!! tip "Bring it broken"
 

@@ -41,6 +41,13 @@ conference_weeks:
   - start: 2026-10-26
     end: 2026-10-30
 
-# Affected meetings: Sep 15 (W4), Sep 22 + Sep 24 (W5), Oct 27 + Oct 29 (W10).
+  - start: 2026-11-19
+    end: 2026-11-19
+
+  - start: 2026-11-24
+    end: 2026-11-24
+
+# Affected meetings: Sep 15 (W4), Sep 22 + Sep 24 (W5), Oct 27 + Oct 29 (W10),
+# Nov 19 (W13 Thu), Nov 24 (W14, the only meeting that week).
 # Weeks 5 and 10 are conference weeks for both meetings, so they carry the
 # project milestones -- the two points where one-to-one time is worth most.

@@ -59,6 +59,11 @@ def render(d: DatedSession, prev: DatedSession | None, nxt: DatedSession | None)
             "    out the week before; if nothing on it works, email me.\n\n"
             "    The work below is yours to complete at your own pace.\n"
         )
+        if not s.assessed:
+            out[-1] += (
+                "\n    **This meeting is not graded.** There is no concept check;\n"
+                "    the time is yours, to get your project and presentation ready.\n"
+            )
 
     if s.summary:
         out.append(f"{s.summary.strip()}\n")

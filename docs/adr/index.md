@@ -1333,3 +1333,98 @@ leaving room for a second thought applies as well.
 sharing setting to get wrong, but the link lets the instructor see the import
 actually ran, in the environment it has to run in, and a student who keeps
 working after the deadline is improving their project, not gaming a grade.
+
+---
+
+## ADR-030: Give the last four meetings to finishing the project
+
+**Status:** Accepted. Supersedes the Week 13–15 plan in the original schedule.
+
+**Context.** The project is due at the end of Week 15, and by mid-November every
+student had a dataset, a chosen agent design, and a stack diagram of the agent
+and its harness. What was left was building it and presenting it. The schedule
+still had three more content sessions after Week 13 Tuesday: the Week 13 lab
+(instrumenting cost and running an open-weight model), Week 14 Tuesday
+(auditing and release policy), and Week 15 Tuesday (the Burchell arc and the
+hype cycle). Final presentations fit into one 90-minute session only at a pace
+that leaves no time for questions.
+
+**Decision.** From Week 13 Thursday on, the schedule exists to get students
+ready:
+
+- **Week 13 Thursday** and **Week 14 Tuesday** are individual meetings, declared
+  as conference windows in `data/semester.yml`. The first is about finishing the
+  build, the second about the presentation.
+- **Week 15 Tuesday and Thursday** are both final presentations, half the class
+  each day. The final project stays due on Thursday, so a student who presents
+  first does not lose two days.
+- The readings for the three dropped sessions are removed from the schedule. They
+  stay on the Readings page and in the test's reference-only list.
+
+**Consequences.** Individual meetings go from five to seven. The two new ones
+are help, not assessment: they carry no concept check, and the sessions say so
+with `assessed: false`. That field lives on the session because
+`ConferenceWeek` is held to three fields on purpose. See ADR-031 for the
+grading change made at the same time.
+
+Week 14 Tuesday leaves `test_discussion_heavy_sessions_meet_as_a_group`. The
+test protects sessions built around live argument. That session no longer is
+one, so the list changes and the guard on Week 13 Tuesday stays.
+
+The `critical` theme no longer has a session of its own. It becomes cross-cutting
+because the Burchell arc episodes that carry it are still assigned across the
+term. `responsible` keeps its earlier sessions. Auditing, labour, and release
+policy are no longer taught directly, and that is a real loss. The course comes
+back to auditability only through the decision log.
+
+The Week 13 notebook, still a draft, moves to `notebooks/candidates/`, as the
+Week 8 and Week 12 notebooks did.
+
+**Rejected: one day of presentations and keeping Week 15 Tuesday.** Ten minutes
+each, with changeovers, does not fit in one session for the whole class. A
+presentation with no time for questions does not test whether a student can
+defend a decision.
+
+**Rejected: holding the meetings as optional office hours alongside the
+content.** Students under deadline pressure skip optional time, and they are
+the ones who need it most.
+
+---
+
+## ADR-031: Replace the oral progress reports with a graded final presentation
+
+**Status:** Accepted. Replaces the Oral Progress Reports component.
+
+**Context.** The progress reports were worth 10% and were the second half of
+every individual meeting. ADR-030 added two end-of-term meetings meant to help
+students finish, not to grade them. Grading part of those meetings would undo
+that. Meanwhile the final presentation, now two full sessions of the course,
+was not graded at all.
+
+**Decision.** The Oral Progress Reports component (10%) becomes **Final
+Presentation** (10%). It is a pitch: about ten minutes per team, delivered
+extemporaneously with a professional PowerPoint. It covers the problem,
+customer, and pain points; competing systems; and a professional stack diagram,
+walked through to justify the design and explain the agent, harness, and tools.
+Projects must be at least TRL 1. It is evaluated on whether the pitch is strong
+enough to lead to funding. Weights still total 100.
+
+The project conversation stays in the Week 4, 5, and 10 meetings, and still ends
+with a written goal. It is feedback now, not a grade. Concept checks are
+unchanged and happen only at the meetings in Weeks 4, 5, and 10.
+
+**Consequences.** This changes the grading scheme mid-term. No recorded grade
+changes: the progress-report conversations in Weeks 4, 5, and 10 had not been
+graded separately. It is announced as a student-facing change.
+
+Framing the presentation as a funding pitch moves it away from the decision log.
+The log is still graded with the project, and the stack diagram from the Week 12
+lab becomes the centre of the pitch.
+
+The presentation's criteria are stated, but it has no scored rubric yet. The TODO
+that asked for a progress-report rubric now asks for a presentation rubric
+instead.
+
+**Rejected: grading the Week 13 and 14 meetings as progress reports.** It would
+turn the time meant for getting ready into one more assessment, in the last two
+weeks before the project is due.

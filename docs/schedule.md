@@ -14,13 +14,13 @@ questions, and what happens in that session.
 
 ## Our Lecture/Lab Split
 
-Most weeks include assigned content on Tuesday where we will discuss a core concept behind LLMs before using it during our Thursday lab. Five weeks, however, do not follow this pattern, and it is worth knowing which weeks in advance.
+Most weeks include assigned content on Tuesday where we will discuss a core concept behind LLMs before using it during our Thursday lab. Several weeks, however, do not follow this pattern, and it is worth knowing which weeks in advance.
 
 ### Individual meetings
 
 {{ conference_count }} sessions are individual meetings rather than a group
 class. Each student gets a scheduled 15-minute slot; the week's work is
-self-paced. These meetings are a chance for us to meet individually and assess your mastery of course concepts. They are graded evaluations, and represent significant percentage of your final grade.
+self-paced. The meetings in Weeks 4, 5, and 10 are graded concept checks. The meetings in Weeks 13 and 14 are not graded; they are there to help you get your project and final presentation ready.
 
 {{ conference_table() }}
 
@@ -32,8 +32,14 @@ meetings](guides/conference-weeks.md) for what to bring.
 **Week 8** loses its Tuesday to Fall Break, so the week is a single Thursday
 lab. For this reason, we will use this meeting to introduce the red-teaming midterm.  
 
-**Week 14** loses its Thursday to Thanksgiving, so the responsible-AI unit runs
-as one discussion session with no lab.
+**Week 14** loses its Thursday to Thanksgiving, so the week is a single
+individual meeting to get your final presentation ready.
+
+### The end of term
+
+The last four meetings go to finishing the project. Week 13 Thursday and Week 14
+Tuesday are individual meetings, and Week 15 is two days of final
+presentations, half the class each day.
 
 ---
 
