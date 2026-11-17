@@ -883,6 +883,7 @@
   guides:
     - conference-weeks
     - 'writing-adrs#the-four-required-adrs'
+  optional: [nasa-trl]
   activity: >-
     Work on your project and your presentation at your own pace.
 
@@ -904,6 +905,7 @@
   summary: Pitch your project as if to someone deciding whether to fund it.
   guides:
     - 'writing-adrs#the-four-required-adrs'
+  optional: [nasa-trl]
   activity: >-
     Final pitches, about ten minutes per team, delivered extemporaneously with
     a professional PowerPoint. You are evaluated on whether your pitch is strong
@@ -920,6 +922,7 @@
   summary: Pitch your project as if to someone deciding whether to fund it.
   guides:
     - 'writing-adrs#the-four-required-adrs'
+  optional: [nasa-trl]
   due: Final project, ADR log, and reflective introduction
   activity: >-
     Final pitches, continued: about ten minutes per team, evaluated on whether

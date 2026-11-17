@@ -183,7 +183,9 @@ Half the class presents on [Week 15 Tuesday](sessions/w15-tue.md) and half on
 - **Extemporaneous.** Speak from your slides and your own knowledge of the
   project. Do not read a script.
 - **A professional PowerPoint.**
-- **At least Technology Readiness Level (TRL) 1.**
+- **At least Technology Readiness Level (TRL) 2.** Your solution has moved past
+  the basic principles (TRL 1) to a formulated concept and application. See
+  NASA's {{ resource_link('nasa-trl') }} for the full scale.
 
 ### What the pitch must cover, in this order
 

@@ -1406,8 +1406,8 @@ Presentation** (10%). It is a pitch: about ten minutes per team, delivered
 extemporaneously with a professional PowerPoint. It covers the problem,
 customer, and pain points; competing systems; and a professional stack diagram,
 walked through to justify the design and explain the agent, harness, and tools.
-Projects must be at least TRL 1. It is evaluated on whether the pitch is strong
-enough to lead to funding. Weights still total 100.
+Projects must be at least TRL 2 on NASA's scale. It is evaluated on whether the
+pitch is strong enough to lead to funding. Weights still total 100.
 
 The project conversation stays in the Week 4, 5, and 10 meetings, and still ends
 with a written goal. It is feedback now, not a grade. Concept checks are

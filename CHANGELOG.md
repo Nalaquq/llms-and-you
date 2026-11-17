@@ -25,7 +25,9 @@ the record, not the announcement.
 The [final presentation](https://nalaquq.github.io/llms-and-you/assignments/#final-presentation)
 in Week 15 is now graded and worth 10% of your grade. It is a funding pitch:
 about ten minutes per team, extemporaneous, with a professional PowerPoint built
-around your stack diagram. It replaces the oral progress reports, which are no
+around your stack diagram, for a project at least at
+[TRL 2](https://www.nasa.gov/directorates/somd/space-communications-navigation-program/technology-readiness-levels/).
+It replaces the oral progress reports, which are no
 longer graded. The project conversation at your
 individual meetings still happens; it is feedback, not a grade.
 

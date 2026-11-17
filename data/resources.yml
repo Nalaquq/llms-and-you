@@ -1274,3 +1274,18 @@
   assign_note: >-
     The library the notebooks use for tokenizers and open-weight models. Free,
     no account needed for anything we do.
+
+# The scale the final presentation's readiness bar is stated on. Linked from
+# the assignments page with the `resource_link` macro, and listed as optional
+# on the sessions that prepare for and hold the pitches.
+- id: nasa-trl
+  title: Technology Readiness Levels
+  authors: [NASA]
+  kind: guide
+  url: https://www.nasa.gov/directorates/somd/space-communications-navigation-program/technology-readiness-levels/
+  themes: [methodology]
+  est_minutes: 10
+  note: >-
+    NASA's nine-level scale for how mature a technology is, from basic
+    principles observed (TRL 1) to proven in operation (TRL 9). Your final
+    pitch must reach at least TRL 2.

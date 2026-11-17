@@ -353,6 +353,15 @@ def define_env(env) -> None:
         return "\n".join(rows)
 
     @env.macro
+    def resource_link(resource_id: str) -> str:
+        """An inline link to one resource, by id, so a page never holds its URL.
+
+        An unknown id raises, which fails ``mkdocs build --strict`` loudly.
+        """
+        r = load_resources()[resource_id]
+        return f"[{r.title}]({r.url})"
+
+    @env.macro
     def genai_banner(assignment_id: str) -> str:
         """The red prohibition banner, or a short reminder that citation is required."""
         a = next(x for x in load_assignments() if x.id == assignment_id)
